@@ -1,6 +1,5 @@
 {
-    "/js/app.js": "/js/app.js",
-    "/css/app.css": "/css/app.css",
-    "/css/bootstrap.min.css": "/css/bootstrap.min.css",
-    "/js/bootstrap.min.js": "/js/bootstrap.min.js"
+    "/theadmin/js/script.js": "/theadmin/js/script.js",
+    "/theadmin/css/app.css": "/theadmin/css/app.css",
+    "/theadmin/js/app.js": "/theadmin/js/app.js"
 }

@@ -1,15 +1,7 @@
-
 // Core variables and mixins
-//
 @import "variables";
 @import "mixins";
-
-
-
-
-
 // Content
-//
 @import "content/typography";
 @import "content/typography-divider";
 @import "content/typography-article";
@@ -23,34 +15,21 @@
 @import "content/media-variant";
 @import "content/media-list";
 @import "content/table";
-
-
-
-
-
-
 // UI Kit
-//
 @import "uikit/notification-alert";
 @import "uikit/notification-callout";
 @import "uikit/notification-tooltip";
 @import "uikit/notification-popover";
 @import "uikit/notification-toast";
-
 @import "uikit/panel-accordion";
 @import "uikit/panel-tab";
-
 @import "uikit/progress-process";
 @import "uikit/progress-progressbar";
 @import "uikit/progress-spinner";
-
 @import "uikit/dialog-dock";
 @import "uikit/dialog-modal";
-
-
 @import "uikit/buttons";
 @import "uikit/buttons-fab";
-
 @import "uikit/dropdown";
 @import "uikit/breadcrumb";
 @import "uikit/carousel";
@@ -59,16 +38,9 @@
 @import "uikit/list-group";
 @import "uikit/nav";
 @import "uikit/pagination";
-
 @import "uikit/timeline";
 @import "uikit/fullscreen";
-
-
-
-
-
 // Plugins
-//
 @import "plugins/pace";
 @import "plugins/mapael";
 @import "plugins/emojione";
@@ -83,25 +55,13 @@
 @import "plugins/datatables";
 @import "plugins/jsgrid";
 @import "plugins/swiper";
-
-
-
-
-
 // Charts
-//
 @import "chart/peity";
 @import "chart/sparkline";
 @import "chart/easypiechart";
 @import "chart/chartist";
 @import "chart/morris";
-
-
-
-
-
 // Forms
-//
 @import "forms/picker-select";
 @import "forms/picker-datepicker";
 @import "forms/picker-clockpicker";
@@ -109,44 +69,30 @@
 @import "forms/picker-rating";
 @import "forms/picker-minicolors";
 @import "forms/picker-color-selector";
-
 @import "forms/addon-knob";
 @import "forms/addon-nouislider";
 @import "forms/addon-tagsinput";
 @import "forms/addon-typeahead";
 @import "forms/addon-maxlength";
 @import "forms/addon-pwstrength";
-
-
 @import "forms/input-default";
 @import "forms/input-round";
 @import "forms/input-fill";
 @import "forms/input-line";
 @import "forms/input-material";
 @import "forms/input-combine";
-
 @import "forms/upload";
 @import "forms/upload-dropify";
 @import "forms/upload-dropzone";
-
 @import "forms/controls";
 @import "forms/control-switch";
 @import "forms/control-switchery";
-
 @import "forms/editor-summernote";
 @import "forms/editor-quill";
-
-
 @import "forms/lookup";
 @import "forms/publisher";
 @import "forms/wizard";
-
-
-
-
-
 // Layout
-//
 @import "layout/scafolding";
 @import "layout/grid";
 @import "layout/layout";
@@ -164,21 +110,9 @@
 @import "layout/quickview";
 @import "layout/header";
 @import "layout/preloader";
-
-
-
-
-
 // Pages
-//
 @import "page/pricing";
-
-
-
-
-
 // Utilities
-//
 @import "utility/border";
 @import "utility/color";
 @import "utility/bg-img";

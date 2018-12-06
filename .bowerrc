@@ -1,0 +1,5 @@
+{
+    "directory": "public/plugins/",
+    "timeout": 120000,
+    "color": true
+}
