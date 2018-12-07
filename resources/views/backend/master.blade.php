@@ -13,8 +13,15 @@
     <link rel="stylesheet" href="{{asset('css/style.css')}}">
 </head>
 
-<body class="min-h-fullscreen bg-img center-vh p-20" style="background-image: url(https://source.unsplash.com/OrwkD-iWgqg/1600x900)">
-    @yield('content')
+<body class="sidebar-folded">
+    @include('backend.partials.sidebar')
+    @include('backend.partials.top-bar')
+    <main class="main-container">
+        <div class="main-content">
+            @yield('content')
+        </div>
+    @include('backend.partials.footer')      
+    </main>
     <script type="text/javascript" src="{{asset('js/core.min.js')}}"></script>
     <script type="text/javascript" src="{{asset('js/app.js')}}"></script>
     <script type="text/javascript" src="{{asset('js/script.js')}}"></script>
