@@ -62,7 +62,7 @@
 
         <ul class="topbar-btns">
             <li class="dropdown">
-                <span class="topbar-btn" data-toggle="dropdown"><img class="avatar" src="../assets/img/avatar/1.jpg"
+                <span class="topbar-btn" data-toggle="dropdown"><img class="avatar" src="https://api.adorable.io/avatars/285/abott@adorable.png"
                         alt="..."></span>
                 <div class="dropdown-menu dropdown-menu-right">
                     <a class="dropdown-item" href="../page/profile.html"><i class="ti-user"></i> Profile</a>
