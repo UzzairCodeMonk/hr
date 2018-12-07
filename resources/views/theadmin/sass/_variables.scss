@@ -73,11 +73,11 @@ $height-topbar-sec:    80px;
 //-----------------------------------------------------------------
 // Fonts
 //
-$font-bootstrap:        -apple-system, system-ui, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-$font-body:             Roboto, sans-serif;
-$font-title:            Roboto, sans-serif;
-$font-article:          Roboto, sans-serif;
-$font-quote:            Georgia, Verdana, Serif;
+$font-bootstrap:        -apple-system, system-ui, BlinkMacSystemFont, "Nunito", Roboto, "Helvetica Neue", Arial, sans-serif;
+$font-body:             Nunito, sans-serif;
+$font-title:            Nunito, sans-serif;
+$font-article:          Nunito, sans-serif;
+$font-quote:            Nunito, Verdana, Serif;
 $font-icon-fontawesome: FontAwesome;
 $font-icon-themify:     themify;
 
@@ -116,7 +116,7 @@ $color-gray:             $gray-600 !default;
 $color-light:            $gray-100 !default;
 
 // Context colors
-$color-primary:          #33cabb !default;
+$color-primary:          #ec2b94 !default;
 $color-secondary:        #e4e7ea !default;
 $color-success:          $color-green !default; // 46be8a
 $color-info:             $color-blue !default;

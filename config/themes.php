@@ -9,16 +9,16 @@ return [
     | Leave it null if you will put your themes in the default views folder
     | (as defined in config\views.php)
     |--------------------------------------------------------------------------
-    */
+ */
 
-    'themes_path' => null, // eg: base_path('resources/themes')
+	'themes_path' => null, // eg: base_path('resources/themes')
 
 	/*
 	|--------------------------------------------------------------------------
 	| Set behavior if an asset is not found in a Theme hierarchy.
 	| Available options: THROW_EXCEPTION | LOG_ERROR | IGNORE
 	|--------------------------------------------------------------------------
-	*/
+	 */
 
 	'asset_not_found' => 'LOG_ERROR',
 
@@ -27,18 +27,25 @@ return [
 	| Do we want a theme activated by default? Can be set at runtime with:
 	| Theme::set('theme-name');
 	|--------------------------------------------------------------------------
-	*/
+	 */
 
-	'default' => null,
+	'default' => 'theadmin',
 
 	/*
 	|--------------------------------------------------------------------------
 	| Cache theme.json configuration files that are located in each theme's folder
 	| in order to avoid searching theme settings in the filesystem for each request
 	|--------------------------------------------------------------------------
-	*/
+	 */
 
 	'cache' => false,
+
+	'theadmin' => [
+		'extends' => '',  // optional
+		'views-path' => 'resources/views/theadmin',    // defaults to: resources/views/theme-name
+		'asset-path' => '',   // defaults to: public/theme-name			
+		'key' => 'theadmin',
+	],
 
 	/*
 	|--------------------------------------------------------------------------
@@ -55,10 +62,15 @@ return [
 	| 	],
 	|
 	|--------------------------------------------------------------------------
-	*/
+	 */
 
 	'themes' => [
 
+		'theadmin' => [
+			'extends' => null, 	// doesn't extend any theme
+			'views-path' => 'resources/views/theadmin', // = resources/views/example_theme
+			'asset-path' => 'public/theadmin', // = public/example_theme			
+		],
                 // Add your themes here. These settings will override theme.json settings defined for each theme
 
 		/*
@@ -92,7 +104,7 @@ return [
 		|	],
 		|
 		|--------------------------------------------------------------------------
-		*/
+	 */
 	],
 
 ];

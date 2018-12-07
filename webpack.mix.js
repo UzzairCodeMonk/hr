@@ -13,7 +13,5 @@ const mix = require('laravel-mix');
 
 // theadmin
 mix
-   .sass('resources/views/theadmin/sass/app.scss', 'public/theadmin/css')
-   .scripts('resources/views/theadmin/js/src/assets/**/*.js','public/theadmin/js/app.js')
-   .js('resources/views/theadmin/js/script.js','public/theadmin/js/script.js');
+   .sass('resources/views/theadmin/sass/app.scss', 'public/css')   
    
