@@ -778,9 +778,9 @@ img {
 }
 
 .avatar-xl {
-  width: 64px;
-  height: 64px;
-  line-height: 64px;
+  width: 150px;
+  height: 150px;
+  line-height: 150px;
   font-size: 1.25rem;
 }
 
