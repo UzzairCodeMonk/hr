@@ -16,7 +16,7 @@
             @if($actions)
             @foreach($actions as $key=> $action)
             <td>
-                <a href="{{$action['url']}}"><i class="{{$action['icon']}}"></i> {{$action['text']}}</a>
+                <a href="{{$action['url']}}"><i class="{{$action['icon']}}"></i> {{ucwords($action['text'])}}</a>
             </td>
             @endforeach
             @endif
