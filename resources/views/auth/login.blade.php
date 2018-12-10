@@ -3,11 +3,11 @@
 @section('content')
 <div class="card card-round card-shadowed px-50 py-30 w-400px mb-0" style="max-width: 100%">
     <h5 class="text-uppercase">Sign in</h5>
-    <form class="form-type-material">
+    <form class="form-type-material" method="POST" action="{{ route('login') }}">
+        @csrf
         <div class="form-group">
             <label for="email">{{ __('E-Mail Address') }}</label>
-            <input type="text" class="form-control{{ $errors->has('email') ? ' is-invalid' : '' }}" id="{{ env('LOGIN_MODE', 'email') }}"
-                name="{{ env('LOGIN_MODE', 'email') }}" value="{{ old('email') }}" required autofocus>
+            <input type="text" name="email" class="form-control{{ $errors->has('email') ? ' is-invalid' : '' }}" value="{{ old('email') }}" required autofocus>
             @if ($errors->has('email'))
             <span class="invalid-feedback">
                 <strong>{{ $errors->first('email') }}</strong>
@@ -15,7 +15,7 @@
             @endif
         </div>
         <div class="form-group">
-            <input type="password" class="form-control{{ $errors->has('password') ? ' is-invalid' : '' }}" id="password">
+            <input type="password" name="password" class="form-control{{ $errors->has('password') ? ' is-invalid' : '' }}" id="password">
             <label for="email">{{ __('Password') }}</label>
         </div>
         <div class="form-group flexbox">
