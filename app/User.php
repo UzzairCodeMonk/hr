@@ -5,6 +5,7 @@ namespace Datakraf;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Modules\Profile\Entities\Family;
 
 class User extends Authenticatable
 {
@@ -27,4 +28,9 @@ class User extends Authenticatable
     protected $hidden = [
         'password', 'remember_token',
     ];
+
+    public function families()
+    {
+        return $this->hasMany(Family::class);
+    }
 }
