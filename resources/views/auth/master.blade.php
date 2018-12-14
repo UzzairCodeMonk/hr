@@ -11,6 +11,7 @@
     <link rel="stylesheet" href="{{asset('css/core.min.css')}}">
     <link rel="stylesheet" href="{{asset('css/app.css')}}">
     <link rel="stylesheet" href="{{asset('css/style.css')}}">
+    @yield('page-css')
 </head>
 
 <body class="min-h-fullscreen bg-img center-vh p-20" style="background-image: url(https://source.unsplash.com/OrwkD-iWgqg/1600x900)">

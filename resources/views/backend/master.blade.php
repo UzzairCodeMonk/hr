@@ -11,6 +11,7 @@
     <link rel="stylesheet" href="{{asset('css/core.min.css')}}">
     <link rel="stylesheet" href="{{asset('css/app.css')}}">
     <link rel="stylesheet" href="{{asset('css/style.css')}}">
+    @yield('page-css')
 </head>
 
 <body class="sidebar-folded">
