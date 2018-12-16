@@ -19,7 +19,22 @@
                 {{$result->$columnName}}
             </td>
             @endforeach
-            <td></td>
+            <td>
+                @if(isset($actions))
+                @foreach($actions as $action)
+                <a href="{{route($action['url'],['id'=>$result->id])}}" class="{{$action['class']}}" id="{{$action['id']}}">
+                    {{$action['text']}}
+                </a>
+                @isset($action['delete'])
+                    <form action="{{route($action['delete']['url'],['id'=>$result->id])}}" method="POST" onsubmit="return confirmFormSubmit();">
+                        @csrf
+                        {{method_field('DELETE')}}
+                        <button class="{{$action['delete']['class']}}">{{$action['delete']['text']}}</button>
+                    </form>
+                @endisset
+                @endforeach
+                @endif
+            </td>
         </tr>
         @endforeach
     </tbody>
