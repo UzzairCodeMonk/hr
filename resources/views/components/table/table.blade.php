@@ -1,25 +1,25 @@
-<table class="table table-bordered table-striped">
+<table class="table table-bordered table-striped" id="">
     <thead>
         <tr>
             <th>#</th>
-            @include('components.table.thead')
-            @if($actions)
-            <th>Actions</th>
-            @endif
+            @foreach($columnNames as $columnName)
+            <th>
+                {{ucwords($columnName)}}
+            </th>
+            @endforeach
+            <th>Action</th>
         </tr>
     </thead>
     <tbody>
-        @foreach($results as $key => $result)
+        @foreach($results as $key=>$result)
         <tr>
             <td>{{++$key}}</td>
-            @include('components.table.tbody')
-            @if($actions)
-            @foreach($actions as $key=> $action)
+            @foreach($columnNames as $columnName)
             <td>
-                <a href="{{$action['url']}}"><i class="{{$action['icon']}}"></i> {{ucwords($action['text'])}}</a>
+                {{$result->$columnName}}
             </td>
             @endforeach
-            @endif
+            <td></td>
         </tr>
         @endforeach
     </tbody>
