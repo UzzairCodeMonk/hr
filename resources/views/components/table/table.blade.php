@@ -11,6 +11,7 @@
         </tr>
     </thead>
     <tbody>
+        @if(count($results))
         @foreach($results as $key=>$result)
         <tr>
             <td>{{++$key}}</td>
@@ -37,5 +38,10 @@
             </td>
         </tr>
         @endforeach
+        @else
+        <tr>
+            <td colspan="{{count($columnNames)+2}}" class="text-center">No records found.</td>
+        </tr>
+        @endif
     </tbody>
 </table>
