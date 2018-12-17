@@ -5,12 +5,17 @@ namespace Datakraf;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Spatie\Permission\Traits\HasRoles;
 use Modules\Profile\Entities\Family;
+use Datakraf\Events\UserCreated;
 
 class User extends Authenticatable
 {
-    use Notifiable;
+    use Notifiable,HasRoles;
 
+    protected $dispatchesEvents = [
+        'created' => UserCreated::class
+    ];
     /**
      * The attributes that are mass assignable.
      *
