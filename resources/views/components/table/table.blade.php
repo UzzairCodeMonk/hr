@@ -25,12 +25,12 @@
                 <a href="{{route($action['url'],['id'=>$result->id])}}" class="{{$action['class']}}" id="{{$action['id']}}">
                     {{$action['text']}}
                 </a>
-                @isset($action['delete'])
-                    <form action="{{route($action['delete']['url'],['id'=>$result->id])}}" method="POST" onsubmit="return confirmFormSubmit();">
-                        @csrf
-                        {{method_field('DELETE')}}
-                        <button class="{{$action['delete']['class']}}">{{$action['delete']['text']}}</button>
-                    </form>
+                @isset($deleteAction)
+                <form action="{{route($deleteAction['delete']['url'],['id'=>$result->id])}}" method="POST" onsubmit="return confirmFormSubmit{{$entity}}();" style="display:inline !important;">
+                    @csrf
+                    {{method_field('DELETE')}}
+                    <button type="submit" class="{{$deleteAction['delete']['class']}}">{{$deleteAction['delete']['text']}}</button>
+                </form>
                 @endisset
                 @endforeach
                 @endif
