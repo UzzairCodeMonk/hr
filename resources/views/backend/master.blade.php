@@ -18,6 +18,7 @@
     @include('backend.partials.sidebar')
     @include('backend.partials.top-bar')
     <main class="main-container">
+        @include('backend.partials.admin-sidebar')
         <div class="main-content">
             @yield('content')
         </div>
