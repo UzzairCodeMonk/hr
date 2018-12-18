@@ -18,6 +18,7 @@
     <script type="text/javascript" src="{{asset('js/core.min.js')}}"></script>
     <script type="text/javascript" src="{{asset('js/app.js')}}"></script>
     <script type="text/javascript" src="{{asset('js/script.js')}}"></script>
+    @include('sweetalert::alert')
 </body>
 
 </html>
