@@ -1,4 +1,4 @@
-<table class="table table-bordered table-striped" id="">
+<table class="table table-bordered table-striped {{isset($datatable) ? 'datatable':''}}" id="">
     <thead>
         <tr>
             <th>#</th>
@@ -27,7 +27,8 @@
                     {{$action['text']}}
                 </a>
                 @isset($deleteAction)
-                <form action="{{route($deleteAction['delete']['url'],['id'=>$result->id])}}" method="POST" onsubmit="return confirmFormSubmit{{$entity}}();" style="display:inline !important;">
+                <form action="{{route($deleteAction['delete']['url'],['id'=>$result->id])}}" method="POST" onsubmit="return confirmFormSubmit{{$entity}}();"
+                    style="display:inline !important;">
                     @csrf
                     {{method_field('DELETE')}}
                     <button type="submit" class="{{$deleteAction['delete']['class']}}">{{$deleteAction['delete']['text']}}</button>
@@ -45,3 +46,4 @@
         @endif
     </tbody>
 </table>
+

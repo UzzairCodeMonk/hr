@@ -8,3 +8,5 @@ Route::get('/', function () {
 
 Route::get('/home', 'HomeController@index')->name('home');
 Route::view('master','backend.master');
+
+Route::get('employees','UsersController@index')->name('user.index');
