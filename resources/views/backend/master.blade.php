@@ -35,13 +35,16 @@
         var msg = "";
         var icon;
         var img;
-        if (hrs > 0) msg = "Mornin' Sunshine!",icon="{!! asset('images/moon.svg')!!}"; // REALLY early
-        if (hrs > 6) msg = "Good morning",icon="{!! asset('images/sunny.svg')!!}"; // After 6am
-        if (hrs > 12) msg = "Good afternoon",icon="{!! asset('images/sunny.svg')!!}"; // After 12pm
-        if (hrs > 17) msg = "Good evening",icon="{!! asset('images/sunrise.svg')!!}";
-        if (hrs > 22) msg = "Go to bed!",icon="{!! asset('images/moon.svg')!!}"; // After 10pm
-        document.getElementById('greeting').append(msg+" {{auth()->user()->name}}");       
-       $('#icon').html("<img width='30' src='"+icon+"' />");
+        if (hrs > 0) msg = "Mornin'", icon = "{!! asset('images/moon.svg')!!}"; // REALLY early
+        if (hrs > 6) msg = "Good morning", icon = "{!! asset('images/sunny.svg')!!}"; // After 6am
+        if (hrs > 12) msg = "Good afternoon", icon = "{!! asset('images/sunny.svg')!!}"; // After 12pm
+        if (hrs > 17) msg = "Good evening", icon = "{!! asset('images/sunrise.svg')!!}";
+        if (hrs > 22) msg = "Go to bed!", icon = "{!! asset('images/moon.svg')!!}"; // After 10pm
+        @if(Auth::user())
+        document.getElementById('greeting').append(msg + " {{Auth::user()->name}}");
+        $('#icon').html("<img width='30' src='" + icon + "' />");
+        @endif
+
     </script>
 </body>
 

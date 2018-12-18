@@ -14,7 +14,7 @@
     </li>
     <li class="nav-item">
         <i class="ti ti-user"></i>
-        <a class="nav-link" href="#">Add Employee</a>
+        <a class="nav-link" href="{{route('user.create')}}">Add Employee</a>
     </li>
     <li class="nav-item {{Route::currentRouteName() == 'position.index'  ? 'active':''}}">
         <i class="ti ti-layers"></i>
@@ -29,9 +29,9 @@
     </div>
 </div>
 <ul class="nav nav-pills flex-column">
-    <li class="nav-item">
+    <li class="nav-item {{Route::currentRouteName() == 'leave.index'  ? 'active':''}}">
         <i class="ti ti-agenda"></i>
-        <a class="nav-link {{Route::currentRouteName() == 'leave.index'  ? 'active':''}}" href="{{route('leave.index')}}">Leave Records</a>
+        <a class="nav-link" href="{{route('leave.index')}}">Leave Records</a>
     </li>
     <li class="nav-item {{Route::currentRouteName() == 'leave-type.index'  ? 'active':''}}">
         <i class="ti ti-layers-alt"></i>

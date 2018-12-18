@@ -5,6 +5,7 @@ namespace Datakraf\Http\Controllers;
 use Illuminate\Http\Request;
 use Datakraf\User;
 use Datakraf\Traits\AlertMessage;
+use Modules\Profile\Entities\Position;
 
 class UsersController extends Controller
 {
@@ -14,8 +15,9 @@ class UsersController extends Controller
      * @return Response
      */
     public $user;
+    public $position;
 
-    public function __construct(User $user)
+    public function __construct(User $user, Position $position)
     {
         $this->user = $user;
         $this->columnNames = ['name', 'email'];
@@ -35,12 +37,18 @@ class UsersController extends Controller
                 'id' => ''
             ]
         ];
+        $this->position = $position;
 
     }
 
     public function index()
     {
 
-        return view('backend.users.index', ['columnNames'=>$this->columnNames,'datatable'=>true,'results' => $this->user->all(), 'actions' => $this->actions, 'deleteAction' => $this->deleteAction]);
+        return view('backend.users.index', ['columnNames' => $this->columnNames, 'datatable' => true, 'results' => $this->user->all(), 'actions' => $this->actions, 'deleteAction' => $this->deleteAction]);
+    }
+
+    public function create()
+    {
+        return view('backend.users.create', ['positions'=>$this->position->all()]);
     }
 }
