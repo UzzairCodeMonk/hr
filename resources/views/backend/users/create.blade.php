@@ -8,7 +8,7 @@ Add Employees
         <h3>Add Employee</h3>
     </div>
     <div class="card-body">
-        <form action="{{route('leave.store')}}" method="POST" enctype="multipart/form-data">
+        <form action="{{route('user.store')}}" method="POST" enctype="multipart/form-data">
             @csrf
             <!-- identity -->
             <div class="row">
@@ -18,31 +18,61 @@ Add Employees
                 <div class="col-8">
                     <div class="form-group">
                         <label for="">Name</label>
-                        <input type="text" name="" id="" class="form-control">
+                        <input type="text" name="name" id="" class="form-control">
+                        @if ($errors->has('name'))
+                        <span class="invalid-feedback">
+                            <strong>{{ $errors->first('name') }}</strong>
+                        </span>
+                        @endif
                     </div>
                     <div class="form-group">
                         <label for="">Email</label>
-                        <input type="text" name="" id="" class="form-control">
+                        <input type="text" name="email" id="" class="form-control">
+                        @if ($errors->has('email'))
+                        <span class="invalid-feedback">
+                            <strong>{{ $errors->first('email') }}</strong>
+                        </span>
+                        @endif
                     </div>
                     <div class="form-group">
                         <label for="">Staff No.</label>
-                        <input type="text" name="" id="" class="form-control">
+                        <input type="text" name="staff_number" id="" class="form-control">
+                        @if ($errors->has('staff_number'))
+                        <span class="invalid-feedback">
+                            <strong>{{ $errors->first('staff_number') }}</strong>
+                        </span>
+                        @endif
                     </div>
                     <div class="form-group">
                         <label for="">Position</label>
-                        <select name="" id="" class="form-control">
+                        <select name="position_id" id="" class="form-control">
                             @foreach($positions as $position)
                             <option value="{{$position->id}}">{{$position->name}}</option>
                             @endforeach
                         </select>
+                        @if ($errors->has('position_id'))
+                        <span class="invalid-feedback">
+                            <strong>{{ $errors->first('position_id') }}</strong>
+                        </span>
+                        @endif
                     </div>
                     <div class="form-group">
                         <label for="">Password</label>
-                        <input type="password" name="" id="" class="form-control">
+                        <input type="password" name="password" id="" class="form-control">
+                        @if ($errors->has('password'))
+                        <span class="invalid-feedback">
+                            <strong>{{ $errors->first('password') }}</strong>
+                        </span>
+                        @endif
                     </div>
                     <div class="form-group">
                         <label for="">Password Confirmation</label>
-                        <input type="password" name="" id="" class="form-control">
+                        <input type="password" name="password_confirmation" id="" class="form-control">
+                        @if ($errors->has('password_confirmation'))
+                        <span class="invalid-feedback">
+                            <strong>{{ $errors->first('password_confirmation') }}</strong>
+                        </span>
+                        @endif
                     </div>
                 </div>
 
