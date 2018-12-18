@@ -2,11 +2,11 @@
 <header class="topbar">
     <div class="topbar-left">
         <span class="topbar-btn sidebar-toggler"><i>&#9776;</i></span>
-        <div class="dropdown d-none d-md-block">
+        <!-- <div class="dropdown d-none d-md-block">
             <span class="topbar-btn" data-toggle="dropdown"><i class="ti-layout-grid3-alt"></i></span>
             <div class="dropdown-menu dropdown-grid">
                 <a class="dropdown-item" href="../dashboard/general.html">
-                    <span data-i8-icon="home"></span>
+                    <img src="https://img.icons8.com/color/48/000000/external-link.png" width="48" height="48" align="center">
                     <span class="title">Dashboard</span>
                 </a>
                 <a class="dropdown-item" href="../page/gallery.html">
@@ -52,20 +52,18 @@
                 <i class="ti-search"></i>
                 <span><strong>Try</strong> button, slider, modal, etc.</span>
             </div>
-        </div>
+        </div> -->
     </div>
-
     <div class="topbar-right">
         <a class="topbar-btn" href="#qv-global" data-toggle="quickview"><i class="ti-align-right"></i></a>
-
         <div class="topbar-divider"></div>
-
         <ul class="topbar-btns">
             <li class="dropdown">
                 <span class="topbar-btn" data-toggle="dropdown"><img class="avatar" src="https://api.adorable.io/avatars/285/abott@adorable.png"
                         alt="..."></span>
                 <div class="dropdown-menu dropdown-menu-right">
-                    <a class="dropdown-item" href="../page/profile.html"><i class="ti-user"></i> {{Auth::user()->name}}</a>                    
+                    <a class="dropdown-item" href="#"><i class="ti-user"></i> {{Auth::user()->name}}</a>  
+                    <a class="dropdown-item" href="{{route('personal.index')}}"><i class="ti-user"></i> My Profile</a>                    
                     <a class="dropdown-item" href="#"><i class="ti-settings"></i> Settings</a>
                     <div class="dropdown-divider"></div>                   
                     <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault();

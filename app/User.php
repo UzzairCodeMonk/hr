@@ -8,6 +8,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Spatie\Permission\Traits\HasRoles;
 use Modules\Profile\Entities\Family;
 use Datakraf\Events\UserCreated;
+use Modules\Leave\Entities\LeaveEntitlement;
 
 class User extends Authenticatable
 {
@@ -37,5 +38,9 @@ class User extends Authenticatable
     public function families()
     {
         return $this->hasMany(Family::class);
+    }
+
+    public function leaveEntitlement(){
+        return $this->hasOne(LeaveEntitlement::class,'user_id');
     }
 }
