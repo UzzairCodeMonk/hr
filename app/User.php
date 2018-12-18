@@ -9,10 +9,11 @@ use Spatie\Permission\Traits\HasRoles;
 use Modules\Profile\Entities\Family;
 use Datakraf\Events\UserCreated;
 use Modules\Leave\Entities\LeaveEntitlement;
+use Modules\Leave\Entities\Leave;
 
 class User extends Authenticatable
 {
-    use Notifiable,HasRoles;
+    use Notifiable, HasRoles;
 
     protected $dispatchesEvents = [
         'created' => UserCreated::class
@@ -40,7 +41,13 @@ class User extends Authenticatable
         return $this->hasMany(Family::class);
     }
 
-    public function leaveEntitlement(){
-        return $this->hasOne(LeaveEntitlement::class,'user_id');
+    public function leaveEntitlement()
+    {
+        return $this->hasOne(LeaveEntitlement::class, 'user_id');
+    }
+
+    public function leaves()
+    {
+        return $this->hasMany(Leave::class);
     }
 }

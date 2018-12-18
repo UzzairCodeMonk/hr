@@ -2,70 +2,23 @@
 <header class="topbar">
     <div class="topbar-left">
         <span class="topbar-btn sidebar-toggler"><i>&#9776;</i></span>
-        <!-- <div class="dropdown d-none d-md-block">
-            <span class="topbar-btn" data-toggle="dropdown"><i class="ti-layout-grid3-alt"></i></span>
-            <div class="dropdown-menu dropdown-grid">
-                <a class="dropdown-item" href="../dashboard/general.html">
-                    <img src="https://img.icons8.com/color/48/000000/external-link.png" width="48" height="48" align="center">
-                    <span class="title">Dashboard</span>
-                </a>
-                <a class="dropdown-item" href="../page/gallery.html">
-                    <span data-i8-icon="stack_of_photos"></span>
-                    <span class="title">Gallery</span>
-                </a>
-                <a class="dropdown-item" href="../page/search.html">
-                    <span data-i8-icon="search"></span>
-                    <span class="title">Search</span>
-                </a>
-                <a class="dropdown-item" href="../page-app/calendar.html">
-                    <span data-i8-icon="calendar"></span>
-                    <span class="title">Calendar</span>
-                </a>
-                <a class="dropdown-item" href="../page-app/chat.html">
-                    <span data-i8-icon="sms"></span>
-                    <span class="title">Chat</span>
-                </a>
-                <a class="dropdown-item" href="../page-app/mailbox.html">
-                    <span data-i8-icon="invite"></span>
-                    <span class="title">Emails</span>
-                </a>
-                <a class="dropdown-item" href="../page-app/users.html">
-                    <span data-i8-icon="contacts"></span>
-                    <span class="title">Contacts</span>
-                </a>
-                <a class="dropdown-item" href="../widget/chart.html">
-                    <span data-i8-icon="bar_chart"></span>
-                    <span class="title">Charts</span>
-                </a>
-                <a class="dropdown-item" href="../page/profile.html">
-                    <span data-i8-icon="businessman"></span>
-                    <span class="title">Profile</span>
-                </a>
-            </div>
-        </div>
+        <ul class="topbar-btns">
+            <li class="dropdown">
+                <span id="icon"></span>
+                <span id="greeting" class="topbar-btn"></span>
+            </li>
+        </ul>
 
-        <div class="topbar-divider d-none d-md-block"></div>
-
-        <div class="lookup d-none d-md-block topbar-search" id="theadmin-search">
-            <input class="form-control w-300px" type="text">
-            <div class="lookup-placeholder">
-                <i class="ti-search"></i>
-                <span><strong>Try</strong> button, slider, modal, etc.</span>
-            </div>
-        </div> -->
     </div>
     <div class="topbar-right">
-        <a class="topbar-btn" href="#qv-global" data-toggle="quickview"><i class="ti-align-right"></i></a>
-        <div class="topbar-divider"></div>
         <ul class="topbar-btns">
             <li class="dropdown">
                 <span class="topbar-btn" data-toggle="dropdown"><img class="avatar" src="https://api.adorable.io/avatars/285/abott@adorable.png"
                         alt="..."></span>
-                <div class="dropdown-menu dropdown-menu-right">
-                    <a class="dropdown-item" href="#"><i class="ti-user"></i> {{Auth::user()->name}}</a>  
-                    <a class="dropdown-item" href="{{route('personal.index')}}"><i class="ti-user"></i> My Profile</a>                    
+                <div class="dropdown-menu dropdown-menu-right">                    
+                    <a class="dropdown-item" href="{{route('personal.index')}}"><i class="ti-user"></i> My Profile</a>
                     <a class="dropdown-item" href="#"><i class="ti-settings"></i> Settings</a>
-                    <div class="dropdown-divider"></div>                   
+                    <div class="dropdown-divider"></div>
                     <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault();
                                   document.getElementById('logout-form').submit();"><i
                             class="ti-power-off"></i> Logout</a>
@@ -74,7 +27,6 @@
                     </form>
                 </div>
             </li>
-
             <!-- Notifications -->
             <li class="dropdown d-none d-md-block">
                 <span class="topbar-btn has-new" data-toggle="dropdown"><i class="ti-bell"></i></span>
@@ -224,6 +176,7 @@
 
                 </div>
             </li>
+
             <!-- END Messages -->
 
         </ul>
