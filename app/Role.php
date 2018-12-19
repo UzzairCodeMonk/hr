@@ -1,6 +1,6 @@
 <?php
 
-namespace App;
+namespace Datakraf;
 
 use Illuminate\Database\Eloquent\Model;
 

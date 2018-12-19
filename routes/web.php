@@ -7,6 +7,7 @@ Route::view('/', 'auth.login');
 Route::view('master', 'backend.master');
 
 Route::group(['prefix' => 'administration', 'middleware' => ['auth']], function () {
+    Route::resource('roles', 'RolesController');
     Route::group(['prefix' => 'employees'], function () {
         Route::get('/', 'UsersController@index')->name('user.index');
         Route::get('create', 'UsersController@create')->name('user.create');

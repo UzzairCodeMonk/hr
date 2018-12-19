@@ -1,5 +1,5 @@
 <?php
-namespace App;
+namespace Datakraf;
 
 trait Authorizable
 {

@@ -1,6 +1,6 @@
 <?php
 
-namespace App;
+namespace Datakraf;
 
 class Permission extends \Spatie\Permission\Models\Permission
 {
