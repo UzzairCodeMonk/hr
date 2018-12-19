@@ -46,7 +46,7 @@
     </div>
 </div>
 <ul class="nav nav-pills flex-column">
-    <li class="nav-item {{Route::currentRouteName() == 'leave-type.index'  ? 'active':''}}">
+    <li class="nav-item {{Route::currentRouteName() == 'roles.index'  ? 'active':''}}">
         <i class="ti ti-id-badge"></i>
         <a class="nav-link" href="{{route('roles.index')}} ">Roles & Permissions</a>
     </li>

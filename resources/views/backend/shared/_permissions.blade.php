@@ -4,6 +4,13 @@
             {{ $title ?: 'Override Permissions' }} {!! isset($user) ? '<span class="text-danger">(' .
                 $user->getDirectPermissions()->count() . ')</span>' : '' !!}
         </h4>
+        <div class="card-options pull-right">
+            @can('edit_roles')
+            <button type="submit" name="delete-role" class="btn btn-link text-dark">Delete Role</button>
+            {!! Form::submit('Update', ['class' => 'btn btn-primary']) !!}
+
+            @endcan
+        </div>
     </div>
     <div id="" class="card-body" role="">
         <div class="row">

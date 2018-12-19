@@ -25,7 +25,7 @@ class RolesController extends Controller
         $this->validate($request, ['name' => 'required|unique:roles']);
 
         if (Role::create($request->only('name'))) {
-            Session::flash('success', 'The role has been added.');
+            toast('The role has been added', 'success', 'top-right');
         }
 
         return redirect()->back();
@@ -42,9 +42,9 @@ class RolesController extends Controller
 
             $permissions = $request->get('permissions', []);
             $role->syncPermissions($permissions);
-            toast($role->name.' permissions updated', 'success', 'top-right');            
+            toast($role->name . ' permissions updated', 'success', 'top-right');
         } else {
-            toast($role->name.' not found', 'error', 'top-right');
+            toast($role->name . ' not found', 'error', 'top-right');
         }
 
         return redirect()->route('roles.index');
@@ -58,8 +58,4 @@ class RolesController extends Controller
         return redirect()->back();
     }
 
-    public function config()
-    {
-
-    }
 }

@@ -4,6 +4,8 @@ use Illuminate\Database\Seeder;
 use Datakraf\User;
 use Datakraf\Role;
 use Datakraf\Permission;
+use Modules\Profile\Entities\Position;
+
 class PermissionTableSeeder extends Seeder
 {
     /**
@@ -34,9 +36,9 @@ class PermissionTableSeeder extends Seeder
             //Ask for roles from input
             $input_roles = $this->command->ask('Enter roles in comma separate format.', 'Admin,User');
             //Explode roles
-                $roles_array = explode(',', $input_roles);
+            $roles_array = explode(',', $input_roles);
             //add roles
-                foreach ($roles_array as $role) {
+            foreach ($roles_array as $role) {
                 $role = Role::firstOrCreate(['name' => trim($role)]);
                 if ($role->name == 'Admin') {
                     //assign all permissions
@@ -53,7 +55,7 @@ class PermissionTableSeeder extends Seeder
         } else {
             Role::firstOrCreate(['name' => 'User']);
             $this->command->info('Added only default user role.');
-        }        
+        }
     }
     /**
      * Create a user with given role
@@ -62,9 +64,10 @@ class PermissionTableSeeder extends Seeder
      */
     private function createUser($role)
     {
+
         $user = factory(User::class)->create();
         $user->assignRole($role->name);
-        if ($role->name == 'Admin') {
+        if ($role->name == 'Admin') {            
             $this->command->info('Here is your admin details to login:');
             $this->command->warn($user->email);
             $this->command->warn('Password is "secret"');

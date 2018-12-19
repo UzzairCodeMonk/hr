@@ -18,7 +18,9 @@
     @include('backend.partials.sidebar')
     @include('backend.partials.top-bar')
     <main class="main-container">
+        @if(Auth::user()->hasRole('Admin'))
         @include('backend.partials.admin-sidebar')
+        @endif
         <div class="main-content">
             @yield('content')
         </div>

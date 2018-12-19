@@ -1,4 +1,7 @@
 @extends('backend.master')
+@section('page-title')
+    
+@endsection
 @section('content')
 <div class="card">
     <div class="card-header">
@@ -17,15 +20,12 @@
         @forelse($roles as $role)
         {!! Form::model($role, ['method' => 'PUT', 'route' => ['roles.update', $role->id ], 'class' =>
         '']) !!}
+        
         @if($role->name === 'Admin')
         @include('backend.shared._permissions', ['title'=>$role->name.' Permissions', 'options'=> ['disabled'] ])
         @else
         @include('backend.shared._permissions', ['title'=>$role->name.' Permissions', 'model' => $role ])
-        @can('edit_roles')
-
-        {!! Form::submit('Save', ['class' => 'btn btn-primary']) !!}
-
-        @endcan
+        
         @endif
         {!! Form::close() !!}
         @empty

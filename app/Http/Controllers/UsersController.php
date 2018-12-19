@@ -31,7 +31,7 @@ class UsersController extends Controller
                 'class' => 'btn btn-link text-dark',
                 'id' => ''
             ]
-        ];        
+        ];
         $this->position = $position;
 
     }
@@ -55,11 +55,15 @@ class UsersController extends Controller
             'password' => Hash::make($request->password),
         ];
         $user = User::create($data);
-        PersonalDetail::create([
-            'user_id' => $user->id,
-            'name' => $user->name,
-            'staff_number' => $request->staff_number,
-            'position_id' => $request->position_id,
-        ]);
+        // PersonalDetail::create([
+        //     'user_id' => $user->id,
+        //     'avatar' => 'images/avatar.png',
+        //     'name' => $user->name,
+        //     'staff_number' => $request->staff_number,
+        //     'position_id' => $request->position_id,
+        // ]);
+
+        toast('Employee created successfully', 'success', 'top-right');
+        return back();
     }
 }
