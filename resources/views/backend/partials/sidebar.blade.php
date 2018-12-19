@@ -11,15 +11,6 @@
     </header>
     <nav class="sidebar-navigation">
         <ul class="menu">
-            <li class="menu-category">Dashboard</li>
-
-            <li class="menu-item">
-                <a class="menu-link" href="../dashboard/general.html">
-                    <span class="icon ti ti-dashboard"></span>
-                    <span class="title">Dashboard</span>
-                </a>
-            </li>
-
             <li class="menu-category">Modules</li>
             @include('leave::menu.sidebar-menu')
         </ul>

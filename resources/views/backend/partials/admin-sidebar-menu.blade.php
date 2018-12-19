@@ -8,16 +8,16 @@
     </div>
 </div>
 <ul class="nav nav-pills flex-column">
-    <li class="nav-item">
+    <li class="nav-item {{Route::currentRouteName() == 'user.index'  ? 'active':''}}"">
         <i class="ti ti-agenda"></i>
         <a class="nav-link" href="{{route('user.index')}}">View Employees</a>
     </li>
-    <li class="nav-item">
+    <li class="nav-item {{Route::currentRouteName() == 'user.create'  ? 'active':''}}"">
         <i class="ti ti-user"></i>
         <a class="nav-link" href="{{route('user.create')}}">Add Employee</a>
     </li>
     <li class="nav-item {{Route::currentRouteName() == 'position.index'  ? 'active':''}}">
-        <i class="ti ti-layers"></i>
+        <i class="ti ti-layers-alt"></i>
         <a class="nav-link"  href="{{route('position.index')}}">Position
             Categories</a>
     </li>

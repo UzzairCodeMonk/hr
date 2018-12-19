@@ -67,7 +67,7 @@ return [
     |
      */
 
-    'timezone' => 'UTC',
+    'timezone' => 'Asia/Kuala_Lumpur',
     'date_format_js' => 'dd/mm/yyyy',
     'date_format' => 'd/m/Y',
 

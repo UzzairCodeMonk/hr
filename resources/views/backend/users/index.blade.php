@@ -11,7 +11,7 @@ Employees
         <div class="row">
             <div class="col">
                 @isset($results)
-                @include('components.table.table',['entity'=>'employee','deleteAction'=>$deleteAction])
+                @include('components.table.table',['entity'=>'employee'])
                 @endisset
             </div>
         </div>

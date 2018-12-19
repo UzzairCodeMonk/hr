@@ -31,15 +31,7 @@ class UsersController extends Controller
                 'class' => 'btn btn-link text-dark',
                 'id' => ''
             ]
-        ];
-        $this->deleteAction = [
-            'delete' => [
-                'url' => 'leave-type.destroy',
-                'text' => ucwords('delete'),
-                'class' => 'btn btn-link btn-danger text-white',
-                'id' => ''
-            ]
-        ];
+        ];        
         $this->position = $position;
 
     }
@@ -47,7 +39,7 @@ class UsersController extends Controller
     public function index()
     {
 
-        return view('backend.users.index', ['columnNames' => $this->columnNames, 'datatable' => true, 'results' => $this->user->all(), 'actions' => $this->actions, 'deleteAction' => $this->deleteAction]);
+        return view('backend.users.index', ['columnNames' => $this->columnNames, 'datatable' => true, 'results' => $this->user->all()]);
     }
 
     public function create()

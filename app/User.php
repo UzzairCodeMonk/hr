@@ -10,6 +10,7 @@ use Modules\Profile\Entities\Family;
 use Datakraf\Events\UserCreated;
 use Modules\Leave\Entities\LeaveEntitlement;
 use Modules\Leave\Entities\Leave;
+use Modules\Profile\Entities\PersonalDetail;
 
 class User extends Authenticatable
 {
@@ -49,5 +50,9 @@ class User extends Authenticatable
     public function leaves()
     {
         return $this->hasMany(Leave::class);
+    }
+
+    public function personalDetail(){
+        return $this->hasOne(PersonalDetail::class);
     }
 }
