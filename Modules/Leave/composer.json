@@ -1,0 +1,26 @@
+{
+    "name": "datakraf/leave",
+    "description": "",
+    "authors": [
+        {
+            "name": "Uzzair Baharudin",
+            "email": "uzzaircode@gmail.com"
+        }
+    ],
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Modules\\Leave\\Providers\\LeaveServiceProvider",
+                "Modules\\Leave\\Providers\\EventServiceProvider"
+            ],
+            "aliases": {
+                
+            }
+        }
+    },
+    "autoload": {
+        "psr-4": {
+            "Modules\\Leave\\": ""
+        }
+    }
+}

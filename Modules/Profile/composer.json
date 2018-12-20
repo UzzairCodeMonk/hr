@@ -1,0 +1,26 @@
+{
+    "name": "datakraf/profile",
+    "description": "",
+    "authors": [
+        {
+            "name": "Uzzair Baharudin",
+            "email": "uzzaircode@gmail.com"
+        }
+    ],
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Modules\\Profile\\Providers\\ProfileServiceProvider",
+                "Modules\\Profile\\Providers\\EventServiceProvider"
+            ],
+            "aliases": {
+                
+            }
+        }
+    },
+    "autoload": {
+        "psr-4": {
+            "Modules\\Profile\\": ""
+        }
+    }
+}
