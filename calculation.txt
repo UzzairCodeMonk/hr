@@ -1,0 +1,13 @@
+NormalRate: monthlySalary/26
+
+normalWorkingHours: 8
+
+HourlyRate: NormalRate/8
+
+Overtime: 1.5*HourlyRate
+
+RestDayRate: 2*NormalRate
+
+// example 
+
+ 

@@ -7,7 +7,7 @@
                 {{ucwords($columnName)}}
             </th>
             @endforeach
-            <th>Action</th>
+            <th class="text-center">Action</th>
         </tr>
     </thead>
     <tbody>
@@ -20,10 +20,10 @@
                 {{$result->$columnName}}
             </td>
             @endforeach
-            <td>
+            <td class="text-center">
                 @if(isset($actions))
                 @foreach($actions as $action)
-                <a href="{{route($action['url'],['id'=>$result->id])}}" class="{{$action['class']}}" id="{{$action['id']}}">
+                <a href="{{route($action['url'],['id'=>$result->id])}}" class="btn-sm {{$action['class']}}" id="{{$action['id']}}">
                     {{$action['text']}}
                 </a>
                 @isset($deleteAction)
@@ -31,7 +31,7 @@
                     style="display:inline !important;">
                     @csrf
                     {{method_field('DELETE')}}
-                    <button type="submit" class="{{$deleteAction['delete']['class']}}">{{$deleteAction['delete']['text']}}</button>
+                    <button type="submit" class="btn-sm {{$deleteAction['delete']['class']}}">{{$deleteAction['delete']['text']}}</button>
                 </form>
                 @endisset
                 @endforeach

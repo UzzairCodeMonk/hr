@@ -30,7 +30,8 @@ class UsersController extends Controller
                 'text' => ucwords('edit'),
                 'class' => 'btn btn-link text-dark',
                 'id' => ''
-            ]
+            ],
+            
         ];
         $this->position = $position;
 
