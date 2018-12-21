@@ -4,6 +4,8 @@ namespace Datakraf\Exceptions;
 
 use Exception;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class Handler extends ExceptionHandler
 {
@@ -46,6 +48,15 @@ class Handler extends ExceptionHandler
      */
     public function render($request, Exception $exception)
     {
+        if ($exception instanceof ModelNotFoundException) {
+            toast('You\'re about to break the balance of the internet. Action aborted.', 'error', 'center');
+            return back();
+        }
+
+        if ($exception instanceof NotFoundHttpException) {
+            toast('You\'re going to the point of no return. Action aborted.', 'error', 'center');
+            return back();
+        }
         return parent::render($request, $exception);
     }
 }
