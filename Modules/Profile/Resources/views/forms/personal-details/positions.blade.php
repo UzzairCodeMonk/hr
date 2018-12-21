@@ -26,5 +26,5 @@ Position Categories
 </div>
 @endsection
 @section('page-js')
-@include('components.form.confirmSubmission',['entity'=>'position','action'=>'delete'])
+@include('components.form.confirmDeleteOnSubmission',['entity'=>'position','action'=>'delete'])
 @endsection

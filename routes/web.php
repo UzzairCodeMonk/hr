@@ -4,9 +4,7 @@ Auth::routes();
 
 Route::view('/', 'auth.login');
 
-Route::view('master', 'backend.master');
-
-Route::group(['prefix' => 'administration', 'middleware' => ['auth']], function () {
+Route::group(['prefix' => env('ADMINISTRATION_PREFIX','administration'), 'middleware' => ['auth']], function () {
     Route::resource('roles', 'RolesController');
     Route::group(['prefix' => 'employees'], function () {
         Route::get('/', 'UsersController@index')->name('user.index');
