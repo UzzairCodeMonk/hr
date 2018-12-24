@@ -40,9 +40,23 @@ class PersonalDetailsController extends Controller
      */
     public function store(Request $request)
     {
-        $data = $request->all();        
+        $data = $request->all();
         PersonalDetail::updateOrCreate(['user_id' => auth()->id()], $data);
         toast($this->message('save', 'Personal detail record'), 'success', 'top-right');
         return redirect()->back();
+    }
+
+    public function adminEdit($id)
+    {
+        $personalDetail = $this->personalDetail->find($id);        
+        return view('profile::forms.edit.personal-detail', compact('personalDetail'));
+    }
+
+    public function adminUpdate(Request $request, $id)
+    {
+
+        $data = $request->all();
+        
+        toast($this->message('save', 'Personal detail record'), 'success', 'top-right');
     }
 }

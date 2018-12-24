@@ -11,7 +11,7 @@ use Carbon\Carbon;
 class PersonalDetail extends Model
 {
     protected $table = 'personaldetails';
-    
+
     protected $guarded = [];
 
     public function user()
@@ -19,8 +19,9 @@ class PersonalDetail extends Model
         return $this->belongsTo(User::class);
     }
 
-    public function position(){
-        return $this->belongsTo(Position::class,'position_id');
+    public function position()
+    {
+        return $this->belongsTo(Position::class, 'position_id');
     }
 
     public function setDateOfBirthAttribute($value)
@@ -29,7 +30,9 @@ class PersonalDetail extends Model
     }
     public function getDateOfBirthAttribute($value)
     {
-        return Carbon::createFromFormat('Y-m-d', $value)->format(config('app.date_format'));
+        if ($value != '') {
+            return Carbon::createFromFormat('Y-m-d', $value)->format(config('app.date_format'));
+        }
     }
     public function setDateOfMarriageAttribute($value)
     {
@@ -37,6 +40,9 @@ class PersonalDetail extends Model
     }
     public function getDateOfMarriageAttribute($value)
     {
-        return Carbon::createFromFormat('Y-m-d', $value)->format(config('app.date_format'));
+        if ($value != '') {
+            return Carbon::createFromFormat('Y-m-d', $value)->format(config('app.date_format'));
+        }
+
     }
 }

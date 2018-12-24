@@ -32,6 +32,5 @@ Public Holidays
     $('.date').datepicker({
         format: "{{config('app.date_format_js')}}",
     });
-
 </script>
 @endsection

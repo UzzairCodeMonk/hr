@@ -19,14 +19,15 @@ class UsersController extends Controller
      */
     public $user;
     public $position;
+    public $personalDetail;
 
-    public function __construct(User $user, Position $position)
+    public function __construct(User $user, Position $position, PersonalDetail $personalDetail)
     {
         $this->user = $user;
         $this->columnNames = ['name', 'email'];
         $this->actions = [
             'edit' => [
-                'url' => 'leave-type.edit',
+                'url' => 'admin.personal.edit',
                 'text' => ucwords('edit'),
                 'class' => 'btn btn-link text-dark',
                 'id' => ''
@@ -41,6 +42,7 @@ class UsersController extends Controller
             ]
         ];
         $this->position = $position;
+        $this->personalDetail = $personalDetail;
 
     }
 
@@ -68,11 +70,12 @@ class UsersController extends Controller
             'email' => $request->email,
             'password' => Hash::make($request->password),
         ];
-        $user = User::create($data);        
+        $user = User::create($data);
 
         toast('Employee created successfully', 'success', 'top-right');
         return back();
     }
+  
 
     public function destroy($id)
     {

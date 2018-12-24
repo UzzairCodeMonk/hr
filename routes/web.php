@@ -10,6 +10,6 @@ Route::group(['prefix' => env('ADMINISTRATION_PREFIX','administration'), 'middle
         Route::get('/', 'UsersController@index')->name('user.index');
         Route::get('create', 'UsersController@create')->name('user.create');
         Route::post('store', 'UsersController@store')->name('user.store');
-        Route::delete('{id}/destroy', 'UsersController@destroy')->name('user.destroy');
+        Route::delete('{id}/destroy', 'UsersController@destroy')->name('user.destroy');        
     });
 });
