@@ -3,7 +3,7 @@
 Personal Details
 @endsection
 @section('form-content')
-<form action="{{$personalDetail->id}}" method="POST">
+<form action="{{route('admin.personal.edit',['id'=>$personalDetail->id])}}" method="POST">
     @csrf
     {{method_field('PUT')}}
     <div class="card">

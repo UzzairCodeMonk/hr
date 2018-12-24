@@ -57,11 +57,7 @@ Route::group(['prefix' => 'profile', 'middleware' => ['auth']], function () {
             Route::post('{id}/update', ['uses' => 'PositionsController@update', 'as' => 'position.update']);
             Route::get('{id}/edit', ['uses' => 'PositionsController@edit', 'as' => 'position.edit']);
             Route::delete('{id}/delete', ['uses' => 'PositionsController@destroy', 'as' => 'position.destroy']);
-        });
-        Route::group(['prefix' => 'profile'], function () {
-            Route::get('{id}/edit', ['uses' => 'PersonalDetailsController@adminEdit', 'as' => 'admin.personal.edit']);
-            Route::post('{id}/update', ['uses' => 'PersonalDetailsController@adminUpdate', 'as' => 'admin.personal.update']);
-        });
+        });        
     });
 
 });

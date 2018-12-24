@@ -54,9 +54,8 @@ class PersonalDetailsController extends Controller
 
     public function adminUpdate(Request $request, $id)
     {
-
         $data = $request->all();
-        
+        PersonalDetail::updateOrCreate(['user_id' => auth()->id()], $data);       
         toast($this->message('save', 'Personal detail record'), 'success', 'top-right');
     }
 }
