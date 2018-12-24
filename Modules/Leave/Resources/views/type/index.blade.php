@@ -26,5 +26,5 @@ Leave Categories
 </div>
 @endsection
 @section('page-js')
-@include('components.form.confirmSubmission',['entity'=>'leaveType','action'=>'delete'])
+@include('components.form.confirmDeleteOnSubmission',['entity'=>'leaveType','action'=>'delete'])
 @endsection

@@ -225,10 +225,10 @@ Personal Details
 </script>
 <script type="text/javascript">
     $('.marriage-date').datepicker({
-        format: "dd/mm/yyyy",
+        format: "{{config('app.date_format_js')}}",
     });
     $('.date-of-birth').datepicker({
-        format: "dd/mm/yyyy",
+        format: "{{config('app.date_format_js')}}",
     });
 </script>
 @endsection

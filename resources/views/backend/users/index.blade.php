@@ -29,4 +29,5 @@ Employees
     });
 
 </script>
+@include('components.form.confirmDeleteOnSubmission',['entity'=>'employee','action'=>'delete'])
 @endsection

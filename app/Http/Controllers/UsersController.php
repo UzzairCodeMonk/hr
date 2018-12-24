@@ -32,6 +32,14 @@ class UsersController extends Controller
                 'id' => ''
             ]
         ];
+        $this->deleteAction = [
+            'delete' => [
+                'url' => 'user.destroy',
+                'text' => ucwords('delete'),
+                'class' => 'btn btn-link btn-danger text-white',
+                'id' => ''
+            ]
+        ];
         $this->position = $position;
 
     }
@@ -39,7 +47,13 @@ class UsersController extends Controller
     public function index()
     {
 
-        return view('backend.users.index', ['columnNames' => $this->columnNames, 'datatable' => true, 'results' => $this->user->all()]);
+        return view('backend.users.index', [
+            'columnNames' => $this->columnNames,
+            'datatable' => true,
+            'results' => $this->user->all(),
+            'actions' => $this->actions,
+            'deleteAction' => $this->deleteAction
+        ]);
     }
 
     public function create()
@@ -54,16 +68,16 @@ class UsersController extends Controller
             'email' => $request->email,
             'password' => Hash::make($request->password),
         ];
-        $user = User::create($data);
-        // PersonalDetail::create([
-        //     'user_id' => $user->id,
-        //     'avatar' => 'images/avatar.png',
-        //     'name' => $user->name,
-        //     'staff_number' => $request->staff_number,
-        //     'position_id' => $request->position_id,
-        // ]);
+        $user = User::create($data);        
 
         toast('Employee created successfully', 'success', 'top-right');
+        return back();
+    }
+
+    public function destroy($id)
+    {
+        $this->user->find($id)->delete();
+        toast('Employee deleted successfully', 'success', 'top');
         return back();
     }
 }

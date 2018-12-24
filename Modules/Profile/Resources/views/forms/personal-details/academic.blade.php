@@ -35,10 +35,10 @@
     date.setDate(date.getDate());
 
     $('.start-date').datepicker({
-        format: "dd/mm/yyyy",       
+        format: "{{config('app.date_format_js')}}",       
     });
     $('.end-date').datepicker({
-        format: "dd/mm/yyyy",        
+        format: "{{config('app.date_format_js')}}",        
     });
 
 </script>

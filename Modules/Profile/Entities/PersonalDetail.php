@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 use Datakraf\User;
 use Modules\Profile\Events\PersonalDetailCreated;
 use Modules\Profile\Entities\Position;
+use Carbon\Carbon;
 
 class PersonalDetail extends Model
 {
@@ -32,7 +33,7 @@ class PersonalDetail extends Model
     }
     public function setDateOfMarriageAttribute($value)
     {
-        $this->attributes['end_date'] = Carbon::createFromFormat(config('app.date_format'), $value)->format('Y-m-d');
+        $this->attributes['date_of_marriage'] = Carbon::createFromFormat(config('app.date_format'), $value)->format('Y-m-d');
     }
     public function getDateOfMarriageAttribute($value)
     {

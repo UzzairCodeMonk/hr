@@ -46,6 +46,5 @@ Employee Leave Records
     $(document).ready(function () {
         $('.datatable').DataTable();
     });
-
 </script>
 @endsection
