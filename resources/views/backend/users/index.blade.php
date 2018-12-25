@@ -33,8 +33,7 @@ Employees
                             </td>
                             <td class="text-center">
 
-                                <a href="{{route('admin.personal.edit',['id'=>$result->personalDetail->id])}}" class="btn btn-sm btn-link text-dark"
-                                    id="">
+                                <a href="{{route('admin.employee.personal-detail.edit',['id'=>$result->id])}}" class="btn btn-sm btn-link text-dark" id="">
                                     View
                                 </a>
 

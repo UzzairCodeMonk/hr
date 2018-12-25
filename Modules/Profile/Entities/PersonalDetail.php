@@ -26,7 +26,9 @@ class PersonalDetail extends Model
 
     public function setDateOfBirthAttribute($value)
     {
-        $this->attributes['date_of_birth'] = Carbon::createFromFormat(config('app.date_format'), $value)->format('Y-m-d');
+        if ($value != '') {
+            $this->attributes['date_of_birth'] = Carbon::createFromFormat(config('app.date_format'), $value)->format('Y-m-d');
+        }
     }
     public function getDateOfBirthAttribute($value)
     {
@@ -36,7 +38,10 @@ class PersonalDetail extends Model
     }
     public function setDateOfMarriageAttribute($value)
     {
-        $this->attributes['date_of_marriage'] = Carbon::createFromFormat(config('app.date_format'), $value)->format('Y-m-d');
+        if ($value != '') {
+            $this->attributes['date_of_marriage'] = Carbon::createFromFormat(config('app.date_format'), $value)->format('Y-m-d');
+        }
+
     }
     public function getDateOfMarriageAttribute($value)
     {

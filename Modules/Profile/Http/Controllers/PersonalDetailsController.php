@@ -48,14 +48,15 @@ class PersonalDetailsController extends Controller
 
     public function adminEdit($id)
     {
-        $personalDetail = $this->personalDetail->find($id);        
+        $personalDetail = $this->personalDetail->where('user_id', $id)->first();
         return view('profile::forms.edit.personal-detail', compact('personalDetail'));
     }
 
     public function adminUpdate(Request $request, $id)
     {
         $data = $request->all();
-        PersonalDetail::updateOrCreate(['user_id' => auth()->id()], $data);       
+        $this->personalDetail->find($id)->update($data);
         toast($this->message('save', 'Personal detail record'), 'success', 'top-right');
+        return back();
     }
 }

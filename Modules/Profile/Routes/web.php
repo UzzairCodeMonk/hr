@@ -57,7 +57,12 @@ Route::group(['prefix' => 'profile', 'middleware' => ['auth']], function () {
             Route::post('{id}/update', ['uses' => 'PositionsController@update', 'as' => 'position.update']);
             Route::get('{id}/edit', ['uses' => 'PositionsController@edit', 'as' => 'position.edit']);
             Route::delete('{id}/delete', ['uses' => 'PositionsController@destroy', 'as' => 'position.destroy']);
-        });        
+        });
+        Route::group(['prefix' => 'employee-profile/personal-detail'], function () {
+            Route::get('{id}/edit', 'PersonalDetailsController@adminEdit')->name('admin.employee.personal-detail.edit');
+            Route::post('{id}/update', 'PersonalDetailsController@adminUpdate')->name('admin.employee.personal-detail.update');
+        });
+
     });
 
 });
