@@ -1,4 +1,7 @@
 @extends('backend.master')
+@section('page-title')
+{{$personalDetail->name.'\'s Profile'}}
+@endsection
 @section('content')
 <div class="card">
     <div class="card-header">
