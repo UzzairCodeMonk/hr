@@ -43,6 +43,7 @@ Route::group(['prefix' => 'profile', 'middleware' => ['auth']], function () {
     });
 
     Route::group(['prefix' => 'administration'], function () {
+        
         Route::group(['prefix' => 'family-types'], function () {
             Route::get('/', ['uses' => 'FamilyTypesController@index', 'as' => 'family-type.index']);
             Route::post('store', ['uses' => 'FamilyTypesController@store', 'as' => 'family-type.store']);
@@ -58,11 +59,13 @@ Route::group(['prefix' => 'profile', 'middleware' => ['auth']], function () {
             Route::get('{id}/edit', ['uses' => 'PositionsController@edit', 'as' => 'position.edit']);
             Route::delete('{id}/delete', ['uses' => 'PositionsController@destroy', 'as' => 'position.destroy']);
         });
-        Route::group(['prefix' => 'employee-profile/personal-detail'], function () {
-            Route::get('{id}/edit', 'PersonalDetailsController@adminEdit')->name('admin.employee.personal-detail.edit');
-            Route::post('{id}/update', 'PersonalDetailsController@adminUpdate')->name('admin.employee.personal-detail.update');
+
+        Route::group(['prefix'=>'employee-detail'],function(){
+            Route::get('/{id}',['uses'=>'PersonalDetailsController@viewEmployeeDetails','as'=>'employee.details']);
         });
+
 
     });
 
+    
 });

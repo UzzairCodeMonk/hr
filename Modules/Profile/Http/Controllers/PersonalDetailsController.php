@@ -9,6 +9,7 @@ use Datakraf\User;
 use Modules\Profile\Entities\PersonalDetail;
 use Alert;
 use Datakraf\Traits\AlertMessage;
+use DB;
 
 class PersonalDetailsController extends Controller
 {
@@ -46,17 +47,23 @@ class PersonalDetailsController extends Controller
         return redirect()->back();
     }
 
-    public function adminEdit($id)
+    public function viewEmployeeDetails($id)
     {
-        $personalDetail = $this->personalDetail->where('user_id', $id)->first();
-        return view('profile::forms.edit.personal-detail', compact('personalDetail'));
-    }
 
-    public function adminUpdate(Request $request, $id)
-    {
-        $data = $request->all();
-        $this->personalDetail->find($id)->update($data);
-        toast($this->message('save', 'Personal detail record'), 'success', 'top-right');
-        return back();
+        $personalDetail = DB::table('personaldetails')->where('user_id', $id)->first();
+        $familyRecord = DB::table('families')->where('user_id', $id)->get();
+        $academics = DB::table('academics')->where('user_id', $id)->get();
+        $experience = DB::table('experiences')->where('user_id', $id)->get();
+        $awards = DB::table('awards')->where('user_id', $id)->get();
+        $skills = DB::table('skills')->where('user_id', $id)->get();
+
+        return view('profile::show.master', [
+            'personalDetail' => $personalDetail,
+            'familyRecord' => $familyRecord,
+            'academics' => $academics,
+            'experience' => $experience,
+            'awards' => $awards,
+            'skills' => $skills
+        ]);
     }
 }

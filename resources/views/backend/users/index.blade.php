@@ -24,7 +24,6 @@ Employees
                         @foreach($results as $key=>$result)
                         <tr>
                             <td>{{++$key}}</td>
-
                             <td>
                                 {{$result->name}}
                             </td>
@@ -33,10 +32,9 @@ Employees
                             </td>
                             <td class="text-center">
 
-                                <a href="{{route('admin.employee.personal-detail.edit',['id'=>$result->id])}}" class="btn btn-sm btn-link text-dark" id="">
+                                <a href="{{route('employee.details',['id'=>$result->id])}}" class="btn btn-sm btn-link text-dark" id="">
                                     View
                                 </a>
-
                                 <form class="employee" action="{{route('user.destroy',['id'=>$result->id])}}" method="POST"
                                     style="display:inline !important;">
                                     @csrf
@@ -69,7 +67,6 @@ Employees
     $(document).ready(function () {
         $('.datatable').DataTable();
     });
-
 </script>
 @include('components.form.confirmDeleteOnSubmission',['entity'=>'employee','action'=>'delete'])
 @endsection
