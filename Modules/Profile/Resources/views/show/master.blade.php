@@ -8,6 +8,9 @@
         <h3 class="card-title">
             {{$personalDetail->name.'\'s Profile'}}
         </h3>
+        <div class="card-options">
+            <a href="{{route('employee.resume',['id'=>$personalDetail->user_id])}}" class="btn btn-link btn-primary pull-right text-white">View</a>
+        </div>
     </div>
     <div class="card-body">
         <div class="card-body">

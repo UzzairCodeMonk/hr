@@ -66,4 +66,25 @@ class PersonalDetailsController extends Controller
             'skills' => $skills
         ]);
     }
+
+    public function viewResume($id)
+    {
+        $personalDetail = DB::table('personaldetails')->where('user_id', $id)->first();
+        $position = PersonalDetail::where('user_id',$id)->first()->position->name;
+        $familyRecord = DB::table('families')->where('user_id', $id)->get();
+        $academics = DB::table('academics')->where('user_id', $id)->get();
+        $experience = DB::table('experiences')->where('user_id', $id)->get();
+        $awards = DB::table('awards')->where('user_id', $id)->get();
+        $skills = DB::table('skills')->where('user_id', $id)->get();
+
+        return view('profile::resumes.one', [
+            'personalDetail' => $personalDetail,
+            'familyRecord' => $familyRecord,
+            'academics' => $academics,
+            'experience' => $experience,
+            'awards' => $awards,
+            'skills' => $skills,
+            'position' => $position
+        ]);
+    }
 }

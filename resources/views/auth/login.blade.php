@@ -1,7 +1,10 @@
 @extends('auth.master')
+@section('page-title')
+Login
+@endsection
 @section('content')
 <div class="card card-round card-shadowed px-50 py-30 w-400px mb-0" style="max-width: 100%">
-    <h5 class="text-uppercase">Sign in</h5>
+    <h5 class="text-uppercase">Login</h5>
     <form class="form-type-material" method="POST" action="{{ route('login') }}">
         @csrf
         <div class="form-group">
