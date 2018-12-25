@@ -2,5 +2,5 @@
 
 return [
     'skill' => 'skill',
-    'period' => 'years of experience'
+    'period' => 'proficiency (rate in %)'
 ];

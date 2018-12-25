@@ -21,9 +21,9 @@ Personal Details
                                 <label for="">{{ucwords(__('profile::personal-detail.avatar'))}}</label>
                                 <input type="file" name="avatar" id="" class="form-control">
                                 <div class="badge badge-md badge-info">Existing file:</div>
-                                
+
                             </div>
-                        </div>                        
+                        </div>
                     </div>
                 </div>
             </div>
@@ -40,6 +40,16 @@ Personal Details
                     <div class="form-group">
                         <label for="">{{ucwords(__('profile::personal-detail.name'))}}</label>
                         <input type="text" name="name" id="" class="form-control" value="{{ old('name',  isset($personalDetail->name) ? $personalDetail->name : null) }}">
+                    </div>
+                    <div class="form-group">
+                        <label for="">{{ucwords(__('profile::personal-detail.position'))}}</label>
+                        <select name="gender" id="gender" class="form-control">
+                            <option value="">Please choose</option>
+                            @foreach($positions as $position)
+                            <option value="{{$position->id}}"
+                                {{isset($personalDetail->position_id) && $personalDetail->position_id == $position->id ? 'selected':''}}>{{$position->name}}</option>
+                            @endforeach
+                        </select>
                     </div>
                     <div class="row">
                         <div class="col">
@@ -59,8 +69,13 @@ Personal Details
                         <div class="col">
                             <div class="form-group">
                                 <label for="">{{ucwords(__('profile::personal-detail.gender'))}}</label>
-                                <input type="text" name="gender" value="{{old('gender',isset($personalDetail->gender)?$personalDetail->gender:null)}}"
-                                    id="" class="form-control">
+                                <select name="gender" id="gender" class="form-control">
+                                    <option value="">Please choose</option>
+                                    <option value="Male"
+                                        {{isset($personalDetail->gender) && $personalDetail->gender == 'Male'? 'selected':''}}>Male</option>
+                                    <option value="Female"
+                                        {{isset($personalDetail->gender) && $personalDetail->gender == 'Female'? 'selected':''}}>Female</option>
+                                </select>
                             </div>
                         </div>
                         <div class="col">
@@ -222,6 +237,7 @@ Personal Details
         });
 
     });
+
 </script>
 <script type="text/javascript">
     $('.marriage-date').datepicker({
@@ -230,5 +246,6 @@ Personal Details
     $('.date-of-birth').datepicker({
         format: "{{config('app.date_format_js')}}",
     });
+
 </script>
 @endsection

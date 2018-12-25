@@ -3,7 +3,7 @@
         <tr>
             <th>#</th>
             <th>Skill</th>
-            <th>No. of years</th>
+            <th>Proficiency (Rate in %)</th>
         </tr>
     </thead>
     <tbody>
