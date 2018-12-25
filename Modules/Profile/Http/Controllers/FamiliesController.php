@@ -93,4 +93,10 @@ class FamiliesController extends Controller
     public function destroy()
     {
     }
+
+    public function adminEdit($id){
+
+        $family = $this->familyRecord->where('user_id', $id)->get();
+        return view('profile::forms.edit.family', ['familyRecord'=>$family,'types'=>$this->type->all()]);
+    }
 }

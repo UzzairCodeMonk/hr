@@ -11,6 +11,7 @@ use Datakraf\Events\UserCreated;
 use Modules\Leave\Entities\LeaveEntitlement;
 use Modules\Leave\Entities\Leave;
 use Modules\Profile\Entities\PersonalDetail;
+use Modules\Profile\Entities\Position;
 
 class User extends Authenticatable
 {
@@ -55,4 +56,5 @@ class User extends Authenticatable
     public function personalDetail(){
         return $this->hasOne(PersonalDetail::class);
     }
+
 }

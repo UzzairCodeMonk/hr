@@ -15,6 +15,14 @@ Route::group(['prefix'=>'leaves','middleware'=>['auth']],function () {
             Route::get('{id}/edit', ['uses' => 'LeaveTypesController@edit', 'as' => 'leave-type.edit']);
             Route::delete('{id}/delete', ['uses' => 'LeaveTypesController@destroy', 'as' => 'leave-type.destroy']);
         });
+
+        Route::group(['prefix' => 'holiday'], function () {
+            Route::get('/', ['uses' => 'HolidaysController@index', 'as' => 'holiday.index']);
+            Route::post('store', ['uses' => 'HolidaysController@store', 'as' => 'holiday.store']);
+            Route::post('{id}/update', ['uses' => 'HolidaysController@update', 'as' => 'holiday.update']);
+            Route::get('{id}/edit', ['uses' => 'HolidaysController@edit', 'as' => 'holiday.edit']);
+            Route::delete('{id}/delete', ['uses' => 'HolidaysController@destroy', 'as' => 'holiday.destroy']);
+        });
     });
 
 });

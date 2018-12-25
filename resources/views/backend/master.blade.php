@@ -5,12 +5,17 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>{{env('APP_NAME')}} - @yield('page-title')</title>
-    <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
+    <title>HRMS - @yield('page-title')</title>
+    <link href="https://fonts.googleapis.com/css?family=Poppins:400,500,600" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/themify-icons/0.1.2/css/themify-icons.css">
     <link rel="stylesheet" href="{{asset('css/core.min.css')}}">
     <link rel="stylesheet" href="{{asset('css/app.css')}}">
     <link rel="stylesheet" href="{{asset('css/style.css')}}">
+    <style>
+        body {
+  font-family: Poppins, sans-serif !important;  
+}
+    </style>
     @yield('page-css')
 </head>
 
@@ -18,9 +23,9 @@
     @include('backend.partials.sidebar')
     @include('backend.partials.top-bar')
     <main class="main-container">
-        @if(Auth::user()->hasRole('Admin'))
+        @role('Admin')
         @include('backend.partials.admin-sidebar')
-        @endif
+        @endrole
         <div class="main-content">
             @yield('content')
         </div>

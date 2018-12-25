@@ -28,7 +28,7 @@
 @endforeach
 @else
 <tr>
-    <td colspan="7">
+    <td colspan="8">
         <p class="text-center">No academic records can be found.</p>
     </td>
 </tr>

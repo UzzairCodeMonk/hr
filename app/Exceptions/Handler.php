@@ -4,6 +4,11 @@ namespace Datakraf\Exceptions;
 
 use Exception;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use \InvalidArgumentException;
+use Alert;
+use Illuminate\Database\QueryException;
 
 class Handler extends ExceptionHandler
 {
@@ -46,6 +51,8 @@ class Handler extends ExceptionHandler
      */
     public function render($request, Exception $exception)
     {
+        // w
+
         return parent::render($request, $exception);
     }
 }

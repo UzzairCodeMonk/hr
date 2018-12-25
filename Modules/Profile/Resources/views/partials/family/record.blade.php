@@ -28,7 +28,7 @@
 @endforeach
 @else
 <tr>
-    <td colspan="7">
+    <td colspan="9">
         <p class="text-center">No family records can be found.</p> 
     </td>
 </tr>

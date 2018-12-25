@@ -19,28 +19,44 @@ class UsersController extends Controller
      */
     public $user;
     public $position;
+    public $personalDetail;
 
-    public function __construct(User $user, Position $position)
+    public function __construct(User $user, Position $position, PersonalDetail $personalDetail)
     {
         $this->user = $user;
         $this->columnNames = ['name', 'email'];
         $this->actions = [
             'edit' => [
-                'url' => 'leave-type.edit',
+                'url' => 'admin.personal.edit',
                 'text' => ucwords('edit'),
                 'class' => 'btn btn-link text-dark',
                 'id' => ''
             ],
             
         ];
+        $this->deleteAction = [
+            'delete' => [
+                'url' => 'user.destroy',
+                'text' => ucwords('delete'),
+                'class' => 'btn btn-link btn-danger text-white',
+                'id' => ''
+            ]
+        ];
         $this->position = $position;
+        $this->personalDetail = $personalDetail;
 
     }
 
     public function index()
     {
 
-        return view('backend.users.index', ['columnNames' => $this->columnNames, 'datatable' => true, 'results' => $this->user->all()]);
+        return view('backend.users.index', [
+            'columnNames' => $this->columnNames,
+            'datatable' => true,
+            'results' => $this->user->all(),
+            'actions' => $this->actions,
+            'deleteAction' => $this->deleteAction
+        ]);
     }
 
     public function create()
@@ -56,15 +72,16 @@ class UsersController extends Controller
             'password' => Hash::make($request->password),
         ];
         $user = User::create($data);
-        // PersonalDetail::create([
-        //     'user_id' => $user->id,
-        //     'avatar' => 'images/avatar.png',
-        //     'name' => $user->name,
-        //     'staff_number' => $request->staff_number,
-        //     'position_id' => $request->position_id,
-        // ]);
 
         toast('Employee created successfully', 'success', 'top-right');
+        return back();
+    }
+  
+
+    public function destroy($id)
+    {
+        $this->user->find($id)->delete();
+        toast('Employee deleted successfully', 'success', 'top');
         return back();
     }
 }

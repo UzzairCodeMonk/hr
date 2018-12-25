@@ -23,15 +23,15 @@
             <td class="text-center">
                 @if(isset($actions))
                 @foreach($actions as $action)
-                <a href="{{route($action['url'],['id'=>$result->id])}}" class="btn-sm {{$action['class']}}" id="{{$action['id']}}">
+                <a href="{{route($action['url'],['id'=>$result->id])}}" class="btn btn-sm {{$action['class']}}" id="{{$action['id']}}">
                     {{$action['text']}}
                 </a>
                 @isset($deleteAction)
-                <form action="{{route($deleteAction['delete']['url'],['id'=>$result->id])}}" method="POST" onsubmit="return confirmFormSubmit{{$entity}}();"
-                    style="display:inline !important;">
+                <form class="{{$entity}}" action="{{route($deleteAction['delete']['url'],['id'=>$result->id])}}"
+                    method="POST" style="display:inline !important;">
                     @csrf
                     {{method_field('DELETE')}}
-                    <button type="submit" class="btn-sm {{$deleteAction['delete']['class']}}">{{$deleteAction['delete']['text']}}</button>
+                    <button type="submit" class="btn btn-sm {{$deleteAction['delete']['class']}}">{{$deleteAction['delete']['text']}}</button>
                 </form>
                 @endisset
                 @endforeach
@@ -46,4 +46,3 @@
         @endif
     </tbody>
 </table>
-
