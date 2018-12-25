@@ -61,7 +61,7 @@ Route::group(['prefix' => 'profile', 'middleware' => ['auth']], function () {
         });
 
         Route::group(['prefix'=>'employee-detail'],function(){
-            Route::get('/{id}',['uses'=>'PersonalDetailsController@viewEmployeeDetails','as'=>'employee.details']);
+            Route::get('/{id}',['uses'=>'PersonalDetailsController@viewEmployeeDetails','as'=>'employee.details'])->middleware('signed');
         });
 
 

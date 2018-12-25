@@ -32,7 +32,7 @@ Employees
                             </td>
                             <td class="text-center">
 
-                                <a href="{{route('employee.details',['id'=>$result->id])}}" class="btn btn-sm btn-link text-dark" id="">
+                                <a href="{{URL::signedRoute('employee.details',['id'=>$result->id])}}" class="btn btn-sm btn-link text-dark" id="">
                                     View
                                 </a>
                                 <form class="employee" action="{{route('user.destroy',['id'=>$result->id])}}" method="POST"
