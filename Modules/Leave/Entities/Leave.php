@@ -6,19 +6,23 @@ use Illuminate\Database\Eloquent\Model;
 use Modules\Leave\Entities\LeaveType;
 use Carbon\Carbon;
 use Datakraf\User;
+use Spatie\ModelStatus\HasStatuses;
 
 class Leave extends Model
 {
+    use HasStatuses;
+
     protected $table = 'leaves';
     protected $guarded = [];
 
     public function type()
     {
-        return $this->belongsTo(LeaveType::class,'leavetype_id');
+        return $this->belongsTo(LeaveType::class, 'leavetype_id');
     }
 
-    public function user(){
-        return $this->belongsTo(User::class,'user_id');
+    public function user()
+    {
+        return $this->belongsTo(User::class, 'user_id');
     }
 
     public function setStartDateAttribute($value)

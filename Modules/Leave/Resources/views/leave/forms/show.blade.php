@@ -3,7 +3,7 @@
 Leave Application Form
 @endsection
 @section('content')
-<a href="{{route('leave.index')}}" class="btn btn-primary"><i class="ti ti-back-left"></i> Back</a>
+<a href="{{URL::previous()}}" class="btn btn-primary"><i class="ti ti-back-left"></i> Back</a>
 <div class="mb-3"></div>
 <div class="card">
     <div class="card-header">
@@ -11,11 +11,30 @@ Leave Application Form
     </div>
     <div class="card-body">
         <form>
-            
             <!-- identity -->
             <div class="row">
                 <div class="col-4">
-                    <h4>Leave Information</h4>
+                    <div class="row">
+                        <div class="col">
+                            <div class="form-group">
+                                <label for="">Leave Status</label>
+                                <ol class="timeline timeline-activity timeline-point-sm timeline-content-right w-100 py-20 pr-20">
+                                    @foreach($statuses as $status)
+                                    <li class="timeline-block">
+                                        <div class="timeline-point">
+                                            <span class="badge badge-dot badge-lg badge-success"></span>
+                                        </div>
+                                        <div class="timeline-content">
+                                            <time datetime="">{{Carbon\Carbon::createFromFormat('Y-m-d H:m:s',$status['created_at'])->toDayDateTimeString()}}</time>
+                                            <p>{{$status->reason}}</p>
+                                        </div>
+                                    </li>
+                                    @endforeach
+                                </ol>
+                            </div>
+                        </div>
+                    </div>
+
                 </div>
                 <div class="col-8">
                     <div class="row">
@@ -30,7 +49,7 @@ Leave Application Form
                             <label for="">Application Date</label>
                             <p>{{Carbon\Carbon::parse($leave->created_at)->toDayDateTimeString()}}</p>
                         </div>
-                    </div>                    
+                    </div>
                     <div class="row">
                         <div class="col">
                             <div class="form-group">
@@ -48,10 +67,18 @@ Leave Application Form
                     <div class="row">
                         <div class="col">
                             <div class="form-group">
+                                <label for="input-normal">{{ucwords(__('leave::leave.days-taken'))}}</label>
+                                <p>{{$leave->days_taken}}</p>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="form-group">
                                 <label for="input-normal">{{ucwords(__('leave::leave.notes'))}}</label>
                                 <p>{!! $leave->notes !!}</p>
                             </div>
                         </div>
+                    </div>
+                    <div class="row">
                         <div class="col">
                             <div class="form-group">
                                 <label for="">{{ucwords(__('leave::leave.attachment'))}}</label>

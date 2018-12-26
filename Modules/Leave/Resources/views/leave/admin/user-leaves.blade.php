@@ -1,6 +1,6 @@
 @extends('backend.master')
 @section('page-title')
-Employee Leave Records
+Records
 @endsection
 @section('content')
 <div class="card">
@@ -12,25 +12,25 @@ Employee Leave Records
             <thead>
                 <tr>
                     <th>#</th>
-                    <th>Applicant</th>
-                    <th>Email</th>
                     <th>Leave Type</th>
                     <th>Start Date</th>
                     <th>End Date</th>
+                    <th>Total Days</th>
                     <th>Status</th>
+                    <th>Actions</th>
                 </tr>
             </thead>
             <tbody>
                 @foreach($leaves as $key=>$leave)
                 <tr>
                     <td>{{++$key}}</td>
-                    <td>{{$leave->user->name}}</td>
-                    <td>{{$leave->user->email}}</td>
                     <th>{{$leave->type->name}}</th>
                     <td>{{$leave->start_date}}</td>
                     <td>{{$leave->end_date}}</td>
-                    <td style="">
-                        <a href="{{URL::signedRoute('leave.show',['id'=>$leave->id])}}" class="btn btn-link btn-secondary btn-xs text-dark">View</a>
+                    <td>{{$leave->days_taken}}</td>
+                    <td>{{$leave->status()->reason}}</td>
+                    <td>
+                        <a href="{{URL::signedRoute('leave.employee.show',['id'=>$leave->id])}}" class="btn btn-link btn-secondary btn-xs text-dark">View</a>
                         <form action="{{route('leave.destroy',['id'=>$leave->id])}}" method="POST" class="form-inline leave-record">
                             @csrf
                             @method('DELETE')
