@@ -14,7 +14,7 @@ Employee user Records
                     <th>#</th>
                     <th>Name</th>
                     <th>Email</th>   
-                    <th>Action</th>                 
+                    <th class="text-center">Action</th>                 
                 </tr>
             </thead>
             <tbody>
@@ -23,8 +23,9 @@ Employee user Records
                     <td>{{++$key}}</td>
                     <td>{{$user->name}}</td>
                     <td>{{$user->email}}</td>                    
-                    <td>
-                        <a href="{{URL::signedRoute('leave.show',['id'=>$user->id])}}" class="btn btn-link btn-secondary btn-xs text-dark">View</a>                        
+                    <td class="text-center">
+                        <a href="{{URL::signedRoute('leave.show',['id'=>$user->id])}}" class="btn btn-link btn-secondary btn-xs text-dark">View</a>      
+                        <a href="{{route('leave.export.excel',['id'=>$user->id])}}" class="btn btn-link btn-success btn-xs text-white">Export To Excel</a>                      
                     </td>
                 </tr>
                 @endforeach

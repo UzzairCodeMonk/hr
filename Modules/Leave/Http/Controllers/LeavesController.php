@@ -13,7 +13,9 @@ use Modules\Leave\Entities\LeaveBalance;
 use Datakraf\Traits\AlertMessage;
 use Datakraf\Notifications\ApplyLeave;
 use Auth;
+use Maatwebsite\Excel\Facades\Excel;
 use Modules\Leave\Traits\Date;
+use Modules\Leave\Exports\UserLeavesExport;
 
 class LeavesController extends Controller
 {
@@ -162,7 +164,7 @@ class LeavesController extends Controller
             $leave->setStatus('Leave application rejected', 'Leave rejected by ' . Auth::user()->name);
             toast('Leave application rejected', 'success', 'top-right');
         }
-        
+
         return redirect()->back();
 
     }
@@ -172,6 +174,12 @@ class LeavesController extends Controller
         $this->leave->find($id)->delete();
         toast($this->message('delete', 'Leave record'), 'success', 'top-right');
         return back();
+    }
+
+    public function exportUserLeaves($id)
+    {
+        $name = $this->user->find($id)->personalDetail->name;
+        return (new UserLeavesExport)->forUser($id)->download('hello.xlsx');
     }
 
 }
