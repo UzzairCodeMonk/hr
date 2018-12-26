@@ -9,5 +9,5 @@ return [
     'end-date' => 'end date',
     'days-taken' => 'total days',
     'notes' => 'notes',
-    'attachment' => 'attachment'
+    'attachment' => 'attachment(s)'
 ];

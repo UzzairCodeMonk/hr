@@ -62,7 +62,7 @@ Leave Application Form
                                 <label for="">{{ucwords(__('leave::leave.attachment'))}}</label>
                                 <button type="button" class="btn btn-block btn-md btn-primary" onclick="document.getElementById('fileInput').click();"><i
                                         class="ti ti-files"></i> Attach your file(s) here</button>
-                                <input id="fileInput" type="file" style="display:none;" />
+                                <input id="fileInput" type="file" style="display:none;" name="attachments[]" multiple/>
                             </div>
                         </div>
                     </div>

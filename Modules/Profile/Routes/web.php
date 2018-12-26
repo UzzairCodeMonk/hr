@@ -1,7 +1,7 @@
 <?php
 
 
-Route::group(['prefix' => 'profile', 'middleware' => ['auth']], function () {
+Route::group(['prefix' => 'profile', 'middleware' => 'auth'], function () {
 
     Route::group(['prefix' => 'personal-details'], function () {
         Route::get('/', ['uses' => 'PersonalDetailsController@index', 'as' => 'personal.index']);

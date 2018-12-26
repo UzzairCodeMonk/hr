@@ -35,7 +35,7 @@
                     <div class="media-list media-list-hover media-list-divided media-list-xs">
                         @if(isset($n->data['type']) && $n->data['type'] == 'leave')
                         <?php $leave_id = $n->data['leave_id']; ?>
-                        <a class="media" href="{{route('leave.show',['id'=>$leave_id])}}">
+                        <a class="media" href="{{URL::signedRoute('leave.employee.show',['id'=>$leave_id])}}">
                             @else
                             <a class="media" href="#">
                                 @endif
@@ -50,8 +50,6 @@
                     @endif
             </li>
             <!-- END Notifications -->
-
-            <!-- Messages -->
         </ul>
 
     </div>

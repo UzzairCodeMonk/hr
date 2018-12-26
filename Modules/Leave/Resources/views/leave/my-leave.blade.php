@@ -15,6 +15,8 @@ My Leave Applications
                     <th>Type</th>
                     <th>Start Date</th>
                     <th>End Date</th>
+                    <th class="text-center">Status</th>
+                    <th class="text-center">Actions</th>
                 </tr>
             </thead>
             <tbody>
@@ -25,6 +27,12 @@ My Leave Applications
                     <td>{{$result->type->name}}</td>
                     <td>{{$result->start_date}}</td>
                     <td>{{$result->end_date}}</td>
+                    <td class="text-center"><span class="badge badge-success">{{$result->status()->reason}}</span> </td>
+                    <td class="text-center">
+                        <a href="{{URL::signedRoute('leave.employee.show',['id'=>$result->id])}}" class="btn btn-sm" id="">
+                            View
+                        </a>
+                    </td>
                 </tr>
                 @endforeach
                 @else

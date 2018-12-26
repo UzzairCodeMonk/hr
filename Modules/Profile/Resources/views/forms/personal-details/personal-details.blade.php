@@ -43,7 +43,7 @@ Personal Details
                     </div>
                     <div class="form-group">
                         <label for="">{{ucwords(__('profile::personal-detail.position'))}}</label>
-                        <select name="gender" id="gender" class="form-control">
+                        <select name="position_id" id="position_id" class="form-control">
                             <option value="">Please choose</option>
                             @foreach($positions as $position)
                             <option value="{{$position->id}}"

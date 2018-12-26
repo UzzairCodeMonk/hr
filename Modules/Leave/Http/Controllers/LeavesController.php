@@ -8,6 +8,7 @@ use Illuminate\Routing\Controller;
 use Datakraf\User;
 use Modules\Leave\Entities\LeaveType;
 use Modules\Leave\Entities\Leave;
+use Modules\Leave\Entities\LeaveAttachment;
 use Datakraf\Traits\AlertMessage;
 use Datakraf\Notifications\ApplyLeave;
 use Auth;
@@ -24,8 +25,9 @@ class LeavesController extends Controller
     public $data;
     public $leave;
     public $user;
+    public $attachment;
 
-    public function __construct(Leave $leave, LeaveType $type, Request $request, User $user)
+    public function __construct(Leave $leave, LeaveType $type, Request $request, User $user, LeaveAttachment $attachment)
     {
         $this->type = $type;
         $this->data = [
@@ -38,13 +40,14 @@ class LeavesController extends Controller
         ];
         $this->leave = $leave;
         $this->user = $user;
+        $this->attachment = $attachment;
     }
 
     public function index()
     {
         // $leaves = $this->leave->all();        
         // return view('leave::leave.admin.leave-records', compact('leaves'));
-        return view('leave::leave.admin.users',['users'=>$this->user->all()]);
+        return view('leave::leave.admin.users', ['users' => $this->user->all()]);
     }
 
     public function show($id)
@@ -54,7 +57,8 @@ class LeavesController extends Controller
         ]);
     }
 
-    public function showUserLeaves($id){
+    public function showUserLeaves($id)
+    {
         return view('leave::leave.forms.show', [
             'leave' => $this->leave->find($id),
             'types' => $this->type->all(),
@@ -76,12 +80,6 @@ class LeavesController extends Controller
         return view('leave::leave.forms.apply', ['types' => $this->type->all()]);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     * @param  Request $request
-     * @return Response
-     */
-
     public function store(Request $request)
     {
         // create leave
@@ -92,6 +90,8 @@ class LeavesController extends Controller
         $this->notifyHR($leave);
         // set leave status
         $this->setLeaveStatus($leave);
+        // save attachments
+        $this->saveAttachments($request, $leave);
 
         toast($this->message('save', 'Leave record'), 'success', 'top-right');
         return redirect()->back();
@@ -114,7 +114,44 @@ class LeavesController extends Controller
         $leave->setStatus('Leave Submission', 'Leave submitted for review');
     }
 
-    public function destroy($id){
+    public function saveAttachments($request, $leave)
+    {
+        if ($request->hasFile('attachments')) {
+            foreach ($request->file('attachments') as $file) {
+                if (!empty($file)) {
+               // save the attachment with event title and time as prefix
+                    $filename = time() . $file->getClientOriginalName();
+               // move the attachements to public/uploads/applicationsattachments folder
+                    $file->move('uploads/leaveattachments', $filename);
+               // create attachement record in database, attach it to Ticket ID
+                    $this->attachment->create([
+                        'leave_id' => $leave->id,
+                        'filename' => $filename,
+                        'filepath' => 'uploads/leaveattachments/' . $filename
+                    ]);
+                }
+            }
+        }
+    }
+
+    public function approveRejectLeave(Request $request, $id)
+    {
+        $leave = $this->leave->find($id);        
+        if ($request->get('approve')) {
+            $leave->setStatus('Leave application rejected', 'Leave approved by ' . Auth::user()->name);
+            toast('Leave application approved successfully', 'success', 'top-right');
+        }
+
+        if ($request->get('reject')) {
+            $leave->setStatus('Leave application rejected', 'Leave rejected by ' . Auth::user()->name);
+            toast('Leave application rejected', 'success', 'top-right');
+        }
+        return redirect()->back();
+
+    }
+
+    public function destroy($id)
+    {
         $this->leave->find($id)->delete();
         toast($this->message('delete', 'Leave record'), 'success', 'top-right');
         return back();

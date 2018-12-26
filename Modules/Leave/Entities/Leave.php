@@ -4,6 +4,7 @@ namespace Modules\Leave\Entities;
 
 use Illuminate\Database\Eloquent\Model;
 use Modules\Leave\Entities\LeaveType;
+use Modules\Leave\Entities\LeaveAttachment;
 use Carbon\Carbon;
 use Datakraf\User;
 use Spatie\ModelStatus\HasStatuses;
@@ -23,6 +24,11 @@ class Leave extends Model
     public function user()
     {
         return $this->belongsTo(User::class, 'user_id');
+    }
+
+    public function attachments()
+    {
+        return $this->hasMany(LeaveAttachment::class);
     }
 
     public function setStartDateAttribute($value)
