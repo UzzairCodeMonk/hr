@@ -32,7 +32,10 @@ class PersonalDetailsController extends Controller
     public function index()
     {
         $personalDetail = $this->personalDetail->where('user_id', auth()->id())->first();
-        return view('profile::forms.personal-details.personal-details', ['personalDetail' => $personalDetail, 'positions' => $this->position->all()]);
+        return view('profile::forms.personal-details.personal-details', [
+            'personalDetail' => $personalDetail,
+            'positions' => $this->position->all()
+        ]);
     }
 
     /**
@@ -43,10 +46,22 @@ class PersonalDetailsController extends Controller
      */
     public function store(Request $request)
     {
+
         $data = $request->all();
-        PersonalDetail::updateOrCreate(['user_id' => auth()->id()], $data);
+        if ($request->hasFile('avatar')) {
+            $data['avatar'] = $this->uploadAvatar($request);
+        }
+        $personalDetail = PersonalDetail::updateOrCreate(['user_id' => auth()->id()], $data);
         toast($this->message('save', 'Personal detail record'), 'success', 'top-right');
         return redirect()->back();
+    }
+
+    public function uploadAvatar($request)
+    {
+        $file = $request->file('avatar');
+        $filename = time() . $file->getClientOriginalName();
+        $file->move('uploads/avatars', $filename);
+        return 'uploads/avatars/' . $filename;
     }
 
     public function viewEmployeeDetails($id)

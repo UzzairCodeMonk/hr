@@ -20,7 +20,7 @@ Personal Details
                             <div class="form-group">
                                 <label for="">{{ucwords(__('profile::personal-detail.avatar'))}}</label>
                                 <input type="file" name="avatar" id="" class="form-control">
-                                <div class="badge badge-md badge-info">Existing file:</div>
+                                <div class="badge badge-md badge-info">Existing file: {!!asset($personalDetail->avatar ?? '')!!}</div>
 
                             </div>
                         </div>
@@ -84,21 +84,7 @@ Personal Details
                                 <input type="text" name="date_of_birth" id="" class="form-control date-of-birth" value="{{old('date_of_birth',isset($personalDetail->date_of_birth)? $personalDetail->date_of_birth:null)}}">
                             </div>
                         </div>
-                    </div>
-                    <div class="row">
-                        <div class="col">
-                            <div class="form-group">
-                                <label for="">{{ucwords(__('profile::personal-detail.ic-number'))}}</label>
-                                <input type="text" name="ic_number" id="" class="form-control" value="{{old('ic_number',isset($personalDetail->ic_number) ? $personalDetail->ic_number:null)}}">
-                            </div>
-                        </div>
-                        <div class="col">
-                            <div class="form-group">
-                                <label for="">{{ucwords(__('profile::personal-detail.staff-no'))}}</label>
-                                <input type="text" name="staff_number" id="" class="form-control" value="{{old('staff_number',isset($personalDetail->staff_number)? $personalDetail->staff_number:null)}}">
-                            </div>
-                        </div>
-                    </div>
+                    </div>                    
                     <div class="row">
                         <div class="col">
                             <div class="form-group">
