@@ -103,7 +103,7 @@ Leave Application Form
                         </div>
                         @endif
                         @role('Admin')
-                        @if($leave->status_code == 1)
+                        
                         <div class="row">
                             <div class="col">
                                 <div class="form-group pull-right">
@@ -112,7 +112,7 @@ Leave Application Form
                                 </div>
                             </div>
                         </div>
-                        @endif
+                        
                         @endrole
                     </div>
                 </div>

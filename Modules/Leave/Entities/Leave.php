@@ -29,7 +29,7 @@ class Leave extends Model
     public function attachments()
     {
         return $this->hasMany(LeaveAttachment::class);
-    }
+    }   
 
     public function setStartDateAttribute($value)
     {

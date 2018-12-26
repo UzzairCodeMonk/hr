@@ -9,6 +9,7 @@ use Datakraf\User;
 use Modules\Leave\Entities\LeaveType;
 use Modules\Leave\Entities\Leave;
 use Modules\Leave\Entities\LeaveAttachment;
+use Modules\Leave\Entities\LeaveBalance;
 use Datakraf\Traits\AlertMessage;
 use Datakraf\Notifications\ApplyLeave;
 use Auth;
@@ -26,8 +27,9 @@ class LeavesController extends Controller
     public $leave;
     public $user;
     public $attachment;
+    public $balance;
 
-    public function __construct(Leave $leave, LeaveType $type, Request $request, User $user, LeaveAttachment $attachment)
+    public function __construct(Leave $leave, LeaveType $type, Request $request, User $user, LeaveAttachment $attachment, LeaveBalance $balance)
     {
         $this->type = $type;
         $this->data = [
@@ -41,6 +43,7 @@ class LeavesController extends Controller
         $this->leave = $leave;
         $this->user = $user;
         $this->attachment = $attachment;
+        $this->balance = $balance;
     }
 
     public function index()
@@ -136,16 +139,30 @@ class LeavesController extends Controller
 
     public function approveRejectLeave(Request $request, $id)
     {
-        $leave = $this->leave->find($id);        
+        // find this leave model
+        $leave = $this->leave->find($id);
+        // find the total days allowed for that particular leave type
+        $totalAllowedDaysOfLeave = $this->leave->find($id)->type->days;
+        // find total days taken for this leave
+        $totalDaysTaken = $this->leave->find($id)->days_taken;
+        // find the balance after approval
+        $balance = $totalAllowedDaysOfLeave - $totalDaysTaken;
+
         if ($request->get('approve')) {
+            // update or create leave balance record in leavebalances table
+            $this->balance->updateOrCreate(['user_id' => $leave->user_id, 'leavetype_id' => $leave->leavetype_id], ['balance' => $balance]);
+            // set the status of the leave
             $leave->setStatus('Leave application rejected', 'Leave approved by ' . Auth::user()->name);
+
             toast('Leave application approved successfully', 'success', 'top-right');
         }
 
         if ($request->get('reject')) {
+            // set the status of the leave
             $leave->setStatus('Leave application rejected', 'Leave rejected by ' . Auth::user()->name);
             toast('Leave application rejected', 'success', 'top-right');
         }
+        
         return redirect()->back();
 
     }

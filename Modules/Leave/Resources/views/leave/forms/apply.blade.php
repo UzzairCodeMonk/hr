@@ -23,7 +23,9 @@ Leave Application Form
                                 <label for="">{{ucwords(__('leave::leave.leave-type'))}}</label>
                                 <select name="leavetype_id" id="" class="form-control">
                                     @foreach($types as $type)
-                                    <option value="{{$type->id}}">{{$type->name}}</option>
+                                    <option value="{{$type->id}}">{{$type->name}} || Balance:
+                                        @if(DB::table('leavebalances')->where('user_id',auth()->id())->where('leavetype_id',$type->id)->exists())
+                                        {{DB::table('leavebalances')->where('user_id',auth()->id())->where('leavetype_id',$type->id)->first()->balance}}/@endif{{$type->days}} {{str_plural('day',$type->days)}}</option>
                                     @endforeach
                                 </select>
                             </div>
@@ -31,8 +33,8 @@ Leave Application Form
                         <div class="col">
                             <div class="form-group">
                                 <label for="">{{ucwords(__('leave::leave.leave-balance'))}}</label>
-                                <input type="text" name="" id="" value="{{auth()->user()->leaveEntitlement->days?:'' }}"
-                                    class="form-control" disabled>
+                                <p class="form-control-plaintext">{{auth()->user()->leaveEntitlement->days?:'' }} Days
+                                    </p>
                             </div>
                         </div>
                     </div>
