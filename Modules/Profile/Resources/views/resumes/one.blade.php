@@ -107,7 +107,7 @@
                         <h3 class="level-title">{{$skill->skill}}</h3>
                         <div class="progress level-bar">
                             <div class="progress-bar theme-progress-bar" role="progressbar" 
-                            style="width: {{$skill->period}}%" aria-valuenow="{{$skill->period}}" aria-valuemin="0" aria-valuemax="100"></div>
+                            style="width: {{$skill->period}}%" aria-valuenow="{{$skill->period}}" aria-valuemin="0" aria-valuemax="100">{{$skill->period??'N/A'}}%</div>
                         </div>
                     </div>
                     @endforeach
