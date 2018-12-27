@@ -5,8 +5,7 @@
             <th>Name</th>
             <th>Relationship</th>
             <th>IC No.</th>
-            <th>Mobile No.</th>
-            <th>Phone No.</th>
+            <th>Mobile No.</th>            
             <th>Occupation</th>
             <th>Income Tax No.</th>
         </tr>
@@ -35,9 +34,7 @@
             </td>
             <td>
                 <p>{{$record->income_tax_number}} </p>
-            </td>
-            <td>
-            </td>
+            </td>            
         </tr>
         @endforeach
         @else

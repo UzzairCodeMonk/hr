@@ -17,12 +17,15 @@
         <p>{{$record->end_date}}</p>
     </td>
     <td>
+        <p>{!! $record->description!!}</p>
+    </td>
+    <td>
     </td>
 </tr>
 @endforeach
 @else
 <tr>
-    <td colspan="6">
+    <td colspan="7">
         <p class="text-center">No employment history can be found.</p>
     </td>
 </tr>

@@ -15,6 +15,9 @@
         <input type="text" name="end_date[]" class="form-control end-date" />
     </td>
     <td>
+        <textarea name="description[]" class="form-control" id="" cols="30" rows="10"></textarea>
+    </td>
+    <td>
         <a class="deleteRow">
             <input type="button" class="btn btn-block" id="addrow" value="Add Row" />
         </a>

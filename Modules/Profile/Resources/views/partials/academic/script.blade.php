@@ -11,7 +11,8 @@
             cols += '<td>' + counter + '</td>';
             cols += '<td><input type="text" class="form-control" name="institution[]" /></td>';
             cols += '<td><input type="text" class="form-control" name="study_level[]" /></td>';
-            cols += '<td><input type="text" class="form-control start-date" name="start_year[]" /></td>';
+            cols +=
+                '<td><input type="text" class="form-control start-date" name="start_year[]" /></td>';
             cols += '<td><input type="text" class="form-control end-date" name="end_year[]" /></td>';
             cols += '<td><input type="text" class="form-control" name="result[]" /></td>';
             cols += '<td><input type="text" class="form-control" name="course[]" /></td>';
@@ -20,8 +21,12 @@
             newRow.append(cols);
             $("table.dynamic-list").append(newRow);
             counter++;
-            $(".start-date").datepicker();
-            $(".end-date").datepicker();
+            $('.start-date').datepicker({
+                format: "{{config('app.date_format_js')}}",
+            });
+            $('.end-date').datepicker({
+                format: "{{config('app.date_format_js')}}",
+            });
         });
 
         $("table.dynamic-list").on("click", ".ibtnDel", function (event) {

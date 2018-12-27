@@ -1,14 +1,7 @@
 <div class="row">
     <div class="col-4">
-        <h3>{{ucwords(__('profile::personal-detail.avatar'))}}</h3>
-    </div>
-    <div class="col-8">
-    </div>
-</div>
-<hr>
-<div class="row">
-    <div class="col-4">
         <h3>{{ucwords(__('profile::personal-detail.identity'))}}</h3>
+        <img src="{{!empty($personalDetail->avatar) ? asset($personalDetail->avatar):''}}" alt="" width="200px">
     </div>
     <div class="col-8">
         <div class="form-group">

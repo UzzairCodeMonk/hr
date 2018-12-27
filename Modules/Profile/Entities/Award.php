@@ -4,6 +4,7 @@ namespace Modules\Profile\Entities;
 
 use Illuminate\Database\Eloquent\Model;
 use Datakraf\User;
+use Carbon\Carbon;
 
 class Award extends Model
 {

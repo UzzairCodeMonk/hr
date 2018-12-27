@@ -35,7 +35,8 @@ class ExperiencesController extends Controller
                 'company' => $request->company[$i],
                 'position' => $request->position[$i],
                 'start_date' => $request->start_date[$i],
-                'end_date' => $request->end_date[$i],                
+                'end_date' => $request->end_date[$i],    
+                'description' => $request->description[$i]
             ]);
         }
         toast($this->message('save', 'Employment histroy record(s)'), 'success', 'top-right');

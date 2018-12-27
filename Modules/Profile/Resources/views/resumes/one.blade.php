@@ -80,8 +80,8 @@
                     <div class="meta">
                         <div class="upper-row">
                             <h3 class="job-title">{{$exp->position}}</h3>
-                            <div class="time">{{Carbon\Carbon::parse($academic->start_date)->format('Y')}} -
-                                {{Carbon\Carbon::parse($academic->end_date)->format('Y')}} </div>
+                            <div class="time">{{Carbon\Carbon::parse($exp->start_date)->format('Y')}} -
+                                {{Carbon\Carbon::parse($exp->end_date)->format('Y')}} </div>
                         </div>
                         <!--//upper-row-->
                         <div class="company">{{$exp->company}}</div>
