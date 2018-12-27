@@ -42,6 +42,18 @@
 <hr>
 <div class="aside-block">
     <div class="flexbox mb-1">
+        <h6 class="aside-title">Wage Management</h6>
+    </div>
+</div>
+<ul class="nav nav-pills flex-column">
+    <li class="nav-item {{Route::currentRouteName() == 'payslip.index'  ? 'active':''}}">
+        <i class="ti ti-agenda"></i>
+        <a class="nav-link" href="{{route('payslip.index')}}">Payslip Records</a>
+    </li>
+</ul>
+<hr>
+<div class="aside-block">
+    <div class="flexbox mb-1">
         <h6 class="aside-title">Authorization</h6>
     </div>
 </div>

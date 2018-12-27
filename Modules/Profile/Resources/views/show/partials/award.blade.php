@@ -22,9 +22,7 @@
                     </td>
                     <td>
                         <p>{{$record->notes}}</p>
-                    </td>
-                    <td>
-                    </td>
+                    </td>                
                 </tr>
                 @endforeach
                 @else

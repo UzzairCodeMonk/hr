@@ -21,7 +21,7 @@
     <div class="wrapper">
         <div class="sidebar-wrapper">
             <div class="profile-container">
-                <img class="profile" src="assets/images/profile.png" alt="" />
+                <img class="profile" src="{{!empty($personalDetail->avatar) ? asset($personalDetail->avatar):''}}" alt="" width="150px"/>
                 <h1 class="name">{{$personalDetail->name}}</h1>
                 <h3 class="tagline">{{$personalDetail->position->name}}</h3>
             </div>
@@ -45,6 +45,7 @@
                 @foreach($academics as $academic)
                 <div class="item">
                     <h4 class="degree">{{$academic->course}}</h4>
+                    <h5 class="meta">{{$academic->study_level}}</h5>
                     <h5 class="meta">{{$academic->institution}}</h5>
                     <div class="time">{{Carbon\Carbon::parse($academic->start_date)->format('Y')}} -
                         {{Carbon\Carbon::parse($academic->end_date)->format('Y')}} </div>
@@ -63,9 +64,7 @@
             <section class="section summary-section">
                 <h2 class="section-title"><span class="icon-holder"><i class="fas fa-user"></i></span>Career Profile</h2>
                 <div class="summary">
-                    <p>Summarise your career here lorem ipsum dolor sit amet, consectetuer adipiscing elit. You can <a
-                            href="https://themes.3rdwavemedia.com/bootstrap-templates/resume/orbit-free-resume-cv-bootstrap-theme-for-developers/"
-                            target="_blank">download this free resume/CV template here</a>. Aenean commodo ligula eget
+                    <p>Summarise your career here lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget
                         dolor aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur
                         ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu.</p>
                 </div>

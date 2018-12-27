@@ -16,7 +16,7 @@ Records
                     <th>Start Date</th>
                     <th>End Date</th>
                     <th>Total Days</th>
-                    <th>Status</th>
+                    <th class="text-center">Status</th>
                     <th>Actions</th>
                 </tr>
             </thead>
@@ -28,7 +28,7 @@ Records
                     <td>{{$leave->start_date}}</td>
                     <td>{{$leave->end_date}}</td>
                     <td>{{$leave->days_taken}}</td>
-                    <td>{{$leave->status()->reason}}</td>
+                    <td class="text-center"><span class="badge">{{$leave->status()->reason}}</span></td>
                     <td>
                         <a href="{{URL::signedRoute('leave.employee.show',['id'=>$leave->id])}}" class="btn btn-link btn-secondary btn-xs text-dark">View</a>
                         <form action="{{route('leave.destroy',['id'=>$leave->id])}}" method="POST" class="form-inline leave-record">

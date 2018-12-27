@@ -6455,7 +6455,7 @@ progress {
   line-height: inherit;
   color: #8b95a5;
   letter-spacing: 1px;
-  border-radius: 2px;
+  border-radius: 4px;
   background-color: #fff;
   border-color: #ebebeb;
   outline: none !important;
@@ -13001,7 +13001,7 @@ input[type=number]::-webkit-outer-spin-button {
 
 .form-control {
   border-color: #ebebeb;
-  border-radius: 2px;
+  border-radius: 4px;
   color: #8b95a5;
   padding: 5px 12px;
   font-size: 14px;
@@ -18680,7 +18680,7 @@ ul.flexbox {
 
 .topbar-btn {
   display: inline-block;
-  font-size: 1rem;
+  font-size: 14px;
   font-weight: 400;
   line-height: 64px;
   padding: 0 12px;
@@ -18868,7 +18868,7 @@ ul.flexbox {
 }
 
 .topbar-btns .topbar-btn {
-  font-size: 1.125rem;
+  font-size: 14px;
   min-width: 48px;
   color: rgba(77, 82, 89, 0.4);
 }
@@ -20380,7 +20380,7 @@ ul.flexbox {
 
 .card {
   border: 0;
-  border-radius: 0px;
+  border-radius: 12px;
   margin-bottom: 30px;
   -webkit-box-shadow: 0 2px 3px rgba(0, 0, 0, 0.03);
           box-shadow: 0 2px 3px rgba(0, 0, 0, 0.03);

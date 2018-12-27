@@ -8,6 +8,11 @@ Leave Application Form
 <div class="card">
     <div class="card-header">
         <h3>Leave Application Form</h3>
+        <div class="card-options">
+                <button type="button" class="btn btn-sm btn-info" data-toggle="modal"
+                data-target="#leave-balance">
+                View leave balance</button>
+        </div>
     </div>
     <div class="card-body">
         @if(Auth::user()->hasRole('Admin'))
@@ -30,7 +35,7 @@ Leave Application Form
                                                 <span class="badge badge-dot badge-lg badge-success"></span>
                                             </div>
                                             <div class="timeline-content">
-    <time datetime="">{{Carbon\Carbon::createFromFormat('Y-m-d H:m:s',$status['created_at'])->toDayDateTimeString()}}</time>
+                                                <time datetime="">{{Carbon\Carbon::createFromFormat("Y-m-d H:m:s",$status['created_at'])->toDayDateTimeString()}}</time>
                                                 <p>{{$status->reason}}</p>
                                             </div>
                                         </li>
@@ -46,9 +51,7 @@ Leave Application Form
                             <div class="col">
                                 <div class="form-group">
                                     <label for="">Applicant</label>
-                                    <p>{{$leave->user->name}} (Leave Balance:
-                                        {{$leave->user->leaveEntitlement->days?:'' }}
-                                        {{str_plural('day',$leave->user->leaveEntitlement->days)}})</p>
+                                    <p>{{$leave->user->name}}</p>
                                 </div>
                             </div>
                             <div class="col">
@@ -103,21 +106,55 @@ Leave Application Form
                         </div>
                         @endif
                         @role('Admin')
-                        
+                        @if(empty($leave->status_code))
                         <div class="row">
                             <div class="col">
                                 <div class="form-group pull-right">
-                                    <button type="submit" name="approve" class="btn btn-primary" value="1">Approve</button>
+                                    <button type="submit" name="approve" class="btn btn-success" value="1">Approve</button>
                                     <button type="submit" name="reject" class="btn btn-danger" value="1">Reject</button>
                                 </div>
                             </div>
                         </div>
-                        
+                        @endif
                         @endrole
                     </div>
                 </div>
             </form>
 
+    </div>
+</div>
+<div class="modal fade" id="leave-balance" tabindex="-1" role="dialog" aria-labelledby="leave-balance" aria-hidden="true">
+    <div class="modal-dialog modal-xl" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">{{$leave->user->personalDetail->name}}'s Leave Balance</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <table class="table table-striped table-bordered">
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Name</th>
+                            <th>Balance</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach($types as $key => $type)
+                        <tr>
+                            <td>{{++$key}}</td>
+                            <td>{{$type->name}}</td>
+                            <td>@if(DB::table('leavebalances')->where('user_id',$leave->user_id)->where('leavetype_id',$type->id)->exists())
+                                {{DB::table('leavebalances')->where('user_id',$leave->user_id)->where('leavetype_id',$type->id)->first()->balance}}/@endif{{$type->days}}
+                                {{str_plural('day',$type->days)}}</td>
+                        </tr>
+                        @endforeach
+                    </tbody>
+                </table>
+            </div>           
+        </div>
     </div>
 </div>
 @endsection

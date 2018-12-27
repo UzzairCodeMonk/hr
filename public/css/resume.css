@@ -12,7 +12,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 a {
-  color: #2d7788;
+  color: #E75480;
   -webkit-transition: all 0.4s ease-in-out;
   -moz-transition: all 0.4s ease-in-out;
   -ms-transition: all 0.4s ease-in-out;
@@ -33,7 +33,7 @@ p {
 }
 
 .wrapper {
-  background: #42A8C0;
+  background: #E75480;
   max-width: 960px;
   margin: 0 auto;
   margin-top: 30px;
@@ -44,7 +44,7 @@ p {
 }
 
 .sidebar-wrapper {
-  background: #42A8C0;
+  background: #E75480;
   position: absolute;
   right: 0;
   width: 240px;
@@ -179,7 +179,7 @@ p {
   text-transform: uppercase;
   font-size: 20px;
   font-weight: 500;
-  color: #2d7788;
+  color: #E75480;
   position: relative;
   margin-top: 0;
   margin-bottom: 20px;
@@ -199,7 +199,7 @@ p {
   -moz-background-clip: padding;
   -webkit-background-clip: padding-box;
   background-clip: padding-box;
-  background: #2d7788;
+  background: #E75480;
   text-align: center;
   font-size: 16px;
   position: relative;
@@ -285,7 +285,7 @@ p {
 }
 
 .skillset .theme-progress-bar {
-  background: #68bacd;
+  background: #E75480;
 }
 
 .footer {
