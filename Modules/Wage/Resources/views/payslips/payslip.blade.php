@@ -1,191 +1,191 @@
-<!DOCTYPE html>
-<html lang="en">
+@extends('backend.master')
+@section('content')
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
-    <style>
-        .invoice-box {
-  max-width: 800px;
-  margin: auto;
-  padding: 30px;
-  border: 1px solid #eee;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.15);
-  font-size: 16px;
-  line-height: 24px;
-  font-family: "Helvetica Neue", "Helvetica", Helvetica, Arial, sans-serif;
-  color: #555;
-}
-
-.invoice-box table {
-  width: 100%;
-  line-height: inherit;
-  text-align: left;
-}
-
-.invoice-box table td {
-  padding: 5px;
-  vertical-align: top;
-}
-
-.invoice-box table tr td:nth-child(n + 2) {
-  text-align: right;
-}
-
-.invoice-box table tr.top table td {
-  padding-bottom: 20px;
-}
-
-.invoice-box table tr.top table td.title {
-  font-size: 45px;
-  line-height: 45px;
-  color: #333;
-}
-
-.invoice-box table tr.information table td {
-  padding-bottom: 40px;
-}
-
-.invoice-box table tr.heading td {
-  background: #eee;
-  border-bottom: 1px solid #ddd;
-  font-weight: bold;
-}
-
-.invoice-box table tr.details td {
-  padding-bottom: 20px;
-}
-
-.invoice-box table tr.item td {
-  border-bottom: 1px solid #eee;
-}
-
-.invoice-box table tr.item.last td {
-  border-bottom: none;
-}
-
-.invoice-box table tr.item input {
-  padding-left: 5px;
-}
-
-.invoice-box table tr.item td:first-child input {
-  margin-left: -5px;
-  width: 100%;
-}
-
-.invoice-box table tr.total td:nth-child(2) {
-  border-top: 2px solid #eee;
-  font-weight: bold;
-}
-
-.invoice-box input[type="number"] {
-  width: 60px;
-}
-
-@media only screen and (max-width: 600px) {
-  .invoice-box table tr.top table td {
-    width: 100%;
-    display: block;
-    text-align: center;
-  }
-
-  .invoice-box table tr.information table td {
-    width: 100%;
-    display: block;
-    text-align: center;
-  }
-}
-
-/** RTL **/
-.rtl {
-  direction: rtl;
-  font-family: Tahoma, "Helvetica Neue", "Helvetica", Helvetica, Arial,
-    sans-serif;
-}
-
-.rtl table {
-  text-align: right;
-}
-
-.rtl table tr td:nth-child(2) {
-  text-align: left;
-}
-</style>
-</head>
-
-<body>
-    <div class="invoice-box">
-        <table cellpadding="0" cellspacing="0">
-            <tr class="top">
-                <td colspan="4">
-                    <table>
-                        <tr>
-                            <td class="title">
-                                <img src="https://www.sparksuite.com/images/logo.png" style="width:100%; max-width:300px;">
-                            </td>
-
-                            <td>
-                                Invoice #: 123<br> Created: January 1, 2015<br> Due: February 1, 2015
-                            </td>
-                        </tr>
-                    </table>
-                </td>
-            </tr>
-
-            <tr class="information">
-                <td colspan="4">
-                    <table>
-                        <tr>
-                            <td>
-                                Sparksuite, Inc.<br> 12345 Sunny Road<br> Sunnyville, CA 12345
-                            </td>
-
-                            <td>
-                                Acme Corp.<br> John Doe<br> john@example.com
-                            </td>
-                        </tr>
-                    </table>
-                </td>
-            </tr>
-
-            <tr class="heading">
-                <td colspan="3">Payment Method</td>
-                <td>Check #</td>
-            </tr>
-
-            <tr class="details">
-                <td colspan="3">Check</td>
-                <td>1000</td>
-            </tr>
-
-            <tr class="heading">
-                <td>Item</td>
-                <td>Unit Cost</td>
-                <td>Quantity</td>
-                <td>Price</td>
-            </tr>
-
-            <tr class="item" v-for="item in items">
-                <td><input v-model="item.description" /></td>
-                <td>$<input type="number" v-model="item.price" /></td>
-                <td><input type="number" v-model="item.quantity" /></td>
-                <td>${{ item.price * item.quantity | currency }}</td>
-            </tr>
-
-            <tr>
-                <td colspan="4">
-                    <button class="btn-add-row" @click="addRow">Add row</button>
-                </td>
-            </tr>
-
-            <tr class="total">
-                <td colspan="3"></td>
-                <td>Total: ${{ total | currency }}</td>
-            </tr>
-        </table>
+<div class="card">
+    <div class="card-header">
+        <h3 class="card-title">
+            {{getMonthNameBasedOnInt($payslip->month)}} {{$payslip->year}} Payslip
+        </h3>
     </div>
-</body>
+    <div class="card-body">
+        <div class="row">
+            <div class="col">
+                <h6>{{$payslip->user->personalDetail->name}}</h6>
+                <table>
+                    <tr>
+                        <td><strong>Employee #:</strong></td>
+                        <td></td>
+                        <td>{{$payslip->user->personalDetail->staff_number ?? 'N/A'}}</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Position:</strong></td>
+                        <td></td>
+                        <td>{{$payslip->user->personalDetail->position->name ?? 'N/A'}}</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Passport/IC No:</strong></td>
+                        <td></td>
+                        <td>{{$payslip->user->personalDetail->ic_number ?? 'N/A'}} </td>
+                    </tr>
+                    <tr>
+                        <td><strong>Income Tax No:</strong></td>
+                        <td></td>
+                        <td>{{$payslip->user->personalDetail->income_tax_no ?? 'N/A'}}</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Cost Center:</strong></td>
+                        <td></td>
+                        <td>Application Development</td>
+                    </tr>
+                </table>
+            </div>
+            <div class="col">
+                <div class="logo-text pull-right" style="text-align:justify;width:270px">
+                    <img src="https://www.datakraf.com/images/logo-footer.png" alt="" style="display:block;margin:0 auto">
+                </div>
+                <br><br>
+                <p class="text-right mt-3">
+                    Suite 7-1, Binjai 8, <br>Lorong Binjai Off Jalan Binjai,<br> KLCC, 50450, Kuala Lumpur, Malaysia.
+                </p>
+            </div>
+        </div>
+        <hr>
+        <div class="row">
+            <div class="col">
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th class="text-center" colspan="2">Earnings</th>
+                        </tr>
+                        <tr>
+                            <th>Description</th>
+                            <th class="text-right">Amount (MYR)</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Basic Salary</td>
+                            <td class="text-right">{{$payslip->basic_salary ?? 'N/A'}}</td>
+                        </tr>
+                        <tr>
+                            <td>Allowance</td>
+                            <td class="text-right">{{$payslip->allowance ?? 'N/A'}}</td>
+                        </tr>
+                        <tr>
+                            <td colspan="2" class="text-right"><strong>Total: {{$payslip->total_earnings ?? 'N/A'}}</strong></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="col">
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th class="text-center" colspan="2">Employee Contributions</th>
+                        </tr>
+                        <tr>
+                            <th>Description</th>
+                            <th class="text-right">This Pay (MYR)</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>EPF</td>
+                            <td class="text-right">{{$payslip->epf_employee ?? 'N/A'}}</td>
+                        </tr>
+                        <tr>
+                            <td>SOCSO</td>
+                            <td class="text-right">{{$payslip->socso_employee ?? 'N/A'}}</td>
+                        </tr>
+                        <tr>
+                            <td>EIS</td>
+                            <td class="text-right">{{$payslip->socso_eis_employee ?? 'N/A'}}</td>
+                        </tr>
+                        <tr>
+                            <td colspan="2" class="text-right"><strong>Total: {{$payslip->total_deductions ?? 'N/A'}}</strong></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th class="text-center" colspan="2">Employer Contributions</th>
+                        </tr>
+                        <tr>
+                            <th>Description</th>
+                            <th class="text-right">This Pay (MYR)</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>EPF</td>
+                            <td class="text-right">{{$payslip->epf_employer ?? 'N/A'}}</td>
+                        </tr>
+                        <tr>
+                            <td>SOCSO</td>
+                            <td class="text-right">{{$payslip->socso_employer ?? 'N/A'}}</td>
+                        </tr>
+                        <tr>
+                            <td>EIS</td>
+                            <td class="text-right">{{$payslip->socso_eis_employer ?? 'N/A'}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="col">
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th class="text-center" colspan="2">Summary</th>
+                        </tr>
+                        <tr>
+                            <th>Description</th>
+                            <th class="text-right">This Pay (MYR)</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Total Earnings</td>
+                            <td class="text-right">{{$payslip->total_earnings ?? 'N/A'}}</td>
+                        </tr>
+                        <tr>
+                            <td>Total Deductions</td>
+                            <td class="text-right">{{$payslip->total_deductions ?? 'N/A'}}</td>
+                        </tr>
+                        <tr>
+                            <td>Net Pay</td>
+                            <td class="text-right"><strong>{{$payslip->net_wage ?? 'N/A'}}</strong></td>
+                        </tr>
 
-</html>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th class="text-center" colspan="2">Remarks</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>
+                                Remarks
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+
+@endsection

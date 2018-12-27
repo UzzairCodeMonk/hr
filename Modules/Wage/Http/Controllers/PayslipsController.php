@@ -40,10 +40,15 @@ class PayslipsController extends Controller
 
     public function show($id)
     {
-        $payslip = Payslip::where('user_id', $id)->get();   
+        $payslip = Payslip::where('user_id', $id)->get();
         return view('wage::payslips.show', ['user' => User::find($id), 'payslip' => $payslip]);
     }
 
+    public function viewPayslip($id, $month, $year)
+    {
+        $payslip = Payslip::where('user_id', $id)->where('month', $month)->where('year', $year)->first();
+        return view('wage::payslips.payslip', ['payslip' => $payslip]);
+    }
     public function generatePayslip(Request $request)
     {
         $payslip = Payslip::create($this->data);
@@ -54,7 +59,7 @@ class PayslipsController extends Controller
         toast('payslip generated', 'success', 'top-right');
         return back();
 
-    }    
+    }
 
     public function calculateTotalEarnings($request)
     {

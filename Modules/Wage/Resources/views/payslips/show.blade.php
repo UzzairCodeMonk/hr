@@ -30,7 +30,7 @@ Payslip Records
                             <td>{{getMonthNameBasedOnInt($p->month)}}</td>
                             <td>{{$p->year}}</td>
                             <td class="text-center">
-                                <button class="btn btn-link btn-secondary btn-sm">View</button>
+                                <a href="{{URL::signedRoute('payslip.employee.record',['id'=>$user->id,'month'=>$p->month,'year'=>$p->year])}}" class="btn btn-link btn-secondary btn-sm">View</a>
                             </td>
                         </tr>
                         @endforeach
