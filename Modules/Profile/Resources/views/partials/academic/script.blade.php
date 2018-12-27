@@ -12,8 +12,8 @@
             cols += '<td><input type="text" class="form-control" name="institution[]" /></td>';
             cols += '<td><input type="text" class="form-control" name="study_level[]" /></td>';
             cols +=
-                '<td><input type="text" class="form-control start-date" name="start_year[]" /></td>';
-            cols += '<td><input type="text" class="form-control end-date" name="end_year[]" /></td>';
+                '<td><input type="text" class="form-control start-date" name="start_date[]" /></td>';
+            cols += '<td><input type="text" class="form-control end-date" name="end_date[]" /></td>';
             cols += '<td><input type="text" class="form-control" name="result[]" /></td>';
             cols += '<td><input type="text" class="form-control" name="course[]" /></td>';
             cols +=
