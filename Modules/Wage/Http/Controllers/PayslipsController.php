@@ -26,7 +26,8 @@ class PayslipsController extends Controller
             'epf_employee' => $request->epf_employee,
             'socso_employer' => $request->socso_employer,
             'socso_employee' => $request->socso_employee,
-            'socso_eis' => $request->socso_eis,
+            'socso_eis_employer' => $request->socso_eis_employer,
+            'socso_eis_employee' => $request->socso_eis_employee,
             'income_tax' => $request->income_tax,
             'remarks' => $request->remarks,
         ];
@@ -39,7 +40,7 @@ class PayslipsController extends Controller
 
     public function show($id)
     {
-        $payslip = Payslip::where('user_id', 'id')->get();        
+        $payslip = Payslip::where('user_id', $id)->get();   
         return view('wage::payslips.show', ['user' => User::find($id), 'payslip' => $payslip]);
     }
 
@@ -53,7 +54,7 @@ class PayslipsController extends Controller
         toast('payslip generated', 'success', 'top-right');
         return back();
 
-    }
+    }    
 
     public function calculateTotalEarnings($request)
     {
@@ -69,10 +70,10 @@ class PayslipsController extends Controller
     {
         $epf_employee = $request->epf_employee;
         $socso_employee = $request->socso_employee;
-        $socso_eis = $request->socso_eis;
+        $socso_eis_employee = $request->socso_eis_employee;
         $income_tax = $request->income_tax;
 
-        $totalDeductions = $epf_employee + $socso_employee + $socso_eis + $income_tax;
+        $totalDeductions = $epf_employee + $socso_employee + $socso_eis_employee + $income_tax;
         return $totalDeductions;
     }
 

@@ -25,7 +25,8 @@ class CreatePayslipsTable extends Migration
             $table->decimal('epf_employee', 13, 2)->nullable();
             $table->decimal('socso_employer', 13, 2)->nullable();
             $table->decimal('socso_employee', 13, 2)->nullable();
-            $table->decimal('socso_eis', 13, 2)->nullable();
+            $table->decimal('socso_eis_employer', 13, 2)->nullable();
+            $table->decimal('socso_eis_employee', 13, 2)->nullable();
             $table->decimal('income_tax', 13, 2)->nullable();
             $table->decimal('total_earnings', 13, 2)->nullable();
             $table->decimal('total_deductions', 13, 2)->nullable();

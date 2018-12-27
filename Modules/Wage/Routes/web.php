@@ -21,7 +21,9 @@ Route::prefix('wage')->group(function () {
             Route::get('{id}/view',['uses' => 'PayslipsController@show','as'=>'payslip.show'])->middleware('signed');
             Route::post('generate',['uses'=>'PayslipsController@generatePayslip','as'=>'payslip.generate']);
         });
+        
         //generate payslip
         //generate 
     });
+    Route::view('payslip','wage::payslips.payslip');
 });

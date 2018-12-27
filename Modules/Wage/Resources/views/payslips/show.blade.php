@@ -19,19 +19,26 @@ Payslip Records
                             <th>#</th>
                             <th>Month</th>
                             <th>Year</th>
-                            <th>Actions</th>
+                            <th class="text-center">Actions</th>
                         </tr>
                     </thead>
                     <tbody>
+                        @if($payslip->count() > 0)
                         @foreach($payslip as $key=>$p)
                         <tr>
                             <td>{{++$key}}</td>
-                            <td>{{Carbon\Carbon::parse($p->month)->format}}</td>
-                            <td></td>
-                            <td>
+                            <td>{{getMonthNameBasedOnInt($p->month)}}</td>
+                            <td>{{$p->year}}</td>
+                            <td class="text-center">
                                 <button class="btn btn-link btn-secondary btn-sm">View</button>
                             </td>
                         </tr>
+                        @endforeach
+                        @else
+                            <tr>
+                                <td colspan="4" class="text-center">No payslip record found</td>
+                            </tr>
+                        @endif
                     </tbody>
                 </table>
 
@@ -100,10 +107,18 @@ Payslip Records
                     <div class="row">
                         <div class="col">
                             <div class="form-group">
-                                <label for="">SOCSO Contribution (EIS)</label>
-                                <input type="text" class="form-control" name="socso_eis">
+                                <label for="">SOCSO Contribution EIS (Employer)</label>
+                                <input type="text" class="form-control" name="socso_eis_employer">
                             </div>
                         </div>
+                        <div class="col">
+                            <div class="form-group">
+                                <label for="">SOCSO Contribution EIS (Employee)</label>
+                                <input type="text" class="form-control" name="socso_eis_employee">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
                         <div class="col">
                             <div class="form-group">
                                 <label for="">EA Income Tax</label>
