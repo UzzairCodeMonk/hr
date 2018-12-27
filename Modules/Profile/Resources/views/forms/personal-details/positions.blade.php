@@ -10,13 +10,13 @@ Position Categories
     <div class="card-body">
 
         <div class="row">
-            <div class="col">
+            <div class="col-7">
                 <h4>Position Categories</h4>
                 @isset($results)
-                @include('components.table.table',['entity'=>'position','deleteAction'=>$deleteAction])
+                @include('components.table.table',['entity'=>'position','deleteAction'=>$deleteAction,'datatable'=>true])
                 @endisset
             </div>
-            <div class="col">
+            <div class="col-5">
                 <h4>{{isset($entity)?'Update':'Create'}} Position{{isset($entity)?': '.$entity->name:''}}</h4>
                 @include('profile::partials.positions.create-update')
             </div>
@@ -26,5 +26,13 @@ Position Categories
 </div>
 @endsection
 @section('page-js')
+@include('asset-partials.datatable')
 @include('components.form.confirmDeleteOnSubmission',['entity'=>'position','action'=>'delete'])
+<script type="text/javascript">
+$(document).ready(function(){
+    $('.datatable').DataTable({
+        pageLength:7
+    });
+});
+</script>
 @endsection

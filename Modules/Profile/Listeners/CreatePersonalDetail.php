@@ -34,7 +34,10 @@ class CreatePersonalDetail
             'user_id' => $event->user->id,
             'avatar' => 'images/avatar.png',
             'name' => $event->user->name,
+            'ic_number' => $this->request->ic_number,
             'staff_number' => $this->request->staff_number,
+            'socso_id' => $this->request->socso_id,
+            'epf_id' => $this->request->epf_id,
             'position_id' => $this->request->position_id,
         ]);
     }

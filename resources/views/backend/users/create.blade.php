@@ -35,11 +35,38 @@ Add Employees
                         @endif
                     </div>
                     <div class="form-group">
+                        <label for="">IC No.</label>
+                        <input type="text" name="ic_number" id="" class="form-control">
+                        @if ($errors->has('ic_number'))
+                        <span class="invalid-feedback">
+                            <strong>{{ $errors->first('ic_number') }}</strong>
+                        </span>
+                        @endif
+                    </div>
+                    <div class="form-group">
                         <label for="">Staff No.</label>
                         <input type="text" name="staff_number" id="" class="form-control">
                         @if ($errors->has('staff_number'))
                         <span class="invalid-feedback">
                             <strong>{{ $errors->first('staff_number') }}</strong>
+                        </span>
+                        @endif
+                    </div>
+                    <div class="form-group">
+                        <label for="">EPF No.</label>
+                        <input type="text" name="epf_id" id="" class="form-control">
+                        @if ($errors->has('epf_id'))
+                        <span class="invalid-feedback">
+                            <strong>{{ $errors->first('epf_id') }}</strong>
+                        </span>
+                        @endif
+                    </div>
+                    <div class="form-group">
+                        <label for="">SOCSO No.</label>
+                        <input type="text" name="socso_id" id="" class="form-control">
+                        @if ($errors->has('socso_id'))
+                        <span class="invalid-feedback">
+                            <strong>{{ $errors->first('socso_id') }}</strong>
                         </span>
                         @endif
                     </div>

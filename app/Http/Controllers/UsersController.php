@@ -9,6 +9,7 @@ use Modules\Profile\Entities\Position;
 use Datakraf\Http\Requests\CreateEmployeeRequest;
 use Modules\Profile\Entities\PersonalDetail;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Mail;
 
 class UsersController extends Controller
 {
@@ -32,7 +33,7 @@ class UsersController extends Controller
                 'class' => 'btn btn-link text-dark',
                 'id' => ''
             ],
-            
+
         ];
         $this->deleteAction = [
             'delete' => [
@@ -72,16 +73,29 @@ class UsersController extends Controller
             'password' => Hash::make($request->password),
         ];
         $user = User::create($data);
-
+        $this->sendCreateUserEmail($data['email']);
         toast('Employee created successfully', 'success', 'top-right');
         return back();
     }
-  
+
 
     public function destroy($id)
     {
         $this->user->find($id)->delete();
         toast('Employee deleted successfully', 'success', 'top');
         return back();
+    }
+
+    public function sendCreateUserEmail($email)
+    {
+        Mail::send('emails.master', [
+            'title' => 'Welcome!',
+            'content' => 'You\'ve been registered to our Human Resource Management System! We hope you enjoy your time with us. Login your account and update your profile.',
+            'email' => $email
+        ], function ($message) use ($email) {
+            $message->from('admin@datakraf.com', 'Datakraf Admin');
+            $message->subject('Welcome aboard!');
+            $message->to($email);
+        });
     }
 }
