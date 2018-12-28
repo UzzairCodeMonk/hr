@@ -59,7 +59,7 @@
 </div>
 <ul class="nav nav-pills flex-column">
     <li class="nav-item {{Route::currentRouteName() == 'siteconfig.index'  ? 'active':''}}">
-        <i class="ti ti-id-badge"></i>
+        <i class="ti ti-settings"></i>
         <a class="nav-link" href="{{route('siteconfig.index')}} ">Site Configurations</a>
     </li>
     <li class="nav-item {{Route::currentRouteName() == 'roles.index'  ? 'active':''}}">
