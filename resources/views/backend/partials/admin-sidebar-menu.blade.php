@@ -54,10 +54,14 @@
 <hr>
 <div class="aside-block">
     <div class="flexbox mb-1">
-        <h6 class="aside-title">Authorization</h6>
+        <h6 class="aside-title">Configurations</h6>
     </div>
 </div>
 <ul class="nav nav-pills flex-column">
+    <li class="nav-item {{Route::currentRouteName() == 'siteconfig.index'  ? 'active':''}}">
+        <i class="ti ti-id-badge"></i>
+        <a class="nav-link" href="{{route('siteconfig.index')}} ">Site Configurations</a>
+    </li>
     <li class="nav-item {{Route::currentRouteName() == 'roles.index'  ? 'active':''}}">
         <i class="ti ti-id-badge"></i>
         <a class="nav-link" href="{{route('roles.index')}} ">Roles & Permissions</a>
