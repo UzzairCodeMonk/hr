@@ -9,13 +9,13 @@ trait AlertMessage
     {
         switch ($action) {
             case 'save':
-                return $entity . ' has been saved';
+                return $entity . ' saved';
                 break;
             case 'update':
-                return $entity . ' has been updated';
+                return $entity . ' updated';
                 break;
             case 'delete':
-                return $entity . ' has been deleted';
+                return $entity . ' deleted';
                 break;
             default:
                 return 'error in displaying status';

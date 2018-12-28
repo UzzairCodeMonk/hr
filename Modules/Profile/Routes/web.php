@@ -11,28 +11,38 @@ Route::group(['prefix' => 'profile', 'middleware' => 'auth'], function () {
         Route::group(['prefix' => 'family'], function () {
             Route::get('/', ['uses' => 'FamiliesController@index', 'as' => 'family.index']);
             Route::post('store', ['uses' => 'FamiliesController@store', 'as' => 'family.store']);
+            Route::get('{id}/edit', ['uses' => 'FamiliesController@edit', 'as' => 'family.edit']);
+            Route::post('{id}/update', ['uses' => 'FamiliesController@update', 'as' => 'family.update']);
         });
 
     // academic
         Route::group(['prefix' => 'academic'], function () {
             Route::get('/', ['uses' => 'AcademicsController@index', 'as' => 'academic.index']);
             Route::post('store', ['uses' => 'AcademicsController@store', 'as' => 'academic.store']);
+            Route::get('{id}/edit', ['uses' => 'AcademicsController@edit', 'as' => 'academic.edit']);
+            Route::post('{id}/update', ['uses' => 'AcademicsController@update', 'as' => 'academic.update']);
         });
     
     // experience
         Route::group(['prefix' => 'employment-history'], function () {
             Route::get('/', ['uses' => 'ExperiencesController@index', 'as' => 'experience.index']);
             Route::post('store', ['uses' => 'ExperiencesController@store', 'as' => 'experience.store']);
+            Route::get('{id}/edit', ['uses' => 'ExperiencesController@edit', 'as' => 'experience.edit']);
+            Route::post('{id}/update', ['uses' => 'ExperiencesController@update', 'as' => 'experience.update']);
         });
 
         Route::group(['prefix' => 'skills'], function () {
             Route::get('/', ['uses' => 'SkillsController@index', 'as' => 'skill.index']);
             Route::post('store', ['uses' => 'SkillsController@store', 'as' => 'skill.store']);
+            Route::get('{id}/edit', ['uses' => 'SkillsController@edit', 'as' => 'skill.edit']);
+            Route::post('{id}/update', ['uses' => 'SkillsController@update', 'as' => 'skill.update']);
         });
 
         Route::group(['prefix' => 'awards'], function () {
             Route::get('/', ['uses' => 'AwardsController@index', 'as' => 'award.index']);
             Route::post('store', ['uses' => 'AwardsController@store', 'as' => 'award.store']);
+            Route::get('{id}/edit', ['uses' => 'AwardsController@edit', 'as' => 'award.edit']);
+            Route::post('{id}/update', ['uses' => 'AwardsController@update', 'as' => 'award.update']);
         });
     });
 

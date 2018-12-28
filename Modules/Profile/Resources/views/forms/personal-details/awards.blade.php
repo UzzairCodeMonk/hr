@@ -11,6 +11,9 @@ Award Records
             </button>
         </div>
     </div>
+    @isset($award)
+    @include('profile::partials.awards.edit')
+    @endisset
     <div class="row">
         <div class="col">
             <table class="table table-bordered mt-3">

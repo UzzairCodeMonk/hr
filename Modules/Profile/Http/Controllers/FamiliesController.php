@@ -72,9 +72,12 @@ class FamiliesController extends Controller
      * Show the form for editing the specified resource.
      * @return Response
      */
-    public function edit()
-    {
-        return view('profile::edit');
+    public function edit($id)
+    {   
+        $family = Family::find($id);
+        $familyRecord = $this->familyRecord->where('user_id', auth()->id())->get();
+        $types = $this->type->all();
+        return view('profile::forms.personal-details.family-details', compact('familyRecord','types','family'));
     }
 
     /**
@@ -82,8 +85,11 @@ class FamiliesController extends Controller
      * @param  Request $request
      * @return Response
      */
-    public function update(Request $request)
+    public function update(Request $request, $id)
     {
+        Family::find($id)->update($request->all());
+        toast($this->message('update', 'Family record'), 'success', 'top-right');
+        return redirect()->route('family.index');
     }
 
     /**

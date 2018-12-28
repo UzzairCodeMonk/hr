@@ -13,7 +13,7 @@
 
 Route::prefix('wage')->group(function () {
     Route::get('/', 'WagesController@index');
-
+    Route::get('{id}/view',['uses' => 'PayslipsController@viewMyPayslip','as'=>'payslip.my.payslip'])->middleware('signed');
     Route::group(['prefix' => 'administration'], function () {
         //get users record
         Route::group(['prefix' => 'payslips'], function () {

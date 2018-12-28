@@ -5,24 +5,25 @@
         {{++$key}}
     </td>
     <td>
-        <p>{{$record->name}}</p>
+        <p>{{$record->name ?? 'N/A'}}</p>
     </td>
     <td>
-        <p>{{$record->type->name}}</p>
+        <p>{{$record->type->name ?? 'N/A'}}</p>
     </td>
     <td>
-        <p>{{$record->ic_number}}</p>
+        <p>{{$record->ic_number ?? 'N/A'}}</p>
     </td>
     <td>
-        <p>{{$record->mobile_number}}</p>
+        <p>{{$record->mobile_number ?? 'N/A'}}</p>
     </td>
     <td>
-        <p>{{$record->occupation}}</p>
+        <p>{{$record->occupation ?? 'N/A'}}</p>
     </td>
     <td>
-        <p>{{$record->income_tax_number}} </p>
+        <p>{{$record->income_tax_number ?? 'N/A'}} </p>
     </td>
-    <td>
+    <td class="text-center">
+        <a href="{{route('family.edit',['id'=>$record->id])}}" class="btn btn-primary btn-sm">Edit</a>
     </td>
 </tr>
 @endforeach

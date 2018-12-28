@@ -39,7 +39,25 @@ class ExperiencesController extends Controller
                 'description' => $request->description[$i]
             ]);
         }
-        toast($this->message('save', 'Employment histroy record(s)'), 'success', 'top-right');
+        toast($this->message('save', 'Employment histroy'), 'success', 'top-right');
         return redirect()->back();
+    }
+
+    public function edit($id)
+    {   $expPersonal = Experience::find($id);
+        $experience = $this->experience->where('user_id', auth()->id())->get();
+        return view('profile::forms.personal-details.experience', compact('experience','expPersonal'));
+    }
+
+    /**
+     * Update the specified resource in storage.
+     * @param  Request $request
+     * @return Response
+     */
+    public function update(Request $request, $id)
+    {
+        Experience::find($id)->update($request->all());
+        toast($this->message('update', 'Employment history'), 'success', 'top-right');
+        return redirect()->route('experience.index');
     }
 }

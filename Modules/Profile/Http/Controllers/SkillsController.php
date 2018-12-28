@@ -32,11 +32,30 @@ class SkillsController extends Controller
             $this->skill->create([
                 'user_id' => auth()->id(),
                 'skill' => $request->skill[$i],
-                'period'=>$request->period[$i]
+                'period' => $request->period[$i]
             ]);
         }
         toast($this->message('save', 'Skill record(s)'), 'success', 'top-right');
         return redirect()->back();
+    }
+
+    public function edit($id)
+    {
+        $skill = Skill::find($id);
+        $skills = $this->skill->where('user_id', auth()->id())->get();
+        return view('profile::forms.personal-details.skills', compact('skills','skill'));
+    }
+
+    /**
+     * Update the specified resource in storage.
+     * @param  Request $request
+     * @return Response
+     */
+    public function update(Request $request, $id)
+    {
+        Skill::find($id)->update($request->all());
+        toast($this->message('update', 'Skill record'), 'success', 'top-right');
+        return redirect()->route('skill.index');
     }
 
 }

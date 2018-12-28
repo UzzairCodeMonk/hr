@@ -13,7 +13,7 @@ Leave Categories
             <div class="col">
                 <h4>Leave Categories</h4>
                 @isset($results)
-                @include('components.table.table',['entity'=>'leaveType','deleteAction'=>$deleteAction])
+                @include('components.table.table',['entity'=>'leaveType','deleteAction'=>$deleteAction,'datatable'=>true])
                 @endisset
             </div>
             <div class="col">
@@ -26,5 +26,14 @@ Leave Categories
 </div>
 @endsection
 @section('page-js')
+@include('asset-partials.datatable')
 @include('components.form.confirmDeleteOnSubmission',['entity'=>'leaveType','action'=>'delete'])
+<script>
+    $(document).ready(function () {
+        $('.datatable').DataTable({
+            pageLength: 7
+        });
+    });
+
+</script>
 @endsection

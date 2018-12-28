@@ -1,7 +1,6 @@
 <tr>
     <td>1</td>
-    <td>
-        <input type="hidden" name="user_id[]">
+    <td>        
         <input type="text" name="institution[]" class="form-control" />
     </td>
     <td>

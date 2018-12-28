@@ -11,6 +11,9 @@
             </button>
         </div>
     </div>
+    @isset($expPersonal)
+    @include('profile::partials.experience.edit')
+    @endisset
     <div class="row">
         <div class="col">
             <table class="table table-bordered mt-3">

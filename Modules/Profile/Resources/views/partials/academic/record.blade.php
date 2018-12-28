@@ -5,24 +5,25 @@
         {{++$key}}
     </td>
     <td>
-        <p>{{$record->institution}}</p>
+        <p>{{$record->institution ?? 'N/A'}}</p>
     </td>
     <td>
-        <p>{{$record->study_level}}</p>
+        <p>{{$record->study_level ?? 'N/A'}}</p>
     </td>
     <td>
-        <p>{{$record->start_date}}</p>
+        <p>{{$record->start_date ?? 'N/A'}}</p>
     </td>
     <td>
-        <p>{{$record->end_date}}</p>
+        <p>{{$record->end_date ?? 'N/A'}}</p>
     </td>
     <td>
-        <p>{{$record->course}}</p>
+        <p>{{$record->course ?? 'N/A'}}</p>
     </td>
     <td>
-        <p>{{$record->result}}</p>
+        <p>{{$record->result ?? 'N/A'}}</p>
     </td>
     <td>
+        <a href="{{route('academic.edit',['id'=>$record->id])}}" class="btn btn-primary btn-sm">Edit</a>
     </td>
 </tr>
 @endforeach

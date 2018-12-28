@@ -43,4 +43,23 @@ class AcademicsController extends Controller
         return redirect()->back();
     }
 
+    public function edit($id)
+    {
+        $academics = $this->academic->where('user_id', auth()->id())->get();
+        $academy = Academic::find($id);
+        return view('profile::forms.personal-details.academic', compact('academics', 'academy'));
+    }
+
+    /**
+     * Update the specified resource in storage.
+     * @param  Request $request
+     * @return Response
+     */
+    public function update(Request $request, $id)
+    {
+        Academic::find($id)->update($request->all());
+        toast($this->message('update', 'Academic record'), 'success', 'top-right');
+        return redirect()->route('academic.index');
+    }
+
 }

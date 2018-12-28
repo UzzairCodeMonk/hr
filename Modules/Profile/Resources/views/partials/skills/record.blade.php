@@ -5,12 +5,13 @@
         {{++$key}}
     </td>
     <td>
-        <p>{{$record->skill}}</p>
+        <p>{{$record->skill ?? 'N/A'}}</p>
     </td>
     <td>
-        <p>{{$record->period}}</p>
-    </td>    
-    <td>
+        <p>{{$record->period ?? 'N/A'}}</p>
+    </td>
+    <td class="text-center">
+        <a href="{{route('skill.edit',['id'=>$record->id])}}" class="btn btn-primary btn-sm">Edit</a>
     </td>
 </tr>
 @endforeach

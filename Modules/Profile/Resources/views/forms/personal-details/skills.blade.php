@@ -11,6 +11,9 @@
             </button>
         </div>
     </div>
+    @isset($skill)
+    @include('profile::partials.skills.edit')
+    @endisset
     <div class="row">
         <div class="col">
             <table class="table table-bordered mt-3">

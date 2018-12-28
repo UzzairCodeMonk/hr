@@ -32,7 +32,7 @@ Personal Details
                 <div class="col-4">
                     <h3>{{ucwords(__('profile::personal-detail.identity'))}}</h3>
                     <p class="help-text">
-                        Avatars
+                        Your identity
                     </p>
                 </div>
                 <div class="col-8">
@@ -115,8 +115,22 @@ Personal Details
                     <div class="row">
                         <div class="col">
                             <div class="form-group">
+                                <label for="">{{ucwords(__('profile::personal-detail.phone-number'))}}</label>
+                                <input type="text" name="phone_number" id="" class="form-control" value="{{old('phone_number',isset($personalDetail->phone_number)?$personalDetail->phone_number:null)}}">
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="form-group">
+                                <label for="">{{ucwords(__('profile::personal-detail.mobile-number'))}}</label>
+                                <input type="text" name="mobile_number" id="" class="form-control" value="{{old('mobile_number',isset($personalDetail->mobile_number)?$personalDetail->mobile_number:null)}}">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            <div class="form-group">
                                 <label for="">{{ucwords(__('profile::personal-detail.alternative-email'))}}</label>
-                                <input type="text" name="alternative_email" id="" class="form-control" value="{{old('email',isset($personalDetail->alternative_email)?$personalDetail->alternative_email:null)}}">
+                                <input type="text" name="alternative_email" id="" class="form-control" value="{{old('alternative_email',isset($personalDetail->alternative_email)?$personalDetail->alternative_email:null)}}">
                             </div>
                         </div>
                     </div>
@@ -129,7 +143,7 @@ Personal Details
                 <div class="col-4">
                     <h3>{{ucwords(__('profile::personal-detail.living-place'))}}</h3>
                     <p class="help-text">
-                        Personal information
+                        Fill in your current active address
                     </p>
                 </div>
                 <div class="col-8">

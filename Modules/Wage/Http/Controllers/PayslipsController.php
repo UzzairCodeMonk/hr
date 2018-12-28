@@ -38,6 +38,12 @@ class PayslipsController extends Controller
         return view('wage::payslips.users', ['users' => $this->user->all()]);
     }
 
+    public function myPayslips()
+    {
+        $payslip = Payslip::where('user_id', auth()->id())->get();
+        return view('wage::payslips.show', ['user' => User::find($id), 'payslip' => $payslip]);
+    }
+
     public function show($id)
     {
         $payslip = Payslip::where('user_id', $id)->get();

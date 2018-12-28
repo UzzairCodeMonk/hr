@@ -5,21 +5,22 @@
        {{++$key}}
     </td>
     <td>
-        <p>{{$record->company}}</p>
+        <p>{{$record->company ?? 'N/A'}}</p>
     </td>
     <td>
-        <p>{{$record->position}}</p>
+        <p>{{$record->position ?? 'N/A'}}</p>
     </td>
     <td>
-        <p>{{$record->start_date}}</p>
+        <p>{{$record->start_date ?? 'N/A'}}</p>
     </td>
     <td>
-        <p>{{$record->end_date}}</p>
+        <p>{{$record->end_date ?? 'N/A'}}</p>
     </td>
     <td>
-        <p>{!! $record->description!!}</p>
+        <p>{!! $record->description ?? 'N/A'!!}</p>
     </td>
     <td>
+        <a href="{{route('experience.edit',['id'=>$record->id])}}" class="btn btn-primary btn-sm">Edit</a>
     </td>
 </tr>
 @endforeach

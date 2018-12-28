@@ -44,11 +44,11 @@
                 <h2 class="container-block-title">Education</h2>
                 @foreach($academics as $academic)
                 <div class="item">
-                    <h4 class="degree">{{$academic->course}}</h4>
-                    <h5 class="meta">{{$academic->study_level}}</h5>
-                    <h5 class="meta">{{$academic->institution}}</h5>
-                    <div class="time">{{Carbon\Carbon::parse($academic->start_date)->format('Y')}} -
-                        {{Carbon\Carbon::parse($academic->end_date)->format('Y')}} </div>
+                    <h4 class="degree">{{$academic->course ?? 'N/A'}}</h4>
+                    <h5 class="meta">{{$academic->study_level ?? 'N/A'}}</h5>
+                    <h5 class="meta">{{$academic->institution ?? 'N/A'}}</h5>
+                    <div class="time">{{Carbon\Carbon::parse($academic->start_date)->format('Y') ?? 'N/A'}} -
+                        {{Carbon\Carbon::parse($academic->end_date)->format('Y') ?? 'N/A'}} </div>
                 </div>
                 @endforeach
                 <!--//item-->
@@ -79,15 +79,15 @@
                     <div class="meta">
                         <div class="upper-row">
                             <h3 class="job-title">{{$exp->position}}</h3>
-                            <div class="time">{{Carbon\Carbon::parse($exp->start_date)->format('Y')}} -
-                                {{Carbon\Carbon::parse($exp->end_date)->format('Y')}} </div>
+                            <div class="time">{{Carbon\Carbon::parse($exp->start_date)->format('Y') ?? 'N/A'}} -
+                                {{Carbon\Carbon::parse($exp->end_date)->format('Y') ?? 'N/A'}} </div>
                         </div>
                         <!--//upper-row-->
-                        <div class="company">{{$exp->company}}</div>
+                        <div class="company">{{$exp->company ?? 'N/A'}}</div>
                     </div>
                     <!--//meta-->
                     <div class="details">
-                        {!! $exp->description !!}
+                        {!! $exp->description ?? 'N/A' !!}
                     </div>
                     <!--//details-->
                 </div>

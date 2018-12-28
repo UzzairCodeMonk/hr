@@ -43,6 +43,7 @@ Payslip Records
                 </table>
 
             </div>
+            @role('Admin')
             <div class="col">
                 <h4>Generate Payslip Record</h4>
                 <form action="{{route('payslip.generate')}}" method="POST">
@@ -139,6 +140,7 @@ Payslip Records
                     </div>
                 </form>
             </div>
+            @endrole
         </div>
 
     </div>

@@ -1,4 +1,7 @@
 @extends('backend.master')
+@section('page-title')
+{{getMonthNameBasedOnInt($payslip->month)}} {{$payslip->year}} Payslip
+@endsection
 @section('content')
 
 <div class="card">
@@ -41,11 +44,12 @@
             </div>
             <div class="col">
                 <div class="logo-text pull-right" style="text-align:justify;width:270px">
-                    <img src="https://www.datakraf.com/images/logo-footer.png" alt="" style="display:block;margin:0 auto">
+                    <img src="{{asset(siteLogo())}}" alt="" style="display:block;margin:0 auto">
                 </div>
                 <br><br>
                 <p class="text-right mt-3">
-                    Suite 7-1, Binjai 8, <br>Lorong Binjai Off Jalan Binjai,<br> KLCC, 50450, Kuala Lumpur, Malaysia.
+                    <strong>{{companyName()}}</strong><br>
+                    {{siteAddressOne()}},<br>{{siteAddressTwo()}},<br>{{sitePostcode()}} {{siteCity()}}, {{siteCountry()}}
                 </p>
             </div>
         </div>

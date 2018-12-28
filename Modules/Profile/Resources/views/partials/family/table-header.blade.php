@@ -6,5 +6,5 @@
     <th>{{ucwords(__('profile::family-detail.mobile-number'))}}</th>
     <th>{{ucwords(__('profile::family-detail.occupation'))}}</th>
     <th>{{ucwords(__('profile::family-detail.income-tax-number'))}}</th>
-    <th>Action</th>
+    <th class="text-center">Action</th>
 </tr>

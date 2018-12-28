@@ -40,4 +40,23 @@ class AwardsController extends Controller
         return redirect()->back();
     }
 
+    public function edit($id)
+    {   
+        $awards = $this->award->where('user_id', auth()->id())->get();
+        $award = Award::find($id);
+        return view('profile::forms.personal-details.awards', compact('awards','award'));
+    }
+
+    /**
+     * Update the specified resource in storage.
+     * @param  Request $request
+     * @return Response
+     */
+    public function update(Request $request, $id)
+    {
+        Award::find($id)->update($request->all());
+        toast($this->message('update', 'Award record'), 'success', 'top-right');
+        return redirect()->route('award.index');
+    }
+
 }

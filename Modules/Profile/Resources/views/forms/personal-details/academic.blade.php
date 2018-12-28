@@ -1,6 +1,6 @@
 @extends('profile::master')
 @section('page-title')
-    Academic Records
+Academic Records
 @endsection
 @section('form-content')
 <div class="container">
@@ -11,6 +11,9 @@
             </button>
         </div>
     </div>
+    @isset($academy)
+    @include('profile::partials.academic.edit')
+    @endisset
     <div class="row">
         <div class="col">
             <table class="table table-bordered mt-3">
@@ -35,10 +38,10 @@
     date.setDate(date.getDate());
 
     $('.start-date').datepicker({
-        format: "{{config('app.date_format_js')}}",       
+        format: "{{config('app.date_format_js')}}",
     });
     $('.end-date').datepicker({
-        format: "{{config('app.date_format_js')}}",        
+        format: "{{config('app.date_format_js')}}",
     });
 
 </script>

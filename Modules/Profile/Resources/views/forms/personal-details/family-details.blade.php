@@ -1,16 +1,19 @@
 @extends('profile::master')
 @section('page-title')
-    Family Records
+Family Records
 @endsection
 @section('form-content')
 <div class="container">
     <div class="row">
         <div class="col">
             <button type="button" class="btn btn-primary btn-md pull-right" data-toggle="modal" data-target="#add-family-records">
-                    <i class="ti ti-plus"></i> Add Family Record
+                <i class="ti ti-plus"></i> Add Family Record
             </button>
         </div>
     </div>
+    @isset($family)
+    @include('profile::partials.family.edit')
+    @endisset
     <div class="row">
         <div class="col">
             <table class="table table-bordered mt-3">
