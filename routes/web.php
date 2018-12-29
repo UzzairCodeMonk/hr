@@ -4,7 +4,7 @@ Auth::routes();
 
 Route::get('/', 'Auth\LoginController@showLoginForm');
 
-Route::group(['prefix' => env('ADMINISTRATION_PREFIX', 'administration'), 'middleware' => 'auth'], function () {
+Route::group(['prefix' => config('app.administration_prefix'), 'middleware' => 'auth'], function () {
     Route::resource('roles', 'RolesController');
     Route::group(['prefix' => 'employees'], function () {
         Route::get('/', 'UsersController@index')->name('user.index');

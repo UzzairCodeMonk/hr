@@ -6,9 +6,12 @@ use Exception;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use Illuminate\Routing\Exceptions\InvalidSignatureException;
 use \InvalidArgumentException;
+use Spatie\Permission\Models\Role;
 use Alert;
 use Illuminate\Database\QueryException;
+use Illuminate\Auth\AuthenticationException;
 
 class Handler extends ExceptionHandler
 {
@@ -51,8 +54,65 @@ class Handler extends ExceptionHandler
      */
     public function render($request, Exception $exception)
     {
-        // w
+        if ($exception instanceof AuthorizationException) {
+            return $this->unauthorized($request, $exception);
+        }
+        if ($exception instanceof AuthenticationException) {
+            return $this->unauthenticated($request, $exception);
+        }
+        if ($exception instanceof InvalidSignatureException) {
+            return $this->invalidUrlSignature($request, $exception);
+        }
+        if ($exception instanceof TokenMismatchException) {
+            return $this->pageExpired($request, $exception);
+        }
 
         return parent::render($request, $exception);
+    }
+
+    public function noRole($request, Exception $exception)
+    {
+        if (!Auth::user()->hasAnyRole(Role::all())) {
+            toast('You have no role in this system', 'error', 'top');
+            Auth::logout();
+        }
+    }
+
+    private function unauthorized($request, Exception $exception)
+    {
+        return $request->expectsJson()
+            ? response()->json(['message' => $exception->getMessage()], 401)
+            : redirect()->guest('/');
+        toast('You don\'t have the previlege to perform the action', 'error', 'top');
+        return redirect()->back();
+    }
+
+    public function invalidUrlSignature($request, Exception $exception)
+    {
+        toast('Security token mismatched. You\'re not allowed to perform the operation', 'error', 'top');
+        return redirect()->back();
+    }
+
+    public function pageExpired($request, Exception $exception)
+    {
+        toast('Your session has expired, please login again', 'error', 'top');
+        return redirect('/');
+    }
+
+    protected function unauthenticated($request, AuthenticationException $exception)
+    {
+        if ($request->expectsJson()) {
+            return response()->json(['error' => 'Unauthenticated.'], 401);
+        }
+        $guard = array_get($exception->guards(), 0);
+        switch ($guard) {
+            case 'staff':
+                $login = 'staff.login';
+                break;
+            default:
+                $login = 'login';
+                break;
+        }
+        return redirect()->guest(route($login));
     }
 }
