@@ -9,7 +9,7 @@ Leave Application Form
     <div class="card-header">
         <h3>Leave Application Form</h3>
         <div class="card-options">
-                <button type="button" class="btn btn-sm btn-info" data-toggle="modal"
+                <button type="button" class="btn btn-sm btn-secondary" data-toggle="modal"
                 data-target="#leave-balance">
                 View leave balance</button>
         </div>
@@ -110,8 +110,8 @@ Leave Application Form
                         <div class="row">
                             <div class="col">
                                 <div class="form-group pull-right">
-                                    <button type="submit" name="approve" class="btn btn-success" value="1">Approve</button>
-                                    <button type="submit" name="reject" class="btn btn-danger" value="1">Reject</button>
+                                    <button type="submit" name="approve" class="btn btn-outline btn-success" value="1"><i class="ti ti-check"></i> Approve</button>
+                                    <button type="submit" name="reject" class="btn btn-outline btn-danger" value="1"><i class="ti ti-close"></i> Reject</button>
                                 </div>
                             </div>
                         </div>

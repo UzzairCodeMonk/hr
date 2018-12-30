@@ -17,7 +17,7 @@ Records
                     <th>End Date</th>
                     <th>Total Days</th>
                     <th class="text-center">Status</th>
-                    <th>Actions</th>
+                    <th class="text-center">Actions</th>
                 </tr>
             </thead>
             <tbody>
@@ -29,12 +29,12 @@ Records
                     <td>{{$leave->end_date}}</td>
                     <td>{{$leave->days_taken}}</td>
                     <td class="text-center"><span class="badge">{{$leave->status()->reason}}</span></td>
-                    <td>
-                        <a href="{{URL::signedRoute('leave.employee.show',['id'=>$leave->id])}}" class="btn btn-link btn-secondary btn-xs text-dark">View</a>
-                        <form action="{{route('leave.destroy',['id'=>$leave->id])}}" method="POST" class="form-inline leave-record">
+                    <td class="text-center">
+                        <a href="{{URL::signedRoute('leave.employee.show',['id'=>$leave->id])}}" class="btn btn-sm text-dark">View</a>
+                        <form action="{{route('leave.destroy',['id'=>$leave->id])}}" method="POST" class="leave-record d-inline">
                             @csrf
                             @method('DELETE')
-                            <button type="submit" class="btn btn-xs btn-link btn-danger text-white">Delete</button>
+                            <button type="submit" class="btn btn-sm text-danger">Delete</button>
                         </form>
                     </td>
                 </tr>

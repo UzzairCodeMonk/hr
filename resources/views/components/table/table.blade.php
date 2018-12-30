@@ -17,27 +17,24 @@
             <td>{{++$key}}</td>
             @foreach($columnNames as $columnName)
             <td>
-                {{$result->$columnName}}
+                {{$result->$columnName ?? 'N/A'}}
             </td>
             @endforeach
             <td class="text-center">
                 @if(isset($actions))
                 @foreach($actions as $action)
-                <ul class="action-buttons">
-                    <li><a class="" href="{{route($action['url'],['id'=>$result->id])}}" id="{{$action['id']}}">Edit</a></li>
-                    <li> <a class="" href="{{route($action['url'],['id'=>$result->id])}}" id="{{$action['id']}}">{{$deleteAction['delete']['text']}}</a></li>
-                  </ul>              
-                <!-- <a  class="btn btn-sm {{$action['class']}}" >
+                
+                <a  href="{{route($action['url'],['id'=>$result->id])}}" class="btn btn-sm {{$action['class']}}" >
                     {{$action['text']}}
-                </a> -->
-                <!-- @isset($deleteAction)
+                </a>
+                @isset($deleteAction)
                 <form class="{{$entity}}" action="{{route($deleteAction['delete']['url'],['id'=>$result->id])}}"
                     method="POST" style="display:inline !important;">
                     @csrf
                     {{method_field('DELETE')}}
-                    <button type="submit" class="btn btn-sm {{$deleteAction['delete']['class']}}"></button>
+                    <button type="submit" class="btn btn-sm {{$deleteAction['delete']['class']}}">{{$deleteAction['delete']['text']}}</button>
                 </form>
-                @endisset -->
+                @endisset
                 @endforeach
                 @endif
             </td>

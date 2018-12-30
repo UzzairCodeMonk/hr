@@ -21,7 +21,7 @@ class LeaveTypesController extends Controller
             'edit' => [
                 'url' => 'leave-type.edit',
                 'text' => ucwords('edit'),
-                'class' => 'btn btn-link text-dark',
+                'class' => 'text-dark',
                 'id' => ''
             ]
         ];
@@ -29,7 +29,7 @@ class LeaveTypesController extends Controller
             'delete' => [
                 'url' => 'leave-type.destroy',
                 'text' => ucwords('delete'),
-                'class' => 'btn btn-link btn-danger text-white',
+                'class' => 'text-danger',
                 'id' => ''
             ]
         ];

@@ -23,7 +23,7 @@ class PositionsController extends Controller
             'edit' => [
                 'url' => 'position.edit',
                 'text' => ucwords('edit'),
-                'class' => 'btn btn-link text-dark',
+                'class' => 'text-dark',
                 'id' => ''
             ]
         ];
@@ -31,7 +31,7 @@ class PositionsController extends Controller
             'delete' => [
                 'url' => 'position.destroy',
                 'text' => ucwords('delete'),
-                'class' => 'btn btn-link btn-danger text-white',
+                'class' => 'text-danger',
                 'id' => ''
             ]
         ];

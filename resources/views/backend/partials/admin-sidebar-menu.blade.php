@@ -1,7 +1,7 @@
 @if(Request::is('/profile*'))
 @include('profile::admin.sidebar.menu')
 @endif
-<hr>
+
 <div class="aside-block">
     <div class="flexbox mb-1">
         <h6 class="aside-title">Employees Management</h6>

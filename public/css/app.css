@@ -1,7 +1,7 @@
 @charset "UTF-8";
 
 body {
-  font-family: Nunito, sans-serif;
+  font-family: Poppins, sans-serif;
   color: #4d5259;
   font-weight: 300;
   font-size: 13px;
@@ -13,7 +13,7 @@ input,
 optgroup,
 select,
 textarea {
-  font-family: Nunito, sans-serif;
+  font-family: Poppins, sans-serif;
   font-weight: 300;
 }
 
@@ -70,7 +70,7 @@ strong {
 small,
 time,
 .small {
-  font-family: Nunito, sans-serif;
+  font-family: Poppins, sans-serif;
   font-weight: 400;
   font-size: 11px;
   color: #8b95a5;
@@ -121,7 +121,7 @@ h6,
 .h4,
 .h5,
 .h6 {
-  font-family: Nunito, sans-serif;
+  font-family: Poppins, sans-serif;
   font-weight: 300;
   color: #313944;
   line-height: 1.5;
@@ -230,7 +230,7 @@ h6,
 }
 
 .font-alt {
-  font-family: Nunito, sans-serif;
+  font-family: Poppins, sans-serif;
 }
 
 .sidetitle {
@@ -622,7 +622,7 @@ div.prism-show-language > div.prism-show-language-label {
   border-radius: 0;
   background-color: transparent;
   color: #8b95a5;
-  font-family: Nunito, sans-serif;
+  font-family: Poppins, sans-serif;
   font-size: 11px;
   opacity: 0.5;
   letter-spacing: 1px;
@@ -683,7 +683,7 @@ div.prism-show-language > div.prism-show-language-label {
 }
 
 .code-card .code-title {
-  font-family: Nunito, sans-serif;
+  font-family: Poppins, sans-serif;
 }
 
 .code-card .code-preview {
@@ -1278,7 +1278,7 @@ img {
 .teaser h3,
 .teaser h4 {
   color: #fff;
-  font-family: Nunito, sans-serif;
+  font-family: Poppins, sans-serif;
   font-weight: 300;
   margin: 0;
 }
@@ -3402,7 +3402,7 @@ img {
 }
 
 .popover {
-  font-family: Nunito, sans-serif;
+  font-family: Poppins, sans-serif;
   border-color: #ebebeb;
   border-radius: 2px;
 }
@@ -3431,7 +3431,7 @@ img {
   background-color: #fcfdfe;
   padding-top: 12px;
   padding-bottom: 12px;
-  font-family: Nunito, sans-serif;
+  font-family: Poppins, sans-serif;
   font-size: 14px;
   font-weight: 400;
   color: #616a78;
@@ -6201,7 +6201,7 @@ progress {
 }
 
 .modal-title {
-  font-family: Nunito, sans-serif;
+  font-family: Poppins, sans-serif;
   font-weight: 400;
   letter-spacing: .5px;
 }
@@ -6476,7 +6476,7 @@ progress {
 }
 
 .btn-bold {
-  font-family: Nunito, sans-serif;
+  font-family: Poppins, sans-serif;
   text-transform: uppercase;
   font-weight: 500;
   font-size: 12px;
@@ -8817,7 +8817,7 @@ progress {
 .btn-flat {
   position: relative;
   font-size: 13px;
-  font-family: Nunito, sans-serif;
+  font-family: Poppins, sans-serif;
   text-transform: uppercase;
   background-color: #fcfdfe;
   border: none;
@@ -9139,7 +9139,7 @@ ul.action-buttons > li {
   float: left;
 }
 
-ul.action-buttons > li > a {
+ul.action-buttons > li a {
   text-decoration: none;
   padding-left: 10px;
   padding-right: 10px;
@@ -10305,7 +10305,7 @@ ul.action-buttons > li:last-child:after {
 }
 
 .badge-bold {
-  font-family: Nunito, sans-serif;
+  font-family: Poppins, sans-serif;
   text-transform: uppercase;
   font-weight: 500;
   letter-spacing: 1px;
@@ -11313,7 +11313,7 @@ svg.emojione {
 }
 
 .fc-toolbar h2 {
-  font-family: Nunito, sans-serif;
+  font-family: Poppins, sans-serif;
   font-size: 18px;
   color: #4d5259;
   padding-top: 8px;
@@ -11404,7 +11404,7 @@ svg.emojione {
 }
 
 .swal2-modal .swal2-title {
-  font-family: Nunito, sans-serif;
+  font-family: Poppins, sans-serif;
   font-size: 22px;
   font-weight: 400;
   letter-spacing: .5px;
@@ -11498,7 +11498,7 @@ svg.emojione {
 }
 
 .lity-close {
-  font-family: Nunito, sans-serif;
+  font-family: Poppins, sans-serif;
   font-weight: 300;
   opacity: .6;
   -webkit-transition: .5s;
@@ -11508,7 +11508,7 @@ svg.emojione {
 .lity-close:hover,
 .lity-close:focus,
 .lity-close:active {
-  font-family: Nunito, sans-serif;
+  font-family: Poppins, sans-serif;
   font-weight: 300;
   opacity: 1;
 }
@@ -14003,7 +14003,7 @@ select.form-control-lg:not([size]):not([multiple]) {
 .form-type-combine.form-group label,
 .form-type-combine .input-group label,
 .form-type-combine.input-group label {
-  font-family: Nunito, sans-serif;
+  font-family: Poppins, sans-serif;
   font-weight: 500;
   font-size: 10px;
   line-height: 20px;
@@ -15140,7 +15140,7 @@ select.form-control-lg:not([size]):not([multiple]) {
 }
 
 .ql-toolbar.ql-snow {
-  font-family: Nunito, sans-serif;
+  font-family: Poppins, sans-serif;
   border-color: #ebebeb;
   border-bottom-color: #f1f2f3;
   background-color: #fcfdfe;
@@ -15160,7 +15160,7 @@ select.form-control-lg:not([size]):not([multiple]) {
 }
 
 .ql-container {
-  font-family: Nunito, sans-serif;
+  font-family: Poppins, sans-serif;
   height: auto;
 }
 
@@ -15211,7 +15211,7 @@ select.form-control-lg:not([size]):not([multiple]) {
   max-width: 100%;
   padding-left: 36px;
   padding-right: 18px;
-  font-family: Nunito, sans-serif;
+  font-family: Poppins, sans-serif;
   font-size: 15px;
   font-weight: 300;
   letter-spacing: .5px;
@@ -16570,7 +16570,7 @@ ul.flexbox {
 
 .menu-category {
   position: relative;
-  font-family: Nunito, sans-serif;
+  font-family: Poppins, sans-serif;
   display: block;
   text-transform: uppercase;
   letter-spacing: 1px;
@@ -19735,7 +19735,7 @@ ul.flexbox {
 }
 
 .topbar-secondary .dropdown-item {
-  font-family: Nunito, sans-serif;
+  font-family: Poppins, sans-serif;
   font-size: 13px;
   text-transform: uppercase;
   height: 38px;
@@ -19754,7 +19754,7 @@ ul.flexbox {
 }
 
 .topbar-secondary .menu-link {
-  font-family: Nunito, sans-serif;
+  font-family: Poppins, sans-serif;
   font-size: 13px;
   text-transform: uppercase;
   letter-spacing: 1px;
@@ -20457,7 +20457,7 @@ ul.flexbox {
 }
 
 .card-title {
-  font-family: Nunito, sans-serif;
+  font-family: Poppins, sans-serif;
   font-weight: 300;
   line-height: 1.5;
   margin-bottom: 0;
@@ -20505,7 +20505,7 @@ h1.card-title {
 }
 
 .card-title-bold {
-  font-family: Nunito, sans-serif;
+  font-family: Poppins, sans-serif;
   text-transform: uppercase;
   letter-spacing: 1.5px;
   font-weight: 500;
@@ -21232,7 +21232,7 @@ h1.card-title {
 
 .header-title {
   font-weight: 100;
-  font-family: Nunito, sans-serif;
+  font-family: Poppins, sans-serif;
   color: #4d5259;
 }
 
@@ -21325,7 +21325,7 @@ h1.card-title {
 
 .header-action .nav-link {
   display: inline-block;
-  font-family: Nunito, sans-serif;
+  font-family: Poppins, sans-serif;
   font-size: 12px;
   font-weight: 500;
   letter-spacing: 1px;
@@ -21521,7 +21521,7 @@ h1.card-title {
 }
 
 .price {
-  font-family: Nunito, sans-serif;
+  font-family: Poppins, sans-serif;
   font-weight: bold;
   font-size: 75px;
   line-height: 75px;
@@ -25179,17 +25179,17 @@ a.text-danger:focus {
 
 .font-body,
 .font-roboto {
-  font-family: Nunito, sans-serif;
+  font-family: Poppins, sans-serif;
 }
 
 .font-title,
 .font-ubuntu {
-  font-family: Nunito, sans-serif;
+  font-family: Poppins, sans-serif;
 }
 
 .font-article,
 .font-lora {
-  font-family: Nunito, sans-serif;
+  font-family: Poppins, sans-serif;
 }
 
 .fs-8 {

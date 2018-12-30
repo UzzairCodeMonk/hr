@@ -11,13 +11,12 @@ Leave Categories
 
         <div class="row">
             <div class="col">
-                <h4>Leave Categories</h4>
                 @isset($results)
                 @include('components.table.table',['entity'=>'leaveType','deleteAction'=>$deleteAction,'datatable'=>true])
                 @endisset
             </div>
             <div class="col">
-                <h4>{{isset($entity)?'Update':'Create'}} Leave Category{{isset($entity)?': '.$entity->name:''}}</h4>
+                <h4>{{isset($entity)?'Update':'Create'}} Leave Category{{isset($entity) ? ': '.$entity->name:''}}</h4>
                 @include('leave::type.partials.create-update')
             </div>
         </div>
@@ -31,7 +30,8 @@ Leave Categories
 <script>
     $(document).ready(function () {
         $('.datatable').DataTable({
-            pageLength: 7
+            pageLength: 7,
+            
         });
     });
 

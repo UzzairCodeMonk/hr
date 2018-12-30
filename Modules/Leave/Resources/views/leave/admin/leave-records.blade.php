@@ -29,12 +29,12 @@ Employee Leave Records
                     <th>{{$leave->type->name}}</th>
                     <td>{{$leave->start_date}}</td>
                     <td>{{$leave->end_date}}</td>
-                    <td style="">
-                        <a href="{{URL::signedRoute('leave.show',['id'=>$leave->id])}}" class="btn btn-link btn-secondary btn-xs text-dark">View</a>
+                    <td class="text-center">
+                        <a href="{{URL::signedRoute('leave.show',['id'=>$leave->id])}}" class="btn btn-sm text-dark">View</a>
                         <form action="{{route('leave.destroy',['id'=>$leave->id])}}" method="POST" class="form-inline leave-record">
                             @csrf
                             @method('DELETE')
-                            <button type="submit" class="btn btn-xs btn-link btn-danger text-white">Delete</button>
+                            <button type="submit" class="btn btn-sm text-danger">Delete</button>
                         </form>
                     </td>
                 </tr>
