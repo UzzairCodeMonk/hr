@@ -31,17 +31,19 @@ Employees
                                 {{$result->email}}
                             </td>
                             <td class="text-center">
-
                                 <a href="{{URL::signedRoute('employee.details',['id'=>$result->id])}}" class="btn btn-sm text-dark" id="">
                                     View
                                 </a>
+                                @if(Auth::id() != $result->id)
+                                @can('delete_users')
                                 <form class="employee" action="{{route('user.destroy',['id'=>$result->id])}}" method="POST"
                                     style="display:inline !important;">
                                     @csrf
                                     {{method_field('DELETE')}}
                                     <button type="submit" class="btn btn-sm text-danger">Delete</button>
                                 </form>
-
+                                @endcan
+                                @endif
                             </td>
                         </tr>
                         @endforeach

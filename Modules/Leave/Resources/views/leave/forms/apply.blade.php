@@ -29,14 +29,7 @@ Leave Application Form
                                     @endforeach
                                 </select>
                             </div>
-                        </div>
-                        <div class="col">
-                            <div class="form-group">
-                                <label for="">{{ucwords(__('leave::leave.leave-balance'))}}</label>
-                                <p class="form-control-plaintext">{{auth()->user()->leaveEntitlement->days?:'' }} Days
-                                    </p>
-                            </div>
-                        </div>
+                        </div>                       
                     </div>
                     <div class="row">
                         <div class="col">
