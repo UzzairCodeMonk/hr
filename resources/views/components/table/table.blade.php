@@ -23,12 +23,10 @@
             <td class="text-center">
                 @if(isset($actions))
                 @foreach($actions as $action)
-                <div class="">
-                    <a class="nav-link hover-primary d-inline-block" href="{{route($action['url'],['id'=>$result->id])}}" data-provide="tooltip"
-                        title="" data-original-title="Edit" id="{{$action['id']}}" style="border-right:1px solid black">Edit</a>
-                    <a class="nav-link hover-primary d-inline-block" href="{{route($action['url'],['id'=>$result->id])}}" data-provide="tooltip"
-                        title="" data-original-title="Edit" id="{{$action['id']}}">Delete</a>
-                </div>
+                <ul class="action-buttons">
+                    <li><a class="" href="{{route($action['url'],['id'=>$result->id])}}" id="{{$action['id']}}">Edit</a></li>
+                    <li> <a class="" href="{{route($action['url'],['id'=>$result->id])}}" id="{{$action['id']}}">{{$deleteAction['delete']['text']}}</a></li>
+                  </ul>              
                 <!-- <a  class="btn btn-sm {{$action['class']}}" >
                     {{$action['text']}}
                 </a> -->
@@ -37,7 +35,7 @@
                     method="POST" style="display:inline !important;">
                     @csrf
                     {{method_field('DELETE')}}
-                    <button type="submit" class="btn btn-sm {{$deleteAction['delete']['class']}}">{{$deleteAction['delete']['text']}}</button>
+                    <button type="submit" class="btn btn-sm {{$deleteAction['delete']['class']}}"></button>
                 </form>
                 @endisset -->
                 @endforeach

@@ -9134,6 +9134,29 @@ progress {
   border-bottom-right-radius: 10rem;
 }
 
+ul.action-buttons > li {
+  list-style: none;
+  float: left;
+}
+
+ul.action-buttons > li > a {
+  text-decoration: none;
+  padding-left: 10px;
+  padding-right: 10px;
+}
+
+ul.action-buttons > li:first-child > a {
+  padding-left: 0px;
+}
+
+ul.action-buttons > li:after {
+  content: " | ";
+}
+
+ul.action-buttons > li:last-child:after {
+  content: "";
+}
+
 .fab {
   position: relative;
   display: inline-block;
