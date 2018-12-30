@@ -46,10 +46,21 @@ Records
 <!-- user records -->
 @endsection
 @section('page-js')
-@include('asset-partials.datatable')
+@include('asset-partials.datatable',['buttons'=>true])
 <script type="text/javascript">
     $(document).ready(function () {
-        $('.datatable').DataTable();
+        $('.datatable').DataTable({
+            dom: 'Bfrtip',
+            buttons: [{
+                extend: 'excel',
+                text: 'Export excel',
+                exportOptions: {
+                    modifier: {
+                        page: 'all'
+                    }
+                }
+            }]
+        });
     });
 
 </script>

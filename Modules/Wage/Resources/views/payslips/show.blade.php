@@ -13,7 +13,7 @@ Payslip Records
             <div class="col">
                 <h4>Payslip Records</h4>
 
-                <table class="table table-bordered table-striped">
+                <table class="table table-bordered table-striped datatable">
                     <thead>
                         <tr>
                             <th>#</th>
@@ -30,7 +30,7 @@ Payslip Records
                             <td>{{getMonthNameBasedOnInt($p->month)}}</td>
                             <td>{{$p->year}}</td>
                             <td class="text-center">
-                                <a href="{{URL::signedRoute('payslip.employee.record',['id'=>$user->id,'month'=>$p->month,'year'=>$p->year])}}" class="btn btn-link btn-secondary btn-sm">View</a>
+                                <a href="{{URL::signedRoute('payslip.employee.record',['id'=>$user->id,'month'=>$p->month,'year'=>$p->year])}}" class="btn btn-sm text-dark">View</a>
                             </td>
                         </tr>
                         @endforeach
@@ -148,4 +148,12 @@ Payslip Records
 @endsection
 @section('page-js')
 @include('components.form.confirmDeleteOnSubmission',['entity'=>'leaveType','action'=>'delete'])
+@include('asset-partials.datatable')
+<script type="text/javascript">
+$(document).ready(function(){
+    $('.datatable').DataTable({
+        pageLength:7,
+    });
+});
+</script>
 @endsection

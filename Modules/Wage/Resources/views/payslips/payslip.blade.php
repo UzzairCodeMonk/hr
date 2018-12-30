@@ -13,7 +13,7 @@
     <div class="card-body">
         <div class="row">
             <div class="col">
-                <h6>{{$payslip->user->personalDetail->name}}</h6>
+                <h6><strong>{{$payslip->user->personalDetail->name}}</strong></h6>
                 <table>
                     <tr>
                         <td><strong>Employee #:</strong></td>
@@ -69,14 +69,14 @@
                     <tbody>
                         <tr>
                             <td>Basic Salary</td>
-                            <td class="text-right">{{$payslip->basic_salary ?? 'N/A'}}</td>
+                            <td class="text-right">{{number_format($payslip->basic_salary,2) ?? 'N/A'}}</td>
                         </tr>
                         <tr>
                             <td>Allowance</td>
-                            <td class="text-right">{{$payslip->allowance ?? 'N/A'}}</td>
+                            <td class="text-right">{{number_format($payslip->allowance,2) ?? 'N/A'}}</td>
                         </tr>
                         <tr>
-                            <td colspan="2" class="text-right"><strong>Total: {{$payslip->total_earnings ?? 'N/A'}}</strong></td>
+                            <td colspan="2" class="text-right"><strong>Total: {{number_format($payslip->total_earnings,2) ?? 'N/A'}}</strong></td>
                         </tr>
                     </tbody>
                 </table>
@@ -95,18 +95,18 @@
                     <tbody>
                         <tr>
                             <td>EPF</td>
-                            <td class="text-right">{{$payslip->epf_employee ?? 'N/A'}}</td>
+                            <td class="text-right">{{number_format($payslip->epf_employee,2) ?? 'N/A'}}</td>
                         </tr>
                         <tr>
                             <td>SOCSO</td>
-                            <td class="text-right">{{$payslip->socso_employee ?? 'N/A'}}</td>
+                            <td class="text-right">{{number_format($payslip->socso_employee,2) ?? 'N/A'}}</td>
                         </tr>
                         <tr>
                             <td>EIS</td>
-                            <td class="text-right">{{$payslip->socso_eis_employee ?? 'N/A'}}</td>
+                            <td class="text-right">{{number_format($payslip->socso_eis_employee,2) ?? 'N/A'}}</td>
                         </tr>
                         <tr>
-                            <td colspan="2" class="text-right"><strong>Total: {{$payslip->total_deductions ?? 'N/A'}}</strong></td>
+                            <td colspan="2" class="text-right"><strong>Total: {{number_format($payslip->total_deductions,2) ?? 'N/A'}}</strong></td>
                         </tr>
                     </tbody>
                 </table>
@@ -127,15 +127,15 @@
                     <tbody>
                         <tr>
                             <td>EPF</td>
-                            <td class="text-right">{{$payslip->epf_employer ?? 'N/A'}}</td>
+                            <td class="text-right">{{number_format($payslip->epf_employer,2) ?? 'N/A'}}</td>
                         </tr>
                         <tr>
                             <td>SOCSO</td>
-                            <td class="text-right">{{$payslip->socso_employer ?? 'N/A'}}</td>
+                            <td class="text-right">{{number_format($payslip->socso_employer,2) ?? 'N/A'}}</td>
                         </tr>
                         <tr>
                             <td>EIS</td>
-                            <td class="text-right">{{$payslip->socso_eis_employer ?? 'N/A'}}</td>
+                            <td class="text-right">{{number_format($payslip->socso_eis_employer,2) ?? 'N/A'}}</td>
                         </tr>
                     </tbody>
                 </table>
@@ -154,15 +154,15 @@
                     <tbody>
                         <tr>
                             <td>Total Earnings</td>
-                            <td class="text-right">{{$payslip->total_earnings ?? 'N/A'}}</td>
+                            <td class="text-right">{{number_format($payslip->total_earnings,2) ?? 'N/A'}}</td>
                         </tr>
                         <tr>
                             <td>Total Deductions</td>
-                            <td class="text-right">{{$payslip->total_deductions ?? 'N/A'}}</td>
+                            <td class="text-right">{{number_format($payslip->total_deductions,2) ?? 'N/A'}}</td>
                         </tr>
                         <tr>
                             <td>Net Pay</td>
-                            <td class="text-right"><strong>{{$payslip->net_wage ?? 'N/A'}}</strong></td>
+                            <td class="text-right"><strong>{{number_format($payslip->net_wage,2) ?? 'N/A'}}</strong></td>
                         </tr>
 
                     </tbody>
