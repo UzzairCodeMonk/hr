@@ -57,7 +57,8 @@ Records
                 exportOptions: {
                     modifier: {
                         page: 'all'
-                    }
+                    },
+                    columns: 'th:not(:last-child)'
                 }
             }]
         });
