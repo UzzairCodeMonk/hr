@@ -24,8 +24,7 @@ Employee user Records
                     <td>{{$user->name}}</td>
                     <td>{{$user->email}}</td>                    
                     <td class="text-center">
-                        <a href="{{URL::signedRoute('leave.show',['id'=>$user->id])}}" class="btn btn-link btn-secondary btn-xs text-dark">View</a>      
-                        <a href="{{route('leave.export.excel',['id'=>$user->id])}}" class="btn btn-link btn-success btn-xs text-white">Export To Excel</a>                      
+                        <a href="{{URL::signedRoute('leave.show',['id'=>$user->id])}}" class="btn btn-sm text-dark">View</a>                                           
                     </td>
                 </tr>
                 @endforeach

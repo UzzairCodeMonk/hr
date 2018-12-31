@@ -3,7 +3,6 @@
 Leave Application Form
 @endsection
 @section('content')
-<a href="{{URL::previous()}}" class="btn btn-primary"><i class="ti ti-back-left"></i> Back</a>
 <div class="mb-3"></div>
 <div class="card">
     <div class="card-header">
@@ -56,20 +55,20 @@ Leave Application Form
                             </div>
                             <div class="col">
                                 <label for="">Application Date</label>
-                                <p>{{Carbon\Carbon::parse($leave->created_at)->toDayDateTimeString()}}</p>
+                                <p>{{Carbon\Carbon::parse($leave->created_at)->toDayDateTimeString() ?? 'N/A'}}</p>
                             </div>
                         </div>
                         <div class="row">
                             <div class="col">
                                 <div class="form-group">
                                     <label for="input-normal">{{ucwords(__('leave::leave.start-date'))}}</label>
-                                    <p>{{$leave->start_date}}</p>
+                                    <p>{{$leave->start_date ?? 'N/A'}}</p>
                                 </div>
                             </div>
                             <div class="col">
                                 <div class="form-group">
                                     <label for="input-normal">{{ucwords(__('leave::leave.end-date'))}}</label>
-                                    <p>{{$leave->end_date}}</p>
+                                    <p>{{$leave->end_date ?? 'N/A'}}</p>
                                 </div>
                             </div>
                         </div>
@@ -77,13 +76,13 @@ Leave Application Form
                             <div class="col">
                                 <div class="form-group">
                                     <label for="input-normal">{{ucwords(__('leave::leave.days-taken'))}}</label>
-                                    <p>{{$leave->days_taken}}</p>
+                                    <p>{{$leave->days_taken ?? 'N/A'}}</p>
                                 </div>
                             </div>
                             <div class="col">
                                 <div class="form-group">
                                     <label for="input-normal">{{ucwords(__('leave::leave.notes'))}}</label>
-                                    <p>{!! $leave->notes !!}</p>
+                                    <p>{!! $leave->notes ?? 'N/A'!!}</p>
                                 </div>
                             </div>
                         </div>
@@ -112,6 +111,7 @@ Leave Application Form
                                 <div class="form-group pull-right">
                                     <button type="submit" name="approve" class="btn btn-outline btn-success" value="1"><i class="ti ti-check"></i> Approve</button>
                                     <button type="submit" name="reject" class="btn btn-outline btn-danger" value="1"><i class="ti ti-close"></i> Reject</button>
+                                    <a href="{{URL::previous()}}" class="btn btn-outline btn-primary"><i class="ti ti-back-left"></i> Back</a>
                                 </div>
                             </div>
                         </div>

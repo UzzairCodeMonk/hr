@@ -10,8 +10,7 @@ Position Categories
     <div class="card-body">
 
         <div class="row">
-            <div class="col-7">
-                <h4>Position Categories</h4>
+            <div class="col-7">                
                 @isset($results)
                 @include('components.table.table',['entity'=>'position','deleteAction'=>$deleteAction,'datatable'=>true])
                 @endisset

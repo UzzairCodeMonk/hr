@@ -1,11 +1,11 @@
 @extends('backend.master')
 @section('page-title')
-Employee Leave Records
+{{$leave->user->personalDetail->name}}'s' Leave Records
 @endsection
 @section('content')
 <div class="card">
     <div class="card-header">
-        <h3 class="cad-title">Employees Leave Records</h3>
+        <h3 class="cad-title">{{$leave->user->personalDetail->name}}'s Leave Records</h3>
     </div>
     <div class="card-body">
         <table class="table table-striped table-bordered datatable" data-provide="datatables">
@@ -24,7 +24,7 @@ Employee Leave Records
                 @foreach($leaves as $key=>$leave)
                 <tr>
                     <td>{{++$key}}</td>
-                    <td>{{$leave->user->name}}</td>
+                    <td>{{$leave->user->personalDetail->name}}</td>
                     <td>{{$leave->user->email}}</td>
                     <th>{{$leave->type->name}}</th>
                     <td>{{$leave->start_date}}</td>

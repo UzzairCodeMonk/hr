@@ -1,21 +1,21 @@
 @extends('backend.master')
 @section('page-title')
-Records
+Leave Records
 @endsection
 @section('content')
 <div class="card">
     <div class="card-header">
-        <h3 class="cad-title">Employees Leave Records</h3>
+        <h3 class="cad-title">{{$leaves->first()->user->personalDetail->name}}'s Leave Records</h3>
     </div>
     <div class="card-body">
-        <table class="table table-striped table-bordered datatable" data-provide="datatables">
+        <table class="table table-striped table-bordered datatable">
             <thead>
                 <tr>
                     <th>#</th>
                     <th>Leave Type</th>
                     <th>Start Date</th>
                     <th>End Date</th>
-                    <th>Total Days</th>
+                    <th class="text-center">Total Days</th>
                     <th class="text-center">Status</th>
                     <th class="text-center">Actions</th>
                 </tr>
@@ -27,7 +27,7 @@ Records
                     <th>{{$leave->type->name}}</th>
                     <td>{{$leave->start_date}}</td>
                     <td>{{$leave->end_date}}</td>
-                    <td>{{$leave->days_taken}}</td>
+                    <td class="text-center">{{$leave->days_taken}}</td>
                     <td class="text-center"><span class="badge">{{$leave->status()->reason}}</span></td>
                     <td class="text-center">
                         <a href="{{URL::signedRoute('leave.employee.show',['id'=>$leave->id])}}" class="btn btn-sm text-dark">View</a>
@@ -46,14 +46,18 @@ Records
 <!-- user records -->
 @endsection
 @section('page-js')
-@include('asset-partials.datatable',['buttons'=>true])
+@include('asset-partials.datatable')
 <script type="text/javascript">
     $(document).ready(function () {
-        $('.datatable').DataTable({
-            dom: 'Bfrtip',
+
+        var table = $('.datatable').DataTable({
+            lengthChange: false,
+            pageLength:7,
             buttons: [{
                 extend: 'excel',
                 text: 'Export excel',
+                className: 'btn btn-success',
+                filename: '{{$leaves->first()->user->personalDetail->name}}\'s Leave Records',
                 exportOptions: {
                     modifier: {
                         page: 'all'
@@ -62,6 +66,8 @@ Records
                 }
             }]
         });
+        table.buttons().container().appendTo( '.dataTables_wrapper .col-md-6:eq(0)' );
+
     });
 
 </script>

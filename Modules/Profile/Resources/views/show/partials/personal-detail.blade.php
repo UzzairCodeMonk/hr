@@ -1,7 +1,7 @@
 <div class="row">
     <div class="col-4">
         <h3>{{ucwords(__('profile::personal-detail.identity'))}}</h3>
-        <img src="{{!empty($personalDetail->avatar) ? asset($personalDetail->avatar):''}}" alt="" width="200px">
+        <img src="{{!empty($personalDetail->avatar) ? asset($personalDetail->avatar):''}}" alt="" width="200px" class="img-thumbnail">
     </div>
     <div class="col-8">
         <div class="form-group">
@@ -35,7 +35,7 @@
                 <div class="form-group">
                     <label for="">{{ucwords(__('profile::personal-detail.date-of-birth'))}}</label>
                     <p>{{old('date_of_birth',isset($personalDetail->date_of_birth)?
-                        $personalDetail->date_of_birth:'N/A')}}</p>
+                        Carbon\Carbon::parse($personalDetail->date_of_birth)->format('d/m/Y'):'N/A')}}</p>
                 </div>
             </div>
         </div>
