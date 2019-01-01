@@ -32,7 +32,7 @@
                     <td class="text-center">{!! $leave->notes ?? 'N/A' !!}</td>
                     <td class="text-center"><span class="badge">{{$leave->status()->reason ?? 'N/A'}}</span></td>
                     <td class="text-center">
-                        <a href="{{URL::signedRoute('leave.employee.show',['id'=>$leave->id])}}" class="btn btn-sm text-dark">View</a>
+                        <a href="{{URL::signedRoute('leave.employee.show',['id'=>$leave->id])}}" class="btn btn-sm text-dark d-inline">View</a>
                         <form action="{{route('leave.destroy',['id'=>$leave->id])}}" method="POST" class="leave-record d-inline">
                             @csrf
                             @method('DELETE')
@@ -104,10 +104,7 @@
                         },
                         columns: 'th:not(:last-child)'
                     }
-                },
-                {
-                    extend: 'colvis',                   
-                }
+                },                
             ]
         });
         table.buttons().container().appendTo('.dataTables_wrapper .col-md-6:eq(0)');

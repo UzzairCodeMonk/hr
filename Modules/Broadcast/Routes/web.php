@@ -1,16 +1,9 @@
 <?php
 
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| contains the "web" middleware group. Now create something great!
-|
-*/
 
-Route::prefix('broadcast')->group(function() {
-    Route::get('/', 'BroadcastController@index');
+
+Route::group(['prefix' => config('app.administration_prefix'), 'middleware' => 'auth'], function () {
+    Route::group(['prefix' => 'memo'], function () {
+        Route::get('/', ['uses' => 'MemosController@index']);
+    });
 });

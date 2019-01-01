@@ -50,6 +50,11 @@
                     @endif
             </li>
             <!-- END Notifications -->
+            @role('Admin')
+            <li>
+                <span class="topbar-btn"><i  data-provide="tooltip" data-original-title="Publish new memo" class="ti ti-announcement"></i></span>
+            </li>
+            @endrole
         </ul>
 
     </div>
