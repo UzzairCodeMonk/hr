@@ -15,9 +15,15 @@
             <li class="dropdown">
                 <span class="topbar-btn" data-toggle="dropdown">
                         @if(!empty(auth()->user()->personalDetail->avatar))
-                        <img class="avatar avatar-bordered" src="{{asset(auth()->user()->personalDetail->avatar)}}" style="height:100px;width:auto;">
+                        <img class="" src="{{asset(auth()->user()->personalDetail->avatar)}}" style=" vertical-align: middle;
+                        width: 50px;
+                        height: 50px;
+                        border-radius: 50%;">
                         @else
-                        <img class="avatar avatar-bordered" src="https://api.adorable.io/avatars/285/abott@adorable.png">
+                        <img style=" vertical-align: middle;
+                        width: 50px;
+                        height: 50px;
+                        border-radius: 50%;" src="https://api.adorable.io/avatars/285/abott@adorable.png">
                         @endif</span>
                 <div class="dropdown-menu dropdown-menu-right">
                     <a class="dropdown-item" href="{{route('personal.index')}}"><i class="ti-user"></i> My Profile</a>

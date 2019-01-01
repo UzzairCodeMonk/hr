@@ -7,7 +7,11 @@
     <div class="header-info h-250px mb-0">
         <div class="media align-items-end">
             @if(!empty(auth()->user()->personalDetail->avatar))
-            <img class="avatar avatar-xl avatar-bordered img-fuid" src="{{asset(auth()->user()->personalDetail->avatar)}}">
+            <img class="" src="{{asset(auth()->user()->personalDetail->avatar)}}" style="vertical-align: middle;
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            border: 3px solid #ffffff">
             @else
             <img class="avatar avatar-xl avatar-bordered" src="https://api.adorable.io/avatars/285/abott@adorable.png">
             @endif
