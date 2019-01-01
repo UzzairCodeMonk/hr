@@ -39,6 +39,7 @@ class CreatePersonalDetail
             'socso_id' => $this->request->socso_id,
             'epf_id' => $this->request->epf_id,
             'position_id' => $this->request->position_id,
+            'status' => $this->request->status,
         ]);
     }
 }

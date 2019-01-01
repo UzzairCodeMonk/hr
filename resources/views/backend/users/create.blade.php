@@ -19,87 +19,63 @@ Add Employees
                     <div class="form-group">
                         <label for="">Name</label>
                         <input type="text" name="name" id="" class="form-control">
-                        @if ($errors->has('name'))
-                        <span class="invalid-feedback">
-                            <strong>{{ $errors->first('name') }}</strong>
-                        </span>
-                        @endif
+                       @include('backend.shared._errors',['entity'=>'name'])
                     </div>
                     <div class="form-group">
                         <label for="">Email</label>
                         <input type="text" name="email" id="" class="form-control">
-                        @if ($errors->has('email'))
-                        <span class="invalid-feedback">
-                            <strong>{{ $errors->first('email') }}</strong>
-                        </span>
-                        @endif
+                        @include('backend.shared._errors',['entity'=>'email'])
                     </div>
                     <div class="form-group">
                         <label for="">IC No.</label>
                         <input type="text" name="ic_number" id="" class="form-control">
-                        @if ($errors->has('ic_number'))
-                        <span class="invalid-feedback">
-                            <strong>{{ $errors->first('ic_number') }}</strong>
-                        </span>
-                        @endif
+                        @include('backend.shared._errors',['entity'=>'ic_number'])
                     </div>
+                    <div class="form-group">
+                            <label for="">Employee Status</label>
+                            <select name="status" id="" class="form-control">                                
+                                <option value="">Please choose</option>
+                                <option value="contract">Contract</option>
+                                <option value="internship">Internship</option>
+                                <option value="permanent">Permanent</option>
+                                <option value="probation">Probation</option>                                
+                            </select>
+                            @include('backend.shared._errors',['entity'=>'status'])
+                        </div>
                     <div class="form-group">
                         <label for="">Staff No.</label>
                         <input type="text" name="staff_number" id="" class="form-control">
-                        @if ($errors->has('staff_number'))
-                        <span class="invalid-feedback">
-                            <strong>{{ $errors->first('staff_number') }}</strong>
-                        </span>
-                        @endif
+                        @include('backend.shared._errors',['entity'=>'staff_number'])
                     </div>
                     <div class="form-group">
                         <label for="">EPF No.</label>
                         <input type="text" name="epf_id" id="" class="form-control">
-                        @if ($errors->has('epf_id'))
-                        <span class="invalid-feedback">
-                            <strong>{{ $errors->first('epf_id') }}</strong>
-                        </span>
-                        @endif
+                        @include('backend.shared._errors',['entity'=>'epf_id'])
                     </div>
                     <div class="form-group">
                         <label for="">SOCSO No.</label>
                         <input type="text" name="socso_id" id="" class="form-control">
-                        @if ($errors->has('socso_id'))
-                        <span class="invalid-feedback">
-                            <strong>{{ $errors->first('socso_id') }}</strong>
-                        </span>
-                        @endif
+                        @include('backend.shared._errors',['entity'=>'socso_id'])
                     </div>
                     <div class="form-group">
                         <label for="">Position</label>
                         <select name="position_id" id="" class="form-control">
+                            <option value="">Please choose</option>
                             @foreach($positions as $position)
                             <option value="{{$position->id}}">{{$position->name}}</option>
                             @endforeach
                         </select>
-                        @if ($errors->has('position_id'))
-                        <span class="invalid-feedback">
-                            <strong>{{ $errors->first('position_id') }}</strong>
-                        </span>
-                        @endif
+                        @include('backend.shared._errors',['entity'=>'position_id'])
                     </div>
                     <div class="form-group">
                         <label for="">Password</label>
                         <input type="password" name="password" id="" class="form-control">
-                        @if ($errors->has('password'))
-                        <span class="invalid-feedback">
-                            <strong>{{ $errors->first('password') }}</strong>
-                        </span>
-                        @endif
+                        @include('backend.shared._errors',['entity'=>'password'])
                     </div>
                     <div class="form-group">
                         <label for="">Password Confirmation</label>
                         <input type="password" name="password_confirmation" id="" class="form-control">
-                        @if ($errors->has('password_confirmation'))
-                        <span class="invalid-feedback">
-                            <strong>{{ $errors->first('password_confirmation') }}</strong>
-                        </span>
-                        @endif
+                        @include('backend.shared._errors',['entity'=>'password_confirmation'])
                     </div>
                 </div>
 
