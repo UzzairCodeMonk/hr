@@ -34,6 +34,9 @@ Employees
                                 <a href="{{URL::signedRoute('employee.details',['id'=>$result->id])}}" class="btn btn-sm text-dark" id="">
                                     View
                                 </a>
+                                <a href="{{URL::signedRoute('user.edit',['id'=>$result->id])}}" class="btn btn-sm text-dark" id="">
+                                    Edit
+                                </a>
                                 @if(Auth::id() != $result->id)
                                 @can('delete_users')
                                 <form class="employee" action="{{route('user.destroy',['id'=>$result->id])}}" method="POST"

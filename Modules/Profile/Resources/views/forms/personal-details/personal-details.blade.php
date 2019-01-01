@@ -20,7 +20,8 @@ Personal Details
                             <div class="form-group">
                                 <label for="">{{ucwords(__('profile::personal-detail.avatar'))}}</label>
                                 <input type="file" name="avatar" id="" class="form-control">
-                                <div class="badge badge-md badge-info">Existing file: {!!asset($personalDetail->avatar ?? '')!!}</div>
+                                <div class="badge badge-md badge-info">Existing file: {!!asset($personalDetail->avatar
+                                    ?? '')!!}</div>
 
                             </div>
                         </div>
@@ -39,18 +40,29 @@ Personal Details
                     <input type="hidden" name="user_id" value="{{Auth::id()}}">
                     <div class="form-group">
                         <label for="">{{ucwords(__('profile::personal-detail.name'))}}</label>
-                        <input type="text" name="name" id="" class="form-control" value="{{ old('name',  isset($personalDetail->name) ? $personalDetail->name : null) }}">
+                        <input type="text" name="name" id="" class="form-control" value="{!! old('name',  isset($personalDetail->name) ? $personalDetail->name : null) !!}">
                     </div>
-                    <div class="form-group">
-                        <label for="">{{ucwords(__('profile::personal-detail.position'))}}</label>
-                        <select name="position_id" id="position_id" class="form-control">
-                            <option value="">Please choose</option>
-                            @foreach($positions as $position)
-                            <option value="{{$position->id}}"
-                                {{isset($personalDetail->position_id) && $personalDetail->position_id == $position->id ? 'selected':''}}>{{$position->name}}</option>
-                            @endforeach
-                        </select>
+                    <div class="row">
+                        <div class="col">
+                            <div class="form-group">
+                                <label for="">{{ucwords(__('profile::personal-detail.position'))}}</label>
+                                <select name="position_id" id="position_id" class="form-control">
+                                    <option value="">Please choose</option>
+                                    @foreach($positions as $position)
+                                    <option value="{{$position->id}}"
+                                        {{isset($personalDetail->position_id) && $personalDetail->position_id == $position->id ? 'selected':''}}>{{$position->name}}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="form-group">
+                                <label for="">{{ucwords(__('profile::personal-detail.status'))}}</label>
+                                <p>{{ucwords($personalDetail->status) ?? 'N/A'}}</p>
+                            </div>
+                        </div>
                     </div>
+
                     <div class="row">
                         <div class="col">
                             <div class="form-group">
@@ -84,7 +96,7 @@ Personal Details
                                 <input type="text" name="date_of_birth" id="" class="form-control date-of-birth" value="{{old('date_of_birth',isset($personalDetail->date_of_birth)? $personalDetail->date_of_birth:null)}}">
                             </div>
                         </div>
-                    </div>                    
+                    </div>
                     <div class="row">
                         <div class="col">
                             <div class="form-group">

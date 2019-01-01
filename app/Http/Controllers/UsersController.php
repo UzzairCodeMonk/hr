@@ -64,6 +64,13 @@ class UsersController extends Controller
     {
         return view('backend.users.create', ['positions' => $this->position->all()]);
     }
+    
+    public function edit($id)
+    {
+        return view('backend.users.create', [
+        'user' => $this->user->find($id),
+        'positions' => $this->position->all()]);
+    }
 
     public function store(Request $request)
     {
