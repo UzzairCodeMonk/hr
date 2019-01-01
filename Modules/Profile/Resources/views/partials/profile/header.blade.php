@@ -1,4 +1,4 @@
-<header class="header bg-img" style="background-image: url({{asset('images/bg-profile.png')}})">
+<header class="header bg-img" style="background-image: url({{asset('images/bg-profile.svg')}})">
     <!-- <div class="col mt-2">
         <button class="btn btn-primary btn-sm opacity pull-right opacity-75" onclick="document.getElementById('fileInput').click();"><i class="ti ti-pencil"></i> Change Background Image</button>
         <input id="fileInput" type="file" style="display:none;" />
