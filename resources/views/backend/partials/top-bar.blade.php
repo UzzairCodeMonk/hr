@@ -13,8 +13,12 @@
     <div class="topbar-right">
         <ul class="topbar-btns">
             <li class="dropdown">
-                <span class="topbar-btn" data-toggle="dropdown"><img class="avatar" src="https://api.adorable.io/avatars/285/abott@adorable.png"
-                        alt="..."></span>
+                <span class="topbar-btn" data-toggle="dropdown">
+                        @if(!empty(auth()->user()->personalDetail->avatar))
+                        <img class="avatar avatar-bordered" src="{{asset(auth()->user()->personalDetail->avatar)}}" style="height:100px;width:auto;">
+                        @else
+                        <img class="avatar avatar-bordered" src="https://api.adorable.io/avatars/285/abott@adorable.png">
+                        @endif</span>
                 <div class="dropdown-menu dropdown-menu-right">
                     <a class="dropdown-item" href="{{route('personal.index')}}"><i class="ti-user"></i> My Profile</a>
                     <div class="dropdown-divider"></div>
