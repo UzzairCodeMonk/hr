@@ -15,13 +15,13 @@
                         {{++$key}}
                     </td>
                     <td>
-                        <p>{{$record->name}}</p>
+                        <p>{{$record->name ?? 'N/A'}}</p>
                     </td>
                     <td>
-                        <p>{{$record->received_date}}</p>
+                        <p>{{Carbon\Carbon::parse($record->received_date)->format('d/m/Y') ?? 'N/A'}}</p>
                     </td>
                     <td>
-                        <p>{{$record->notes}}</p>
+                        <p>{{$record->notes ?? 'N/A'}}</p>
                     </td>                
                 </tr>
                 @endforeach

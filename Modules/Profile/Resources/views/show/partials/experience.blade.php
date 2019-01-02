@@ -5,7 +5,8 @@
             <th>Company</th>
             <th>Position</th>
             <th>Start Date</th>
-            <th>End Date</th>            
+            <th>End Date</th>
+            <th>Description</th>            
         </tr>
     </thead>
     <tbody>
@@ -16,17 +17,20 @@
                 {{++$key}}
             </td>
             <td>
-                <p>{{$record->company}}</p>
+                <p>{{$record->company ?? 'N/A'}}</p>
             </td>
             <td>
-                <p>{{$record->position}}</p>
+                <p>{{$record->position ?? 'N/A'}}</p>
             </td>
             <td>
-                <p>{{$record->start_date}}</p>
+                <p>{{$record->start_date ?? 'N/A'}}</p>
             </td>
             <td>
-                <p>{{$record->end_date}}</p>
-            </td>            
+                <p>{{$record->end_date ?? 'N/A'}}</p>
+            </td> 
+            <td>
+                <p>{!! $record->description ?? 'N/A' !!}</p>
+            </td>           
         </tr>
         @endforeach
         @else

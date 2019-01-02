@@ -7,13 +7,16 @@
 <div class="card">
     <div class="card-header">
         <h3 class="card-title">
-            {{getMonthNameBasedOnInt($payslip->month)}} {{$payslip->year}} Payslip
+            {{getMonthNameBasedOnInt($payslip->month) ?? 'N/A'}} {{$payslip->year ?? 'N/A'}} Payslip
         </h3>
+        <div class="card-options">
+            <a class="btn btn-primary btn-sm pull-right" href="{{URL::signedRoute('payslip.print',['id'=>$payslip->user_id,'month'=>$payslip->month,'year'=>$payslip->year])}}">Print</a>
+        </div>
     </div>
     <div class="card-body">
         <div class="row">
             <div class="col">
-                <h6><strong>{{$payslip->user->personalDetail->name}}</strong></h6>
+                <h6><strong>{{$payslip->user->personalDetail->name ?? 'N/A'}}</strong></h6>
                 <table>
                     <tr>
                         <td><strong>Employee #:</strong></td>
@@ -34,12 +37,7 @@
                         <td><strong>Income Tax No:</strong></td>
                         <td></td>
                         <td>{{$payslip->user->personalDetail->income_tax_no ?? 'N/A'}}</td>
-                    </tr>
-                    <tr>
-                        <td><strong>Cost Center:</strong></td>
-                        <td></td>
-                        <td>Application Development</td>
-                    </tr>
+                    </tr>                   
                 </table>
             </div>
             <div class="col">
@@ -48,8 +46,9 @@
                 </div>
                 <br><br>
                 <p class="text-right mt-3">
-                    <strong>{{companyName()}}</strong><br>
-                    {{siteAddressOne()}},<br>{{siteAddressTwo()}},<br>{{sitePostcode()}} {{siteCity()}}, {{siteCountry()}}
+                    <strong>{{companyName() ?? 'N/A'}}</strong><br>
+                    {{siteAddressOne() ?? 'N/A'}},<br>{{siteAddressTwo() ?? 'N/A'}},<br>{{sitePostcode() ?? 'N/A'}} {{siteCity() ?? 'N/A'}},
+                    {{siteCountry() ?? 'N/A'}}
                 </p>
             </div>
         </div>
@@ -76,7 +75,8 @@
                             <td class="text-right">{{number_format($payslip->allowance,2) ?? 'N/A'}}</td>
                         </tr>
                         <tr>
-                            <td colspan="2" class="text-right"><strong>Total: {{number_format($payslip->total_earnings,2) ?? 'N/A'}}</strong></td>
+                            <td colspan="2" class="text-right"><strong>Total:
+                                    {{number_format($payslip->total_earnings,2) ?? 'N/A'}}</strong></td>
                         </tr>
                     </tbody>
                 </table>
@@ -106,7 +106,8 @@
                             <td class="text-right">{{number_format($payslip->socso_eis_employee,2) ?? 'N/A'}}</td>
                         </tr>
                         <tr>
-                            <td colspan="2" class="text-right"><strong>Total: {{number_format($payslip->total_deductions,2) ?? 'N/A'}}</strong></td>
+                            <td colspan="2" class="text-right"><strong>Total:
+                                    {{number_format($payslip->total_deductions,2) ?? 'N/A'}}</strong></td>
                         </tr>
                     </tbody>
                 </table>
@@ -180,7 +181,7 @@
                     <tbody>
                         <tr>
                             <td>
-                                Remarks
+                                {!! $payslip->remarks !!}
                             </td>
                         </tr>
                     </tbody>
@@ -192,4 +193,12 @@
 </div>
 
 
+@endsection
+@section('page-js')
+<script>
+    function myFunction() {
+        window.print();
+    }
+
+</script>
 @endsection

@@ -61,15 +61,14 @@
 
         <div class="main-wrapper">
 
-            <section class="section summary-section">
+            <!-- <section class="section summary-section">
                 <h2 class="section-title"><span class="icon-holder"><i class="fas fa-user"></i></span>Career Profile</h2>
                 <div class="summary">
                     <p>Summarise your career here lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget
                         dolor aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur
                         ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu.</p>
-                </div>
-                <!--//summary-->
-            </section>
+                </div>                
+            </section> -->
             <!--//section-->
             @if($experience->count() > 0)
             <section class="section experiences-section">

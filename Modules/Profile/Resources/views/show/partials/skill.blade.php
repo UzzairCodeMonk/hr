@@ -14,10 +14,10 @@
                 {{++$key}}
             </td>
             <td>
-                <p>{{$record->skill}}</p>
+                <p>{{$record->skill ?? 'N/A'}}</p>
             </td>
             <td>
-                <p>{{$record->period}}</p>
+                <p>{{$record->period ?? 'N/A'}}</p>
             </td>
         </tr>
         @endforeach
