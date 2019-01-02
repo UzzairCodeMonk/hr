@@ -10,6 +10,7 @@ use Datakraf\Http\Requests\CreateEmployeeRequest;
 use Modules\Profile\Entities\PersonalDetail;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
+use Datakraf\Notifications\UserCreatedNotification;
 
 class UsersController extends Controller
 {
@@ -80,7 +81,7 @@ class UsersController extends Controller
             'password' => Hash::make($request->password),
         ];
         $user = User::create($data);
-        $this->sendCreateUserEmail($data['email']);
+        $user->notify(new UserCreatedNotification());
         toast('Employee created successfully', 'success', 'top-right');
         return back();
     }
@@ -104,5 +105,6 @@ class UsersController extends Controller
             $message->subject('Welcome aboard!');
             $message->to($email);
         });
+
     }
 }
