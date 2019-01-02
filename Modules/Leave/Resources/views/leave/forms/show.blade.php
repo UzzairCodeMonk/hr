@@ -15,7 +15,7 @@ Leave Application Form
     </div>
     <div class="card-body">
         @if(Auth::user()->hasRole('Admin'))
-        <form action="{{route('leave.approve.reject',['id'=>$leave->id])}}" method="POST" class="approve reject">
+        <form action="{{route('leave.approve.reject',['id'=>$leave->id])}}" method="POST" class="approve-reject">
             @csrf
             @else
             <form>
@@ -31,13 +31,13 @@ Leave Application Form
                                         @foreach($statuses as $status)
                                         <li class="timeline-block">
                                             <div class="timeline-point">
-                                                <span class="badge badge-dot badge-lg badge-success"></span>
+                                                <span class="badge badge-dot badge-lg {{statusColor($status['name']) ?? ''}}"></span>
                                             </div>
                                             <div class="timeline-content">
-                                                <time datetime="">{{Carbon\Carbon::createFromFormat("Y-m-d H:m:s",$status['created_at'])->toDayDateTimeString()}}</time>
+                <time datetime="">{{Carbon\Carbon::parse($status['created_at'])->toDayDateTimeString()}}</time>
                                                 <p>{{$status->reason}}</p>
                                             </div>
-                                        </li>
+                                        </li>                                        
                                         @endforeach
                                     </ol>
                                 </div>
@@ -50,7 +50,7 @@ Leave Application Form
                             <div class="col">
                                 <div class="form-group">
                                     <label for="">Applicant</label>
-                                    <p>{{$leave->user->name}}</p>
+                                    <p>{!! $leave->user->personalDetail->name ?? 'N/A' !!}</p>
                                 </div>
                             </div>
                             <div class="col">
@@ -109,8 +109,8 @@ Leave Application Form
                         <div class="row">
                             <div class="col">
                                 <div class="form-group pull-right">
-                                    <button type="submit" name="approve" class="btn btn-outline btn-success" value="1"><i class="ti ti-check"></i> Approve</button>
-                                    <button type="submit" name="reject" class="btn btn-outline btn-danger" value="1"><i class="ti ti-close"></i> Reject</button>
+                                    <button type="submit" name="approve" class="btn btn-outline btn-success approve-btn" value="1"><i class="ti ti-check"></i> Approve</button>
+                                    <button type="submit" name="reject" class="btn btn-outline btn-danger reject-btn" value="1"><i class="ti ti-close"></i> Reject</button>
                                     <a href="{{URL::previous()}}" class="btn btn-outline btn-primary"><i class="ti ti-back-left"></i> Back</a>
                                 </div>
                             </div>
@@ -160,33 +160,33 @@ Leave Application Form
 @endsection
 @section('page-js')
 @include('asset-partials.sweetalert')
-<!-- <script type="text/javascript">
-    $(".approve").on("submit", function () {
-        event.preventDefault();
-        return swal({
-            title: "Are you sure?",
-            text: "You won't be able to revert this!",
-            type: 'warning',
-            showCancelButton: true,
-        }).then((result) => {
-            if (result.value) {
-                $(".approve").submit();
-            }
-        });
-    });
-    $(".reject").on("submit", function () {
-        event.preventDefault();
-        return swal({
-            title: "Are you sure?",
-            text: "You won't be able to revert this!",
-            type: 'warning',
-            showCancelButton: true,
-        }).then((result) => {
-            if (result.value) {
-                $(".reject").submit();
-            }
-        });
-    });
+<script type="text/javascript">
+    // $(".approve-btn").on("click", function () {
+    //     event.preventDefault();
+    //     return swal({
+    //         title: "Are you sure?",
+    //         text: "You are about to approve this leave application",
+    //         type: 'warning',
+    //         showCancelButton: true,
+    //     }).then((result) => {
+    //         if (result.value) {
+    //             $(".approve-reject").submit();
+    //         }
+    //     });
+    // });
+    // $(".reject-btn").on("click", function () {
+    //     event.preventDefault();
+    //     return swal({
+    //         title: "Are you sure?",
+    //         text: "You are about to reject this leave application",
+    //         type: 'warning',
+    //         showCancelButton: true,
+    //     }).then((result) => {
+    //         if (result.value) {
+    //             $(".approve-reject").submit();
+    //         }
+    //     });
+    // });
 
-</script> -->
+</script>
 @endsection

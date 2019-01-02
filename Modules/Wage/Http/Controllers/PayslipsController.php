@@ -7,6 +7,9 @@ use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
 use Datakraf\User;
 use Modules\Wage\Entities\Payslip;
+use Auth;
+use PDF;
+use Modules\Wage\Notifications\PayslipGenerated;
 
 class PayslipsController extends Controller
 {
@@ -41,7 +44,7 @@ class PayslipsController extends Controller
     public function myPayslips()
     {
         $payslip = Payslip::where('user_id', auth()->id())->get();
-        return view('wage::payslips.show', ['user' => User::find($id), 'payslip' => $payslip]);
+        return view('wage::payslips.my-payslip', ['user' => Auth::user(), 'payslip' => $payslip]);
     }
 
     public function show($id)
@@ -55,6 +58,7 @@ class PayslipsController extends Controller
         $payslip = Payslip::where('user_id', $id)->where('month', $month)->where('year', $year)->first();
         return view('wage::payslips.payslip', ['payslip' => $payslip]);
     }
+
     public function generatePayslip(Request $request)
     {
         $payslip = Payslip::create($this->data);
@@ -62,9 +66,19 @@ class PayslipsController extends Controller
         $payslip->total_deductions = $this->calculateTotalDeductions($request);
         $payslip->net_wage = $this->calculateNetWage($request);
         $payslip->save();
-        toast('payslip generated', 'success', 'top-right');
+        $payslip->user->notify(new PayslipGenerated($payslip, $payslip->user, Auth::user()));
+        toast('Payslip generated successfully', 'success', 'top-right');
         return back();
+        
 
+    }
+
+    public function printPayslip($id, $month, $year)
+    {
+        $payslip = Payslip::where('user_id', $id)->where('month', $month)->where('year', $year)->first();
+        $pdf = PDF::loadView('wage::payslips.payslip-pdf', compact('payslip'));
+        $pdfName = $payslip->user->personalDetail->name.'-'.getMonthNameBasedOnInt($payslip->month).'-'.$payslip->year;
+        return $pdf->download($pdfName.'.pdf');
     }
 
     public function calculateTotalEarnings($request)

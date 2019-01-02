@@ -1,4 +1,4 @@
-<li class="menu-item active">
+<li class="menu-item">
     <a class="menu-link" href="#">
         <span class="icon ti-files"></span>
         <span class="title">Leave</span>
@@ -18,5 +18,21 @@
                 <span class="title">My Leave Applications</span>
             </a>
         </li>
+    </ul>
+</li>
+<li class="menu-item">
+    <a class="menu-link" href="#">
+        <span class="icon ti-money"></span>
+        <span class="title">Wage</span>
+        <span class="arrow"></span>
+    </a>
+
+    <ul class="menu-submenu">
+        <li class="menu-item">
+            <a class="menu-link" href="{{URL::signedRoute('payslip.personal-payslips')}}">
+                <span class="dot"></span>
+                <span class="title">My Payslips</span>
+            </a>
+        </li>        
     </ul>
 </li>

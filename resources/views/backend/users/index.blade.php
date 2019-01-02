@@ -14,7 +14,7 @@ Employees
                     <thead>
                         <tr>
                             <th>#</th>
-                            <th>Name</th>
+                            <th colspan="2">Name</th>
                             <th>Email</th>
                             <th class="text-center">Action</th>
                         </tr>
@@ -24,15 +24,20 @@ Employees
                         @foreach($results as $key=>$result)
                         <tr>
                             <td>{{++$key}}</td>
-                            <td>
-                                {{$result->name}}
+                            <td colspan="2">
+                                <img class="avatar" style="width:50px !important;height:50px !important" src="{{asset($result->personalDetail->avatar) ?? '' }}" alt="">
+                            
+                                <p class="d-inline">{{$result->name ?? 'N/A'}}</p>
                             </td>
                             <td>
-                                {{$result->email}}
+                                {{$result->email ?? 'N/A'}}
                             </td>
                             <td class="text-center">
                                 <a href="{{URL::signedRoute('employee.details',['id'=>$result->id])}}" class="btn btn-sm text-dark" id="">
                                     View
+                                </a>
+                                <a href="{{URL::signedRoute('user.edit',['id'=>$result->id])}}" class="btn btn-sm text-dark" id="">
+                                    Edit
                                 </a>
                                 @if(Auth::id() != $result->id)
                                 @can('delete_users')

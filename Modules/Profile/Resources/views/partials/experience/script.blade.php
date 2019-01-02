@@ -5,6 +5,7 @@
         $("#addrow").on("click", function () {
             $(".start-date").datepicker("destroy");
             $(".end-date").datepicker("destroy");
+            $('.summernote').summernote('destroy');
             var newRow = $("<tr>");
             var cols = "";
             cols += '<td>' + counter + '</td>';
@@ -13,6 +14,8 @@
             cols +=
                 '<td><input type="text" class="form-control start-date" name="start_date[]" /></td>';
             cols += '<td><input type="text" class="form-control end-date" name="end_date[]" /></td>';
+            cols +=
+                '<td><textarea name="description[]" class="form-control summernote" id="" cols="30" rows="10"></textarea></td>';
             cols +=
                 '<td><input type="button" class="ibtnDel btn btn-block btn-danger " value="Remove"></td>';
             newRow.append(cols);
@@ -23,6 +26,13 @@
             });
             $('.end-date').datepicker({
                 format: "{{config('app.date_format_js')}}",
+            });
+            $('.summernote').summernote({
+                toolbar: [
+                    // [groupName, [list of button]]                    
+                    ['para', ['ul', 'ol']]
+                ],
+                width:300
             });
         });
 

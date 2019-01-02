@@ -5,6 +5,7 @@ return [
     'identity' => 'identity',
     'name' => 'name',
     'position' => 'position',
+    'status' => 'status',
     'ic-number' => 'ic no.',
     'staff-no' => 'staff no.',
     'date-of-birth' => 'date of birth',

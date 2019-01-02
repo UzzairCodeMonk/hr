@@ -38,28 +38,20 @@
             </li>
             <!-- Notifications -->
             <li class="dropdown d-none d-md-block">
-                <span class="topbar-btn has-new" data-toggle="dropdown"><i class="ti-bell"></i></span>
+                <span class="topbar-btn {{ Auth::user()->unreadNotifications->count() > 0 ? 'has-new':'' }}" data-toggle="dropdown"><i class="ti-bell"></i></span>
+                @if(userHasNotification())
                 <div class="dropdown-menu dropdown-menu-right">
-                    @if(Auth::user()->unreadNotifications->count() > 0)
-                    @foreach(Auth::user()->unreadNotifications as $n)
-                    <div class="media-list media-list-hover media-list-divided media-list-xs">
-                        @if(isset($n->data['type']) && $n->data['type'] == 'leave')
-                        <?php $leave_id = $n->data['leave_id']; ?>
-                        <a class="media" href="{{URL::signedRoute('leave.employee.show',['id'=>$leave_id])}}">
-                            @else
-                            <a class="media" href="#">
-                                @endif
-                                <span class="avatar"><i class="ti-user"></i></span>
-                                <div class="media-body">
-                                    <p>{{$n->data['message']}}</p>
-                                    <time datetime="{{$n->created_at}}">{{Carbon\Carbon::parse($n->created_at)->toDayDateTimeString()}}</time>
-                                </div>
-                            </a>
-                    </div>
-                    @endforeach
-                    @endif
+                    @include('components.notification.notification-item')
+                </div>
+                @endif
+
             </li>
             <!-- END Notifications -->
+            @role('Admin')
+            <!-- <li>
+                <span class="topbar-btn"><i  data-provide="tooltip" data-original-title="Publish new memo" class="ti ti-announcement"></i></span>
+            </li> -->
+            @endrole
         </ul>
 
     </div>

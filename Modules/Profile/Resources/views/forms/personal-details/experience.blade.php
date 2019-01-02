@@ -1,6 +1,6 @@
 @extends('profile::master')
 @section('page-title')
-    Employment History
+Employment History
 @endsection
 @section('form-content')
 <div class="container">
@@ -37,10 +37,23 @@
     date.setDate(date.getDate());
 
     $('.start-date').datepicker({
-        format: "dd/mm/yyyy",       
+        format: "dd/mm/yyyy",
     });
     $('.end-date').datepicker({
-        format: "dd/mm/yyyy",        
+        format: "dd/mm/yyyy",
+    });
+
+</script>
+@include('asset-partials.summernote')
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('.summernote').summernote({
+            toolbar: [
+                // [groupName, [list of button]]                    
+                ['para', ['ul', 'ol']]
+            ],
+            width:300
+        });
     });
 
 </script>

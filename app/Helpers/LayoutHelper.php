@@ -9,6 +9,11 @@ function greet()
 
 }
 
+function userHasNotification()
+{
+    return Auth::user()->unreadNotifications->count() > 0;
+}
+
 function getMonthNameBasedOnInt($value)
 {
     $monthNum = $value;
@@ -18,70 +23,87 @@ function getMonthNameBasedOnInt($value)
     return $monthName;
 }
 
-function companyName(){
+function companyName()
+{
     return DB::table('siteconfigs')->first()->company_name;
 }
 
-function siteName(){
+function siteName()
+{
     return DB::table('siteconfigs')->first()->site_name;
 }
 
-function sitePhoneNumber(){
+function sitePhoneNumber()
+{
     return DB::table('siteconfigs')->first()->phone_number;
 }
 
-function siteMobileNumber(){
+function siteMobileNumber()
+{
     return DB::table('siteconfigs')->first()->mobile_number;
 }
 
-function siteFaxNumber(){
+function siteFaxNumber()
+{
     return DB::table('siteconfigs')->first()->fax_number;
 }
 
-function siteEmail(){
+function siteEmail()
+{
     return DB::table('siteconfigs')->first()->email;
 }
 
-function siteLogo(){
+function siteLogo()
+{
     return DB::table('siteconfigs')->first()->logo;
 }
 
-function siteAddressOne(){
+function siteAddressOne()
+{
     return DB::table('siteconfigs')->first()->address_one;
 }
 
-function siteAddressTwo(){
+function siteAddressTwo()
+{
     return DB::table('siteconfigs')->first()->address_two;
 }
 
-function sitePostcode(){
+function sitePostcode()
+{
     return DB::table('siteconfigs')->first()->postcode;
 }
 
-function siteCity(){
+function siteCity()
+{
     return DB::table('siteconfigs')->first()->city;
 }
 
-function siteState(){
+function siteState()
+{
     return DB::table('siteconfigs')->first()->state;
 }
 
-function siteCountry(){
+function siteCountry()
+{
     return DB::table('siteconfigs')->first()->country;
 }
 
-function siteFacebook(){
+function siteFacebook()
+{
     return DB::table('siteconfigs')->first()->facebook;
 }
 
-function siteTwitter(){
+function siteTwitter()
+{
     return DB::table('siteconfigs')->first()->twitter;
 }
 
-function siteGmail(){
+function siteGmail()
+{
     return DB::table('siteconfigs')->first()->gmail;
 }
 
-function sitelinkedin(){
+function sitelinkedin()
+{
     return DB::table('siteconfigs')->first()->linkedin;
 }

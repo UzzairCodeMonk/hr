@@ -66,7 +66,8 @@
             <div class="col">
                 <div class="form-group">
                     <label for="">{{ucwords(__('profile::personal-detail.marriage-date'))}}</label>
-                    <p>{{old('date_of_marriage',isset($personalDetail->date_of_marriage)?$personalDetail->date_of_marriage:'N/A')}}</p>
+                    <p>{{old('date_of_marriage',isset($personalDetail->date_of_marriage)?
+                            Carbon\Carbon::parse($personalDetail->date_of_marriage)->format('d/m/Y'):'N/A')}}</p>
                 </div>
             </div>
         </div>

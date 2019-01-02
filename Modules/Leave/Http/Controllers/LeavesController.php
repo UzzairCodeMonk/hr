@@ -16,6 +16,7 @@ use Auth;
 use Maatwebsite\Excel\Facades\Excel;
 use Modules\Leave\Traits\Date;
 use Modules\Leave\Exports\UserLeavesExport;
+use Modules\Leave\Notifications\ApproveLeave;
 
 class LeavesController extends Controller
 {
@@ -116,7 +117,7 @@ class LeavesController extends Controller
 
     public function setLeaveStatus($leave)
     {
-        $leave->setStatus('Leave Submission', 'Leave submitted for review');
+        $leave->setStatus('leave-submitted', 'Leave submitted for review');
     }
 
     public function saveAttachments($request, $leave)
@@ -154,14 +155,14 @@ class LeavesController extends Controller
             // update or create leave balance record in leavebalances table
             $this->balance->updateOrCreate(['user_id' => $leave->user_id, 'leavetype_id' => $leave->leavetype_id], ['balance' => $balance]);
             // set the status of the leave
-            $leave->setStatus('Leave application rejected', 'Leave approved by ' . Auth::user()->name);
-
+            $leave->setStatus('leave-approved', 'Leave approved by ' . Auth::user()->name);
+            $leave->user->notify(new ApproveLeave($leave, $leave->user, Auth::user()));
             toast('Leave application approved successfully', 'success', 'top-right');
         }
 
         if ($request->get('reject')) {
             // set the status of the leave
-            $leave->setStatus('Leave application rejected', 'Leave rejected by ' . Auth::user()->name);
+            $leave->setStatus('leave-rejected', 'Leave rejected by ' . Auth::user()->name);
             toast('Leave application rejected', 'success', 'top-right');
         }
 

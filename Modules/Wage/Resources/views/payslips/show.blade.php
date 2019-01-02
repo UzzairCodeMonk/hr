@@ -12,7 +12,6 @@ Payslip Records
         <div class="row">
             <div class="col">
                 <h4>Payslip Records</h4>
-
                 <table class="table table-bordered table-striped datatable">
                     <thead>
                         <tr>

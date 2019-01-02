@@ -21,6 +21,9 @@
     "autoload": {
         "psr-4": {
             "Modules\\Leave\\": ""
-        }
+        },
+        "files":[
+            "Helpers/Status.php"
+        ]
     }
 }

@@ -10,6 +10,8 @@
         "Modules\\Leave\\Providers\\EventServiceProvider"
     ],
     "aliases": [],
-    "files": [],
+    "files": [
+        "Helpers/Status.php"
+    ],
     "requires": []
 }
