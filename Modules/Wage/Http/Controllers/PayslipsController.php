@@ -9,6 +9,7 @@ use Datakraf\User;
 use Modules\Wage\Entities\Payslip;
 use Auth;
 use PDF;
+use Modules\Wage\Notifications\PayslipGenerated;
 
 class PayslipsController extends Controller
 {
@@ -65,7 +66,8 @@ class PayslipsController extends Controller
         $payslip->total_deductions = $this->calculateTotalDeductions($request);
         $payslip->net_wage = $this->calculateNetWage($request);
         $payslip->save();
-        toast('payslip generated', 'success', 'top-right');
+        $payslip->user->notify(new PayslipGenerated($payslip, $payslip->user, Auth::user()));
+        toast('Payslip generated successfully', 'success', 'top-right');
         return back();
         
 
