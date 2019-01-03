@@ -40,7 +40,7 @@ class UserCreatedNotification extends Notification
      */
     public function toMail($notifiable)
     {
-        $link = 'http://datakraf-hr.web';
+        $link = 'http://159.65.13.47/';
 
         return (new MailMessage)
             ->subject('Welcome aboard!') 
