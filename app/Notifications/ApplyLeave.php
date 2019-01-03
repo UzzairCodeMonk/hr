@@ -8,6 +8,7 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 use Modules\Leave\Entities\Leave;
 use Datakraf\User;
+use Illuminate\Support\Facades\URL;
 
 class ApplyLeave extends Notification
 {
@@ -47,13 +48,14 @@ class ApplyLeave extends Notification
      */
     public function toMail($notifiable)
     {
+        $link = URL::signedRoute('leave.employee.show', ['id' => $this->leave->id]);
         return (new MailMessage)
-            ->greeting('Application Leave')
+            ->greeting($this->leave->user->name . ' has applied for leave')
             ->line('Applicant: ' . $this->leave->user->name)
             ->line('Leave Type: ' . $this->leave->type->name)
             ->line('Start Date: ' . $this->leave->start_date)
             ->line('End Date: ' . $this->leave->end_date)
-            ->action('Approve', url('/'));
+            ->action('View leave application', $link);
     }
 
     /**
@@ -64,16 +66,14 @@ class ApplyLeave extends Notification
      */
     public function toArray($notifiable)
     {
-        return [
-            
-        ];
+        return [];
     }
 
     public function toDatabase($notifiable)
     {
         return [
             'user_id' => $this->user->id,
-            'message' => $this->leave->user->name.' has submitted application leave',      
+            'message' => $this->leave->user->name . ' has submitted application leave',
             'leave_id' => $this->leave->id,
             'type' => 'leave'
         ];

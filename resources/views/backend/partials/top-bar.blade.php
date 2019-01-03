@@ -16,13 +16,13 @@
                 <span class="topbar-btn" data-toggle="dropdown">
                         @if(!empty(auth()->user()->personalDetail->avatar))
                         <img class="" src="{{asset(auth()->user()->personalDetail->avatar)}}" style=" vertical-align: middle;
-                        width: 50px;
-                        height: 50px;
+                        width: 40px;
+                        height: 40px;
                         border-radius: 50%;">
                         @else
                         <img style=" vertical-align: middle;
-                        width: 50px;
-                        height: 50px;
+                        width: 40px;
+                        height: 40px;
                         border-radius: 50%;" src="https://api.adorable.io/avatars/285/abott@adorable.png">
                         @endif</span>
                 <div class="dropdown-menu dropdown-menu-right">

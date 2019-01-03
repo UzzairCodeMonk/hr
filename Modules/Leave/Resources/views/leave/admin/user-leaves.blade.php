@@ -1,11 +1,11 @@
 @extends('backend.master')
 @section('page-title')
-{{$leaves->first()->user->personalDetail->name}}'s Leave Records
+{{$leaves->first()->user->personalDetail->name ?? ''}}'s Leave Records
 @endsection
 @section('content')
 <div class="card">
     <div class="card-header">
-        <h3 class="cad-title">{{$leaves->first()->user->personalDetail->name}}'s Leave Records</h3>
+        <h3 class="cad-title">{{$leaves->first()->user->personalDetail->name ?? ''}}'s Leave Records</h3>
     </div>
     <div class="card-body">
         <table class="table table-striped table-bordered datatable">
@@ -79,7 +79,7 @@
                     extend: 'excel',
                     text: 'Export to excel',
                     className: 'btn btn-success',
-                    filename: '{{$leaves->first()->user->personalDetail->name}}\'s Leave Records',
+                    filename: '{{$leaves->first()->user->personalDetail->name ?? ""}}\'s Leave Records',
                     exportOptions: {
                         modifier: {
                             page: 'all'
@@ -97,7 +97,7 @@
                 {
                     extend: 'pdf',
                     text: 'Export to PDF',
-                    filename: '{{$leaves->first()->user->personalDetail->name}}\'s Leave Records',
+                    filename: '{{$leaves->first()->user->personalDetail->name ?? ""}}\'s Leave Records',
                     exportOptions: {
                         modifier: {
                             page: 'current'

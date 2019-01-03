@@ -40,12 +40,13 @@ class UserCreatedNotification extends Notification implements ShouldQueue
      */
     public function toMail($notifiable)
     {
-        $url = 'http://datakraf-hr.web';
+        $link = 'http://datakraf-hr.web';
 
         return (new MailMessage)
-            ->subject('Welcome aboard!')            
+            ->subject('Welcome aboard!') 
+            ->greeting('Welcome aboard!')           
             ->line('You\'ve been registered to our Human Resource Management System! We hope you enjoy your time with us. To start please login and update your profile.')
-            ->action('Login', $url)
+            ->action('Login', $link)
             ->line('Thank you!');
     }
 
