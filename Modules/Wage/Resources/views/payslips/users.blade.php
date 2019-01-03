@@ -5,7 +5,7 @@ Employee Records
 @section('content')
 <div class="card">
     <div class="card-header">
-        <h3 class="cad-title">Employees Payslips</h3>
+        <h3 class="card-title">Employees Payslips</h3>
     </div>
     <div class="card-body">
         <table class="table table-striped table-bordered datatable" data-provide="datatables">
