@@ -31,11 +31,7 @@
                 <ul class="list-unstyled contact-list">
                     <li class="email"><i class="fas fa-envelope"></i><a href="mailto:" .{!! $personalDetail->user->email
                             !!}>{{$personalDetail->user->email}}</a></li>
-                    <li class="phone"><i class="fas fa-phone"></i><a href="">{{$personalDetail->mobile_number?:'N/A'}}</a></li>
-                    <li class="linkedin"><i class="fab fa-linkedin-in"></i><a href="#" target="_blank">linkedin.com/in/alandoe</a></li>
-                    <li class="github"><i class="fab fa-github"></i><a href="#" target="_blank">github.com/username</a></li>
-                    <li class="twitter"><i class="fab fa-twitter"></i><a href="https://twitter.com/3rdwave_themes"
-                            target="_blank">@twittername</a></li>
+                    <li class="phone"><i class="fas fa-phone"></i><a href="">{{$personalDetail->mobile_number?:'N/A'}}</a></li>                   
                 </ul>
             </div>
             <!--//contact-container-->

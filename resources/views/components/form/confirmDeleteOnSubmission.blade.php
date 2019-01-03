@@ -16,7 +16,7 @@
             cancelButtonAriaLabel: 'Thumbs down',
         }).then((result) => {
             if (result.value) {
-                $(".{!!$entity!!}").submit();
+                $(".{!!$entity!!}").trigger('submit');
             }
         });
     });

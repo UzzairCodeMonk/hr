@@ -8,12 +8,13 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 use Datakraf\User;
 use Modules\Wage\Entities\Payslip;
+use Illuminate\Support\Facades\URL;
 
-class PayslipGenerated extends Notification
+class PayslipGenerated extends Notification implements ShouldQueue
 {
-    use Queueable;  
+    use Queueable;
 
-    public $payslip;    
+    public $payslip;
 
     /**
      * Create a new notification instance.
@@ -21,8 +22,8 @@ class PayslipGenerated extends Notification
      * @return void
      */
     public function __construct(Payslip $payslip)
-    {        
-        $this->payslip = $payslip;        
+    {
+        $this->payslip = $payslip;
     }
 
     /**
@@ -33,7 +34,7 @@ class PayslipGenerated extends Notification
      */
     public function via($notifiable)
     {
-        return ['database'];
+        return ['database', 'mail'];
     }
 
     /**
@@ -44,10 +45,15 @@ class PayslipGenerated extends Notification
      */
     public function toMail($notifiable)
     {
+        $link = URL::signedRoute('payslip.my.record', [
+            'id' => $this->payslip->user_id,
+            'month' => $this->payslip->month,
+            'year' => $this->payslip->year,
+        ]);
         return (new MailMessage)
-            ->line('The introduction to the notification.')
-            ->action('Notification Action', 'https://laravel.com')
-            ->line('Thank you for using our application!');
+            ->greeting('Hi ' . $this->payslip->user->personalDetail->name.'!')
+            ->line('Your ' . \getMonthNameBasedOnInt($this->payslip->month) . ' ' . $this->payslip->year . ' payslip is here!')
+            ->action('View your payslip', $link);
     }
 
     /**
@@ -69,7 +75,7 @@ class PayslipGenerated extends Notification
             'user_id' => $this->payslip->user_id,
             'month' => $this->payslip->month,
             'year' => $this->payslip->year,
-            'message' => 'Your '.\getMonthNameBasedOnInt($this->payslip->month).' '.$this->payslip->year.' payslip is here! Click to view.',            
+            'message' => 'Your ' . \getMonthNameBasedOnInt($this->payslip->month) . ' ' . $this->payslip->year . ' payslip is here! Click to view.',
             'type' => 'payslip'
         ];
     }

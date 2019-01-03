@@ -22,7 +22,7 @@ Login
             <input type="password" name="password" class="form-control{{ $errors->has('password') ? ' is-invalid' : '' }}" id="password">
             <label for="email">{{ __('Password') }}</label>
         </div>
-        <div class="form-group flexbox">
+        <!-- <div class="form-group flexbox">
             <div class="custom-control custom-checkbox">
                 <input type="checkbox" class="custom-control-input" name="remember"
                     {{ old('remember') ? 'checked' : '' }}>
@@ -30,7 +30,7 @@ Login
             </div>
             <a class="text-muted hover-primary fs-13" href="{{ route('password.request') }}">{{ __('Forgot Your
                 Password?') }}</a>
-        </div>
+        </div> -->
         <div class="form-group">
             <button class="btn btn-bold btn-block btn-primary" type="submit">Login</button>
         </div>

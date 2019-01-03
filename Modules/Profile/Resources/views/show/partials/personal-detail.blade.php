@@ -1,6 +1,5 @@
 <div class="row">
-    <div class="col-4">
-        <h3>{{ucwords(__('profile::personal-detail.identity'))}}</h3>
+    <div class="col-4">        
         <img src="{{!empty($personalDetail->avatar) ? asset($personalDetail->avatar):''}}" alt="" width="200px" class="img-thumbnail">
     </div>
     <div class="col-8">

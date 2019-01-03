@@ -49,6 +49,7 @@ class ApplyLeave extends Notification
     public function toMail($notifiable)
     {
         $link = URL::signedRoute('leave.employee.show', ['id' => $this->leave->id]);
+        
         return (new MailMessage)
             ->greeting($this->leave->user->name . ' has applied for leave')
             ->line('Applicant: ' . $this->leave->user->name)

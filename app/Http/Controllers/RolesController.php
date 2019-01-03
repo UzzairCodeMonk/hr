@@ -37,6 +37,7 @@ class RolesController extends Controller
             // admin role has everything
             if ($role->name === 'Admin') {
                 $role->syncPermissions(Permission::all());
+                toast($role->name . ' permissions updated', 'success', 'top-right');
                 return redirect()->route('roles.index');
             }
 

@@ -49,6 +49,10 @@ class LeavesController extends Controller
         $this->balance = $balance;
     }
 
+    protected $approvedStatus = 'approved';
+    protected $rejectedStatus = 'rejected';
+    protected $submittedStatus = 'submitted';
+
     public function index()
     {
         // $leaves = $this->leave->all();        
@@ -65,10 +69,14 @@ class LeavesController extends Controller
 
     public function showUserLeaves($id)
     {
+        // determine if action buttons will be displayed or vice versa
+        $actionVisibility = !in_array($this->leave->find($id)->status, [$this->approvedStatus,$this->rejectedStatus]);
+
         return view('leave::leave.forms.show', [
             'leave' => $this->leave->find($id),
             'types' => $this->type->all(),
-            'statuses' => $this->leave->find($id)->statuses
+            'statuses' => $this->leave->find($id)->statuses,
+            'actionVisibility' => $actionVisibility
         ]);
     }
 
@@ -99,7 +107,7 @@ class LeavesController extends Controller
         // save attachments
         $this->saveAttachments($request, $leave);
 
-        toast($this->message('save', 'Leave record'), 'success', 'top-right');
+        toast('Leave record submitted', 'success', 'top-right');
         return redirect()->back();
     }
 
@@ -117,7 +125,7 @@ class LeavesController extends Controller
 
     public function setLeaveStatus($leave)
     {
-        $leave->setStatus('leave-submitted', 'Leave submitted for review');
+        $leave->setStatus($this->submittedStatus, 'Leave submitted for review');
     }
 
     public function saveAttachments($request, $leave)
@@ -155,14 +163,15 @@ class LeavesController extends Controller
             // update or create leave balance record in leavebalances table
             $this->balance->updateOrCreate(['user_id' => $leave->user_id, 'leavetype_id' => $leave->leavetype_id], ['balance' => $balance]);
             // set the status of the leave
-            $leave->setStatus('leave-approved', 'Leave approved by ' . Auth::user()->name);
+            $leave->setStatus($this->approvedStatus, 'Leave approved by ' . Auth::user()->name);
             $leave->user->notify(new ApproveLeave($leave, $leave->user, Auth::user()));
             toast('Leave application approved successfully', 'success', 'top-right');
         }
 
         if ($request->get('reject')) {
             // set the status of the leave
-            $leave->setStatus('leave-rejected', 'Leave rejected by ' . Auth::user()->name);
+            $leave->setStatus($this->rejectedStatus, 'Leave rejected by ' . Auth::user()->name);
+            // $leave->
             toast('Leave application rejected', 'success', 'top-right');
         }
 
@@ -181,6 +190,11 @@ class LeavesController extends Controller
     {
         $name = $this->user->find($id)->personalDetail->name;
         return (new UserLeavesExport)->forUser($id)->download('hello.xlsx');
+    }
+
+    public function leaveCurrentStatus($leave)
+    {
+        $leave->status;
     }
 
 }

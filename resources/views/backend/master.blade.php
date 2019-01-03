@@ -17,6 +17,7 @@
 }
     </style>
     @yield('page-css')
+    <meta name="csrf-token" content="{{ csrf_token() }}" />
 </head>
 
 <body class="sidebar-folded">
@@ -51,6 +52,14 @@
         document.getElementById('greeting').append(msg + " {{Auth::user()->name}}");
         $('#icon').html("<img width='30' src='" + icon + "' />");
         @endif
+
+    </script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('.mark-read').on('click', function () {
+                $('.mark-read').submit();
+            });
+        });
 
     </script>
 </body>

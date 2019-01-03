@@ -29,14 +29,24 @@ Payslip Records
                             <td>{{getMonthNameBasedOnInt($p->month)}}</td>
                             <td>{{$p->year}}</td>
                             <td class="text-center">
-                                <a href="{{URL::signedRoute('payslip.employee.record',['id'=>$user->id,'month'=>$p->month,'year'=>$p->year])}}" class="btn btn-sm text-dark">View</a>
+                                <a href="{{URL::signedRoute('payslip.employee.record',['id'=>$user->id,'month'=>$p->month,'year'=>$p->year])}}"
+                                    class="btn btn-sm text-dark">View</a>
+                                @can('delete_payslips')
+                                <form action="{{route('payslip.delete',['id'=>$p->id])}}" method="POST" class="d-inline payslip">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button class="btn btn-sm text-danger">
+                                        Delete
+                                    </button>
+                                </form>
+                                @endcan
                             </td>
                         </tr>
                         @endforeach
                         @else
-                            <tr>
-                                <td colspan="4" class="text-center">No payslip record found</td>
-                            </tr>
+                        <tr>
+                            <td colspan="4" class="text-center">No payslip record found</td>
+                        </tr>
                         @endif
                     </tbody>
                 </table>
@@ -58,7 +68,8 @@ Payslip Records
                         <div class="col">
                             <div class="form-group">
                                 <label for="">Year</label>
-                                {!! Form::selectYear('year',2018,2025,null,['id'=>'year','class'=>'form-control']) !!}
+                                <input class="form-control" type="text" name="year" value="{{Carbon\Carbon::now()->format('Y')}}"
+                                    readonly>
                             </div>
                         </div>
                     </div>
@@ -146,13 +157,14 @@ Payslip Records
 </div>
 @endsection
 @section('page-js')
-@include('components.form.confirmDeleteOnSubmission',['entity'=>'leaveType','action'=>'delete'])
+@include('components.form.confirmDeleteOnSubmission',['entity'=>'payslip','action'=>'delete'])
 @include('asset-partials.datatable')
 <script type="text/javascript">
-$(document).ready(function(){
-    $('.datatable').DataTable({
-        pageLength:7,
+    $(document).ready(function () {
+        $('.datatable').DataTable({
+            pageLength: 7,
+        });
     });
-});
+
 </script>
 @endsection

@@ -105,12 +105,19 @@ Leave Application Form
                         </div>
                         @endif
                         @role('Admin')
-                        @if(empty($leave->status_code))
+                        @if($actionVisibility)
+                        <div class="row">
+                            <div class="col">
+                                <div class="form-group">
+                                    
+                                </div>
+                            </div>
+                        </div>
                         <div class="row">
                             <div class="col">
                                 <div class="form-group pull-right">
-                                    <button type="submit" name="approve" class="btn btn-outline btn-success approve-btn" value="1"><i class="ti ti-check"></i> Approve</button>
-                                    <button type="submit" name="reject" class="btn btn-outline btn-danger reject-btn" value="1"><i class="ti ti-close"></i> Reject</button>
+                                    <button type="submit" name="approve" class="btn btn-outline btn-success approve-btn"><i class="ti ti-check"></i> Approve</button>
+                                    <button type="submit" name="reject" class="btn btn-outline btn-danger reject-btn"><i class="ti ti-close"></i> Reject</button>
                                     <a href="{{URL::previous()}}" class="btn btn-outline btn-primary"><i class="ti ti-back-left"></i> Back</a>
                                 </div>
                             </div>

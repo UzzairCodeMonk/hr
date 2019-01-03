@@ -3,7 +3,7 @@
 {{getMonthNameBasedOnInt($payslip->month)}} {{$payslip->year}} Payslip
 @endsection
 @section('content')
-
+<a class="btn btn-primary mb-3" href="{{URL::previous()}}">Back</a>
 <div class="card">
     <div class="card-header">
         <h3 class="card-title">

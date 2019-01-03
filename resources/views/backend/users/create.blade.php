@@ -39,10 +39,14 @@
                             <label for="">Employee Status</label>
                             <select name="status" id="" class="form-control">
                                 <option value="">Please choose</option>
-                                <option value="contract" {{old('status',isset($user->personalDetail->status) && $user->personalDetail->status == 'contract' ? 'selected':'')}}>Contract</option>
-                                <option value="internship" {{old('status',isset($user->personalDetail->status) && $user->personalDetail->status == 'internship' ? 'selected':'')}}>Internship</option>
-                                <option value="permanent" {{old('status',isset($user->personalDetail->status) && $user->personalDetail->status == 'permanent' ? 'selected':'')}}>Permanent</option>
-                                <option value="probation" {{old('status',isset($user->personalDetail->status) && $user->personalDetail->status == 'probation' ? 'selected':'')}}>Probation</option>
+                                <option value="contract"
+                                    {{old('status',isset($user->personalDetail->status) && $user->personalDetail->status == 'contract' ? 'selected':'')}}>Contract</option>
+                                <option value="internship"
+                                    {{old('status',isset($user->personalDetail->status) && $user->personalDetail->status == 'internship' ? 'selected':'')}}>Internship</option>
+                                <option value="permanent"
+                                    {{old('status',isset($user->personalDetail->status) && $user->personalDetail->status == 'permanent' ? 'selected':'')}}>Permanent</option>
+                                <option value="probation"
+                                    {{old('status',isset($user->personalDetail->status) && $user->personalDetail->status == 'probation' ? 'selected':'')}}>Probation</option>
                             </select>
                             @include('backend.shared._errors',['entity'=>'status'])
                         </div>
@@ -66,14 +70,28 @@
                             <select name="position_id" id="" class="form-control">
                                 <option value="">Please choose</option>
                                 @foreach($positions as $position)
-                                <option value="{{$position->id}}" {{old('status',isset($user->personalDetail->position_id) && $user->personalDetail->position_id == $position->id ? 'selected':'')}}>{{$position->name}}</option>
+                                <option value="{{$position->id}}"
+                                    {{old('status',isset($user->personalDetail->position_id) && $user->personalDetail->position_id == $position->id ? 'selected':'')}}>{{$position->name}}</option>
                                 @endforeach
                             </select>
                             @include('backend.shared._errors',['entity'=>'position_id'])
                         </div>
                         <div class="form-group">
+                            <label for="">Role</label>
+                            <select name="role" id="" class="form-control">
+                                <option value="">Please choose</option>
+                                @foreach($roles as $role)
+                                <option value="{{$role->name}}"
+                                    {{old('role',isset($user->roles) && $user->roles->pluck('name')->first() == $role->name ? 'selected':'')}}>{{$role->name}}</option>
+                                @endforeach
+                            </select>
+                            @include('backend.shared._errors',['entity'=>'role'])
+                        </div>
+                        <div class="form-group">
                             <label for="">Password</label>
                             <input type="password" name="password" id="" class="form-control">
+                            <p class="form-text">{{isset($user) ? 'Leave the password field blank if you don\'t want to
+                                change':'' }}</p>
                             @include('backend.shared._errors',['entity'=>'password'])
                         </div>
                         <div class="form-group">

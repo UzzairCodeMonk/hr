@@ -8,6 +8,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Spatie\Permission\Traits\HasRoles;
 use Modules\Profile\Entities\Family;
 use Datakraf\Events\UserCreated;
+use Datakraf\Events\UserUpdated;
 use Modules\Leave\Entities\LeaveEntitlement;
 use Modules\Leave\Entities\Leave;
 use Modules\Profile\Entities\PersonalDetail;
@@ -18,7 +19,8 @@ class User extends Authenticatable
     use Notifiable, HasRoles;
 
     protected $dispatchesEvents = [
-        'created' => UserCreated::class
+        'created' => UserCreated::class,
+        'updated' => UserUpdated::class
     ];
     /**
      * The attributes that are mass assignable.

@@ -11,6 +11,7 @@ use Modules\Profile\Entities\PersonalDetail;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
 use Datakraf\Notifications\UserCreatedNotification;
+use Spatie\Permission\Models\Role;
 
 class UsersController extends Controller
 {
@@ -23,9 +24,10 @@ class UsersController extends Controller
     public $position;
     public $personalDetail;
 
-    public function __construct(User $user, Position $position, PersonalDetail $personalDetail)
+    public function __construct(User $user, Position $position, PersonalDetail $personalDetail, Role $role)
     {
         $this->user = $user;
+        $this->role = $role;
         $this->columnNames = ['name', 'email'];
         $this->actions = [
             'edit' => [
@@ -63,14 +65,16 @@ class UsersController extends Controller
 
     public function create()
     {
-        return view('backend.users.create', ['positions' => $this->position->all()]);
+        return view('backend.users.create', ['positions' => $this->position->all(), 'roles' => $this->role->all()]);
     }
-    
+
     public function edit($id)
     {
         return view('backend.users.create', [
-        'user' => $this->user->find($id),
-        'positions' => $this->position->all()]);
+            'user' => $this->user->find($id),
+            'positions' => $this->position->all(),
+            'roles' => $this->role->all()
+        ]);
     }
 
     public function store(Request $request)
@@ -81,11 +85,25 @@ class UsersController extends Controller
             'password' => Hash::make($request->password),
         ];
         $user = User::create($data);
+        $user->assignRole($request->role);
         $user->notify(new UserCreatedNotification());
         toast('Employee created successfully', 'success', 'top-right');
         return back();
     }
 
+    public function update(Request $request,$id)
+    {
+
+        $data = [
+            'name' => $request->name,
+            'email' => $request->email,
+            'password' => Hash::make($request->password),
+        ];
+        $user = User::updateOrCreate(['id' => $id], $data);
+        $user->assignRole($request->role);
+        toast('Employee created successfully', 'success', 'top-right');
+        return back();
+    }
 
     public function destroy($id)
     {
@@ -94,17 +112,4 @@ class UsersController extends Controller
         return back();
     }
 
-    public function sendCreateUserEmail($email)
-    {
-        Mail::send('emails.master', [
-            'title' => 'Welcome!',
-            'content' => 'You\'ve been registered to our Human Resource Management System! We hope you enjoy your time with us. Login your account and update your profile.',
-            'email' => $email
-        ], function ($message) use ($email) {
-            $message->from('admin@datakraf.com', 'Datakraf Admin');
-            $message->subject('Welcome aboard!');
-            $message->to($email);
-        });
-
-    }
 }
