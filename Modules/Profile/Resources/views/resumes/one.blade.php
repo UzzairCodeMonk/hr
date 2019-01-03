@@ -22,8 +22,8 @@
         <div class="sidebar-wrapper">
             <div class="profile-container">
                 <img class="profile" src="{{!empty($personalDetail->avatar) ? asset($personalDetail->avatar):''}}" alt="" width="150px"/>
-                <h1 class="name">{{$personalDetail->name}}</h1>
-                <h3 class="tagline">{{$personalDetail->position->name}}</h3>
+                <h1 class="name">{{$personalDetail->name ?? 'N/A'}}</h1>
+                <h3 class="tagline">{{$personalDetail->position->name ?? 'N/A'}}</h3>
             </div>
             <!--//profile-container-->
 
