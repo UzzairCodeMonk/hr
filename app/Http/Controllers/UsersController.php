@@ -97,8 +97,8 @@ class UsersController extends Controller
             'name' => $request->name,
             'email' => $request->email,
         ]);
-        if($request->password != ''){
-            $user->password = $request->password;
+        if(!empty($request->password)){
+            $user->password = Hash::make($request->password);
             $user->save();
         }
         // $user = User::updateOrCreate(['id' => $id], $data);
