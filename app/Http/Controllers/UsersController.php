@@ -93,15 +93,17 @@ class UsersController extends Controller
 
     public function update(Request $request,$id)
     {
-
-        $data = [
+        $user = User::updateOrCreate(['id'=>$id],[
             'name' => $request->name,
             'email' => $request->email,
-            'password' => Hash::make($request->password),
-        ];
-        $user = User::updateOrCreate(['id' => $id], $data);
+        ]);
+        if($request->password != ''){
+            $user->password = $request->password;
+            $user->save();
+        }
+        // $user = User::updateOrCreate(['id' => $id], $data);
         $user->assignRole($request->role);
-        toast('Employee created successfully', 'success', 'top-right');
+        toast('Employee information updated successfully', 'success', 'top-right');
         return back();
     }
 

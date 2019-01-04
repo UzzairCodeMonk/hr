@@ -10,6 +10,7 @@
     <div class="card-body">
         @if(isset($user))
         <form action="{{route('user.update',['id'=>$user->id])}}" method="POST" enctype="multipart/form-data">
+            @method('PUT')
             @else
             <form action="{{route('user.store')}}" method="POST" enctype="multipart/form-data">
                 @endif

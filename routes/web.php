@@ -11,7 +11,7 @@ Route::group(['prefix' => config('app.administration_prefix'), 'middleware' => '
         Route::get('create', 'UsersController@create')->name('user.create');
         Route::get('{id}/edit', 'UsersController@edit')->name('user.edit')->middleware('signed');
         Route::post('store', 'UsersController@store')->name('user.store');
-        Route::post('{id}/store', 'UsersController@update')->name('user.update');
+        Route::post('{id}/update', 'UsersController@update')->name('user.update');
         Route::delete('{id}/destroy', 'UsersController@destroy')->name('user.destroy');
     });
 });
