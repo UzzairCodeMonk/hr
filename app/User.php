@@ -19,8 +19,10 @@ class User extends Authenticatable
     use Notifiable, HasRoles;
 
     protected $dispatchesEvents = [
-        'created' => UserCreated::class,
-        'updated' => UserUpdated::class
+        'created' => [
+            UserCreated::class,
+            UserUpdated::class
+        ]
     ];
     /**
      * The attributes that are mass assignable.
@@ -55,7 +57,8 @@ class User extends Authenticatable
         return $this->hasMany(Leave::class);
     }
 
-    public function personalDetail(){
+    public function personalDetail()
+    {
         return $this->hasOne(PersonalDetail::class);
     }
 

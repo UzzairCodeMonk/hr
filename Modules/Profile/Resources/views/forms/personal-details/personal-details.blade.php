@@ -20,7 +20,8 @@ Personal Details
                             <div class="form-group">
                                 <label for="">{{ucwords(__('profile::personal-detail.avatar'))}}</label>
                                 <input type="file" name="avatar" id="" class="form-control">
-                                <p class="form-text">Please upload the avatar in 150px x 150px dimension for best display</p>
+                                <p class="form-text">Please upload the avatar in 150px x 150px dimension for best
+                                    display</p>
                                 <div class="badge badge-md badge-info">Existing file: {!!asset($personalDetail->avatar
                                     ?? '')!!}</div>
 
@@ -68,6 +69,20 @@ Personal Details
                         <div class="col">
                             <div class="form-group">
                                 <label for="">{{ucwords(__('profile::personal-detail.ic-number'))}}</label>
+                                <input type="text" name="ic_number" id="" class="form-control" value="{{old('ic_number',isset($personalDetail->ic_number) ? $personalDetail->ic_number:null)}}">
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="form-group">
+                                <label for="">{{ucwords(__('profile::personal-detail.bank-account-number'))}}</label>
+                                <input type="text" name="staff_number" id="" class="form-control" value="{{old('staff_number',isset($personalDetail->staff_number)? $personalDetail->staff_number:null)}}">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            <div class="form-group">
+                                <label for="">{{ucwords(__('profile::personal-detail.basic-salary'))}}</label>
                                 <input type="text" name="ic_number" id="" class="form-control" value="{{old('ic_number',isset($personalDetail->ic_number) ? $personalDetail->ic_number:null)}}">
                             </div>
                         </div>

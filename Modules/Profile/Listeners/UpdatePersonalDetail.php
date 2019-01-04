@@ -6,7 +6,7 @@ use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Modules\Profile\Entities\PersonalDetail;
 use Illuminate\Http\Request;
-use Datakraf\Events\UserUpdated;
+use Datakraf\Events\UserCreated;
 
 class UpdatePersonalDetail
 {
@@ -28,16 +28,17 @@ class UpdatePersonalDetail
      * @param UserCreated $event
      * @return void
      */
-    public function handle(UserUpdated $event)
+    public function handle(UserCreated $event)
     {
-        $this->personalDetail->where('user_id',$event->user->id)->update([            
-            'name' => $event->user->name,
-            'ic_number' => $this->request->ic_number,
-            'staff_number' => $this->request->staff_number,
-            'socso_id' => $this->request->socso_id,
-            'epf_id' => $this->request->epf_id,
-            'position_id' => $this->request->position_id,
-            'status' => $this->request->status,
-        ]);
+        $p = $this->personalDetail->where('user_id', $event->user->id)->first();
+        $p->name = $event->user->name;
+        $p->ic_number = $this->request->ic_number;
+        $p->staff_number = $this->request->staff_number;
+        $p->socso_id = $this->request->socso_id;
+        $p->epf_id = $this->request->epf_id;
+        $p->position_id = $this->request->position_id;
+        $p->status = $this->request->status;
+        $p->save();
+
     }
 }

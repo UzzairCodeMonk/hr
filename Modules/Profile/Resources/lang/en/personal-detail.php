@@ -30,5 +30,7 @@ return [
     'car-reg-number' => 'car reg. no.',
     'marital-status' => 'marital status',
     'marriage-date' => 'date of marriage',
-    'avatar' => 'avatar'
+    'avatar' => 'avatar',
+    'basic-salary' => 'basic salary',
+    'bank-account-number' => 'bank account number'
 ];
