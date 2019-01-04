@@ -5,9 +5,9 @@ namespace Modules\Profile\Providers;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
 use Illuminate\Support\Facades\Event;
 use Datakraf\Events\UserCreated;
-use Modules\Profile\Listeners\CreatePersonalDetail;
 use Datakraf\Events\UserUpdated;
 use Modules\Profile\Listeners\UpdatePersonalDetail;
+use Modules\Profile\Listeners\CreatePersonalDetailOnUserCreation;
 
 class EventServiceProvider extends ServiceProvider
 {
@@ -20,11 +20,8 @@ class EventServiceProvider extends ServiceProvider
 
     protected $listen = [
         UserCreated::class => [
-            CreatePersonalDetail::class
-        ],
-        UserUpdated::class => [
-            UpdatePersonalDetail::class
-        ]
+            CreatePersonalDetailOnUserCreation::class
+        ]        
     ];
     /**
      * Register the service provider.

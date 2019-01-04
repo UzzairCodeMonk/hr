@@ -8,7 +8,7 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Modules\Profile\Entities\PersonalDetail;
 use Illuminate\Http\Request;
 
-class CreatePersonalDetail
+class CreatePersonalDetailOnUserCreation
 {
     public $personalDetail;
     /**
