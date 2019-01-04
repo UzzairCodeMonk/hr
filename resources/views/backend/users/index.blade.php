@@ -39,7 +39,7 @@ Employees
                                 <a href="{{URL::signedRoute('user.edit',['id'=>$result->id])}}" class="btn btn-sm text-dark" id="">
                                     Edit
                                 </a>
-                                @role('Admin')
+                                @if(!$result->hasRole('Admin'))
                                 @if(Auth::id() != $result->id)
                                 @can('delete_users')
                                 <form class="employee" action="{{route('user.destroy',['id'=>$result->id])}}" method="POST"
@@ -50,7 +50,7 @@ Employees
                                 </form>
                                 @endcan
                                 @endif
-                                @endrole
+                                @endif
                             </td>
                         </tr>
                         @endforeach
