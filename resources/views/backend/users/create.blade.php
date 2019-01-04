@@ -11,6 +11,7 @@
         @if(isset($user))
         <form action="{{route('user.update',['id'=>$user->id])}}" method="POST" enctype="multipart/form-data">
             @method('PUT')
+            @csrf
             @else
             <form action="{{route('user.store')}}" method="POST" enctype="multipart/form-data">
                 @endif
