@@ -20,7 +20,7 @@ Personal Details
                             <div class="form-group">
                                 <label for="">{{ucwords(__('profile::personal-detail.avatar'))}}</label>
                                 <input type="file" name="avatar" id="" class="form-control">
-                                <p class="form-text">Please upload the avatar in 150px x 150px resolution for best display</p>
+                                <p class="form-text">Please upload the avatar in 150px x 150px dimension for best display</p>
                                 <div class="badge badge-md badge-info">Existing file: {!!asset($personalDetail->avatar
                                     ?? '')!!}</div>
 
