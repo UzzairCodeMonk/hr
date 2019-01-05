@@ -20,9 +20,8 @@ class User extends Authenticatable
     use Notifiable, HasRoles;
 
     protected $dispatchesEvents = [
-        'created' => [
-            UserCreated::class,
-        ]
+        'created' => UserCreated::class,
+        'updated' => UserUpdated::class
     ];
 
     // public function getDescriptionForEvent(string $eventName) : string
