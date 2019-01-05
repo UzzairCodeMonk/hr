@@ -79,29 +79,27 @@ class UsersController extends Controller
 
     public function store(Request $request)
     {
-        $data = [
+        $user = User::create([
             'name' => $request->name,
             'email' => $request->email,
             'password' => Hash::make($request->password),
-        ];
-        $user = User::create($data);
+        ]);
         $user->assignRole($request->role);
-        // $user->notify(new UserCreatedNotification());
         toast('Employee created successfully', 'success', 'top-right');
         return back();
     }
 
-    public function update(Request $request,$id)
+    public function update(Request $request, $id)
     {
-        $user = User::updateOrCreate(['id'=>$id],[
+        $user = User::find($id);
+        $user->update([
             'name' => $request->name,
-            'email' => $request->email,
+            'email' => $request->email
         ]);
-        if(!empty($request->password)){
+        if (!empty($request->password)) {
             $user->password = Hash::make($request->password);
             $user->save();
         }
-        // $user = User::updateOrCreate(['id' => $id], $data);
         $user->assignRole($request->role);
         toast('Employee information updated successfully', 'success', 'top-right');
         return back();

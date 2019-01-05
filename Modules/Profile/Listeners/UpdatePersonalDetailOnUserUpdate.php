@@ -8,7 +8,7 @@ use Modules\Profile\Entities\PersonalDetail;
 use Illuminate\Http\Request;
 use Datakraf\Events\UserUpdated;
 
-class UpdatePersonalDetail
+class UpdatePersonalDetailOnUserUpdate
 {
     public $personalDetail;
     /**
@@ -25,12 +25,13 @@ class UpdatePersonalDetail
     /**
      * Handle the event.
      *
-     * @param UserCreated $event
+     * @param UserUpdated $event
      * @return void
      */
     public function handle(UserUpdated $event)
     {
         $p = $this->personalDetail->where('user_id', $event->user->id)->first();
+        // dd($p);
         $p->name = $event->user->name;
         $p->ic_number = $this->request->ic_number;
         $p->staff_number = $this->request->staff_number;
@@ -39,6 +40,8 @@ class UpdatePersonalDetail
         $p->position_id = $this->request->position_id;
         $p->status = $this->request->status;
         $p->save();
+
+
 
     }
 }

@@ -13,6 +13,7 @@ use Modules\Leave\Entities\LeaveEntitlement;
 use Modules\Leave\Entities\Leave;
 use Modules\Profile\Entities\PersonalDetail;
 use Modules\Profile\Entities\Position;
+use Spatie\Activitylog\Traits\LogsActivity;
 
 class User extends Authenticatable
 {
@@ -22,14 +23,17 @@ class User extends Authenticatable
         'created' => UserCreated::class,
         'updated' => UserUpdated::class
     ];
+
+    // public function getDescriptionForEvent(string $eventName) : string
+    // {
+    //     return "This user has been {$eventName}";
+    // }
     /**
      * The attributes that are mass assignable.
      *
      * @var array
      */
-    protected $fillable = [
-        'name', 'email', 'password',
-    ];
+    protected $guarded = [];
 
     /**
      * The attributes that should be hidden for arrays.
