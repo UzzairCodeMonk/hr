@@ -17,10 +17,7 @@ class EventServiceProvider extends ServiceProvider
     protected $listen = [
         Registered::class => [
             SendEmailVerificationNotification::class,
-        ],
-        'Datakraf\Events\TestEvent' => [
-            'Datakraf\Listeners\TestEventListener',
-          ],
+        ],        
     ];
 
     /**
