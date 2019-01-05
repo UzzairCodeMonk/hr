@@ -17,12 +17,9 @@ use Modules\Profile\Entities\Position;
 class User extends Authenticatable
 {
     use Notifiable, HasRoles;
-
+    
     protected $dispatchesEvents = [
-        'created' => [
-            UserCreated::class,
-            UserUpdated::class
-        ]
+        'created' => UserCreated::class
     ];
     /**
      * The attributes that are mass assignable.

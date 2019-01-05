@@ -86,7 +86,7 @@ class UsersController extends Controller
         ];
         $user = User::create($data);
         $user->assignRole($request->role);
-        $user->notify(new UserCreatedNotification());
+        // $user->notify(new UserCreatedNotification());
         toast('Employee created successfully', 'success', 'top-right');
         return back();
     }

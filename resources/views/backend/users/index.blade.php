@@ -24,7 +24,8 @@ Employees
                         @foreach($results as $key=>$result)
                         <tr>
                             <td>{{++$key}}</td>
-                            <td>
+                            <td
+                            >
                                 <img class="avatar" style="width:50px !important;height:50px !important" src="{{asset($result->personalDetail->avatar) ?? '' }}" alt="">
                             
                                 <p class="d-inline">{{$result->name ?? 'N/A'}}</p>
