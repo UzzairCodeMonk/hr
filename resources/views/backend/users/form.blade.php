@@ -78,13 +78,8 @@
                         </div>
                         <div class="form-group">
                             <label for="">Role</label>
-                            <select name="role" id="" class="form-control">
-                                <option value="">Please choose</option>
-                                @foreach($roles as $role)
-                                <option value="{{$role->name}}"
-                                    {{old('role',isset($user->roles) && $user->roles->pluck('name')->first() == $role->name ? 'selected':'')}}>{{$role->name}}</option>
-                                @endforeach
-                            </select>
+                            {!! Form::select('roles[]', $roles, isset($user) ? $user->roles->pluck('id')->toArray()
+                            : null, ['class' => 'form-control tags', 'multiple']) !!}
                             @include('backend.shared._errors',['entity'=>'role'])
                         </div>
                         <div class="form-group">
@@ -111,4 +106,13 @@
 
     </div>
 </div>
+@endsection
+@section('page-js')
+@include('asset-partials.select2')
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('.tags').select2();
+    });
+
+</script>
 @endsection

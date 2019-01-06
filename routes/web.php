@@ -4,7 +4,7 @@ Auth::routes();
 
 Route::get('/', 'Auth\LoginController@showLoginForm');
 Route::post('notification/{id}/mark', ['uses' => 'NotificationsController@markAsRead', 'as' => 'notification.read']);
-Route::group(['prefix' => config('app.administration_prefix'), 'middleware' => 'auth'], function () {
+Route::group(['prefix' => config('app.administration_prefix'), 'middleware' => ['auth','role:Admin']], function () {
     Route::resource('roles', 'RolesController');
     Route::group(['prefix' => 'employees'], function () {
         Route::get('/', 'UsersController@index')->name('user.index');

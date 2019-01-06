@@ -6,16 +6,14 @@ use Illuminate\Http\Request;
 use Datakraf\User;
 use Datakraf\Traits\AlertMessage;
 use Modules\Profile\Entities\Position;
-use Datakraf\Http\Requests\CreateEmployeeRequest;
 use Modules\Profile\Entities\PersonalDetail;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\Mail;
-use Datakraf\Notifications\UserCreatedNotification;
 use Spatie\Permission\Models\Role;
+use Datakraf\Traits\Roleable;
 
 class UsersController extends Controller
 {
-    use AlertMessage;
+    use AlertMessage, Roleable;
     /**
      * Display a listing of the resource.
      * @return Response
@@ -65,20 +63,31 @@ class UsersController extends Controller
 
     public function create()
     {
-        return view('backend.users.create', ['positions' => $this->position->all(), 'roles' => $this->role->all()]);
+        return view('backend.users.form', ['positions' => $this->position->all(), 'roles' => $this->role->all()]);
     }
 
     public function edit($id)
     {
-        return view('backend.users.create', [
+        return view('backend.users.form', [
             'user' => $this->user->find($id),
             'positions' => $this->position->all(),
-            'roles' => $this->role->all()
+            'roles' => $this->role->pluck('name', 'id')
         ]);
     }
 
     public function store(Request $request)
     {
+        $this->validate($request, [
+            'name' => 'bail|required|min:2',
+            'email' => 'required|email|unique:users,email,' . $id,
+            'roles' => 'required|min:1',
+            'socso_id' => 'required',
+            'epf_id' => 'required',
+            'status' => 'required',
+            'staff_number' => 'required',
+            ''
+        ]);
+        
         $user = User::create([
             'name' => $request->name,
             'email' => $request->email,
@@ -91,16 +100,26 @@ class UsersController extends Controller
 
     public function update(Request $request, $id)
     {
-        $user = User::find($id);
-        $user->update([
-            'name' => $request->name,
-            'email' => $request->email
+        $this->validate($request, [
+            'name' => 'bail|required|min:2',
+            'email' => 'required|email|unique:users,email,' . $id,
+            'roles' => 'required|min:1',
         ]);
-        if (!empty($request->password)) {
-            $user->password = Hash::make($request->password);
-            $user->save();
+
+        // Get the user
+        $user = User::find($id);              
+        // Update user
+        $user->fill($request->except('roles', 'ic_number', 'epf_id', 'socso_id', 'position_id', 'status', 'staff_number', 'password', 'password_confirmation'));
+
+        // check for password change
+        if ($request->get('password')) {
+            $user->password = Hash::make($request->get('password'));
         }
-        $user->assignRole($request->role);
+
+        $user->save();        
+        // Handle the user roles
+        $this->syncPermissions($request, $user);
+
         toast('Employee information updated successfully', 'success', 'top-right');
         return back();
     }
