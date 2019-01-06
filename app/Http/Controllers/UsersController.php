@@ -10,6 +10,7 @@ use Modules\Profile\Entities\PersonalDetail;
 use Illuminate\Support\Facades\Hash;
 use Spatie\Permission\Models\Role;
 use Datakraf\Traits\Roleable;
+use DB;
 
 class UsersController extends Controller
 {
@@ -63,7 +64,11 @@ class UsersController extends Controller
 
     public function create()
     {
-        return view('backend.users.form', ['positions' => $this->position->all(), 'roles' => $this->role->all()]);
+        return view('backend.users.form', [
+            'positions' => $this->position->all(),
+            'roles' => $this->role->pluck('name', 'id'),
+            'banks' => DB::table('banks')->get()
+        ]);
     }
 
     public function edit($id)
@@ -71,7 +76,8 @@ class UsersController extends Controller
         return view('backend.users.form', [
             'user' => $this->user->find($id),
             'positions' => $this->position->all(),
-            'roles' => $this->role->pluck('name', 'id')
+            'roles' => $this->role->pluck('name', 'id'),
+            'banks' => DB::table('banks')->get()
         ]);
     }
 
@@ -85,14 +91,18 @@ class UsersController extends Controller
             'epf_id' => 'required',
             'status' => 'required',
             'staff_number' => 'required',
-            ''
+            'join_date' => 'required|date',
+            'bank_type' => 'required',
+            'account_number' => 'required',
+            'basic_salary' => 'required'
         ]);
-        
+
         $user = User::create([
             'name' => $request->name,
             'email' => $request->email,
             'password' => Hash::make($request->password),
         ]);
+
         $user->assignRole($request->role);
         toast('Employee created successfully', 'success', 'top-right');
         return back();
