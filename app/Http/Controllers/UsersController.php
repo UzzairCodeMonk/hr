@@ -63,7 +63,7 @@ class UsersController extends Controller
 
     public function create()
     {
-        return view('backend.users.form', ['positions' => $this->position->all(), 'roles' => $this->role->all()]);
+        return view('backend.users.form', ['positions' => $this->position->all(), 'roles' => $this->role->pluck('name', 'id')]);
     }
 
     public function edit($id)
@@ -85,7 +85,7 @@ class UsersController extends Controller
             'epf_id' => 'required',
             'status' => 'required',
             'staff_number' => 'required',
-            ''
+            'password' => 'required|confirmed|min:6'
         ]);
         
         $user = User::create([
