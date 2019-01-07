@@ -65,7 +65,8 @@ class UsersController extends Controller
 
     public function create()
     {
-
+        $json = File::get(database_path('primary-school.json'));
+        $primarySchoolData = json_decode($json);
         return view('backend.users.form', [
             'positions' => $this->position->all(),
             'roles' => $this->role->pluck('name', 'id'),
@@ -146,8 +147,7 @@ class UsersController extends Controller
 
     public function loadPrimarySchool()
     {
-        $json = File::get(database_path('primary-school.json'));
-        return $primarySchoolData = json_decode($json);
+       
     }
 
 }
