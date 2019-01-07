@@ -10,6 +10,8 @@ use Modules\Profile\Entities\PersonalDetail;
 use Illuminate\Support\Facades\Hash;
 use Spatie\Permission\Models\Role;
 use Datakraf\Traits\Roleable;
+use DB;
+use File;
 
 class UsersController extends Controller
 {
@@ -63,7 +65,17 @@ class UsersController extends Controller
 
     public function create()
     {
+        $json = File::get(database_path('primary-school.json'));
+        $primarySchoolData = json_decode($json);
+
+        return view('backend.users.form', [
+            'positions' => $this->position->all(),
+            'roles' => $this->role->pluck('name', 'id'),
+            'banks' => DB::table('banks')->get(),
+            'primarySchools' => $primarySchoolData
+        ]);
         return view('backend.users.form', ['positions' => $this->position->all(), 'roles' => $this->role->pluck('name', 'id')]);
+
     }
 
     public function edit($id)
@@ -71,7 +83,8 @@ class UsersController extends Controller
         return view('backend.users.form', [
             'user' => $this->user->find($id),
             'positions' => $this->position->all(),
-            'roles' => $this->role->pluck('name', 'id')
+            'roles' => $this->role->pluck('name', 'id'),
+            'banks' => DB::table('banks')->get()
         ]);
     }
 
@@ -85,14 +98,19 @@ class UsersController extends Controller
             'epf_id' => 'required',
             'status' => 'required',
             'staff_number' => 'required',
-            'password' => 'required|confirmed|min:6'
+            'password' => 'required|confirmed|min:6',
+            'join_date' => 'required|date',
+            'bank_type' => 'required',
+            'account_number' => 'required',
+            'basic_salary' => 'required'
         ]);
-        
+
         $user = User::create([
             'name' => $request->name,
             'email' => $request->email,
             'password' => Hash::make($request->password),
         ]);
+
         $user->assignRole($request->role);
         toast('Employee created successfully', 'success', 'top-right');
         return back();
@@ -129,6 +147,11 @@ class UsersController extends Controller
         $this->user->find($id)->delete();
         toast('Employee deleted successfully', 'success', 'top');
         return back();
+    }
+
+    public function loadPrimarySchool()
+    {
+
     }
 
 }
