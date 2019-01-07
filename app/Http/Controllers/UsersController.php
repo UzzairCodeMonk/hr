@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\Hash;
 use Spatie\Permission\Models\Role;
 use Datakraf\Traits\Roleable;
 use DB;
+use File;
 
 class UsersController extends Controller
 {
@@ -64,10 +65,12 @@ class UsersController extends Controller
 
     public function create()
     {
+
         return view('backend.users.form', [
             'positions' => $this->position->all(),
             'roles' => $this->role->pluck('name', 'id'),
-            'banks' => DB::table('banks')->get()
+            'banks' => DB::table('banks')->get(),
+            'primarySchools' => $primarySchoolData
         ]);
     }
 
@@ -139,6 +142,12 @@ class UsersController extends Controller
         $this->user->find($id)->delete();
         toast('Employee deleted successfully', 'success', 'top');
         return back();
+    }
+
+    public function loadPrimarySchool()
+    {
+        $json = File::get(database_path('primary-school.json'));
+        return $primarySchoolData = json_decode($json);
     }
 
 }

@@ -97,14 +97,8 @@
                             <div class="col">
                                 <div class="form-group">
                                     <label for="">Bank Name</label>
-                                    <select name="bank" id="" class="form-control select">
-                                            <option value="">Please choose</option>
-                                            @foreach($banks as $bank)
-                                            <option value="{{$bank->id}}"
-                                                {{old('bank',isset($user->personalDetail->bank_id) && $user->personalDetail->bank_id == $bank->id ? 'selected':'')}}>{{$bank->name}}</option>
-                                            @endforeach
-                                        </select>
-                                        @include('backend.shared._errors',['entity'=>'position_id'])
+                                    <select id="school" class="form-control"></select>
+                                    @include('backend.shared._errors',['entity'=>'position_id'])
                                 </div>
                             </div>
                             <div class="col">
@@ -151,13 +145,44 @@
 </div>
 @endsection
 @section('page-js')
+<script src="//cdnjs.cloudflare.com/ajax/libs/lodash.js/4.15.0/lodash.min.js"></script>
 @include('asset-partials.select2')
 <script type="text/javascript">
     $(document).ready(function () {
         $('.select').select2({
-            theme: "bootstrap"
+            theme: 'bootstrap'
         });
     });
+
+</script>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#school').select2({
+            data: "{{database_path('primary-school.json')}}",
+            theme: 'bootstrap',
+            // query with pagination
+            query: function (q) {
+                var pageSize,
+                    results,
+                    that = this;
+                pageSize = 20; // or whatever pagesize
+                results = [];
+                if (q.term && q.term !== '') {
+                    // HEADS UP; for the _.filter function i use underscore (actually lo-dash) here
+                    results = _.filter(that.data, function (e) {
+                        return e.text.toUpperCase().indexOf(q.term.toUpperCase()) >= 0;
+                    });
+                } else if (q.term === '') {
+                    results = that.data;
+                }
+                q.callback({
+                    results: results.slice((q.page - 1) * pageSize, q.page * pageSize),
+                    more: results.length >= q.page * pageSize,
+                });
+            },
+        });
+    });
+    // init select 2
 
 </script>
 @endsection
