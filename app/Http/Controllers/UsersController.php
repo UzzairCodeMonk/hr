@@ -85,20 +85,20 @@ class UsersController extends Controller
     public function store(Request $request)
     {
 
-        $this->validate($request, [
-            'name' => 'bail|required|min:2',
-            'email' => 'required|email|unique:users,email',
-            'roles' => 'required|min:1',
-            'socso_id' => 'required',
-            'epf_id' => 'required',
-            'status' => 'required',
-            'staff_number' => 'required',
-            'password' => 'required|confirmed|min:6',
-            'join_date' => 'required|date',
-            'bank_type' => 'required',
-            'account_number' => 'required',
-            'basic_salary' => 'required'
-        ]);
+        // $this->validate($request, [
+        //     'name' => 'bail|required|min:2',
+        //     'email' => 'required|email|unique:users,email',
+        //     'roles' => 'required|min:1',
+        //     'socso_id' => 'required',
+        //     'epf_id' => 'required',
+        //     'status' => 'required',
+        //     'staff_number' => 'required',
+        //     'password' => 'required|confirmed|min:6',
+        //     'join_date' => 'required',
+        //     'bank_id' => 'required',
+        //     'account_number' => 'required',
+        //     'basic_salary' => 'required'
+        // ]);
 
         $user = User::create([
             'name' => $request->name,

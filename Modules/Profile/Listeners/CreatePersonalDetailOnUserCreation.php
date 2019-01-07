@@ -28,6 +28,7 @@ class CreatePersonalDetailOnUserCreation
      * @param UserCreated $event
      * @return void
      */
+    
     public function handle(UserCreated $event)
     {
         $this->personalDetail->create([
@@ -40,6 +41,7 @@ class CreatePersonalDetailOnUserCreation
             'epf_id' => $this->request->epf_id,
             'position_id' => $this->request->position_id,
             'status' => $this->request->status,
+            'join_date' => $this->request->join_date
         ]);
     }
 }

@@ -25,16 +25,39 @@
                             <input type="text" name="name" id="" class="form-control" value="{!! old('name',isset($user->name)?$user->name:null) !!}">
                             @include('backend.shared._errors',['entity'=>'name'])
                         </div>
-                        <div class="form-group">
-                            <label for="">Email</label>
-                            <input type="text" name="email" id="" class="form-control" value="{{old('email',isset($user->email)?$user->email:'')}}">
-                            @include('backend.shared._errors',['entity'=>'email'])
+                        <div class="row">
+                            <div class="col">
+                                <div class="form-group">
+                                    <label for="">IC No.</label>
+                                    <input type="text" name="ic_number" id="" class="form-control" value="{{old('ic_number',isset($user->personalDetail->ic_number) ? $user->personalDetail->ic_number:'')}}">
+                                    @include('backend.shared._errors',['entity'=>'ic_number'])
+                                </div>
+                            </div>
+                            <div class="col">
+                                <div class="form-group">
+                                    <label for="">Email</label>
+                                    <input type="text" name="email" id="" class="form-control" value="{{old('email',isset($user->email)?$user->email:'')}}">
+                                    @include('backend.shared._errors',['entity'=>'email'])
+                                </div>
+                            </div>
                         </div>
-                        <div class="form-group">
-                            <label for="">Staff No.</label>
-                            <input type="text" name="staff_number" id="" class="form-control" value="{{old('staff_number',isset($user->personalDetail->staff_number)?$user->personalDetail->staff_number:'')}}">
-                            @include('backend.shared._errors',['entity'=>'staff_number'])
+                        <div class="row">
+                            <div class="col">
+                                <div class="form-group">
+                                    <label for="">Staff No.</label>
+                                    <input type="text" name="staff_number" id="" class="form-control" value="{{old('staff_number',isset($user->personalDetail->staff_number)?$user->personalDetail->staff_number:'')}}">
+                                    @include('backend.shared._errors',['entity'=>'staff_number'])
+                                </div>
+                            </div>
+                            <div class="col">
+                                <div class="form-group">
+                                    <label for="">Join Date</label>
+                                    <input type="text" name="join_date" id="" class="form-control join-date" value="{{old('join_date',isset($user->personalDetail->join_date)?$user->personalDetail->join_date:'')}}">
+                                    @include('backend.shared._errors',['entity'=>'join_date'])
+                                </div>
+                            </div>
                         </div>
+
                         <div class="row">
                             <div class="col">
                                 <div class="form-group">
@@ -54,36 +77,37 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="form-group">
-                            <label for="">IC No.</label>
-                            <input type="text" name="ic_number" id="" class="form-control" value="{{old('ic_number',isset($user->personalDetail->ic_number) ? $user->personalDetail->ic_number:'')}}">
-                            @include('backend.shared._errors',['entity'=>'ic_number'])
-                        </div>
-                        <div class="form-group">
-                            <label for="">Position</label>
-                            <select name="position_id" id="" class="form-control select">
-                                <option value="">Please choose</option>
-                                @foreach($positions as $position)
-                                <option value="{{$position->id}}"
-                                    {{old('status',isset($user->personalDetail->position_id) && $user->personalDetail->position_id == $position->id ? 'selected':'')}}>{{$position->name}}</option>
-                                @endforeach
-                            </select>
-                            @include('backend.shared._errors',['entity'=>'position_id'])
-                        </div>
-                        <div class="form-group">
-                            <label for="">Employee Status</label>
-                            <select name="status" id="" class="form-control select">
-                                <option value="">Please choose</option>
-                                <option value="contract"
-                                    {{old('status',isset($user->personalDetail->status) && $user->personalDetail->status == 'contract' ? 'selected':'')}}>Contract</option>
-                                <option value="internship"
-                                    {{old('status',isset($user->personalDetail->status) && $user->personalDetail->status == 'internship' ? 'selected':'')}}>Internship</option>
-                                <option value="permanent"
-                                    {{old('status',isset($user->personalDetail->status) && $user->personalDetail->status == 'permanent' ? 'selected':'')}}>Permanent</option>
-                                <option value="probation"
-                                    {{old('status',isset($user->personalDetail->status) && $user->personalDetail->status == 'probation' ? 'selected':'')}}>Probation</option>
-                            </select>
-                            @include('backend.shared._errors',['entity'=>'status'])
+                        <div class="row">
+                            <div class="col">
+                                <div class="form-group">
+                                    <label for="">Position</label>
+                                    <select name="position_id" id="" class="form-control select">
+                                        <option></option>
+                                        @foreach($positions as $position)
+                                        <option value="{{$position->id}}"
+                                            {{old('status',isset($user->personalDetail->position_id) && $user->personalDetail->position_id == $position->id ? 'selected':'')}}>{{$position->name}}</option>
+                                        @endforeach
+                                    </select>
+                                    @include('backend.shared._errors',['entity'=>'position_id'])
+                                </div>
+                            </div>
+                            <div class="col">
+                                <div class="form-group">
+                                    <label for="">Employee Status</label>
+                                    <select name="status" id="" class="form-control select">
+                                        <option></option>
+                                        <option value="contract"
+                                            {{old('status',isset($user->personalDetail->status) && $user->personalDetail->status == 'contract' ? 'selected':'')}}>Contract</option>
+                                        <option value="internship"
+                                            {{old('status',isset($user->personalDetail->status) && $user->personalDetail->status == 'internship' ? 'selected':'')}}>Internship</option>
+                                        <option value="permanent"
+                                            {{old('status',isset($user->personalDetail->status) && $user->personalDetail->status == 'permanent' ? 'selected':'')}}>Permanent</option>
+                                        <option value="probation"
+                                            {{old('status',isset($user->personalDetail->status) && $user->personalDetail->status == 'probation' ? 'selected':'')}}>Probation</option>
+                                    </select>
+                                    @include('backend.shared._errors',['entity'=>'status'])
+                                </div>
+                            </div>
                         </div>
                         <div class="form-group">
                             <label for="">Role</label>
@@ -99,11 +123,16 @@
                         <h4>Banking Details</h4>
                     </div>
                     <div class="col-8">
+                        <div class="form-group">
+                            <label for="">Basic Salary</label>
+                            <input type="text" class="form-control" name="basic_salary">
+                        </div>
                         <div class="row">
                             <div class="col">
                                 <div class="form-group">
                                     <label for="">Bank Name</label>
-                                    <select name="" id="school" class="form-control">
+                                    <select name="" id="" class="form-control select">
+                                        <option></option>
                                         @foreach($banks as $b)
                                         <option value="{{$b->name}}">{{$b->name}}</option>
                                         @endforeach
@@ -135,6 +164,7 @@
                                 </div>
                             </div>
                         </div>
+
                     </div>
                 </div>
                 <div class="form-group">
@@ -149,20 +179,22 @@
 @section('page-js')
 <script src="//cdnjs.cloudflare.com/ajax/libs/lodash.js/4.15.0/lodash.min.js"></script>
 @include('asset-partials.select2')
+@include('asset-partials.datepicker')
 <script type="text/javascript">
     $(document).ready(function () {
-        $('.select').select2({
-            theme: 'bootstrap'
+        $('.join-date').datepicker({
+            format: "{{config('app.date_format_js')}}",
         });
     });
 
 </script>
 <script type="text/javascript">
-    (function () {
-        $('#school').select2({
-            placeholder: 'Search'
+    $(document).ready(function () {
+        $('.select').select2({
+            theme: 'bootstrap',
+            placeholder: 'Please choose'
         });
-    })();
+    });
 
 </script>
 @endsection

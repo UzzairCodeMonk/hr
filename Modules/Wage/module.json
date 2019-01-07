@@ -6,7 +6,8 @@
     "active": 1,
     "order": 0,
     "providers": [
-        "Modules\\Wage\\Providers\\WageServiceProvider"
+        "Modules\\Wage\\Providers\\WageServiceProvider",
+        "Modules\\Wage\\Providers\\EventServiceProvider"
     ],
     "aliases": {},
     "files": [],

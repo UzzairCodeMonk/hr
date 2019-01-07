@@ -14,11 +14,12 @@ use Modules\Leave\Entities\Leave;
 use Modules\Profile\Entities\PersonalDetail;
 use Modules\Profile\Entities\Position;
 use Spatie\Activitylog\Traits\LogsActivity;
+use Modules\Wage\Entities\Wage;
 
 class User extends Authenticatable
 {
     use Notifiable, HasRoles;
-    
+
     protected $dispatchesEvents = [
         'created' => UserCreated::class,
         'updated' => UserUpdated::class
@@ -64,4 +65,9 @@ class User extends Authenticatable
         return $this->hasOne(PersonalDetail::class);
     }
 
+    public function wages()
+    {
+        return $this->hasMany(Wage::class);
+    }
+    
 }

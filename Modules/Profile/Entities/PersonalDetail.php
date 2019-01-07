@@ -50,4 +50,17 @@ class PersonalDetail extends Model
         }
 
     }
+
+    public function setJoinDateAttribute($value)
+    {
+        if ($value != '') {
+            $this->attributes['join_date'] = Carbon::createFromFormat(config('app.date_format'), $value)->format('Y-m-d');
+        }
+    }
+    public function getJoinDateAttribute($value)
+    {
+        if ($value != '') {
+            return Carbon::createFromFormat('Y-m-d', $value)->format(config('app.date_format'));
+        }
+    }
 }
