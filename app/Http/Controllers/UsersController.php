@@ -65,17 +65,11 @@ class UsersController extends Controller
 
     public function create()
     {
-        $json = File::get(database_path('primary-school.json'));
-        $primarySchoolData = json_decode($json);
-
         return view('backend.users.form', [
             'positions' => $this->position->all(),
             'roles' => $this->role->pluck('name', 'id'),
-            'banks' => DB::table('banks')->get(),
-            'primarySchools' => $primarySchoolData
+            'banks' => DB::table('banks')->get(),            
         ]);
-        return view('backend.users.form', ['positions' => $this->position->all(), 'roles' => $this->role->pluck('name', 'id')]);
-
     }
 
     public function edit($id)
@@ -90,9 +84,10 @@ class UsersController extends Controller
 
     public function store(Request $request)
     {
+
         $this->validate($request, [
             'name' => 'bail|required|min:2',
-            'email' => 'required|email|unique:users,email,' . $id,
+            'email' => 'required|email|unique:users,email',
             'roles' => 'required|min:1',
             'socso_id' => 'required',
             'epf_id' => 'required',
@@ -149,9 +144,14 @@ class UsersController extends Controller
         return back();
     }
 
-    public function loadPrimarySchool()
+    public function loadPrimarySchools()
     {
 
+        $json = File::get(database_path('primary-school.json'));
+        return $primarySchoolData = json_decode($json);
+         
     }
+
+
 
 }

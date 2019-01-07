@@ -85,6 +85,12 @@
                             </select>
                             @include('backend.shared._errors',['entity'=>'status'])
                         </div>
+                        <div class="form-group">
+                            <label for="">Role</label>
+                            {!! Form::select('roles[]', $roles, isset($user) ? $user->roles->pluck('id')->toArray()
+                            : null, ['class' => 'form-control select', 'multiple']) !!}
+                            @include('backend.shared._errors',['entity'=>'role'])
+                        </div>
                     </div>
                 </div>
                 <hr>
@@ -97,7 +103,11 @@
                             <div class="col">
                                 <div class="form-group">
                                     <label for="">Bank Name</label>
-                                    <select id="school" class="form-control"></select>
+                                    <select name="" id="school" class="form-control">
+                                        @foreach($banks as $b)
+                                        <option value="{{$b->name}}">{{$b->name}}</option>
+                                        @endforeach
+                                    </select>
                                     @include('backend.shared._errors',['entity'=>'position_id'])
                                 </div>
                             </div>
@@ -125,14 +135,6 @@
                                 </div>
                             </div>
                         </div>
-
-
-                        <div class="form-group">
-                            <label for="">Role</label>
-                            {!! Form::select('roles[]', $roles, isset($user) ? $user->roles->pluck('id')->toArray()
-                            : null, ['class' => 'form-control select', 'multiple']) !!}
-                            @include('backend.shared._errors',['entity'=>'role'])
-                        </div>
                     </div>
                 </div>
                 <div class="form-group">
@@ -156,33 +158,11 @@
 
 </script>
 <script type="text/javascript">
-    $(document).ready(function () {
+    (function () {
         $('#school').select2({
-            data: "{{database_path('primary-school.json')}}",
-            theme: 'bootstrap',
-            // query with pagination
-            query: function (q) {
-                var pageSize,
-                    results,
-                    that = this;
-                pageSize = 20; // or whatever pagesize
-                results = [];
-                if (q.term && q.term !== '') {
-                    // HEADS UP; for the _.filter function i use underscore (actually lo-dash) here
-                    results = _.filter(that.data, function (e) {
-                        return e.text.toUpperCase().indexOf(q.term.toUpperCase()) >= 0;
-                    });
-                } else if (q.term === '') {
-                    results = that.data;
-                }
-                q.callback({
-                    results: results.slice((q.page - 1) * pageSize, q.page * pageSize),
-                    more: results.length >= q.page * pageSize,
-                });
-            },
+            placeholder: 'Search'
         });
-    });
-    // init select 2
+    })();
 
 </script>
 @endsection

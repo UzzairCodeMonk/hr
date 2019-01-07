@@ -79,3 +79,4 @@ Route::group(['prefix' => config('app.administration_prefix'), 'middleware' => '
         Route::get('{id}', ['uses' => 'PersonalDetailsController@viewResume', 'as' => 'employee.resume']);
     });
 });
+

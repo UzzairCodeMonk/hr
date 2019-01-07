@@ -15,3 +15,4 @@ Route::group(['prefix' => config('app.administration_prefix'), 'middleware' => [
         Route::delete('{id}/destroy', 'UsersController@destroy')->name('user.destroy');
     });
 });
+Route::get('load-primary-school','UsersController@loadPrimarySchools')->name('load.primarySchool');
