@@ -12,7 +12,12 @@
 .font-article,
 .font-lora   { font-family: $font-article; }
 
-
+@font-face {
+  font-family: 'orkneyregular';
+  src: url('../../../../../public/fonts/orkney-regular-webfont.woff'); 
+  font-weight: normal;
+  font-style: normal;  
+}
 
 
 

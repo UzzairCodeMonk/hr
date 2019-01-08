@@ -13,6 +13,8 @@ Route::group(['prefix' => config('app.administration_prefix'), 'middleware' => [
         Route::post('store', 'UsersController@store')->name('user.store');
         Route::post('{id}/update', 'UsersController@update')->name('user.update');
         Route::delete('{id}/destroy', 'UsersController@destroy')->name('user.destroy');
+        Route::post('send-email','UsersController@hantarEmail');
     });
 });
 Route::get('load-primary-school','UsersController@loadPrimarySchools')->name('load.primarySchool');
+

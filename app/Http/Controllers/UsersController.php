@@ -12,6 +12,7 @@ use Spatie\Permission\Models\Role;
 use Datakraf\Traits\Roleable;
 use DB;
 use File;
+use Illuminate\Support\Facades\Mail;
 
 class UsersController extends Controller
 {
@@ -150,6 +151,17 @@ class UsersController extends Controller
         $json = File::get(database_path('primary-school.json'));
         return $primarySchoolData = json_decode($json);
          
+    }
+
+    public function sendEmail(){
+         Mail::send('emails.send', ['title' => $title, 'content' => $content], function ($message)
+        {
+
+            $message->from('me@gmail.com', 'Christian Nwamba');
+
+            $message->to('chrisn@scotch.io');
+
+        });
     }
 
 

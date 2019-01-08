@@ -11,11 +11,6 @@
     <link rel="stylesheet" href="{{asset('css/core.min.css')}}">
     <link rel="stylesheet" href="{{asset('css/app.css')}}">
     <link rel="stylesheet" href="{{asset('css/style.css')}}">
-    <style>
-        body {
-  font-family: Poppins, sans-serif !important;  
-}
-    </style>
     @yield('page-css')
     <meta name="csrf-token" content="{{ csrf_token() }}" />
 </head>
