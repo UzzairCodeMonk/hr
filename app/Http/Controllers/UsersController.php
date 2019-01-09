@@ -13,10 +13,11 @@ use Datakraf\Traits\Roleable;
 use DB;
 use File;
 use Illuminate\Support\Facades\Mail;
+use Datakraf\Traits\ApiRequestable;
 
 class UsersController extends Controller
 {
-    use AlertMessage, Roleable;
+    use AlertMessage, Roleable,ApiRequestable;
     /**
      * Display a listing of the resource.
      * @return Response
@@ -164,6 +165,11 @@ class UsersController extends Controller
         });
     }
 
+    public function testApi(){
 
+        $banks = $this->makeRequest('GET','banks');
+
+        return $banks;
+    }
 
 }

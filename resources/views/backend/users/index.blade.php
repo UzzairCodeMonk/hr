@@ -22,7 +22,7 @@ Employees
                     <tbody>
                         @if(count($results))
                         @foreach($results as $key=>$result)
-                        
+
                         <tr>
                             <td>{{++$key}}</td>
                             <td>
@@ -30,7 +30,8 @@ Employees
                                     <img class="avatar" src="{{asset($result->personalDetail->avatar) ?? '' }}" alt="">
                                     <div class="media-body">
                                         <p class="lh-1">{{$result->name ?? 'N/A'}}</p>
-                                        <small>{{$result->personalDetail->position->name}}</small>
+                                        <small>{{$result->personalDetail->position->name ?? 'N/A'}}
+                                            {{$result->personalDetail->staff_number ?? 'N/A'}}</small>
                                     </div>
                                 </div>
                             </td>

@@ -38,7 +38,7 @@ class PayslipsController extends Controller
 
     public function index()
     {
-        return view('wage::payslips.users', ['users' => $this->user->all()]);
+        return view('wage::payslips.users', ['users' => $this->user->has('personalDetail')->get()]);
     }
 
     public function myPayslips()
