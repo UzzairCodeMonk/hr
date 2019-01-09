@@ -20,11 +20,24 @@
                         <h4>Employee Information</h4>
                     </div>
                     <div class="col-8">
-                        <div class="form-group">
-                            <label for="">Name</label>
-                            <input type="text" name="name" id="" class="form-control" value="{!! old('name',isset($user->name)?$user->name:null) !!}">
-                            @include('backend.shared._errors',['entity'=>'name'])
+                        <div class="row">
+                            <div class="col">
+                                <div class="form-group">
+                                    <label for="">Name</label>
+                                    <input type="text" name="name" id="" class="form-control" value="{!! old('name',isset($user->name)?$user->name:null) !!}">
+                                    @include('backend.shared._errors',['entity'=>'name'])
+                                </div>
+                            </div>
+                            <div class="col">
+                                <label for="">Gender</label>
+                                <select name="gender" id="" class="form-control select">
+                                    <option></option>
+                                    <option value="male" {{old('gender',isset($user->personalDetail->gender) && $user->personalDetail->gender == 'male' ? 'selected':'')}}>Male</option>
+                                    <option value="female" {{old('gender',isset($user->personalDetail->gender) && $user->personalDetail->gender == 'female' ? 'selected':'')}}>Female</option>
+                                </select>
+                            </div>
                         </div>
+
                         <div class="row">
                             <div class="col">
                                 <div class="form-group">
@@ -120,11 +133,11 @@
                 <hr>
                 <div class="row">
                     <div class="col-4">
-                        <h4>Banking Details</h4>
+                        <h4>Wage & Banking Information</h4>
                     </div>
                     <div class="col-8">
                         <div class="form-group">
-                            <label for="">Basic Salary</label>
+                            <label for="">Basic Salary (MYR)</label>
                             <input type="text" class="form-control" name="basic_salary">
                         </div>
                         <div class="row">

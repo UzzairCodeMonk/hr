@@ -8,6 +8,7 @@ use Illuminate\Auth\Listeners\SendEmailVerificationNotification;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
 use Datakraf\Events\UserCreated;
 use Modules\Profile\Listeners\CreatePersonalDetail;
+use Datakraf\Listeners\SendEmailOnUserCreation;
 
 class EventServiceProvider extends ServiceProvider
 {
@@ -19,7 +20,10 @@ class EventServiceProvider extends ServiceProvider
     protected $listen = [
         Registered::class => [
             SendEmailVerificationNotification::class,
-        ],        
+        ],
+        UserCreated::class => [
+            SendEmailOnUserCreation::class
+        ]
     ];
 
     /**

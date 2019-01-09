@@ -22,6 +22,7 @@ Employees
                     <tbody>
                         @if(count($results))
                         @foreach($results as $key=>$result)
+                        
                         <tr>
                             <td>{{++$key}}</td>
                             <td>

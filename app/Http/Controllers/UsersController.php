@@ -58,7 +58,7 @@ class UsersController extends Controller
         return view('backend.users.index', [
             'columnNames' => $this->columnNames,
             'datatable' => true,
-            'results' => $this->user->all(),
+            'results' => $this->user->has('personalDetail')->get(),
             'actions' => $this->actions,
             'deleteAction' => $this->deleteAction
         ]);
@@ -69,7 +69,7 @@ class UsersController extends Controller
         return view('backend.users.form', [
             'positions' => $this->position->all(),
             'roles' => $this->role->pluck('name', 'id'),
-            'banks' => DB::table('banks')->get(),            
+            'banks' => DB::table('banks')->get(),
         ]);
     }
 
@@ -150,12 +150,12 @@ class UsersController extends Controller
 
         $json = File::get(database_path('primary-school.json'));
         return $primarySchoolData = json_decode($json);
-         
+
     }
 
-    public function sendEmail(){
-         Mail::send('emails.send', ['title' => $title, 'content' => $content], function ($message)
-        {
+    public function sendEmail()
+    {
+        Mail::send('emails.send', ['title' => $title, 'content' => $content], function ($message) {
 
             $message->from('me@gmail.com', 'Christian Nwamba');
 
