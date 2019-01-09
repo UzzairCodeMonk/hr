@@ -1,11 +1,6 @@
 <aside class="aside aside-expand-md">
     <div class="aside-body ps-container ps-theme-default ps-active-y" data-ps-id="cb0b42e0-1f01-7a34-e163-97ce06488878">
-       
-        <div class="aside-block">
-            <div class="flexbox mb-1">
-                <h6 class="aside-title">Admin Panel</h6>                
-            </div>
-        </div>      
+                   
         
         @include('backend.partials.admin-sidebar-menu')
 

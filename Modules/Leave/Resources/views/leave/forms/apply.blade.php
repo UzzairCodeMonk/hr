@@ -24,12 +24,11 @@ Leave Application Form
                                 <select name="leavetype_id" id="" class="form-control">
                                     @foreach($types as $type)
                                     <option value="{{$type->id}}">{{$type->name}} || Balance:
-                                        @if(DB::table('leavebalances')->where('user_id',auth()->id())->where('leavetype_id',$type->id)->exists())
-                                        {{DB::table('leavebalances')->where('user_id',auth()->id())->where('leavetype_id',$type->id)->first()->balance}}/@endif{{$type->days}} {{str_plural('day',$type->days)}}</option>
+                                        {{getUserLeaveBalance($type)}}{{$type->days}} {{str_plural('day',$type->days)}}</option>
                                     @endforeach
                                 </select>
                             </div>
-                        </div>                       
+                        </div>
                     </div>
                     <div class="row">
                         <div class="col">
@@ -57,7 +56,7 @@ Leave Application Form
                                 <label for="">{{ucwords(__('leave::leave.attachment'))}}</label>
                                 <button type="button" class="btn btn-block btn-md btn-primary" onclick="document.getElementById('fileInput').click();"><i
                                         class="ti ti-files"></i> Attach your file(s) here</button>
-                                <input id="fileInput" type="file" style="display:none;" name="attachments[]" multiple/>
+                                <input id="fileInput" type="file" style="display:none;" name="attachments[]" multiple />
                             </div>
                         </div>
                     </div>

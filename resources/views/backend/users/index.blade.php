@@ -15,7 +15,7 @@ Employees
                         <tr>
                             <th>#</th>
                             <th>Name</th>
-                            <th>Email</th>
+                            <th class="text-center">Email</th>
                             <th class="text-center">Action</th>
                         </tr>
                     </thead>
@@ -24,20 +24,25 @@ Employees
                         @foreach($results as $key=>$result)
                         <tr>
                             <td>{{++$key}}</td>
-                            <td
-                            >
-                                <img class="avatar" style="width:50px !important;height:50px !important" src="{{asset($result->personalDetail->avatar) ?? '' }}" alt="">
-                            
-                                <p class="d-inline">{{$result->name ?? 'N/A'}}</p>
-                            </td>
                             <td>
+                                <div class="media">
+                                    <img class="avatar" src="{{asset($result->personalDetail->avatar) ?? '' }}" alt="">
+                                    <div class="media-body">
+                                        <p class="lh-1">{{$result->name ?? 'N/A'}}</p>
+                                        <small>{{$result->personalDetail->position->name}}</small>
+                                    </div>
+                                </div>
+                            </td>
+                            <td class="text-center">
                                 {{$result->email ?? 'N/A'}}
                             </td>
                             <td class="text-center">
-                                <a href="{{URL::signedRoute('employee.details',['id'=>$result->id])}}" class="btn btn-sm text-dark" id="">
+                                <a href="{{URL::signedRoute('employee.details',['id'=>$result->id])}}" class="btn btn-sm text-dark"
+                                    id="">
                                     View
                                 </a>
-                                <a href="{{URL::signedRoute('user.edit',['id'=>$result->id])}}" class="btn btn-sm text-dark" id="">
+                                <a href="{{URL::signedRoute('user.edit',['id'=>$result->id])}}" class="btn btn-sm text-dark"
+                                    id="">
                                     Edit
                                 </a>
                                 @if(!$result->hasRole('Admin'))
@@ -77,6 +82,7 @@ Employees
     $(document).ready(function () {
         $('.datatable').DataTable();
     });
+
 </script>
 @include('components.form.confirmDeleteOnSubmission',['entity'=>'employee','action'=>'delete'])
 @endsection

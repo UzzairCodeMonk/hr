@@ -12,8 +12,8 @@ Employee user Records
             <thead>
                 <tr>
                     <th>#</th>
-                    <th colspan="2">Name</th>
-                    <th>Email</th>   
+                    <th>Name</th>
+                    <th class="text-center">Email</th>   
                     <th class="text-center">Action</th>                 
                 </tr>
             </thead>
@@ -21,10 +21,15 @@ Employee user Records
                 @foreach($users as $key=>$user)
                 <tr>
                     <td>{{++$key}}</td>
-                    <td colspan="2">
-                        <img class="avatar" style="width:50px !important;height:50px !important" src="{{asset($user->personalDetail->avatar) ?? '' }}" alt="">                            
-                        <p class="d-inline">{{$user->name ?? 'N/A'}}</p></td>
-                    <td>{{$user->email}}</td>                    
+                    <td>
+                        <div class="media">
+                            <img class="avatar" src="{{asset($user->personalDetail->avatar) ?? '' }}" alt="">
+                            <div class="media-body">
+                                <p class="lh-1">{{$user->name ?? 'N/A'}}</p>
+                                <small>{{$user->personalDetail->position->name}}</small>
+                            </div>
+                        </div></td>
+                    <td class="text-center">{{$user->email}}</td>                    
                     <td class="text-center">
                         <a href="{{URL::signedRoute('leave.show',['id'=>$user->id])}}" class="btn btn-sm text-dark">View</a>                                           
                     </td>

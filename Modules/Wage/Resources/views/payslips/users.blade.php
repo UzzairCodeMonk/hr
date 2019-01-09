@@ -13,7 +13,7 @@ Employee Records
                 <tr>
                     <th>#</th>
                     <th>Name</th>
-                    <th>Email</th>
+                    <th class="text-center">Email</th>
                     <th class="text-center">Action</th>
                 </tr>
             </thead>
@@ -21,8 +21,16 @@ Employee Records
                 @foreach($users as $key=>$user)
                 <tr>
                     <td>{{++$key}}</td>
-                    <td>{{$user->name}}</td>
-                    <td>{{$user->email}}</td>
+                    <td>
+                        <div class="media">
+                            <img class="avatar" src="{{asset($user->personalDetail->avatar) ?? '' }}" alt="">
+                            <div class="media-body">
+                                <p class="lh-1">{{$user->name ?? 'N/A'}}</p>
+                                <small>{{$user->personalDetail->position->name}}</small>
+                            </div>
+                        </div>
+                    </td>
+                    <td class="text-center">{{$user->email}}</td>
                     <td class="text-center">
                         <a href="{{URL::signedRoute('payslip.show',['id'=>$user->id])}}" class="btn btn-sm text-dark">View</a>
                     </td>

@@ -11,10 +11,11 @@
         <div class="col">
             <div class="form-group">
                 <label for=""></label>
-                <select name="recepient_id" id="" class="selectize" multiple></select>
+                <select name="recepient_id" id="" class="select" multiple></select>
             </div>
         </div>
     </div>
 </div>
 
 @endsection
+@section()
