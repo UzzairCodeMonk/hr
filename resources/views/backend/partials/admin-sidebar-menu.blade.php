@@ -39,7 +39,7 @@
         <a class="nav-link" href="{{route('leave-type.index')}} ">Leave Categories</a>
     </li>
     <li class="nav-item {{Route::currentRouteName() == 'holiday.index'  ? 'active':''}}">
-        <i class="ti ti-layers-alt"></i>
+        <i class="ti ti-calendar"></i>
         <a class="nav-link" href="{{route('holiday.index')}} ">Holidays</a>
     </li>
 </ul>
