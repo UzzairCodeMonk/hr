@@ -32,7 +32,7 @@ Employee Records
                     </td>
                     <td class="text-center">{{$user->email}}</td>
                     <td class="text-center">
-                        <a href="{{URL::signedRoute('payslip.show',['id'=>$user->id])}}" class="btn btn-sm text-dark">View</a>
+                        <a href="{{URL::signedRoute('payslip.show',['id'=>$user->id])}}" class="btn btn-sm btn-link text-dark">View</a>
                     </td>
                 </tr>
                 @endforeach

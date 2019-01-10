@@ -31,7 +31,7 @@ Employee user Records
                         </div></td>
                     <td class="text-center">{{$user->email}}</td>                    
                     <td class="text-center">
-                        <a href="{{URL::signedRoute('leave.show',['id'=>$user->id])}}" class="btn btn-sm text-dark">View</a>                                           
+                        <a href="{{URL::signedRoute('leave.show',['id'=>$user->id])}}" class="btn btn-sm text-dark btn-link">View</a>                                           
                     </td>
                 </tr>
                 @endforeach

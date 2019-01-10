@@ -30,7 +30,7 @@
                     <td>{{$leave->start_date}}</td>
                     <td>{{$leave->end_date}}</td>
                     <td class="text-center">
-                        <a href="{{URL::signedRoute('leave.show',['id'=>$leave->id])}}" class="btn btn-sm text-dark">View</a>
+                        <a href="{{URL::signedRoute('leave.show',['id'=>$leave->id])}}" class="btn btn-sm text-dark btn-link">View</a>
                         <form action="{{route('leave.destroy',['id'=>$leave->id])}}" method="POST" class="form-inline leave-record">
                             @csrf
                             @method('DELETE')

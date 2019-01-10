@@ -2,7 +2,7 @@
 <header class="topbar">
     <div class="topbar-left">
         <span class="topbar-btn sidebar-toggler"><i>&#9776;</i></span>
-        <ul class="topbar-btns">
+        <ul class="topbar-btns d-sm-none d-md-none d-xl-block d-xs-none">
             <li class="dropdown">
                 <span id="icon"></span>
                 <span id="greeting" class="topbar-btn"></span>

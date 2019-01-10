@@ -39,11 +39,11 @@ Employees
                                 {{$result->email ?? 'N/A'}}
                             </td>
                             <td class="text-center">
-                                <a href="{{URL::signedRoute('employee.details',['id'=>$result->id])}}" class="btn btn-sm text-dark"
+                                <a href="{{URL::signedRoute('employee.details',['id'=>$result->id])}}" class="btn btn-sm text-dark btn-link"
                                     id="">
                                     View
                                 </a>
-                                <a href="{{URL::signedRoute('user.edit',['id'=>$result->id])}}" class="btn btn-sm text-dark"
+                                <a href="{{URL::signedRoute('user.edit',['id'=>$result->id])}}" class="btn btn-sm btn-link text-dark"
                                     id="">
                                     Edit
                                 </a>
@@ -54,7 +54,7 @@ Employees
                                     style="display:inline !important;">
                                     @csrf
                                     {{method_field('DELETE')}}
-                                    <button type="submit" class="btn btn-sm text-danger">Delete</button>
+                                    <button type="submit" class="btn btn-sm btn-link text-danger">Delete</button>
                                 </form>
                                 @endcan
                                 @endif

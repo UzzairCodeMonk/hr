@@ -57,7 +57,7 @@ class LeavesController extends Controller
     {
         // $leaves = $this->leave->all();        
         // return view('leave::leave.admin.leave-records', compact('leaves'));
-        return view('leave::leave.admin.users', ['users' => $this->user->all()]);
+        return view('leave::leave.admin.users', ['users' => $this->user->has('personalDetail')->get()]);
     }
 
     public function show($id)

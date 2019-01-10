@@ -35,8 +35,8 @@
                         <input type="text" name="income_tax_number" class="form-control" value="{{$family->income_tax_number ?? ''}}" />
                     </td>
                     <td class="text-center">                        
-                           <button type="submit" class="btn btn-primary btn-sm">Update</button>
-                           <a href="{{URL::previous()}}" class="btn btn-secondary btn-sm">Cancel</a>       
+                           <button type="submit" class="btn btn-primary btn-xs d-inline-block">Update</button>
+                           <a href="{{URL::previous()}}" class="btn btn-secondary btn-xs d-inline-block">Cancel</a>       
                     </td>
                 </tr>
             </tbody>

@@ -24,7 +24,7 @@
                 @if(isset($actions))
                 @foreach($actions as $action)
                 
-                <a  href="{{route($action['url'],['id'=>$result->id])}}" class="btn btn-sm {{$action['class']}}" >
+                <a  href="{{route($action['url'],['id'=>$result->id])}}" class="btn btn-sm {{$action['class']}} btn-link" style="display:inline-block">
                     {{$action['text']}}
                 </a>
                 @isset($deleteAction)
@@ -32,7 +32,7 @@
                     method="POST" style="display:inline !important;">
                     @csrf
                     {{method_field('DELETE')}}
-                    <button type="submit" class="btn btn-sm {{$deleteAction['delete']['class']}}">{{$deleteAction['delete']['text']}}</button>
+                    <button type="submit" class="btn btn-sm {{$deleteAction['delete']['class']}} btn-link" style="display:inline-block">{{$deleteAction['delete']['text']}}</button>
                 </form>
                 @endisset
                 @endforeach
