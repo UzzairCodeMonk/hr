@@ -38,6 +38,10 @@
         <i class="ti ti-layers-alt"></i>
         <a class="nav-link" href="{{route('leave-type.index')}} ">Leave Categories</a>
     </li>
+    <li class="nav-item {{Route::currentRouteName() == 'holiday.index'  ? 'active':''}}">
+        <i class="ti ti-layers-alt"></i>
+        <a class="nav-link" href="{{route('holiday.index')}} ">Holidays</a>
+    </li>
 </ul>
 <hr>
 <div class="aside-block">
@@ -61,7 +65,7 @@
     <li class="nav-item {{Route::currentRouteName() == 'leave.index'  ? 'active':''}}">
         <i class="ti ti-agenda"></i>
         <a class="nav-link" href="{{route('leave.index')}}">Memorandums</a>
-    </li>    
+    </li>
 </ul>
 <hr>
 <div class="aside-block">
