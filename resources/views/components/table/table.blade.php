@@ -20,19 +20,18 @@
                 {{$result->$columnName ?? 'N/A'}}
             </td>
             @endforeach
-            <td class="text-center">
+            <td class="text-center" style="white-space:nowrap !important">
                 @if(isset($actions))
-                @foreach($actions as $action)
-                
-                <a  href="{{route($action['url'],['id'=>$result->id])}}" class="btn btn-sm {{$action['class']}} btn-link" style="display:inline-block">
-                    {{$action['text']}}
+                @foreach($actions as $action)                
+                <a  href="{{route($action['url'],['id'=>$result->id])}}" class="{{$action['class']}} btn btn-xs btn-link text-dark" data-provide="tooltip" data-original-title="View">
+                    <i class="ti ti-eye"></i>
                 </a>
                 @isset($deleteAction)
                 <form class="{{$entity}}" action="{{route($deleteAction['delete']['url'],['id'=>$result->id])}}"
-                    method="POST" style="display:inline !important;">
+                    method="POST">
                     @csrf
                     {{method_field('DELETE')}}
-                    <button type="submit" class="btn btn-sm {{$deleteAction['delete']['class']}} btn-link" style="display:inline-block">{{$deleteAction['delete']['text']}}</button>
+                    <button type="submit" data-provide="tooltip" data-original-title="Delete" class="{{$deleteAction['delete']['class']}} btn btn-xs btn-link text-danger"> <i class="ti ti-trash"></i></button>
                 </form>
                 @endisset
                 @endforeach

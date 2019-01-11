@@ -21,7 +21,7 @@ class HolidaysController extends Controller
             'edit' => [
                 'url' => 'holiday.edit',
                 'text' => ucwords('edit'),
-                'class' => 'btn btn-link text-dark',
+                'class' => 'text-dark',
                 'id' => ''
             ]
         ];
@@ -29,7 +29,7 @@ class HolidaysController extends Controller
             'delete' => [
                 'url' => 'holiday.destroy',
                 'text' => ucwords('delete'),
-                'class' => 'btn btn-link btn-danger text-white',
+                'class' => 'text-danger',
                 'id' => ''
             ]
         ];

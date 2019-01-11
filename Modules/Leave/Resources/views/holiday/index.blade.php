@@ -13,7 +13,7 @@ Public Holidays
             <div class="col">
                 <h4>Public Holidays</h4>
                 @isset($results)
-                @include('components.table.table',['entity'=>'holiday','deleteAction'=>$deleteAction])
+                @include('components.table.table',['entity'=>'holiday','deleteAction'=>$deleteAction,'datatable'=>true])
                 @endisset
             </div>
             <div class="col">
@@ -26,11 +26,13 @@ Public Holidays
 </div>
 @endsection
 @section('page-js')
+@include('asset-partials.datatable')
 @include('components.form.confirmDeleteOnSubmission',['entity'=>'holiday','action'=>'delete'])
 @include('asset-partials.datepicker')
 <script type="text/javascript">
     $('.date').datepicker({
         format: "{{config('app.date_format_js')}}",
     });
+    $('.datatable').DataTable();
 </script>
 @endsection
