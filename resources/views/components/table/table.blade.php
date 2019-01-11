@@ -23,15 +23,15 @@
             <td class="text-center" style="white-space:nowrap !important">
                 @if(isset($actions))
                 @foreach($actions as $action)                
-                <a  href="{{route($action['url'],['id'=>$result->id])}}" class="{{$action['class']}} btn btn-xs btn-link text-dark" data-provide="tooltip" data-original-title="View">
-                    <i class="ti ti-eye"></i>
+            <a  href="{{route($action['url'],['id'=>$result->id])}}" class="{{$action['class']}} btn btn-sm text-dark" >
+                    {{$action['text']}}
                 </a>
                 @isset($deleteAction)
-                <form class="{{$entity}}" action="{{route($deleteAction['delete']['url'],['id'=>$result->id])}}"
+                <form class="{{$entity}} d-inline" action="{{route($deleteAction['delete']['url'],['id'=>$result->id])}}"
                     method="POST">
                     @csrf
                     {{method_field('DELETE')}}
-                    <button type="submit" data-provide="tooltip" data-original-title="Delete" class="{{$deleteAction['delete']['class']}} btn btn-xs btn-link text-danger"> <i class="ti ti-trash"></i></button>
+                    <button type="submit" class="{{$deleteAction['delete']['class']}} btn btn-sm text-danger "> Delete</button>
                 </form>
                 @endisset
                 @endforeach

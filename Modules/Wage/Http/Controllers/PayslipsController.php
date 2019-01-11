@@ -7,15 +7,18 @@ use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
 use Datakraf\User;
 use Modules\Wage\Entities\Payslip;
+use Modules\Wage\Notifications\PayslipGenerated;
+use Modules\Wage\Traits\WageCalculator;
+use Modules\Wage\Traits\SocsoRates;
 use Auth;
 use PDF;
-use Modules\Wage\Notifications\PayslipGenerated;
-use Illuminate\Support\Facades\DB;
 
 class PayslipsController extends Controller
 {
+    use WageCalculator, SocsoRates;
+
     public $user;
-    public $data;
+    public $data;    
 
     public function __construct(User $user, Request $request)
     {
@@ -34,7 +37,7 @@ class PayslipsController extends Controller
             'socso_eis_employee' => $request->socso_eis_employee,
             'income_tax' => $request->income_tax,
             'remarks' => $request->remarks,
-        ];
+        ];      
     }
 
     public function index()
@@ -48,20 +51,24 @@ class PayslipsController extends Controller
         return view('wage::payslips.my-payslip', ['user' => Auth::user(), 'payslip' => $payslip]);
     }
 
-    public function show($id)
+    public function show(int $id)
     {
         $payslip = Payslip::where('user_id', $id)->get();
-        $basic_salary = DB::table('wages')->where('user_id', $id)->orderBy('created_at', 'desc')->first()->wage;
-        $employee_contrib = $this->getEmployeeContribution($basic_salary);
+
+        $basic_salary = $this->getUserLatestSalary($id);
+        $employee_contrib = $this->getSocsoEmployeeContribution($basic_salary);
+        $employer_contrib = $this->getSocsoEmployerContribution($basic_salary);
+
         return view('wage::payslips.show', [
             'user' => User::find($id),
             'payslip' => $payslip,
             'employee_contrib' => $employee_contrib,
+            'employer_contrib' => $employer_contrib,
             'basic_salary' => $basic_salary
         ]);
     }
 
-    public function viewPayslip($id, $month, $year)
+    public function viewPayslip(int $id, $month, $year)
     {
         $payslip = Payslip::where('user_id', $id)->where('month', $month)->where('year', $year)->first();
         return view('wage::payslips.payslip', ['payslip' => $payslip]);
@@ -77,11 +84,9 @@ class PayslipsController extends Controller
         $payslip->user->notify(new PayslipGenerated($payslip, $payslip->user, Auth::user()));
         toast('Payslip generated successfully', 'success', 'top-right');
         return back();
-
-
     }
 
-    public function printPayslip($id, $month, $year)
+    public function printPayslip(int $id, $month, $year)
     {
         $payslip = Payslip::where('user_id', $id)->where('month', $month)->where('year', $year)->first();
         $pdf = PDF::loadView('wage::payslips.payslip-pdf', compact('payslip'));
@@ -89,34 +94,6 @@ class PayslipsController extends Controller
         return $pdf->download($pdfName . '.pdf');
     }
 
-    public function calculateTotalEarnings($request)
-    {
-
-        $basic_salary = $request->basic_salary;
-        $allowance = $request->allowance;
-
-        $totalEarnings = $basic_salary + $allowance;
-        return $totalEarnings;
-    }
-
-    public function calculateTotalDeductions($request)
-    {
-        $epf_employee = $request->epf_employee;
-        $socso_employee = $request->socso_employee;
-        $socso_eis_employee = $request->socso_eis_employee;
-        $income_tax = $request->income_tax;
-
-        $totalDeductions = $epf_employee + $socso_employee + $socso_eis_employee + $income_tax;
-        return $totalDeductions;
-    }
-
-    public function calculateNetWage($request)
-    {
-        $totalEarnings = $this->calculateTotalEarnings($request);
-        $totalDeductions = $this->calculateTotalDeductions($request);
-        $totalNetWage = $totalEarnings - $totalDeductions;
-        return $totalNetWage;
-    }
 
     public function destroy($id)
     {
@@ -125,8 +102,5 @@ class PayslipsController extends Controller
         return back();
     }
 
-    public function getEmployeeContribution($basic_salary)
-    {
-        return DB::table('epfrates')->where('start_amount', '>', $basic_salary)->where('final_amount', '!=', $basic_salary)->first()->employee_contrib ?? 0.00;
-    }
+
 }
