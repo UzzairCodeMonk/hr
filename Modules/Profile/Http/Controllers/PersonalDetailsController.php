@@ -13,10 +13,11 @@ use Datakraf\Traits\AlertMessage;
 use DB;
 use Modules\Profile\Entities\Family;
 use Modules\Profile\Entities\Experience;
+use Datakraf\Traits\ApiRequestable;
 
 class PersonalDetailsController extends Controller
 {
-    use AlertMessage;
+    use AlertMessage,ApiRequestable;
 
     protected $personalDetail;
 
@@ -37,7 +38,7 @@ class PersonalDetailsController extends Controller
         return view('profile::forms.personal-details.personal-details', [
             'personalDetail' => $personalDetail,
             'positions' => $this->position->all()
-        ]);
+        ]);        
     }
 
     /**
