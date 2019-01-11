@@ -26,10 +26,10 @@ Employee user Records
                             <img class="avatar" src="{{asset($user->personalDetail->avatar) ?? '' }}" alt="">
                             <div class="media-body">
                                 <p class="lh-1">{{$user->name ?? 'N/A'}}</p>
-                                <small>{{$user->personalDetail->position->name}}</small>
+                                <small>{{$user->personalDetail->position->name ?? 'N/A'}}</small>
                             </div>
                         </div></td>
-                    <td class="text-center">{{$user->email}}</td>                    
+                    <td class="text-center">{{$user->email ?? 'N/A'}}</td>                    
                     <td class="text-center">
                         <a href="{{URL::signedRoute('leave.show',['id'=>$user->id])}}" class="btn btn-sm text-dark btn-link">View</a>                                           
                     </td>

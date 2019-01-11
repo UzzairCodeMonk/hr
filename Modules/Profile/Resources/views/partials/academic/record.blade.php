@@ -23,7 +23,7 @@
         <p>{{$record->result ?? 'N/A'}}</p>
     </td>
     <td>
-        <a href="{{route('academic.edit',['id'=>$record->id])}}" class="btn btn-primary btn-sm">Edit</a>
+        <a href="{{route('academic.edit',['id'=>$record->id])}}" class="btn btn-link btn-sm text-dark">Edit</a>
     </td>
 </tr>
 @endforeach

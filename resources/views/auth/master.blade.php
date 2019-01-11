@@ -15,11 +15,11 @@
         body {
       font-family: Poppins, sans-serif !important;  
     }
-        </style>
+    </style>
     @yield('page-css')
 </head>
 
-<body class="min-h-fullscreen bg-img center-vh p-20" style="background-image: url(https://source.unsplash.com/OrwkD-iWgqg/1600x900)">
+<body class="min-h-fullscreen bg-img center-vh p-20" style="background-image: url(https://source.unsplash.com/ap3LXI0fPJY/1600x900)">
     @yield('content')
     <script type="text/javascript" src="{{asset('js/core.min.js')}}"></script>
     <script type="text/javascript" src="{{asset('js/app.js')}}"></script>

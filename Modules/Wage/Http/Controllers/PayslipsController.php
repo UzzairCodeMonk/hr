@@ -10,6 +10,7 @@ use Modules\Wage\Entities\Payslip;
 use Auth;
 use PDF;
 use Modules\Wage\Notifications\PayslipGenerated;
+use Illuminate\Support\Facades\DB;
 
 class PayslipsController extends Controller
 {
@@ -50,7 +51,14 @@ class PayslipsController extends Controller
     public function show($id)
     {
         $payslip = Payslip::where('user_id', $id)->get();
-        return view('wage::payslips.show', ['user' => User::find($id), 'payslip' => $payslip]);
+        $basic_salary = DB::table('wages')->where('user_id', $id)->orderBy('created_at', 'desc')->first()->wage;
+        $employee_contrib = $this->getEmployeeContribution($basic_salary);
+        return view('wage::payslips.show', [
+            'user' => User::find($id),
+            'payslip' => $payslip,
+            'employee_contrib' => $employee_contrib,
+            'basic_salary' => $basic_salary
+        ]);
     }
 
     public function viewPayslip($id, $month, $year)
@@ -115,5 +123,10 @@ class PayslipsController extends Controller
         Payslip::find($id)->delete();
         toast('Payslip deleted successfully', 'success', 'top-right');
         return back();
+    }
+
+    public function getEmployeeContribution($basic_salary)
+    {
+        return DB::table('epfrates')->where('start_amount', '>', $basic_salary)->where('final_amount', '!=', $basic_salary)->first()->employee_contrib ?? 0.00;
     }
 }

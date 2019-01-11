@@ -77,7 +77,7 @@ Payslip Records
                         <div class="col">
                             <div class="form-group">
                                 <label for="">Basic Salary</label>
-                                <input type="text" class="form-control" name="basic_salary">
+                                <input type="text" class="form-control" name="basic_salary" value="{{$basic_salary ?? 'N/A'}}">
                             </div>
                         </div>
                         <div class="col">
@@ -91,13 +91,13 @@ Payslip Records
                         <div class="col">
                             <div class="form-group">
                                 <label for="">EPF Contribution (Employer)</label>
-                                <input type="text" class="form-control" name="epf_employer">
+                                <input type="text" class="form-control" name="epf_employer" value="">
                             </div>
                         </div>
                         <div class="col">
                             <div class="form-group">
                                 <label for="">EPF Contribution (Employee)</label>
-                                <input type="text" class="form-control" name="epf_employee">
+                                <input type="text" class="form-control" name="epf_employee" value="{{$employee_contrib}}">
                             </div>
                         </div>
                     </div>

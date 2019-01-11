@@ -36,7 +36,7 @@
                         <form action="{{route('leave.destroy',['id'=>$leave->id])}}" method="POST" class="leave-record d-inline">
                             @csrf
                             @method('DELETE')
-                            <button type="submit" class="btn btn-sm text-danger">Delete</button>
+                            <button type="submit" class="btn btn-sm text-danger btn-link">Delete</button>
                         </form>
                     </td>
                 </tr>

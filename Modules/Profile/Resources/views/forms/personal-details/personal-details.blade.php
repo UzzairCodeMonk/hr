@@ -241,7 +241,7 @@ Personal Details
             <div class="row">
                 <div class="col">
                     <div class="form-group">
-                        <button type="submit" class="btn btn-primary btn-lg pull-right">{{isset($personalDetail) ?
+                        <button type="submit" class="btn btn-primary btn-md pull-right">{{isset($personalDetail) ?
                             ucwords('update'):ucwords('save')}}</button>
                     </div>
                 </div>
