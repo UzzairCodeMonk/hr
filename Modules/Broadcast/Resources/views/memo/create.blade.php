@@ -1,5 +1,4 @@
 @extends('backend.master')
-
 @section('content')
 <div class="card">
     <div class="card-header">

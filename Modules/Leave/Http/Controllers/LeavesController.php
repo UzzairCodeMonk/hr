@@ -17,6 +17,7 @@ use Maatwebsite\Excel\Facades\Excel;
 use Modules\Leave\Traits\Date;
 use Modules\Leave\Exports\UserLeavesExport;
 use Modules\Leave\Notifications\ApproveLeave;
+use Modules\Leave\Http\Requests\ApplyLeaveRequest;
 
 class LeavesController extends Controller
 {
@@ -94,7 +95,7 @@ class LeavesController extends Controller
         return view('leave::leave.forms.apply', ['types' => $this->type->all()]);
     }
 
-    public function store(Request $request)
+    public function store(ApplyLeaveRequest $request)
     {
         // create leave
         $leave = $this->leave->create($this->data);

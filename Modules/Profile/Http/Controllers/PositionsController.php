@@ -7,6 +7,7 @@ use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
 use Modules\Profile\Entities\Position;
 use Datakraf\Traits\AlertMessage;
+use Modules\Profile\Http\Requests\CreatePositionRequest;
 
 class PositionsController extends Controller
 {
@@ -48,7 +49,7 @@ class PositionsController extends Controller
         return view('profile::forms.personal-details.positions', ['columnNames' => $this->columnNames, 'results' => $results, 'actions' => $this->actions, 'deleteAction' => $this->deleteAction]);
     }
 
-    public function store(Request $request)
+    public function store(CreatePositionRequest $request)
     {
         $this->position->create($this->data);
         toast($this->message('save', 'Position ' . $request->name), 'success', 'top-right');
@@ -66,7 +67,7 @@ class PositionsController extends Controller
         ]);
     }
 
-    public function update(Request $request, $id)
+    public function update(CreatePositionRequest $request, $id)
     {
         $this->position->find($id)->update($this->data);
         toast($this->message('update', 'Position #' . $id), 'success', 'top-right');

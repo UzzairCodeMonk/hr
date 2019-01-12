@@ -10,8 +10,7 @@ Public Holidays
     <div class="card-body">
 
         <div class="row">
-            <div class="col">
-                <h4>Public Holidays</h4>
+            <div class="col">                
                 @isset($results)
                 @include('components.table.table',['entity'=>'holiday','deleteAction'=>$deleteAction,'datatable'=>true])
                 @endisset

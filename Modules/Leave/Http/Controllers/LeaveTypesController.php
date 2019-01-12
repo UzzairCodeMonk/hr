@@ -7,6 +7,7 @@ use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
 use Modules\Leave\Entities\LeaveType;
 use Datakraf\Traits\AlertMessage;
+use Modules\Leave\Http\Requests\CreateLeaveCategoryRequest;
 
 class LeaveTypesController extends Controller
 {
@@ -44,8 +45,8 @@ class LeaveTypesController extends Controller
         $results = $this->type->all();
         return view('leave::type.index', ['columnNames' => $this->columnNames, 'results' => $results, 'actions' => $this->actions, 'deleteAction' => $this->deleteAction]);
     }
-  
-    public function store(Request $request)
+
+    public function store(CreateLeaveCategoryRequest $request)
     {
         $this->type->create($this->data);
         toast($this->message('save', 'Leave type ' . $request->name), 'success', 'top-right');
@@ -63,7 +64,7 @@ class LeaveTypesController extends Controller
         ]);
     }
 
-    public function update(Request $request, $id)
+    public function update(CreateLeaveCategoryRequest $request, $id)
     {
         $this->type->find($id)->update($this->data);
         toast($this->message('update', 'Leave type #' . $id), 'success', 'top-right');

@@ -5,12 +5,14 @@
         @endif
         @csrf
         <div class="form-group">
-            <label for="" class="form-label">Name</label>
+            <label for="" class="form-label require">Name</label>
             <input type="text" class="form-control" name="name" value="{{old('name',isset($entity->name)?$entity->name:'')}}">
+            @include('backend.shared._errors',['entity'=>'name'])
         </div>
         <div class="form-group">
             <label for="" class="form-label">Description</label>
             <input type="text" class="form-control" name="description" value="{{old('description',isset($entity->description)?$entity->description:'')}}">
+            @include('backend.shared._errors',['entity'=>'description'])
         </div>
         <div class="form-group pull-right">            
             @if(isset($entity) && url()->current() == route('position.edit',['id'=>$entity->id]))
