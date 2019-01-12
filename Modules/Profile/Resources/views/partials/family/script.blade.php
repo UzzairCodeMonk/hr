@@ -8,7 +8,7 @@
             cols += '<div class="card-header">'
             cols += '<h4 class="card-title text-dark">Add Family Record #'+counter+'</h4>'
             cols += '<div class="card-options">'            
-            cols += '<a class="ibtnDel btn btn-sm btn-danger text-white">Remove</a>'
+            cols += '<a class="delete-row btn btn-sm btn-danger text-white">Remove</a>'
             cols += '</div>'
             cols += '</div>'
             cols += '<div class="card-body">'
@@ -64,7 +64,7 @@
             counter++;
         });
 
-        $(".dynamic-list").on("click", ".ibtnDel", function (event) {
+        $(".dynamic-list").on("click", ".delete-row", function (event) {
             $(this).closest("div.card").remove();
             counter -= 1
         });
