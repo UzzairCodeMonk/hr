@@ -7,6 +7,7 @@ use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
 use Modules\Leave\Entities\Holiday;
 use Datakraf\Traits\AlertMessage;
+use Modules\Leave\Http\Requests\CreateHolidayRequest;
 
 class HolidaysController extends Controller
 {
@@ -45,7 +46,7 @@ class HolidaysController extends Controller
         return view('leave::holiday.index', ['columnNames' => $this->columnNames, 'results' => $results, 'actions' => $this->actions, 'deleteAction' => $this->deleteAction]);
     }
   
-    public function store(Request $request)
+    public function store(CreateHolidayRequest $request)
     {
         $this->holiday->create($this->data);
         toast($this->message('save', 'Public holiday ' . $request->name), 'success', 'top-right');
@@ -63,7 +64,7 @@ class HolidaysController extends Controller
         ]);
     }
 
-    public function update(Request $request, $id)
+    public function update(CreateHolidayRequest $request, $id)
     {
         $this->holiday->find($id)->update($this->data);
         toast($this->message('update', 'Public holiday #' . $id), 'success', 'top-right');
