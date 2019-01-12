@@ -6454,6 +6454,8 @@ progress {
   padding: 5px 16px;
   line-height: inherit;
   color: #8b95a5;
+  transform: translateY(-4px);
+  -webkit-transform: translateY(-4px);
   -webkit-box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.12), 0 2px 4px 0 rgba(0, 0, 0, 0.08);
           box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.12), 0 2px 4px 0 rgba(0, 0, 0, 0.08);
   letter-spacing: 1px;
