@@ -6,14 +6,19 @@ Family Records
 <div class="container">
     <div class="row">
         <div class="col">
-            <button type="button" class="btn btn-primary btn-md pull-right" data-toggle="modal" data-target="#add-family-records">
+            <!-- <button type="button" class="btn btn-primary btn-md pull-right" data-toggle="modal" data-target="#add-family-records">
                 <i class="ti ti-plus"></i> Add Family Record
-            </button>
+            </button> -->
         </div>
     </div>
     @isset($family)
     @include('profile::partials.family.edit')
     @endisset
+    <div class="row">
+        <div class="col">
+            @include('profile::partials.family.modal-form')
+        </div>
+    </div>
     <div class="row">
         <div class="col">
             <table class="table table-bordered mt-3">
@@ -28,7 +33,7 @@ Family Records
     </div>
 </div>
 
-@include('profile::partials.family.modal-form')
+
 @endsection
 @section('page-js')
 @include('profile::partials.family.script')
