@@ -2,10 +2,8 @@
     <div class="card-header">
         <h4 class="card-title text-dark">Add Family Record</h4>
         <div class="card-options">
-            <button type="submit" class="btn btn-primary">Save</button>
-            <a class="deleteRow">
-                <input type="button" class="btn pull-right" id="addrow" value="Add Row" />
-            </a>
+            <button type="submit" class="btn btn-primary btn-sm">Save</button>
+            <a class="btn btn-sm btn-secondary text-dark" id="addrow"> Add Row </a>
 
         </div>
     </div>

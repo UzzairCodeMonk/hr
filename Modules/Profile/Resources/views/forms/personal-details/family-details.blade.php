@@ -3,20 +3,13 @@
 Family Records
 @endsection
 @section('form-content')
-<div class="container">
-    <div class="row">
-        <div class="col">
-            <!-- <button type="button" class="btn btn-primary btn-md pull-right" data-toggle="modal" data-target="#add-family-records">
-                <i class="ti ti-plus"></i> Add Family Record
-            </button> -->
-        </div>
-    </div>
+<div class="container">    
     @isset($family)
     @include('profile::partials.family.edit')
     @endisset
     <div class="row">
         <div class="col">
-            @include('profile::partials.family.modal-form')
+            @include('profile::partials.family.dynamic-form')
         </div>
     </div>
     <div class="row">
@@ -32,8 +25,6 @@ Family Records
         </div>
     </div>
 </div>
-
-
 @endsection
 @section('page-js')
 @include('profile::partials.family.script')
