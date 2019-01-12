@@ -23,7 +23,7 @@
                         <div class="row">
                             <div class="col">
                                 <div class="form-group">
-                                    <label for="">Name</label>
+                                    <label for="input-required" class="require">Name</label>
                                     <input type="text" name="name" id="" class="form-control" value="{!! old('name',isset($user->name)?$user->name:null) !!}">
                                     @include('backend.shared._errors',['entity'=>'name'])
                                 </div>
@@ -48,7 +48,7 @@
                             </div>
                             <div class="col">
                                 <div class="form-group">
-                                    <label for="">Email</label>
+                                    <label for="input-required" class="require">Email</label>
                                     <input type="text" name="email" id="" class="form-control" value="{{old('email',isset($user->email)?$user->email:'')}}">
                                     @include('backend.shared._errors',['entity'=>'email'])
                                 </div>
@@ -74,7 +74,7 @@
                         <div class="row">
                             <div class="col">
                                 <div class="form-group">
-                                    <label for="">Password</label>
+                                    <label for="input-required" class="require">Password</label>
                                     <input type="password" name="password" id="" class="form-control">
                                     <p class="form-text">{{isset($user) ? 'Leave the password field blank if you don\'t
                                         want to
@@ -84,7 +84,7 @@
                             </div>
                             <div class="col">
                                 <div class="form-group">
-                                    <label for="">Password Confirmation</label>
+                                    <label for="input-required" class="require">Password Confirmation</label>
                                     <input type="password" name="password_confirmation" id="" class="form-control">
                                     @include('backend.shared._errors',['entity'=>'password_confirmation'])
                                 </div>
@@ -93,7 +93,7 @@
                         <div class="row">
                             <div class="col">
                                 <div class="form-group">
-                                    <label for="">Position</label>
+                                    <label for="input-required" class="require">Position</label>
                                     <select name="position_id" id="" class="form-control select">
                                         <option></option>
                                         @foreach($positions as $position)

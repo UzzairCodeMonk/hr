@@ -14,10 +14,11 @@ use DB;
 use File;
 use Illuminate\Support\Facades\Mail;
 use Datakraf\Traits\ApiRequestable;
+use Datakraf\Http\Requests\CreateEmployeeRequest;
 
 class UsersController extends Controller
 {
-    use AlertMessage, Roleable,ApiRequestable;
+    use AlertMessage, Roleable, ApiRequestable;
     /**
      * Display a listing of the resource.
      * @return Response
@@ -84,7 +85,7 @@ class UsersController extends Controller
         ]);
     }
 
-    public function store(Request $request)
+    public function store(CreateEmployeeRequest $request)
     {
 
         // $this->validate($request, [
@@ -165,9 +166,10 @@ class UsersController extends Controller
         });
     }
 
-    public function testApi(){
+    public function testApi()
+    {
 
-        $banks = $this->makeRequest('GET','banks');
+        $banks = $this->makeRequest('GET', 'banks');
 
         return $banks;
     }
