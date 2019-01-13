@@ -13,6 +13,7 @@ Route::group(['prefix' => 'profile', 'middleware' => 'auth'], function () {
             Route::post('store', ['uses' => 'FamiliesController@store', 'as' => 'family.store']);
             Route::get('{id}/edit', ['uses' => 'FamiliesController@edit', 'as' => 'family.edit']);
             Route::post('{id}/update', ['uses' => 'FamiliesController@update', 'as' => 'family.update']);
+            Route::delete('bulk-delete',['uses' => 'FamiliesController@destroy','as' =>'family.bulkdelete']);
         });
 
     // academic

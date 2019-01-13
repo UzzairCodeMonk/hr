@@ -11,6 +11,7 @@ use Datakraf\User;
 use Alert;
 use Datakraf\Traits\AlertMessage;
 use Modules\Profile\Entities\FamilyType;
+use Datakraf\Http\Requests\BulkDeleteRequest;
 
 class FamiliesController extends Controller
 {
@@ -19,7 +20,7 @@ class FamiliesController extends Controller
     protected $familyRecord;
     protected $familyType;
 
-    public function __construct(Family $familyRecord,FamilyType $type)
+    public function __construct(Family $familyRecord, FamilyType $type)
     {
         $this->familyRecord = $familyRecord;
         $this->type = $type;
@@ -33,7 +34,7 @@ class FamiliesController extends Controller
     {
         $familyRecord = $this->familyRecord->where('user_id', auth()->id())->get();
         $types = $this->type->all();
-        return view('profile::forms.personal-details.family-details', compact('familyRecord','types'));
+        return view('profile::forms.personal-details.family-details', compact('familyRecord', 'types'));
     }
     /**
      * Store a newly created resource in storage.
@@ -73,11 +74,11 @@ class FamiliesController extends Controller
      * @return Response
      */
     public function edit($id)
-    {   
+    {
         $family = Family::find($id);
         $familyRecord = $this->familyRecord->where('user_id', auth()->id())->get();
         $types = $this->type->all();
-        return view('profile::forms.personal-details.family-details', compact('familyRecord','types','family'));
+        return view('profile::forms.personal-details.family-details', compact('familyRecord', 'types', 'family'));
     }
 
     /**
@@ -96,13 +97,23 @@ class FamiliesController extends Controller
      * Remove the specified resource from storage.
      * @return Response
      */
-    public function destroy()
+    public function destroy(BulkDeleteRequest $request)
     {
+
+        $ids = $request->ids;
+        foreach ($ids as $id) {
+            Family::find($id)->delete();
+        }
+        toast('Selected records deleted', 'success', 'top-right');
+        return back();
+
     }
 
-    public function adminEdit($id){
+
+    public function adminEdit($id)
+    {
 
         $family = $this->familyRecord->where('user_id', $id)->get();
-        return view('profile::forms.edit.family', ['familyRecord'=>$family,'types'=>$this->type->all()]);
+        return view('profile::forms.edit.family', ['familyRecord' => $family, 'types' => $this->type->all()]);
     }
 }

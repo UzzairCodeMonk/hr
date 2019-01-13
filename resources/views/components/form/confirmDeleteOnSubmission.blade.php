@@ -7,13 +7,14 @@
             text: "You won't be able to revert this!",
             type: 'warning',
             showCancelButton: true,
-            confirmButtonClass: 'btn btn-outline btn-success',
-            cancelButtonClass: 'btn btn-outline btn-danger',
+            confirmButtonClass: 'btn btn-primary',
+            cancelButtonClass: 'btn btn-danger',
             buttonsStyling: false,
             confirmButtonText: '<i class="ti ti-check"></i> Yes, I\'m sure',
             confirmButtonAriaLabel: 'Thumbs up, great!',
             cancelButtonText: '<i class="ti ti-close"></i> Nope, abort mission',
             cancelButtonAriaLabel: 'Thumbs down',
+            reverseButtons:true
         }).then((result) => {
             if (result.value) {
                 $(".{!!$entity!!}").trigger('submit');

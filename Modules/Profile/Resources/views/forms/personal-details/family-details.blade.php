@@ -27,5 +27,6 @@ Family Records
 </div>
 @endsection
 @section('page-js')
+@include('components.form.confirmDeleteOnSubmission',['entity'=>'family-bulk-delete'])
 @include('profile::partials.family.script')
 @endsection

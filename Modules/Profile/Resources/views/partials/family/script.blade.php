@@ -3,11 +3,11 @@
         var counter = 2;
         $("#addrow").on("click", function () {
             var newRow = $("<div>");
-            var cols = "";            
+            var cols = "";
             cols += '<div class="card bg-lighter">'
             cols += '<div class="card-header">'
-            cols += '<h4 class="card-title text-dark">Add Family Record #'+counter+'</h4>'
-            cols += '<div class="card-options">'            
+            cols += '<h4 class="card-title text-dark">Add Family Record #' + counter + '</h4>'
+            cols += '<div class="card-options">'
             cols += '<a class="delete-row btn btn-sm btn-danger text-white">Remove</a>'
             cols += '</div>'
             cols += '</div>'
@@ -67,6 +67,14 @@
         $(".dynamic-list").on("click", ".delete-row", function (event) {
             $(this).closest("div.card").remove();
             counter -= 1
+        });
+
+        $('#records').on('click', function (e) {
+            if ($(this).is(':checked', true)) {
+                $(".record-checkbox").prop('checked', true);
+            } else {
+                $(".record-checkbox").prop('checked', false);
+            }
         });
     });
 

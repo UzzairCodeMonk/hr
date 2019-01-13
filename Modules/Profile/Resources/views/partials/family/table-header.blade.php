@@ -1,4 +1,5 @@
 <tr>
+    <th><input id="records" type="checkbox"></th>
     <th>#</th>
     <th><strong>{{ucwords(__('profile::family-detail.name'))}}</strong></th>
     <th>{{ucwords(__('profile::family-detail.relationship'))}}</th>
