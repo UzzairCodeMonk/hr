@@ -40,6 +40,9 @@ class UpdatePersonalDetailOnUserUpdate
         $p->position_id = $this->request->position_id;
         $p->status = $this->request->status;
         $p->gender = $this->request->gender;
+        $p->join_date = $this->request->join_date;
+        $p->basic_salary = $this->request->basic_salary;
+        $p->bank_id = $this->request->bank_id;
         $p->save();
 
 
