@@ -18,7 +18,7 @@
                         <p>{{$record->name ?? 'N/A'}}</p>
                     </td>
                     <td>
-                        <p>{{Carbon\Carbon::parse($record->received_date)->format('d/m/Y') ?? 'N/A'}}</p>
+                        <p>{{Carbon\Carbon::parse($record->received_date)->format('d F Y') ?? 'N/A'}}</p>
                     </td>
                     <td>
                         <p>{{$record->notes ?? 'N/A'}}</p>

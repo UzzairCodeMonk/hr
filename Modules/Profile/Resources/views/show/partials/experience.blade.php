@@ -23,10 +23,10 @@
                 <p>{{$record->position ?? 'N/A'}}</p>
             </td>
             <td>
-                <p>{{$record->start_date ?? 'N/A'}}</p>
+                <p>{{Carbon\Carbon::parse($record->start_date)->format('d F Y') ?? 'N/A'}}</p>
             </td>
             <td>
-                <p>{{$record->end_date ?? 'N/A'}}</p>
+                <p>{{Carbon\Carbon::parse($record->end_date)->format('d F Y') ?? 'N/A'}}</p>
             </td> 
             <td>
                 <p>{!! $record->description ?? 'N/A' !!}</p>
