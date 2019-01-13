@@ -24,10 +24,10 @@
                 <p>{{$record->study_level ?? 'N/A'}}</p>
             </td>
             <td>
-                <p>{{Carbon\Carbon::parse($record->start_date)->format('d/m/Y') ?? 'N/A'}}</p>
+                <p>{{Carbon\Carbon::parse($record->start_date)->format('d F Y') ?? 'N/A'}}</p>
             </td>
             <td>
-                <p>{{Carbon\Carbon::parse($record->end_date)->format('d/m/Y') ?? 'N/A'}}</p>
+                <p>{{Carbon\Carbon::parse($record->end_date)->format('d F Y') ?? 'N/A'}}</p>
             </td>
             <td>
                 <p>{{$record->course ?? 'N/A'}}</p>

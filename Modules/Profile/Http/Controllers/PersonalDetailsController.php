@@ -72,7 +72,7 @@ class PersonalDetailsController extends Controller
         $personalDetail = DB::table('personaldetails')->where('user_id', $id)->first();
         $familyRecord = Family::where('user_id',$id)->get();
         $academics = DB::table('academics')->where('user_id', $id)->get();
-        $experience = Experience::where('user_id',$id)->orderBy('start_date','desc')->get();
+        $experience = DB::table('experiences')->where('user_id',$id)->orderBy('start_date','desc')->get();
         $awards = DB::table('awards')->where('user_id', $id)->get();
         $skills = DB::table('skills')->where('user_id', $id)->get();
 

@@ -34,7 +34,7 @@
                 <div class="form-group">
                     <label for="">{{ucwords(__('profile::personal-detail.date-of-birth'))}}</label>
                     <p>{{old('date_of_birth',isset($personalDetail->date_of_birth)?
-                        Carbon\Carbon::parse($personalDetail->date_of_birth)->format('d/m/Y'):'N/A')}}</p>
+                        Carbon\Carbon::parse($personalDetail->date_of_birth)->format('d F Y'):'N/A')}}</p>
                 </div>
             </div>
         </div>
@@ -66,7 +66,7 @@
                 <div class="form-group">
                     <label for="">{{ucwords(__('profile::personal-detail.marriage-date'))}}</label>
                     <p>{{old('date_of_marriage',isset($personalDetail->date_of_marriage)?
-                            Carbon\Carbon::parse($personalDetail->date_of_marriage)->format('d/m/Y'):'N/A')}}</p>
+                            Carbon\Carbon::parse($personalDetail->date_of_marriage)->format('d F Y'):'N/A')}}</p>
                 </div>
             </div>
         </div>
