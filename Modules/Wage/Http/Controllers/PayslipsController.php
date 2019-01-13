@@ -12,13 +12,14 @@ use Modules\Wage\Traits\WageCalculator;
 use Modules\Wage\Traits\SocsoRates;
 use Auth;
 use PDF;
+use Modules\Wage\Traits\EpfRates;
 
 class PayslipsController extends Controller
 {
-    use WageCalculator, SocsoRates;
+    use WageCalculator, SocsoRates, EpfRates;
 
     public $user;
-    public $data;    
+    public $data;
 
     public function __construct(User $user, Request $request)
     {
@@ -37,7 +38,7 @@ class PayslipsController extends Controller
             'socso_eis_employee' => $request->socso_eis_employee,
             'income_tax' => $request->income_tax,
             'remarks' => $request->remarks,
-        ];      
+        ];
     }
 
     public function index()
@@ -54,16 +55,20 @@ class PayslipsController extends Controller
     public function show(int $id)
     {
         $payslip = Payslip::where('user_id', $id)->get();
-
+        $user = $this->user->find($id);
         $basic_salary = $this->getUserLatestSalary($id);
-        $employee_contrib = $this->getSocsoEmployeeContribution($basic_salary);
-        $employer_contrib = $this->getSocsoEmployerContribution($basic_salary);
+        $socso_employee_contrib = $this->getSocsoEmployeeContribution($basic_salary);
+        $socso_employer_contrib = $this->getSocsoEmployerContribution($basic_salary);
+        $epf_employee_contrib = $this->getEpfEmployeeContribution($user, $basic_salary);
+        $epf_employer_contrib = $this->getEpfEmployerContribution($user, $basic_salary);
 
         return view('wage::payslips.show', [
             'user' => User::find($id),
             'payslip' => $payslip,
-            'employee_contrib' => $employee_contrib,
-            'employer_contrib' => $employer_contrib,
+            'socso_employee_contrib' => $socso_employee_contrib,
+            'socso_employer_contrib' => $socso_employer_contrib,
+            'epf_employee_contrib' => $epf_employee_contrib,
+            'epf_employer_contrib' => $epf_employer_contrib,
             'basic_salary' => $basic_salary
         ]);
     }
