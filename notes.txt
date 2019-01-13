@@ -1,2 +1,0 @@
-- upload user information via excel upload
-- predefined basic salary (make it editable by admin)
