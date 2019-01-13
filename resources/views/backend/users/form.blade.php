@@ -144,13 +144,13 @@
                             <div class="col">
                                 <div class="form-group">
                                     <label for="">Bank Name</label>
-                                    <select name="" id="" class="form-control select">
+                                    <select name="bank_id" id="" class="form-control select">
                                         <option></option>
                                         @foreach($banks as $b)
                                         <option value="{{$b->name}}">{{$b->name}}</option>
                                         @endforeach
                                     </select>
-                                    @include('backend.shared._errors',['entity'=>'position_id'])
+                                    @include('backend.shared._errors',['entity'=>'bank_id'])
                                 </div>
                             </div>
                             <div class="col">
