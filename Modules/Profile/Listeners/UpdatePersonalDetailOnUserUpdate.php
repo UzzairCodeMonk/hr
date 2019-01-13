@@ -39,6 +39,7 @@ class UpdatePersonalDetailOnUserUpdate
         $p->epf_id = $this->request->epf_id;
         $p->position_id = $this->request->position_id;
         $p->status = $this->request->status;
+        $p->gender = $this->request->gender;
         $p->save();
 
 

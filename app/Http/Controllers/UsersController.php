@@ -125,7 +125,7 @@ class UsersController extends Controller
         // Get the user
         $user = User::find($id);              
         // Update user
-        $user->fill($request->except('roles', 'ic_number', 'epf_id', 'socso_id', 'position_id', 'status', 'staff_number', 'password', 'password_confirmation'));
+        $user->fill($request->except('roles', 'ic_number', 'epf_id', 'socso_id', 'position_id', 'status', 'staff_number', 'password', 'password_confirmation','gender'));
 
         // check for password change
         if ($request->get('password')) {
