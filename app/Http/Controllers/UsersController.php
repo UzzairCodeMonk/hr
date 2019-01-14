@@ -15,6 +15,7 @@ use File;
 use Illuminate\Support\Facades\Mail;
 use Datakraf\Traits\ApiRequestable;
 use Datakraf\Http\Requests\CreateEmployeeRequest;
+use Modules\Wage\Entities\Wage;
 
 class UsersController extends Controller
 {
@@ -86,23 +87,7 @@ class UsersController extends Controller
     }
 
     public function store(CreateEmployeeRequest $request)
-    {
-
-        // $this->validate($request, [
-        //     'name' => 'bail|required|min:2',
-        //     'email' => 'required|email|unique:users,email',
-        //     'roles' => 'required|min:1',
-        //     'socso_id' => 'required',
-        //     'epf_id' => 'required',
-        //     'status' => 'required',
-        //     'staff_number' => 'required',
-        //     'password' => 'required|confirmed|min:6',
-        //     'join_date' => 'required',
-        //     'bank_id' => 'required',
-        //     'account_number' => 'required',
-        //     'basic_salary' => 'required'
-        // ]);
-
+    {        
         $user = User::create([
             'name' => $request->name,
             'email' => $request->email,
@@ -115,24 +100,37 @@ class UsersController extends Controller
     }
 
     public function update(Request $request, $id)
-    {
-        $this->validate($request, [
-            'name' => 'bail|required|min:2',
-            'email' => 'required|email|unique:users,email,' . $id,
-            'roles' => 'required|min:1',
-        ]);
-
+    {        
         // Get the user
-        $user = User::find($id);              
-        // Update user
-        $user->fill($request->except('roles', 'ic_number', 'epf_id', 'socso_id', 'position_id', 'status', 'staff_number', 'password', 'password_confirmation','gender','join_date'));
-
+        $user = User::find($id);                     
+        $user->update([
+            'name' => $request->name,
+            'email' => $request->email
+        ]);
+        
         // check for password change
         if ($request->get('password')) {
             $user->password = Hash::make($request->get('password'));
+            $user->save();
         }
 
-        $user->save();        
+        $p = $this->personalDetail->where('user_id', $user->id)->first();
+
+        $p->name = $request->name;
+        $p->ic_number = $request->ic_number;
+        $p->staff_number = $request->staff_number;
+        $p->socso_id = $request->socso_id;
+        $p->epf_id = $request->epf_id;
+        $p->position_id = $request->position_id;
+        $p->status = $request->status;
+        $p->gender = $request->gender;
+        $p->join_date = $request->join_date;        
+        $p->bank_id = $request->bank_id;
+        $p->save();
+
+        // update basic salary
+        Wage::updateOrCreate(['user_id'=>$id],['wage'=>$request->basic_salary]);
+                
         // Handle the user roles
         $this->syncPermissions($request, $user);
 

@@ -138,7 +138,7 @@
                     <div class="col-8">
                         <div class="form-group">
                             <label for="">Basic Salary (MYR)</label>
-                            <input type="text" class="form-control" name="basic_salary">
+                            <input type="text" class="form-control" name="basic_salary" value="{{$user->wages->first()->wage ?? 0.00}}">
                         </div>
                         <div class="row">
                             <div class="col">
@@ -147,7 +147,7 @@
                                     <select name="bank_id" id="" class="form-control select">
                                         <option></option>
                                         @foreach($banks as $b)
-                                        <option value="{{$b->name}}">{{$b->name}}</option>
+                                        <option value="{{$b->id}}">{{$b->name}}</option>
                                         @endforeach
                                     </select>
                                     @include('backend.shared._errors',['entity'=>'bank_id'])
