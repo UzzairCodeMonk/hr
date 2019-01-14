@@ -147,7 +147,7 @@
                                     <select name="bank_id" id="" class="form-control select">
                                         <option></option>
                                         @foreach($banks as $b)
-                                        <option value="{{$b->id}}">{{$b->name}}</option>
+                                        <option value="{{$b->id}}" {{old('bank_id',isset($user->personalDetail->bank_id) && $user->personalDetail->bank_id == $b->id ? 'selected':'')}}>{{$b->name}}</option>
                                         @endforeach
                                     </select>
                                     @include('backend.shared._errors',['entity'=>'bank_id'])
