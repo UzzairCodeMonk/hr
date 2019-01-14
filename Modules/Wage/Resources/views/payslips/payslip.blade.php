@@ -37,7 +37,7 @@
                         <td><strong>Income Tax No:</strong></td>
                         <td></td>
                         <td>{{$payslip->user->personalDetail->income_tax_no ?? 'N/A'}}</td>
-                    </tr>                   
+                    </tr>
                 </table>
             </div>
             <div class="col">
@@ -47,7 +47,8 @@
                 <br><br>
                 <p class="text-right mt-3">
                     <strong>{{companyName() ?? 'N/A'}}</strong><br>
-                    {{siteAddressOne() ?? 'N/A'}},<br>{{siteAddressTwo() ?? 'N/A'}},<br>{{sitePostcode() ?? 'N/A'}} {{siteCity() ?? 'N/A'}},
+                    {{siteAddressOne() ?? 'N/A'}},<br>{{siteAddressTwo() ?? 'N/A'}},<br>{{sitePostcode() ?? 'N/A'}}
+                    {{siteCity() ?? 'N/A'}},
                     {{siteCountry() ?? 'N/A'}}
                 </p>
             </div>
@@ -104,6 +105,10 @@
                         <tr>
                             <td>EIS</td>
                             <td class="text-right">{{number_format($payslip->socso_eis_employee,2) ?? 'N/A'}}</td>
+                        </tr>
+                        <tr>
+                            <td>HRDF</td>
+                            <td class="text-right">{{number_format($payslip->hrdf,2) ?? 'N/A'}}</td>
                         </tr>
                         <tr>
                             <td colspan="2" class="text-right"><strong>Total:

@@ -13,10 +13,11 @@ use Modules\Wage\Traits\SocsoRates;
 use Auth;
 use PDF;
 use Modules\Wage\Traits\EpfRates;
+use Modules\Wage\Traits\HrdfRates;
 
 class PayslipsController extends Controller
 {
-    use WageCalculator, SocsoRates, EpfRates;
+    use WageCalculator, SocsoRates, EpfRates, HrdfRates;
 
     public $user;
     public $data;
@@ -36,6 +37,7 @@ class PayslipsController extends Controller
             'socso_employee' => $request->socso_employee,
             'socso_eis_employer' => $request->socso_eis_employer,
             'socso_eis_employee' => $request->socso_eis_employee,
+            'hrdf' => $request->hrdf,
             'income_tax' => $request->income_tax,
             'remarks' => $request->remarks,
         ];
@@ -61,6 +63,9 @@ class PayslipsController extends Controller
         $socso_employer_contrib = $this->getSocsoEmployerContribution($basic_salary);
         $epf_employee_contrib = $this->getEpfEmployeeContribution($user, $basic_salary);
         $epf_employer_contrib = $this->getEpfEmployerContribution($user, $basic_salary);
+        $eis_employer_contrib = $this->getSipEmployerContribution($basic_salary);
+        $eis_employee_contrib = $this->getSipEmployeeContribution($basic_salary);
+        $hrdf = $this->getHrdfRate($basic_salary);
 
         return view('wage::payslips.show', [
             'user' => User::find($id),
@@ -69,6 +74,9 @@ class PayslipsController extends Controller
             'socso_employer_contrib' => $socso_employer_contrib,
             'epf_employee_contrib' => $epf_employee_contrib,
             'epf_employer_contrib' => $epf_employer_contrib,
+            'eis_employee_contrib' => $eis_employee_contrib,
+            'eis_employer_contrib' => $eis_employer_contrib,
+            'hrdf' => $hrdf,
             'basic_salary' => $basic_salary
         ]);
     }

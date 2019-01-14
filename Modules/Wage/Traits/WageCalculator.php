@@ -28,8 +28,9 @@ trait WageCalculator
         $socso_employee = $request->socso_employee;
         $socso_eis_employee = $request->socso_eis_employee;
         $income_tax = $request->income_tax;
+        $hrdf = $request->hrdf;
 
-        $totalDeductions = $epf_employee + $socso_employee + $socso_eis_employee + $income_tax;
+        $totalDeductions = $epf_employee + $socso_employee + $socso_eis_employee + $income_tax + $hrdf;
         return $totalDeductions;
     }
 
