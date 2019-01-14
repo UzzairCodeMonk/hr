@@ -48,13 +48,7 @@ Personal Details
                         <div class="col">
                             <div class="form-group">
                                 <label for="">{{ucwords(__('profile::personal-detail.position'))}}</label>
-                                <select name="position_id" id="position_id" class="form-control">
-                                    <option value="">Please choose</option>
-                                    @foreach($positions as $position)
-                                    <option value="{{$position->id}}"
-                                        {{isset($personalDetail->position_id) && $personalDetail->position_id == $position->id ? 'selected':''}}>{{$position->name}}</option>
-                                    @endforeach
-                                </select>
+                                <p>{!! $personalDetail->position->name ?? 'N/A' !!}</p>
                             </div>
                         </div>
                         <div class="col">
