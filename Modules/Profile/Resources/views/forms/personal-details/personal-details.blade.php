@@ -78,7 +78,7 @@ Personal Details
                         <div class="col">
                             <div class="form-group">
                                 <label for="">{{ucwords(__('profile::personal-detail.basic-salary'))}}</label>
-                                <input type="text" name="ic_number" id="" class="form-control" value="{{old('ic_number',isset($personalDetail->ic_number) ? $personalDetail->ic_number:null)}}">
+                                <p>{{$personalDetail->user->wages->first()->wage ?? 0.00}}</p>
                             </div>
                         </div>
                         <div class="col">
