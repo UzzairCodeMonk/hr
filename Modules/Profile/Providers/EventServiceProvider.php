@@ -22,9 +22,9 @@ class EventServiceProvider extends ServiceProvider
         UserCreated::class => [
             CreatePersonalDetailOnUserCreation::class
         ],
-        UserUpdated::class => [
-            UpdatePersonalDetailOnUserUpdate::class
-        ]
+        // UserUpdated::class => [
+        //     UpdatePersonalDetailOnUserUpdate::class
+        // ]
     ];
     /**
      * Register the service provider.
