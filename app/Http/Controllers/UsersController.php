@@ -126,6 +126,7 @@ class UsersController extends Controller
         $p->gender = $request->gender;
         $p->join_date = $request->join_date;        
         $p->bank_id = $request->bank_id;
+        $p->bank_account_number = $request->bank_account_number;
         $p->save();
 
         // update basic salary

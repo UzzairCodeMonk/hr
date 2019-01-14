@@ -156,8 +156,8 @@
                             <div class="col">
                                 <div class="form-group">
                                     <label for="">Bank Account No.</label>
-                                    <input type="text" name="socso_id" id="" class="form-control" value="{{old('socso_id',isset($user->personalDetail->socso_id)?$user->personalDetail->socso_id:'')}}">
-                                    @include('backend.shared._errors',['entity'=>'socso_id'])
+                                    <input type="text" name="bank_account_number" id="" class="form-control" value="{{old('bank_account_number',isset($user->personalDetail->bank_account_number)?$user->personalDetail->bank_account_number:'')}}">
+                                    @include('backend.shared._errors',['entity'=>'bank_account_number'])
                                 </div>
                             </div>
                         </div>
