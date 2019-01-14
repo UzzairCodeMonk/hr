@@ -56,18 +56,18 @@
     </li>
 </ul>
 <hr>
-<div class="aside-block">
+<!-- <div class="aside-block">
     <div class="flexbox mb-1">
         <h6 class="aside-title">Broadcast</h6>
     </div>
-</div>
-<ul class="nav nav-pills flex-column">
+</div> -->
+<!-- <ul class="nav nav-pills flex-column">
     <li class="nav-item {{Route::currentRouteName() == 'leave.index'  ? 'active':''}}">
         <i class="ti ti-agenda"></i>
         <a class="nav-link" href="{{route('leave.index')}}">Memorandums</a>
     </li>
 </ul>
-<hr>
+<hr> -->
 <div class="aside-block">
     <div class="flexbox mb-1">
         <h6 class="aside-title">Configurations</h6>
