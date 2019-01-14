@@ -69,7 +69,7 @@ Personal Details
                         <div class="col">
                             <div class="form-group">
                                 <label for="">{{ucwords(__('profile::personal-detail.staff-no'))}}</label>
-                                <input type="text" name="staff_number" id="" class="form-control" value="{{old('staff_number',isset($personalDetail->staff_number)? $personalDetail->staff_number:null)}}">
+                                <p>{{old('staff_number',isset($personalDetail->staff_number)? $personalDetail->staff_number:null)}}</p>
                             </div>
                         </div>
 
