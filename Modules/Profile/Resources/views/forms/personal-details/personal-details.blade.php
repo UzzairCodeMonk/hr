@@ -68,10 +68,11 @@ Personal Details
                         </div>
                         <div class="col">
                             <div class="form-group">
-                                <label for="">{{ucwords(__('profile::personal-detail.bank-account-number'))}}</label>
+                                <label for="">{{ucwords(__('profile::personal-detail.staff-no'))}}</label>
                                 <input type="text" name="staff_number" id="" class="form-control" value="{{old('staff_number',isset($personalDetail->staff_number)? $personalDetail->staff_number:null)}}">
                             </div>
                         </div>
+
                     </div>
                     <div class="row">
                         <div class="col">
@@ -82,10 +83,11 @@ Personal Details
                         </div>
                         <div class="col">
                             <div class="form-group">
-                                <label for="">{{ucwords(__('profile::personal-detail.staff-no'))}}</label>
-                                <input type="text" name="staff_number" id="" class="form-control" value="{{old('staff_number',isset($personalDetail->staff_number)? $personalDetail->staff_number:null)}}">
+                                <label for="">{{ucwords(__('profile::personal-detail.bank-account-number'))}}</label>
+                                <input type="text" name="bank_account_number" id="" class="form-control" value="{{old('bank_account_number',isset($personalDetail->bank_account_number)? $personalDetail->bank_account_number:null)}}">
                             </div>
                         </div>
+
                     </div>
                     <div class="row">
                         <div class="col">

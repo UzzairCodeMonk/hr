@@ -49,7 +49,7 @@ class PersonalDetailsController extends Controller
     public function store(Request $request)
     {
 
-        $data = $request->all();
+        $data = $request->all();        
         if ($request->hasFile('avatar')) {
             $data['avatar'] = $this->uploadAvatar($request);
         }
