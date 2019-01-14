@@ -160,16 +160,16 @@ class LeavesController extends Controller
         // find the balance after approval
         $balance = $totalAllowedDaysOfLeave - $totalDaysTaken;
 
-        if ($request->get('approve')) {
+        if ($request->has('approve')) {
             // update or create leave balance record in leavebalances table
             $this->balance->updateOrCreate(['user_id' => $leave->user_id, 'leavetype_id' => $leave->leavetype_id], ['balance' => $balance]);
             // set the status of the leave
-            $leave->setStatus($this->approvedStatus, 'Leave approved by ' . Auth::user()->name);
+            $leave->setStatus($this->approvedStatus, 'Leave approved by ' . Auth::user()->name.'<br>'.$request->notes);
             $leave->user->notify(new ApproveLeave($leave, $leave->user, Auth::user()));
             toast('Leave application approved successfully', 'success', 'top-right');
         }
 
-        if ($request->get('reject')) {
+        if ($request->has('reject')) {
             // set the status of the leave
             $leave->setStatus($this->rejectedStatus, 'Leave rejected by ' . Auth::user()->name);
             // $leave->

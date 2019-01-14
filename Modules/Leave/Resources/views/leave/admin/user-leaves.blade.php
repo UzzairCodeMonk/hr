@@ -32,7 +32,7 @@
                     <td class="text-center">{!! $leave->notes ?? 'N/A' !!}</td>
                     <td class="text-center"><span class="badge">{{$leave->status()->reason ?? 'N/A'}}</span></td>
                     <td class="text-center">
-                        <a href="{{URL::signedRoute('leave.employee.show',['id'=>$leave->id])}}" class="btn btn-sm text-dark d-inline btn-link">View</a>
+                        <a href="{{URL::signedRoute('leave.employee.show',['id'=>$leave->id])}}" class="btn btn-sm text-dark btn-link">View</a>
                         <form action="{{route('leave.destroy',['id'=>$leave->id])}}" method="POST" class="leave-record d-inline">
                             @csrf
                             @method('DELETE')
