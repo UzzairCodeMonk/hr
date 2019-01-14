@@ -6,11 +6,10 @@ Leave Application Form
 <div class="mb-3"></div>
 <div class="card">
     <div class="card-header">
-        <h3>Leave Application Form</h3>
+        <h3>Leave Application Form</h3> 
         <div class="card-options">
-                <button type="button" class="btn btn-sm btn-secondary" data-toggle="modal"
-                data-target="#leave-balance">
-                View leave balance</button>
+            <button type="button" class="btn btn-sm btn-info">{!! $leave->type->name ?? 'N/A' !!}</button>
+            <button type="button" class="btn btn-sm btn-secondary" data-toggle="modal" data-target="#leave-balance">View leave balance</button>
         </div>
     </div>
     <div class="card-body">
@@ -34,10 +33,10 @@ Leave Application Form
                                                 <span class="badge badge-dot badge-lg {{statusColor($status['name']) ?? ''}}"></span>
                                             </div>
                                             <div class="timeline-content">
-                <time datetime="">{{Carbon\Carbon::parse($status['created_at'])->toDayDateTimeString()}}</time>
-                                                <p>{{$status->reason}}</p>
+                                                <time datetime="">{{Carbon\Carbon::parse($status['created_at'])->toDayDateTimeString()}}</time>
+                                                <p>{!!$status->reason!!}</p>
                                             </div>
-                                        </li>                                        
+                                        </li>
                                         @endforeach
                                     </ol>
                                 </div>
@@ -109,16 +108,27 @@ Leave Application Form
                         <div class="row">
                             <div class="col">
                                 <div class="form-group">
-                                    
+
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col">
+                                <div class="form-group">
+                                    <label for="">Admin Remarks</label>
+                                    <textarea name="admin_remarks" id="" cols="30" rows="6" class="form-control"></textarea>
                                 </div>
                             </div>
                         </div>
                         <div class="row">
                             <div class="col">
                                 <div class="form-group pull-right">
-                                    <button type="submit" name="approve" class="btn btn-md btn-success approve-btn"><i class="ti ti-check"></i> Approve</button>
-                                    <button type="submit" name="reject" class="btn btn-md btn-danger reject-btn"><i class="ti ti-close"></i> Reject</button>
-                                    <a href="{{URL::previous()}}" class="btn btn-md btn-primary"><i class="ti ti-back-left"></i> Back</a>
+                                    <button type="submit" name="approve" class="btn btn-md btn-success approve-btn"><i
+                                            class="ti ti-check"></i> Approve</button>
+                                    <button type="submit" name="reject" class="btn btn-md btn-danger reject-btn"><i
+                                            class="ti ti-close"></i> Reject</button>
+                                    <a href="{{URL::previous()}}" class="btn btn-md btn-primary"><i class="ti ti-back-left"></i>
+                                        Back</a>
                                 </div>
                             </div>
                         </div>
@@ -160,40 +170,8 @@ Leave Application Form
                         @endforeach
                     </tbody>
                 </table>
-            </div>           
+            </div>
         </div>
     </div>
 </div>
-@endsection
-@section('page-js')
-@include('asset-partials.sweetalert')
-<script type="text/javascript">
-    // $(".approve-btn").on("click", function () {
-    //     event.preventDefault();
-    //     return swal({
-    //         title: "Are you sure?",
-    //         text: "You are about to approve this leave application",
-    //         type: 'warning',
-    //         showCancelButton: true,
-    //     }).then((result) => {
-    //         if (result.value) {
-    //             $(".approve-reject").submit();
-    //         }
-    //     });
-    // });
-    // $(".reject-btn").on("click", function () {
-    //     event.preventDefault();
-    //     return swal({
-    //         title: "Are you sure?",
-    //         text: "You are about to reject this leave application",
-    //         type: 'warning',
-    //         showCancelButton: true,
-    //     }).then((result) => {
-    //         if (result.value) {
-    //             $(".approve-reject").submit();
-    //         }
-    //     });
-    // });
-
-</script>
 @endsection

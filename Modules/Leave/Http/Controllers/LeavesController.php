@@ -126,7 +126,7 @@ class LeavesController extends Controller
 
     public function setLeaveStatus($leave)
     {
-        $leave->setStatus($this->submittedStatus, 'Leave submitted for review');
+        $leave->setStatus($this->submittedStatus, 'Leave submitted for review.<br>Remarks:<br>'.$leave->notes);
     }
 
     public function saveAttachments($request, $leave)
@@ -160,18 +160,18 @@ class LeavesController extends Controller
         // find the balance after approval
         $balance = $totalAllowedDaysOfLeave - $totalDaysTaken;
 
-        if ($request->has('approve')) {
+        if ($request->has('approve')) {            
             // update or create leave balance record in leavebalances table
             $this->balance->updateOrCreate(['user_id' => $leave->user_id, 'leavetype_id' => $leave->leavetype_id], ['balance' => $balance]);
             // set the status of the leave
-            $leave->setStatus($this->approvedStatus, 'Leave approved by ' . Auth::user()->name.'<br>'.$request->notes);
+            $leave->setStatus($this->approvedStatus, 'Leave approved by ' . Auth::user()->name.'<br>Remarks:<br> '.$request->admin_remarks);
             $leave->user->notify(new ApproveLeave($leave, $leave->user, Auth::user()));
             toast('Leave application approved successfully', 'success', 'top-right');
         }
 
         if ($request->has('reject')) {
             // set the status of the leave
-            $leave->setStatus($this->rejectedStatus, 'Leave rejected by ' . Auth::user()->name);
+            $leave->setStatus($this->rejectedStatus, 'Leave rejected by ' . Auth::user()->name.'<br>Remarks:<br> '.$request->admin_remarks);
             // $leave->
             toast('Leave application rejected', 'success', 'top-right');
         }

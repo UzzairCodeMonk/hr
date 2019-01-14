@@ -30,7 +30,7 @@
                     <td>{{$leave->end_date ?? 'N/A'}}</td>
                     <td class="text-center">{{$leave->days_taken ?? 'N/A'}}</td>
                     <td class="text-center">{!! $leave->notes ?? 'N/A' !!}</td>
-                    <td class="text-center"><span class="badge">{{$leave->status()->reason ?? 'N/A'}}</span></td>
+                    <td class="text-center"><span class="badge">{!! $leave->status()->reason ?? 'N/A'!!}</span></td>
                     <td class="text-center">
                         <a href="{{URL::signedRoute('leave.employee.show',['id'=>$leave->id])}}" class="btn btn-sm text-dark btn-link">View</a>
                         <form action="{{route('leave.destroy',['id'=>$leave->id])}}" method="POST" class="leave-record d-inline">
