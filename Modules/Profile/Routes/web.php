@@ -50,7 +50,7 @@ Route::group(['prefix' => 'profile', 'middleware' => 'auth'], function () {
 
     Route::group(['prefix' => 'security'], function () {
         Route::get('/', ['uses' => 'SecuritiesController@index', 'as' => 'security']);
-        Route::post('/reset-password', ['uses' => 'SecuritiesController@resetPassword', 'as' => 'reset.password']);
+        Route::post('/reset-password', ['uses' => 'SecuritiesController@resetPassword', 'as' => 'reset.profile.password']);
     });
 });
 

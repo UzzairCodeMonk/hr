@@ -30,8 +30,7 @@ class UpdatePersonalDetailOnUserUpdate
      */
     public function handle(UserUpdated $event)
     {
-        $p = $this->personalDetail->where('user_id', $event->user->id)->first();
-        dd($this->request);
+        $p = $this->personalDetail->where('user_id', $event->user->id)->first();        
         $p->name = $event->user->name;
         $p->ic_number = $this->request->ic_number;
         $p->staff_number = $this->request->staff_number;
