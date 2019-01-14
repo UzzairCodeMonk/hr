@@ -78,7 +78,7 @@ class PositionsController extends Controller
     public function destroy($id)
     {
         $this->position->find($id)->delete();
-        toast($this->message('delete', 'Family position #' . $id), 'success', 'top-right');
+        toast($this->message('delete', 'Position #' . $id), 'success', 'top-right');
         return redirect()->route('position.index');
     }
 }
