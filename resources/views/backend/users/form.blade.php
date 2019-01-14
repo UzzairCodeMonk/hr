@@ -138,7 +138,7 @@
                     <div class="col-8">
                         <div class="form-group">
                             <label for="">Basic Salary (MYR)</label>
-                            <input type="text" class="form-control" name="basic_salary" value="{{$user->wages->first()->wage ?? 0.00}}">
+                            <input type="text" class="form-control" name="basic_salary" value="{{old('basic_salary',isset($user)?$user->wages->first()->wage:'')}}">
                         </div>
                         <div class="row">
                             <div class="col">
