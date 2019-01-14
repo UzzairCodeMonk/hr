@@ -95,10 +95,10 @@ Personal Details
                                 <label for="">{{ucwords(__('profile::personal-detail.gender'))}}</label>
                                 <select name="gender" id="gender" class="form-control">
                                     <option value="">Please choose</option>
-                                    <option value="Male"
-                                        {{isset($personalDetail->gender) && $personalDetail->gender == 'Male'? 'selected':''}}>Male</option>
-                                    <option value="Female"
-                                        {{isset($personalDetail->gender) && $personalDetail->gender == 'Female'? 'selected':''}}>Female</option>
+                                    <option value="male"
+                                        {{isset($personalDetail->gender) && $personalDetail->gender == 'male'? 'selected':''}}>Male</option>
+                                    <option value="female"
+                                        {{isset($personalDetail->gender) && $personalDetail->gender == 'female'? 'selected':''}}>Female</option>
                                 </select>
                             </div>
                         </div>
