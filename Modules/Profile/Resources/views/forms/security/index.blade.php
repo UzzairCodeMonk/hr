@@ -5,7 +5,7 @@ Security
 @section('form-content')
 <div class="card">
     <div class="card-body">
-        <form action="{{route('password.update')}}" method="POST">
+        <form action="{{route('reset.password')}}" method="POST">
             @csrf
             <div class="row">
                 <div class="col-4">
