@@ -11,8 +11,11 @@ trait EpfRates
 
     public function EmployeeCurrentAge($user)
     {
-        $dateOfBirth = Carbon::createFromFormat('d/m/Y', $user->personalDetail->date_of_birth)->format('Y-m-d');
-        return Carbon::parse($dateOfBirth)->age;
+        if ($user->personalDetail->date_of_birth != '') {
+            $dateOfBirth = Carbon::createFromFormat('d/m/Y', $user->personalDetail->date_of_birth)->format('Y-m-d');
+            Carbon::parse($dateOfBirth)->age;
+        }
+        return 0;
     }
 
     public function getEpfEmployeeContribution($user, int $basic_salary)
@@ -39,15 +42,15 @@ trait EpfRates
 
     public function getSipEmployeeContribution(int $basic_salary)
     {
-                
-       return DB::table('siprates')->where('min_salary', '>', $basic_salary)->where('max_salary', '!=', $basic_salary)->first()->sip_employee_contribution ?? 0.00;       
+
+        return DB::table('siprates')->where('min_salary', '>', $basic_salary)->where('max_salary', '!=', $basic_salary)->first()->sip_employee_contribution ?? 0.00;
 
     }
 
     public function getSipEmployerContribution(int $basic_salary)
     {
-                
-       return DB::table('siprates')->where('min_salary', '>', $basic_salary)->where('max_salary', '!=', $basic_salary)->first()->sip_employer_contribution ?? 0.00;       
+
+        return DB::table('siprates')->where('min_salary', '>', $basic_salary)->where('max_salary', '!=', $basic_salary)->first()->sip_employer_contribution ?? 0.00;
 
     }
 }
