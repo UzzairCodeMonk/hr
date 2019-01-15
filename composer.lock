@@ -4301,16 +4301,16 @@
         },
         {
             "name": "uzzaircode/password-strength",
-            "version": "1.2",
+            "version": "1.21",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Uzzaircode/password-strength.git",
-                "reference": "ff7e28695ce6ef82e48804a5743c4d4b74330d6b"
+                "reference": "c7e62dc1d21d25de8d38a74b9a2bf30e95a5feb5"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Uzzaircode/password-strength/zipball/ff7e28695ce6ef82e48804a5743c4d4b74330d6b",
-                "reference": "ff7e28695ce6ef82e48804a5743c4d4b74330d6b",
+                "url": "https://api.github.com/repos/Uzzaircode/password-strength/zipball/c7e62dc1d21d25de8d38a74b9a2bf30e95a5feb5",
+                "reference": "c7e62dc1d21d25de8d38a74b9a2bf30e95a5feb5",
                 "shasum": ""
             },
             "type": "library",
@@ -4340,7 +4340,7 @@
                 }
             ],
             "description": "password strength package for html",
-            "time": "2019-01-15T08:01:44+00:00"
+            "time": "2019-01-15T08:20:14+00:00"
         },
         {
             "name": "vlucas/phpdotenv",
