@@ -19,7 +19,8 @@ Security
                         <div class="col">
                             <div class="form-group">
                                 <label for="">{{ucwords(__('profile::security.new-password'))}}</label>
-                                <input type="password" name="password" id="" class="form-control" value="">
+                                <input type="password" name="password" id="password" class="form-control" value="">
+                                @include('password-strength::password-meter')
                             </div>
                             @if ($errors->has('password'))
                             <span class="invalid-feedback">

@@ -30,6 +30,7 @@
     <script type="text/javascript" src="{{asset('js/core.min.js')}}"></script>
     <script type="text/javascript" src="{{asset('js/app.js')}}"></script>
     <script type="text/javascript" src="{{asset('js/script.js')}}"></script>
+    @include('password-strength::asset')    
     @yield('page-js')
     @include('sweetalert::alert')
     <script type="text/javascript">
