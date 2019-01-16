@@ -4,16 +4,21 @@ Academic Records
 @endsection
 @section('form-content')
 <div class="container">
-    <div class="row">
+    <!-- <div class="row">
         <div class="col">
             <button type="button" class="btn btn-primary btn-md pull-right" data-toggle="modal" data-target="#add-academic-records">
                 <i class="ti ti-plus"></i> Add Academic Record
             </button>
         </div>
-    </div>
+    </div> -->
     @isset($academy)
     @include('profile::partials.academic.edit')
     @endisset
+    <div class="row">
+        <div class="col">
+            @include('profile::partials.academic.dynamic-form')
+        </div>
+    </div>
     <div class="row">
         <div class="col">
             <table class="table table-bordered mt-3">
