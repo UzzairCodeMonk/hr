@@ -1,6 +1,7 @@
 @if(count($familyRecord))
+
 <form action="{{route('family.bulkdelete')}}" method="POST" class="family-bulk-delete">
-    <button type="submit" class="btn btn-sm btn-danger pull-right">Delete Selected</button>
+    <button type="submit" class="btn btn-sm btn-danger pull-right">Delete Selected</button>    
     <div class="mt-4"></div>
     @csrf
     @method('DELETE')

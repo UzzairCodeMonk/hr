@@ -3,7 +3,7 @@
 Family Records
 @endsection
 @section('form-content')
-<div class="container">    
+<div class="container">
     @isset($family)
     @include('profile::partials.family.edit')
     @endisset
@@ -14,14 +14,16 @@ Family Records
     </div>
     <div class="row">
         <div class="col">
-            <table class="table table-bordered mt-3">
-                <thead class="thead-light">
-                    @include('profile::partials.family.table-header')
-                </thead>
-                <tbody>
-                    @include('profile::partials.family.record')
-                </tbody>
-            </table>
+           
+                <table class="table table-bordered mt-3">
+                    <thead class="thead-light">
+                        @include('profile::partials.family.table-header')
+                    </thead>
+                    <tbody>
+                        @include('profile::partials.family.record')
+                    </tbody>
+                </table>
+            </div>
         </div>
     </div>
 </div>

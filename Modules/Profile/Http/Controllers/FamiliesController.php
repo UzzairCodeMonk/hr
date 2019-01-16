@@ -12,6 +12,7 @@ use Alert;
 use Datakraf\Traits\AlertMessage;
 use Modules\Profile\Entities\FamilyType;
 use Datakraf\Http\Requests\BulkDeleteRequest;
+use Modules\Profile\Http\Requests\CreateFamilyRequest;
 
 class FamiliesController extends Controller
 {
@@ -41,19 +42,19 @@ class FamiliesController extends Controller
      * @param  Request $request
      * @return Response
      */
-    public function store(Request $request)
+    public function store(CreateFamilyRequest $request)
     {
-        for ($i = 0; $i < count($request->name); ++$i) {
-            Family::create([
-                'user_id' => auth()->id(),
-                'name' => $request->name[$i],
-                'relationship_id' => $request->relationship_id[$i],
-                'ic_number' => $request->ic_number[$i],
-                'mobile_number' => $request->mobile_number[$i],
-                'occupation' => $request->occupation[$i],
-                'income_tax_number' => $request->income_tax_number[$i]
-            ]);
-        }
+
+        Family::create([
+            'user_id' => auth()->id(),
+            'name' => $request->name,
+            'relationship_id' => $request->relationship_id,
+            'ic_number' => $request->ic_number,
+            'mobile_number' => $request->mobile_number,
+            'occupation' => $request->occupation,
+            'income_tax_number' => $request->income_tax_number
+        ]);
+
         toast($this->message('save', 'Family record'), 'success', 'top-right');
         return redirect()->back();
 
