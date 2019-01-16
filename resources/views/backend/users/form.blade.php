@@ -43,6 +43,7 @@
                                 <div class="form-group">
                                     <label for="">IC No.</label>
                                     <input type="text" name="ic_number" id="" class="form-control" value="{{old('ic_number',isset($user->personalDetail->ic_number) ? $user->personalDetail->ic_number:'')}}">
+                                    <p class="form-text">Without hypen '-', e.g: 910213050987</p>
                                     @include('backend.shared._errors',['entity'=>'ic_number'])
                                 </div>
                             </div>
