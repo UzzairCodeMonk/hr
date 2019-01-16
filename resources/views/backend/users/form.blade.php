@@ -32,8 +32,10 @@
                                 <label for="">Gender</label>
                                 <select name="gender" id="" class="form-control select">
                                     <option></option>
-                                    <option value="male" {{old('gender',isset($user->personalDetail->gender) && $user->personalDetail->gender == 'male' ? 'selected':'')}}>Male</option>
-                                    <option value="female" {{old('gender',isset($user->personalDetail->gender) && $user->personalDetail->gender == 'female' ? 'selected':'')}}>Female</option>
+                                    <option value="male"
+                                        {{old('gender',isset($user->personalDetail->gender) && $user->personalDetail->gender == 'male' ? 'selected':'')}}>Male</option>
+                                    <option value="female"
+                                        {{old('gender',isset($user->personalDetail->gender) && $user->personalDetail->gender == 'female' ? 'selected':'')}}>Female</option>
                                 </select>
                             </div>
                         </div>
@@ -76,11 +78,13 @@
                             <div class="col">
                                 <div class="form-group">
                                     <label for="input-required" class="require">Password</label>
-                                    <input type="password" name="password" id="" class="form-control">
+                                    <input type="password" name="password" id="password" class="form-control">
+                                    <!-- @include('password-strength::password-meter') -->
                                     <p class="form-text">{{isset($user) ? 'Leave the password field blank if you don\'t
-                                        want to
-                                        change':'' }}</p>
+                                        want to change':'' }}</p>
+
                                     @include('backend.shared._errors',['entity'=>'password'])
+
                                 </div>
                             </div>
                             <div class="col">
@@ -148,7 +152,8 @@
                                     <select name="bank_id" id="" class="form-control select">
                                         <option></option>
                                         @foreach($banks as $b)
-                                        <option value="{{$b->id}}" {{old('bank_id',isset($user->personalDetail->bank_id) && $user->personalDetail->bank_id == $b->id ? 'selected':'')}}>{{$b->name}}</option>
+                                        <option value="{{$b->id}}"
+                                            {{old('bank_id',isset($user->personalDetail->bank_id) && $user->personalDetail->bank_id == $b->id ? 'selected':'')}}>{{$b->name}}</option>
                                         @endforeach
                                     </select>
                                     @include('backend.shared._errors',['entity'=>'bank_id'])

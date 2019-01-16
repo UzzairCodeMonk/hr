@@ -1,4 +1,4 @@
-@foreach(Auth::user()->unreadNotifications as $n)
+@foreach(Auth::user()->unreadNotifications->take(3) as $n)
 <form action="{{route('notification.read',['id'=>$n->id])}}" method="POST" class="mark-read">
     @csrf
     <div class="media-list media-list-hover media-list-divided media-list-xs">
@@ -25,3 +25,6 @@
     </div>
 </form>
 @endforeach
+<div class="dropdown-footer">
+    <a href="#" class="text-center">View all notifications</a>
+</div>
