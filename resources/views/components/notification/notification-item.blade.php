@@ -26,5 +26,5 @@
 </form>
 @endforeach
 <div class="dropdown-footer">
-    <a href="#" class="text-center">View all notifications</a>
+    <a href="{{route('personal.notifications')}}" class="text-center">View all notifications</a>
 </div>
