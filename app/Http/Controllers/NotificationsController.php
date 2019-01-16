@@ -21,8 +21,9 @@ class NotificationsController extends Controller
     {
         // dd($request->ids);
         foreach ($request->ids as $id) {
-            DB::table('notifications')->where('id',$id)->delete();
+            DB::table('notifications')->where('id', $id)->delete();
         }
+        toast('Selected notifications deleted successfully', 'success', 'top-right');
         return back();
     }
 }
