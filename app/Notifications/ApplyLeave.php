@@ -10,7 +10,7 @@ use Modules\Leave\Entities\Leave;
 use Datakraf\User;
 use Illuminate\Support\Facades\URL;
 
-class ApplyLeave extends Notification
+class ApplyLeave extends Notification implements ShouldQueue
 {
     use Queueable;
 
@@ -22,11 +22,10 @@ class ApplyLeave extends Notification
      *
      * @return void
      */
-    public function __construct(Leave $leave, User $user, User $notifier)
+    public function __construct(Leave $leave, User $user)
     {
         $this->leave = $leave;
-        $this->user = $user;
-        $this->notifier = $notifier;
+        $this->user = $user;        
     }
 
     /**

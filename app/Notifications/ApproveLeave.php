@@ -7,6 +7,7 @@ use Illuminate\Notifications\Notification;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 use Modules\Leave\Entities\Leave;
+use Illuminate\Support\Facades\URL;
 use Datakraf\User;
 
 class ApproveLeave extends Notification implements ShouldQueue
@@ -15,18 +16,18 @@ class ApproveLeave extends Notification implements ShouldQueue
 
     public $leave;
     public $user;
-    public $approver;    
+    public $approver;
 
     /**
      * Create a new notification instance.
      *
      * @return void
      */
-    public function __construct(Leave $leave, User $user,User $approver)
+    public function __construct(Leave $leave, User $user, User $approver)
     {
         $this->leave = $leave;
-        $this->user = $user;  
-        $this->approver = $approver;      
+        $this->user = $user;
+        $this->approver = $approver;
     }
 
     /**
@@ -48,13 +49,16 @@ class ApproveLeave extends Notification implements ShouldQueue
      */
     public function toMail($notifiable)
     {
+        $link = URL::signedRoute('leave.employee.show', ['id' => $this->leave->id]);
         return (new MailMessage)
+            ->subject('Your Application Leave Has Been Approved')
             ->greeting('Your Application Leave Has Been Approved')
             ->line('Applicant: ' . $this->leave->user->name)
             ->line('Leave Type: ' . $this->leave->type->name)
             ->line('Start Date: ' . $this->leave->start_date)
             ->line('End Date: ' . $this->leave->end_date)
-            ->line('Approved by: '.$this->approver->name);            
+            ->line('Approved by: ' . $this->approver->name)
+            ->action('View Leave Application', $link);
     }
 
     /**

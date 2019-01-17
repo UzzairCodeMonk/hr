@@ -7,26 +7,29 @@ use Illuminate\Notifications\Notification;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 use Modules\Leave\Entities\Leave;
+use Illuminate\Http\Request;
 use Datakraf\User;
+use Illuminate\Support\Facades\URL;
 
-class ApproveLeave extends Notification implements ShouldQueue
+
+class RejectLeave extends Notification implements ShouldQueue
 {
     use Queueable;
 
     public $leave;
     public $user;
-    public $approver;    
+    public $rejecter;
 
     /**
      * Create a new notification instance.
      *
      * @return void
      */
-    public function __construct(Leave $leave, User $user,User $approver)
+    public function __construct(Leave $leave, User $user, User $rejecter)
     {
         $this->leave = $leave;
-        $this->user = $user;  
-        $this->approver = $approver;      
+        $this->user = $user;
+        $this->rejecter = $rejecter;
     }
 
     /**
@@ -48,13 +51,16 @@ class ApproveLeave extends Notification implements ShouldQueue
      */
     public function toMail($notifiable)
     {
+        $link = URL::signedRoute('my-leave.show', ['id' => $this->leave->id]);
         return (new MailMessage)
-            ->greeting('Your Application Leave Has Been Approved')
+            ->subject('Your Application Leave Has Been Rejected')
+            ->greeting('Your Application Leave Has Been Rejected')
             ->line('Applicant: ' . $this->leave->user->name)
             ->line('Leave Type: ' . $this->leave->type->name)
             ->line('Start Date: ' . $this->leave->start_date)
             ->line('End Date: ' . $this->leave->end_date)
-            ->line('Approved by: '.$this->approver->name);            
+            ->line('Rejected by: ' . $this->rejecter->name)
+            ->action('View Leave Application', $link);
     }
 
     /**
@@ -74,7 +80,7 @@ class ApproveLeave extends Notification implements ShouldQueue
     {
         return [
             'user_id' => $this->user->id,
-            'message' => $this->approver->name . ' has approved your leave application',
+            'message' => 'Sorry, ' . $this->rejecter->name . ' has rejected your leave application',
             'leave_id' => $this->leave->id,
             'type' => 'leave'
         ];

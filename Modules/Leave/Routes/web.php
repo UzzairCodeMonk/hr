@@ -7,6 +7,7 @@ Route::group(['prefix' => 'leaves', 'middleware' => 'auth'], function () {
 
     Route::post('/store', 'LeavesController@store')->name('leave.store');
     Route::get('{id}/show', 'LeavesController@show')->name('leave.show')->middleware('signed');
+    Route::get('{id}/show/my-leave', 'LeavesController@showUserLeaves')->name('my-leave.show')->middleware('signed');
     Route::get('personal', 'LeavesController@showMyLeaveApplications')->name('leave.personal');
     Route::get('apply', ['uses' => 'LeavesController@showLeaveApplicationForm', 'as' => 'leave.apply']);
 

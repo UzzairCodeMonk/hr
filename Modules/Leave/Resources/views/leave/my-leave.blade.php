@@ -31,7 +31,7 @@ My Leave Applications
                     <td class="text-center">{{$result->days_taken ?? 'N/A'}}</td>
                     <td class="text-center"><span class="badge {{statusColor($result->status) ?? ''}}">{!! $result->status()->reason ?? 'N/A' !!}</span></td>
                     <td class="text-center">
-                        <a href="{{URL::signedRoute('leave.employee.show',['id'=>$result->id])}}" class="btn btn-sm" id="">
+                        <a href="{{URL::signedRoute('my-leave.show',['id'=>$result->id])}}" class="btn btn-sm" id="">
                             View
                         </a>
                     </td>
