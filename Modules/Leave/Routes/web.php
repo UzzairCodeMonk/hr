@@ -1,11 +1,22 @@
 <?php
 
+Route::get('test-upl', function () {
+    $now = Carbon\Carbon::now();
+    $month = $now->format('m');
+    $year = $now->format('Y');
+    $upl = Modules\Leave\Entities\Leave::whereHas('type', function ($query) {
+        $query->where('name', '=', 'Unpaid Leave');
+    })->whereMonth('start_date', $month)->whereYear('start_date', $year)->where('user_id',auth()->id())->get();
+    ;
+    
+    dd(collect($upl)->sum('days_taken'));
+});
 // Normal routes
 Route::group(['prefix' => 'leaves', 'middleware' => 'auth'], function () {
 
     // leaves
 
-    Route::post('/store', 'LeavesController@store')->name('leave.store');
+    Route::post('store', 'LeavesController@store')->name('leave.store');
     Route::get('{id}/show', 'LeavesController@show')->name('leave.show')->middleware('signed');
     Route::get('{id}/show/my-leave', 'LeavesController@showUserLeaves')->name('my-leave.show')->middleware('signed');
     Route::get('personal', 'LeavesController@showMyLeaveApplications')->name('leave.personal');

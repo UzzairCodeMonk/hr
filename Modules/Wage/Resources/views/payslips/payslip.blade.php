@@ -76,8 +76,15 @@
                             <td class="text-right">{{number_format($payslip->allowance,2) ?? 'N/A'}}</td>
                         </tr>
                         <tr>
-                            <td colspan="2" class="text-right"><strong>Total:
-                                    {{number_format($payslip->total_earnings,2) ?? 'N/A'}}</strong></td>
+                            <td>UPL</td>
+                            <td class="text-right">{{number_format($payslip->upl_days)}}</td>
+                        </tr>
+                        <tr>
+                            <td colspan="2" class="text-right">
+                                <strong>Total:
+                                    {{number_format($payslip->total_earnings,2) ?? 'N/A'}}
+                                </strong>
+                            </td>
                         </tr>
                     </tbody>
                 </table>

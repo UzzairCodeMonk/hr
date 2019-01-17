@@ -14,6 +14,8 @@ use Auth;
 use PDF;
 use Modules\Wage\Traits\EpfRates;
 use Modules\Wage\Traits\HrdfRates;
+use Carbon\Carbon;
+use Modules\Leave\Entities\Leave;
 
 class PayslipsController extends Controller
 {
@@ -77,7 +79,7 @@ class PayslipsController extends Controller
             'eis_employee_contrib' => $eis_employee_contrib,
             'eis_employer_contrib' => $eis_employer_contrib,
             'hrdf' => $hrdf,
-            'basic_salary' => $basic_salary
+            'basic_salary' => $basic_salary,
         ]);
     }
 
@@ -93,7 +95,10 @@ class PayslipsController extends Controller
         $payslip->total_earnings = $this->calculateTotalEarnings($request);
         $payslip->total_deductions = $this->calculateTotalDeductions($request);
         $payslip->net_wage = $this->calculateNetWage($request);
+        $payslip->upl_days = $this->getUnpaidLeaveDays($request);
+        $payslip->upl_amount = $this->getUnpaidLeaveDeductionAmount($request);
         $payslip->save();
+
         $payslip->user->notify(new PayslipGenerated($payslip, $payslip->user, Auth::user()));
         toast('Payslip generated successfully', 'success', 'top-right');
         return back();
@@ -114,6 +119,8 @@ class PayslipsController extends Controller
         toast('Payslip deleted successfully', 'success', 'top-right');
         return back();
     }
+
+
 
 
 }

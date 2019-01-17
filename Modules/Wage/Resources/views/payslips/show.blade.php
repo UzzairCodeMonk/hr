@@ -68,7 +68,8 @@ Payslip Records
                         <div class="col">
                             <div class="form-group">
                                 <label for="">Year</label>
-                                <input class="form-control" type="text" name="year" value="{{Carbon\Carbon::now()->format('Y')}}" readonly>
+                                <input class="form-control" type="text" name="year" value="{{Carbon\Carbon::now()->format('Y')}}"
+                                    readonly>
                             </div>
                         </div>
                     </div>
@@ -76,7 +77,8 @@ Payslip Records
                         <div class="col">
                             <div class="form-group">
                                 <label for="">Basic Salary (current)</label>
-                                <input type="text" class="form-control" name="basic_salary" value="{{$basic_salary}}" readonly>
+                                <input type="text" class="form-control" name="basic_salary" value="{{$basic_salary}}"
+                                    readonly>
                             </div>
                         </div>
                         <div class="col">
@@ -90,13 +92,15 @@ Payslip Records
                         <div class="col">
                             <div class="form-group">
                                 <label for="">EPF Contribution (Employer)</label>
-                                <input type="text" class="form-control" name="epf_employer" value="{{$epf_employer_contrib}}" readonly>
+                                <input type="text" class="form-control" name="epf_employer" value="{{$epf_employer_contrib}}"
+                                    readonly>
                             </div>
                         </div>
                         <div class="col">
                             <div class="form-group">
                                 <label for="">EPF Contribution (Employee)</label>
-                                <input type="text" class="form-control" name="epf_employee" value="{{$epf_employee_contrib}}" readonly>
+                                <input type="text" class="form-control" name="epf_employee" value="{{$epf_employee_contrib}}"
+                                    readonly>
                             </div>
                         </div>
                     </div>
@@ -104,15 +108,15 @@ Payslip Records
                         <div class="col">
                             <div class="form-group">
                                 <label for="">SOCSO Contribution (Employer)</label>
-                                <input type="text" class="form-control" name="socso_employer" 
-                                value="{{$socso_employer_contrib}}" readonly>
+                                <input type="text" class="form-control" name="socso_employer" value="{{$socso_employer_contrib}}"
+                                    readonly>
                             </div>
                         </div>
                         <div class="col">
                             <div class="form-group">
                                 <label for="">SOCSO Contribution (Employee)</label>
-                                <input type="text" class="form-control" name="socso_employee"  
-                                value="{{$socso_employee_contrib}}" readonly>
+                                <input type="text" class="form-control" name="socso_employee" value="{{$socso_employee_contrib}}"
+                                    readonly>
                             </div>
                         </div>
                     </div>
@@ -120,15 +124,15 @@ Payslip Records
                         <div class="col">
                             <div class="form-group">
                                 <label for="">SOCSO Contribution EIS (Employer)</label>
-                                <input type="text" class="form-control" name="socso_eis_employer" 
-                                value="{{$eis_employer_contrib}}" readonly>
+                                <input type="text" class="form-control" name="socso_eis_employer" value="{{$eis_employer_contrib}}"
+                                    readonly>
                             </div>
                         </div>
                         <div class="col">
                             <div class="form-group">
                                 <label for="">SOCSO Contribution EIS (Employee)</label>
-                                <input type="text" class="form-control" name="socso_eis_employee" 
-                                value="{{$eis_employee_contrib}}" readonly>
+                                <input type="text" class="form-control" name="socso_eis_employee" value="{{$eis_employee_contrib}}"
+                                    readonly>
                             </div>
                         </div>
                     </div>

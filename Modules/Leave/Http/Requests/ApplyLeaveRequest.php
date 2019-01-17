@@ -16,7 +16,7 @@ class ApplyLeaveRequest extends FormRequest
         return [
             'leavetype_id' => 'required',
             'start_date' => 'required',
-            'end_date' => 'required'
+            'end_date' => 'required',            
         ];
     }
 
