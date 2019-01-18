@@ -82,7 +82,7 @@
                         @if(isset($payslip->upl_days) && $payslip->upl_days > 0)
                         <tr>
                             <td>UPL Deduction</td>
-                            <td class="text-right">{{number_format($payslip->upl_amount,2) ?? 'N/A'}}</td>
+                            <td class="text-right text-danger"> -{{number_format($payslip->upl_amount,2) ?? 'N/A'}}</td>
                         </tr>
                         @endif
                         <tr>
@@ -173,11 +173,11 @@
                     <tbody>
                         <tr>
                             <td>Total Earnings</td>
-                            <td class="text-right">{{number_format($payslip->total_earnings,2) ?? 'N/A'}}</td>
+                            <td class="text-right text-success">{{number_format($payslip->total_earnings,2) ?? 'N/A'}}</td>
                         </tr>
                         <tr>
                             <td>Total Deductions</td>
-                            <td class="text-right">{{number_format($payslip->total_deductions,2) ?? 'N/A'}}</td>
+                            <td class="text-right text-danger"> -{{number_format($payslip->total_deductions,2) ?? 'N/A'}}</td>
                         </tr>
                         <tr>
                             <td>Net Pay</td>

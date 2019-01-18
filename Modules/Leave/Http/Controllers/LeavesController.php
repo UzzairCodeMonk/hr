@@ -19,6 +19,7 @@ use Modules\Leave\Exports\UserLeavesExport;
 use Datakraf\Notifications\ApproveLeave;
 use Datakraf\Notifications\RejectLeave;
 use Modules\Leave\Http\Requests\ApplyLeaveRequest;
+use Modules\Leave\Entities\Holiday;
 
 class LeavesController extends Controller
 {
@@ -34,7 +35,7 @@ class LeavesController extends Controller
     public $attachment;
     public $balance;
 
-    public function __construct(Leave $leave, LeaveType $type, Request $request, User $user, LeaveAttachment $attachment, LeaveBalance $balance)
+    public function __construct(Leave $leave, LeaveType $type, Request $request, User $user, LeaveAttachment $attachment, LeaveBalance $balance, Holiday $holiday)
     {
         $this->type = $type;
         $this->data = [
@@ -49,6 +50,7 @@ class LeavesController extends Controller
         $this->user = $user;
         $this->attachment = $attachment;
         $this->balance = $balance;
+        $this->holiday = $holiday;
     }
 
     protected $approvedStatus = 'approved';
@@ -93,7 +95,10 @@ class LeavesController extends Controller
 
     public function showLeaveApplicationForm()
     {
-        return view('leave::leave.forms.apply', ['types' => $this->type->all()]);
+        return view('leave::leave.forms.apply', [
+            'types' => $this->type->all(),
+            'holidays' => $this->holiday->all()
+            ]);
     }
 
     public function store(ApplyLeaveRequest $request)

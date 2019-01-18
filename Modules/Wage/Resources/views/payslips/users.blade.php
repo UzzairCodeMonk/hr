@@ -8,7 +8,7 @@ Employee Records
         <h3 class="card-title">Employees Payslips</h3>
     </div>
     <div class="card-body">
-        <table class="table table-striped table-bordered datatable" data-provide="datatables">
+        <table class="table table-striped table-bordered datatable">
             <thead>
                 <tr>
                     <th>#</th>
@@ -32,7 +32,7 @@ Employee Records
                         </div>
                     </td>
                     <td class="text-center">{{$user->email}}</td>
-                    <td class="text-center">{{getMonthNameBasedOnInt($user->payslips->first()->month ?? null)}} {{$user->payslips->first()->year ?? ''}}</td>
+                    <td class="text-center">{{getMonthNameBasedOnInt($user->payslips->last()->month ?? null)}} {{$user->payslips->first()->year ?? ''}}</td>
                     <td class="text-center">
                         <a href="{{URL::signedRoute('payslip.show',['id'=>$user->id])}}" class="btn btn-sm btn-link text-dark">View</a>
                     </td>

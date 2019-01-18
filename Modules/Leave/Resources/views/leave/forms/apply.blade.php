@@ -6,6 +6,11 @@ Leave Application Form
 <div class="card">
     <div class="card-header">
         <h3>Leave Application Form</h3>
+        <div class="card-options">
+            <button type="button" class="btn btn-sm btn-primary" data-toggle="quickview" data-target="#qv-minimal">View
+                Public
+                Holidays</button>
+        </div>
     </div>
     <div class="card-body">
         <form action="{{route('leave.store')}}" method="POST" enctype="multipart/form-data">
@@ -76,8 +81,40 @@ Leave Application Form
 
     </div>
 </div>
+
+<!-- public holiday modal -->
+<div id="qv-minimal" class="quickview quickview-xl">
+    <header class="quickview-header">
+        <p class="quickview-title">Available public holidays. Plan your leave wisely 😁</p>
+        <span class="close"><i class="ti-close"></i></span>
+    </header>
+
+    <div class="quickview-body">
+        <div class="quickview-block">
+            <table class="table table-bordered datatable">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Public Holiday</th>
+                        <th>Date</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach($holidays as $key=>$h)
+                    <tr>
+                        <td>{{++$key}}</td>
+                        <td>{{$h->name ?? 'N/Application'}}</td>
+                        <td>{{$h->date ?? 'N/A'}}</td>
+                    </tr>
+                    @endforeach
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
 @endsection
 @section('page-js')
+@include('asset-partials.datatable')
 @include('asset-partials.datepicker')
 <script type="text/javascript">
     var date = new Date();
@@ -92,5 +129,10 @@ Leave Application Form
         startDate: date
     });
 
+</script>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('.datatable').DataTable();
+    });
 </script>
 @endsection
