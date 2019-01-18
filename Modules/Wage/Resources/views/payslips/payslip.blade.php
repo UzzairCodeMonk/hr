@@ -76,9 +76,15 @@
                             <td class="text-right">{{number_format($payslip->allowance,2) ?? 'N/A'}}</td>
                         </tr>
                         <tr>
-                            <td>UPL</td>
-                            <td class="text-right">{{number_format($payslip->upl_days)}}</td>
+                            <td>UPL (days) in {{getMonthNameBasedOnInt($payslip->month) ?? 'N/A'}} {{$payslip->year ?? 'N/A'}}</td>
+                            <td class="text-right">{{number_format($payslip->upl_days,1) ?? 'N/A'}}</td>
                         </tr>
+                        @if(isset($payslip->upl_days) && $payslip->upl_days > 0)
+                        <tr>
+                            <td>UPL Deduction</td>
+                            <td class="text-right">{{number_format($payslip->upl_amount,2) ?? 'N/A'}}</td>
+                        </tr>
+                        @endif
                         <tr>
                             <td colspan="2" class="text-right">
                                 <strong>Total:
