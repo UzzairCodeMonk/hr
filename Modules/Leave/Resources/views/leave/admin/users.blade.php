@@ -8,7 +8,7 @@ Employee user Records
         <h3 class="cad-title">Employees Leave Records</h3>
     </div>
     <div class="card-body">
-        <table class="table table-striped table-bordered datatable" data-provide="datatables">
+        <table class="table table-striped table-bordered datatable">
             <thead>
                 <tr>
                     <th>#</th>

@@ -16,6 +16,9 @@
 </head>
 
 <body class="sidebar-folded">
+    <div class="preloader">
+            <div class="spinner-circle-shadow spinner-primary"></div>
+    </div>
     @include('backend.partials.sidebar')
     @include('backend.partials.top-bar')
     <main class="main-container">
@@ -30,7 +33,7 @@
     <script type="text/javascript" src="{{asset('js/core.min.js')}}"></script>
     <script type="text/javascript" src="{{asset('js/app.js')}}"></script>
     <script type="text/javascript" src="{{asset('js/script.js')}}"></script>
-    @include('password-strength::asset')    
+    @include('password-strength::asset')
     @yield('page-js')
     @include('sweetalert::alert')
     <script type="text/javascript">
@@ -58,6 +61,7 @@
         });
 
     </script>
+
 </body>
 
 </html>

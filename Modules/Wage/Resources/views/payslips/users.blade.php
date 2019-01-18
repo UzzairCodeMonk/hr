@@ -8,7 +8,7 @@ Employee Records
         <h3 class="card-title">Employees Payslips</h3>
     </div>
     <div class="card-body">
-        <table class="table table-striped table-bordered datatable" data-provide="datatables">
+        <table class="table table-striped table-bordered datatable">
             <thead>
                 <tr>
                     <th>#</th>
