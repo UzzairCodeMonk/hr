@@ -16,11 +16,14 @@ function userHasNotification()
 
 function getMonthNameBasedOnInt($value)
 {
-    $monthNum = $value;
-    $dateObj = DateTime::createFromFormat('!m', $monthNum);
-    $monthName = $dateObj->format('F');
+    if ($value != null) {
+        $monthNum = $value;
+        $dateObj = DateTime::createFromFormat('!m', $monthNum);
+        $monthName = $dateObj->format('F');
+        return $monthName;
+    }
 
-    return $monthName;
+    return 'N/A';
 }
 
 function companyName()

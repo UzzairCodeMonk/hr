@@ -7,7 +7,7 @@ use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
 use Datakraf\User;
 use Modules\Wage\Entities\Payslip;
-use Modules\Wage\Notifications\PayslipGenerated;
+use Datakraf\Notifications\PayslipGeneratedNotification;
 use Modules\Wage\Traits\WageCalculator;
 use Modules\Wage\Traits\SocsoRates;
 use Auth;
@@ -99,7 +99,7 @@ class PayslipsController extends Controller
         $payslip->upl_amount = $this->getUnpaidLeaveDeductionAmount($request);
         $payslip->save();
 
-        $payslip->user->notify(new PayslipGenerated($payslip, $payslip->user, Auth::user()));
+        $payslip->user->notify(new PayslipGeneratedNotification($payslip, $payslip->user, Auth::user()));
         toast('Payslip generated successfully', 'success', 'top-right');
         return back();
     }

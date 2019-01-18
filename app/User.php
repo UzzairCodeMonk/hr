@@ -15,6 +15,7 @@ use Modules\Profile\Entities\PersonalDetail;
 use Modules\Profile\Entities\Position;
 use Spatie\Activitylog\Traits\LogsActivity;
 use Modules\Wage\Entities\Wage;
+use Modules\Wage\Entities\Payslip;
 
 class User extends Authenticatable
 {
@@ -68,6 +69,10 @@ class User extends Authenticatable
     public function wages()
     {
         return $this->hasMany(Wage::class);
+    }
+
+    public function payslips(){
+        return $this->hasMany(Payslip::class);
     }
     
 }

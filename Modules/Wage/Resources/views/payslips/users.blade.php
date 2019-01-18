@@ -14,6 +14,7 @@ Employee Records
                     <th>#</th>
                     <th>Name</th>
                     <th class="text-center">Email</th>
+                    <th class="text-center">Latest Generated Payslip</th>
                     <th class="text-center">Action</th>
                 </tr>
             </thead>
@@ -31,6 +32,7 @@ Employee Records
                         </div>
                     </td>
                     <td class="text-center">{{$user->email}}</td>
+                    <td class="text-center">{{getMonthNameBasedOnInt($user->payslips->first()->month ?? null)}} {{$user->payslips->first()->year ?? ''}}</td>
                     <td class="text-center">
                         <a href="{{URL::signedRoute('payslip.show',['id'=>$user->id])}}" class="btn btn-sm btn-link text-dark">View</a>
                     </td>
