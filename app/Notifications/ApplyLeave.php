@@ -25,7 +25,7 @@ class ApplyLeave extends Notification implements ShouldQueue
     public function __construct(Leave $leave, User $user)
     {
         $this->leave = $leave;
-        $this->user = $user;        
+        $this->user = $user;
     }
 
     /**
@@ -48,8 +48,9 @@ class ApplyLeave extends Notification implements ShouldQueue
     public function toMail($notifiable)
     {
         $link = URL::signedRoute('leave.employee.show', ['id' => $this->leave->id]);
-        
+
         return (new MailMessage)
+            ->subject('Leave Application: ' . $this->leave->user->name)
             ->greeting($this->leave->user->name . ' has applied for leave')
             ->line('Applicant: ' . $this->leave->user->name)
             ->line('Leave Type: ' . $this->leave->type->name)
