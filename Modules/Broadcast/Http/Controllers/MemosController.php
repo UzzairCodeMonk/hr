@@ -23,7 +23,7 @@ class MemosController extends Controller
      */
     public function create()
     {
-        return view('broadcast::create');
+        return view('broadcast::memo.create');
     }
 
     /**
