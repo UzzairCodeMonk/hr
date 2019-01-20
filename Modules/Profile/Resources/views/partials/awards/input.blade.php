@@ -1,13 +1,13 @@
 <tr>
     <td>1</td>
     <td>
-            <input type="text" name="name[]" class="form-control" />
+            <input type="text" name="name" class="form-control" />
         </td>
         <td>
-            <input type="text" name="received_date[]" class="form-control received-date" />
+            <input type="text" name="received_date" class="form-control received-date" />
         </td>
         <td>
-            <input type="text" name="notes[]" class="form-control" />
+            <input type="text" name="notes" class="form-control" />
         </td>
         <td>
             <a class="deleteRow">
