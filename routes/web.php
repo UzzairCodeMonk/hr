@@ -1,7 +1,7 @@
 <?php
 
 Auth::routes();
-
+Route::view('dashboard','dashboard');
 Route::get('/', 'Auth\LoginController@showLoginForm');
 Route::group(['middleware' => 'auth'], function () {
     Route::post('notification/{id}/mark', ['uses' => 'NotificationsController@markAsRead', 'as' => 'notification.read']);
