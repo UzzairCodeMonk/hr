@@ -19,7 +19,7 @@
     @yield('page-css')
 </head>
 
-<body class="min-h-fullscreen bg-img center-vh p-20" style="background-image: url({{asset('images/login-bg.jpg')}});background-position:bottom">
+<body class="min-h-fullscreen bg-img center-vh p-20" style="background-image: url({{asset('images/login-bg-2.jpg')}});background-position:bottom">
     @yield('content')
     <script type="text/javascript" src="{{asset('js/core.min.js')}}"></script>
     <script type="text/javascript" src="{{asset('js/app.js')}}"></script>
