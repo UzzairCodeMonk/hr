@@ -22,6 +22,7 @@ Route::group(['prefix' => 'profile', 'middleware' => 'auth'], function () {
             Route::post('store', ['uses' => 'AcademicsController@store', 'as' => 'academic.store']);
             Route::get('{id}/edit', ['uses' => 'AcademicsController@edit', 'as' => 'academic.edit']);
             Route::post('{id}/update', ['uses' => 'AcademicsController@update', 'as' => 'academic.update']);
+            Route::delete('bulk-delete',['uses' => 'AcademicsController@destroy','as' =>'academic.bulkdelete']);
         });
     
     // experience
@@ -44,6 +45,7 @@ Route::group(['prefix' => 'profile', 'middleware' => 'auth'], function () {
             Route::post('store', ['uses' => 'AwardsController@store', 'as' => 'award.store']);
             Route::get('{id}/edit', ['uses' => 'AwardsController@edit', 'as' => 'award.edit']);
             Route::post('{id}/update', ['uses' => 'AwardsController@update', 'as' => 'award.update']);
+            Route::delete('bulk-delete',['uses' => 'AwardsController@destroy','as' =>'award.bulkdelete']);
         });
     });
 

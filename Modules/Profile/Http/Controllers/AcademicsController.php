@@ -28,20 +28,20 @@ class AcademicsController extends Controller
 
     public function store(Request $request)
     {
-        for ($i = 0; $i < count($request->institution); ++$i) {
-            Academic::create([
-                'user_id' => auth()->id(),
-                'institution' => $request->institution[$i],
-                'study_level' => $request->study_level[$i],
-                'start_date' => $request->start_date[$i],
-                'end_date' => $request->end_date[$i],
-                'course' => $request->course[$i],
-                'result' => $request->result[$i],
-            ]);
-        }
+        Academic::create([
+            'user_id' => auth()->id(),
+            'institution' => $request->institution,
+            'study_level' => $request->study_level,
+            'start_date' => $request->start_date,
+            'end_date' => $request->end_date,
+            'course' => $request->course,
+            'result' => $request->result,
+        ]);
         toast($this->message('save', 'Academic record(s)'), 'success', 'top-right');
         return redirect()->back();
     }
+
+
 
     public function edit($id)
     {
@@ -60,6 +60,18 @@ class AcademicsController extends Controller
         Academic::find($id)->update($request->all());
         toast($this->message('update', 'Academic record'), 'success', 'top-right');
         return redirect()->route('academic.index');
+    }
+
+    public function destroy(Request $request)
+    {
+
+        $ids = $request->ids;
+        foreach ($ids as $id) {
+            Academic::find($id)->delete();
+        }
+        toast('Selected records deleted', 'success', 'top-right');
+        return back();
+
     }
 
 }
