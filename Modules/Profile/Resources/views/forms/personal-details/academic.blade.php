@@ -4,7 +4,7 @@ Academic Records
 @endsection
 @section('form-content')
 <div class="container">
-    <!-- <div class="row">
+    <!-- <div class="row"> 
         <div class="col">
             <button type="button" class="btn btn-primary btn-md pull-right" data-toggle="modal" data-target="#add-academic-records">
                 <i class="ti ti-plus"></i> Add Academic Record
@@ -33,9 +33,9 @@ Academic Records
     </div>
 </div>
 @include('profile::partials.academic.modal-form')
-
 @endsection
 @section('page-js')
+@include('components.form.confirmDeleteOnSubmission',['entity'=>'academic-bulk-delete'])
 @include('profile::partials.academic.script')
 @include('asset-partials.datepicker')
 <script type="text/javascript">

@@ -28,23 +28,21 @@ class AwardsController extends Controller
 
     public function store(Request $request)
     {
-        for ($i = 0; $i < count($request->name); ++$i) {
-            $this->award->create([
-                'user_id' => auth()->id(),
-                'name' => $request->name[$i],
-                'received_date' => $request->received_date[$i],
-                'notes' => $request->notes[$i],                
-            ]);
-        }
+        $this->award->create([
+            'user_id' => auth()->id(),
+            'name' => $request->name,
+            'received_date' => $request->received_date,
+            'notes' => $request->notes,
+        ]);
         toast($this->message('save', 'Award record(s)'), 'success', 'top-right');
         return redirect()->back();
     }
 
     public function edit($id)
-    {   
+    {
         $awards = $this->award->where('user_id', auth()->id())->get();
         $award = Award::find($id);
-        return view('profile::forms.personal-details.awards', compact('awards','award'));
+        return view('profile::forms.personal-details.awards', compact('awards', 'award'));
     }
 
     /**
@@ -57,6 +55,18 @@ class AwardsController extends Controller
         Award::find($id)->update($request->all());
         toast($this->message('update', 'Award record'), 'success', 'top-right');
         return redirect()->route('award.index');
+    }
+
+    public function destroy(Request $request)
+    {
+
+        $ids = $request->ids;
+        foreach ($ids as $id) {
+            Award::find($id)->delete();
+        }
+        toast('Selected records deleted', 'success', 'top-right');
+        return back();
+
     }
 
 }

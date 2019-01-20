@@ -33,6 +33,14 @@
             $(this).closest("tr").remove();
             counter -= 1
         });
+
+        $('#records').on('click', function (e) {
+            if ($(this).is(':checked', true)) {
+                $(".record-checkbox").prop('checked', true);
+            } else {
+                $(".record-checkbox").prop('checked', false);
+            }
+        });
     });
 
 </script>

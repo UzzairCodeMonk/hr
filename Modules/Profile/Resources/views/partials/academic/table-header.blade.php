@@ -1,4 +1,5 @@
 <tr>
+    <th><input id="records" type="checkbox"></th>
     <th>#</th>
     <th>{{ucwords(__('profile::academic.institution'))}}</th>
     <th>{{ucwords(__('profile::academic.study-level'))}}</th>

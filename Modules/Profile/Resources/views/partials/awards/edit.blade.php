@@ -8,6 +8,7 @@
                 </thead>
                 <tbody>
                     <tr>
+                        <td></td>
                         <td>1</td>
                         <td>
                             <input type="text" name="name" class="form-control" value="{{$award->name ?? ''}}"/>
@@ -16,7 +17,7 @@
                             <input type="text" name="received_date" class="form-control received-date" value="{{$award->received_date ?? ''}}"/>
                         </td>
                         <td>
-                            <input type="text" name="notes" class="form-control" value="{{$award->notes ?? ''}}"/>
+                            <textarea name="notes" class="form-control">{{$award->notes ?? ''}}</textarea>
                         </td>
                         <td class="text-center">
                             <button type="submit" class="btn btn-primary btn-sm">Update</button>

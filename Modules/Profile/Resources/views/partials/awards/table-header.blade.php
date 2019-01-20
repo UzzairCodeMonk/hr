@@ -1,4 +1,5 @@
 <tr>
+    <th><input id="records" type="checkbox"></th>
     <th>#</th>
     <th>{{ucwords(__('profile::awards.name'))}}</th>
     <th>{{ucwords(__('profile::awards.received-date'))}}</th>
