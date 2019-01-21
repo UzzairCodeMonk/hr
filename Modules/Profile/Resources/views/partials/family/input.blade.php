@@ -1,8 +1,11 @@
 <div class="card bg-lighter">
     <div class="card-header">
-        <h4 class="card-title text-dark">Add Family Record</h4>
+        <h4 class="card-title text-dark">{{isset($family) ? 'Update':'Create'}} Family Record</h4>
         <div class="card-options">
-            <button type="submit" class="btn btn-primary btn-sm">Save</button>
+            @isset($family)
+            <a href="{{URL::previous()}}" class="btn btn-secondary btn-sm">Cancel</a>
+            @endisset
+            <button type="submit" class="btn btn-primary btn-sm">{{isset($family) ? 'Update':'Create'}}</button>
             <!-- <a class="btn btn-sm btn-secondary text-dark" id="addrow"> Add Row </a> -->
         </div>
     </div>
@@ -12,7 +15,7 @@
                 <div class="form-group">
                     <input type="hidden" name="user_id" value="{{Auth::id()}}">
                     <label for="" class="require">Name</label>
-                    <input type="text" name="name" class="form-control" value="{{old('name')}}" />
+                    <input type="text" name="name" class="form-control" value="{{old('name',$family->name ?? null)}}" />
                     @include('backend.shared._errors',['entity'=>'name'])
                 </div>
             </div>
@@ -22,7 +25,8 @@
                     <select name="relationship_id" id="" class="form-control">
                         <option value="">Please choose</option>
                         @foreach($types as $type)
-                        <option value="{{$type->id}}" {{old('type_id') == $type->id ? 'selected':''}}>{{$type->name}}</option>
+                        <option value="{{$type->id}}" {{ isset($family) && $family->relationship_id == $type->id ? 'selected':'' }}>
+                            {{$type->name}}</option>
                         @endforeach
                     </select>
                 </div>
@@ -30,7 +34,7 @@
             <div class="col">
                 <div class="form-group">
                     <label for="" class="require">IC No.</label>
-                    <input type="text" name="ic_number" class="form-control" />
+                    <input type="text" name="ic_number" class="form-control" value="{{old('ic_number',$family->ic_number ?? null)}}" />
                 </div>
             </div>
         </div>
@@ -38,19 +42,19 @@
             <div class="col">
                 <div class="form-group">
                     <label for="">Mobile No.</label>
-                    <input type="text" name="mobile_number" class="form-control" />
+                    <input type="text" name="mobile_number" class="form-control" value="{{old('mobile_number',$family->mobile_number ?? null)}}" />
                 </div>
             </div>
             <div class="col">
                 <div class="form-group">
                     <label for="">Occupation</label>
-                    <input type="text" name="occupation" class="form-control" />
+                    <input type="text" name="occupation" class="form-control" value="{{old('occupation',$family->occupation ?? null)}}" />
                 </div>
             </div>
             <div class="col">
                 <div class="form-group">
                     <label for="">Income Tax No.</label>
-                    <input type="text" name="income_tax_number" class="form-control" />
+                    <input type="text" name="income_tax_number" class="form-control" value="{{old('income_tax_number',$family->income_tax_number ?? null)}}" />
                 </div>
             </div>
         </div>

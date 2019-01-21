@@ -28,13 +28,12 @@ class SkillsController extends Controller
 
     public function store(Request $request)
     {
-        for ($i = 0; $i < count($request->skill); ++$i) {
-            $this->skill->create([
-                'user_id' => auth()->id(),
-                'skill' => $request->skill[$i],
-                'period' => $request->period[$i]
-            ]);
-        }
+
+        $this->skill->create([
+            'user_id' => auth()->id(),
+            'skill' => $request->skill,
+            'period' => $request->period
+        ]);
         toast($this->message('save', 'Skill record(s)'), 'success', 'top-right');
         return redirect()->back();
     }
@@ -43,7 +42,7 @@ class SkillsController extends Controller
     {
         $skill = Skill::find($id);
         $skills = $this->skill->where('user_id', auth()->id())->get();
-        return view('profile::forms.personal-details.skills', compact('skills','skill'));
+        return view('profile::forms.personal-details.skills', compact('skills', 'skill'));
     }
 
     /**
@@ -56,6 +55,18 @@ class SkillsController extends Controller
         Skill::find($id)->update($request->all());
         toast($this->message('update', 'Skill record'), 'success', 'top-right');
         return redirect()->route('skill.index');
+    }
+
+    public function destroy(Request $request)
+    {
+
+        $ids = $request->ids;
+        foreach ($ids as $id) {
+            Skill::find($id)->delete();
+        }
+        toast('Selected records deleted', 'success', 'top-right');
+        return back();
+
     }
 
 }

@@ -1,5 +1,6 @@
 <div class="form-group">
-    <div class='card card-light' style="border:1px solid block !important;">
+    <label for="">Basic Salary</label>
+    <!-- <div class='card card-light' style="border:1px solid block !important;">
         <div class='card-header'>
             <h6 class="card-title" style="font-weight:bold">Basic Salary (MYR)</h6>
             <div class="card-options">
@@ -28,13 +29,9 @@
                 </table>
             </div>
         </div>
-    </div>
+    </div> -->
     <input type="text" class="form-control" name="basic_salary" value="{{old('basic_salary',isset($user)?$user->wages->first()->wage:'')}}">
 </div>
-
-
-
-
 <div class="row">
     <div class="col">
         <div class="form-group">
