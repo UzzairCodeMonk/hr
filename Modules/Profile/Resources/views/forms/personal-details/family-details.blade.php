@@ -13,8 +13,7 @@ Family Records
         </div>
     </div>
     <div class="row">
-        <div class="col">
-           
+        <div class="col">           
                 <table class="table table-bordered mt-3">
                     <thead class="thead-light">
                         @include('profile::partials.family.table-header')
