@@ -13,7 +13,8 @@
         <div class="row">
             <div class="col">
                 <label for="">Name</label>
-                <input type="text" name="skill" class="form-control" value="{{old('skill',$skill->skill ?? null)}}" />
+                <input type="text" name="skill" class="form-control" 
+                value="{{old('skill',$skill->skill ?? null)}}" />
             </div>
             <div class="col">
                 <label for="">Proficiency Rate</label>

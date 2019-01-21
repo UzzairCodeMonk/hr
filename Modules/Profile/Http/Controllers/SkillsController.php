@@ -28,13 +28,12 @@ class SkillsController extends Controller
 
     public function store(Request $request)
     {
-        for ($i = 0; $i < count($request->skill); ++$i) {
-            $this->skill->create([
-                'user_id' => auth()->id(),
-                'skill' => $request->skill[$i],
-                'period' => $request->period[$i]
-            ]);
-        }
+
+        $this->skill->create([
+            'user_id' => auth()->id(),
+            'skill' => $request->skill,
+            'period' => $request->period
+        ]);
         toast($this->message('save', 'Skill record(s)'), 'success', 'top-right');
         return redirect()->back();
     }
