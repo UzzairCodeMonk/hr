@@ -1,5 +1,5 @@
 @if(isset($skill))
-<form action="{{route('skill.updaate',['id'=>$skill->id])}}" method="POST" enctype="multipart/form-data">
+<form action="{{route('skill.update',['id'=>$skill->id])}}" method="POST" enctype="multipart/form-data">
     @else
     <form action="{{route('skill.store')}}" method="POST" enctype="multipart/form-data">
     @endif
