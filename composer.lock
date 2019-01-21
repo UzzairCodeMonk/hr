@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "b1241d457eecbe0628c16ff418b217de",
+    "content-hash": "ec096fe28bdea7dfde3205e3ac799e6c",
     "packages": [
         {
             "name": "anahkiasen/underscore-php",
@@ -1091,16 +1091,16 @@
         },
         {
             "name": "laravel/framework",
-            "version": "v5.7.20",
+            "version": "v5.7.21",
             "source": {
                 "type": "git",
                 "url": "https://github.com/laravel/framework.git",
-                "reference": "10cd20294b5668f90ba91996236834e71f7ff670"
+                "reference": "25f74458a242b61cc9e9c09d31f94fb13ed805f3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/laravel/framework/zipball/10cd20294b5668f90ba91996236834e71f7ff670",
-                "reference": "10cd20294b5668f90ba91996236834e71f7ff670",
+                "url": "https://api.github.com/repos/laravel/framework/zipball/25f74458a242b61cc9e9c09d31f94fb13ed805f3",
+                "reference": "25f74458a242b61cc9e9c09d31f94fb13ed805f3",
                 "shasum": ""
             },
             "require": {
@@ -1233,7 +1233,7 @@
                 "framework",
                 "laravel"
             ],
-            "time": "2019-01-08T14:39:11+00:00"
+            "time": "2019-01-15T15:20:32+00:00"
         },
         {
             "name": "laravel/nexmo-notification-channel",
@@ -5057,6 +5057,45 @@
             "time": "2019-01-15T08:20:14+00:00"
         },
         {
+            "name": "uzzaircode/star-rating-ui",
+            "version": "dev-master",
+            "dist": {
+                "type": "path",
+                "url": "packages/uzzaircode/star-rating-ui",
+                "reference": "a751ad2914572440e20c7cb114e5a55320d2207d",
+                "shasum": null
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Uzzaircode\\StarRatingUI\\StarRatingUIServiceProvider"
+                    ],
+                    "aliases": {
+                        "StarRatingUI": "Uzzaircode\\StarRatingUI\\StarRatingUIFacade"
+                    }
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Uzzaircode\\StarRatingUI\\": "src/"
+                }
+            },
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Uzzair Baharudin",
+                    "email": "uzzaircode@gmail.com"
+                }
+            ],
+            "description": "star rating ui",
+            "transport-options": {
+                "symlink": true
+            }
+        },
+        {
             "name": "vlucas/phpdotenv",
             "version": "v2.5.2",
             "source": {
@@ -6425,16 +6464,16 @@
         },
         {
             "name": "phpunit/phpunit",
-            "version": "7.5.1",
+            "version": "7.5.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/phpunit.git",
-                "reference": "c23d78776ad415d5506e0679723cb461d71f488f"
+                "reference": "7c89093bd00f7d5ddf0ab81dee04f801416b4944"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/c23d78776ad415d5506e0679723cb461d71f488f",
-                "reference": "c23d78776ad415d5506e0679723cb461d71f488f",
+                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/7c89093bd00f7d5ddf0ab81dee04f801416b4944",
+                "reference": "7c89093bd00f7d5ddf0ab81dee04f801416b4944",
                 "shasum": ""
             },
             "require": {
@@ -6505,7 +6544,7 @@
                 "testing",
                 "xunit"
             ],
-            "time": "2018-12-12T07:20:32+00:00"
+            "time": "2019-01-15T08:19:08+00:00"
         },
         {
             "name": "sebastian/code-unit-reverse-lookup",

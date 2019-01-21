@@ -43,7 +43,7 @@ class SkillsController extends Controller
     {
         $skill = Skill::find($id);
         $skills = $this->skill->where('user_id', auth()->id())->get();
-        return view('profile::forms.personal-details.skills', compact('skills','skill'));
+        return view('profile::forms.personal-details.skills', compact('skills', 'skill'));
     }
 
     /**
@@ -56,6 +56,18 @@ class SkillsController extends Controller
         Skill::find($id)->update($request->all());
         toast($this->message('update', 'Skill record'), 'success', 'top-right');
         return redirect()->route('skill.index');
+    }
+
+    public function destroy(BulkDeleteRequest $request)
+    {
+
+        $ids = $request->ids;
+        foreach ($ids as $id) {
+            Skill::find($id)->delete();
+        }
+        toast('Selected records deleted', 'success', 'top-right');
+        return back();
+
     }
 
 }

@@ -4,9 +4,9 @@ Family Records
 @endsection
 @section('form-content')
 <div class="container">
-    @isset($family)
+    <!-- @isset($family)
     @include('profile::partials.family.edit')
-    @endisset
+    @endisset -->
     <div class="row">
         <div class="col">
             @include('profile::partials.family.dynamic-form')
