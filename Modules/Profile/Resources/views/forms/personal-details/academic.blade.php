@@ -11,9 +11,9 @@ Academic Records
             </button>
         </div>
     </div> -->
-    @isset($academy)
+    <!-- @isset($academy)
     @include('profile::partials.academic.edit')
-    @endisset
+    @endisset -->
     <div class="row">
         <div class="col">
             @include('profile::partials.academic.dynamic-form')
