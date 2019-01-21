@@ -2,6 +2,13 @@
 @section('page-title')
 Leave Application Form
 @endsection
+@section('page-css')
+<style>
+    .preloader{
+        display: none !important;
+    }
+</style>
+@endsection
 @section('content')
 <div class="card">
     <div class="card-header">
@@ -134,5 +141,6 @@ Leave Application Form
     $(document).ready(function () {
         $('.datatable').DataTable();
     });
+
 </script>
 @endsection
