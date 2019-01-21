@@ -34,5 +34,22 @@ Skills
 @section('page-js')
 @include('components.form.confirmDeleteOnSubmission',['entity'=>'skill-bulk-delete'])
 @include('profile::partials.skills.script')
-@include('star-rating-ui::assets')
+@include('vendor.star-rating-ui.assets')
+@include('vendor.star-rating-ui.assets',['readonly'=>true])
+<script type="text/javascript">
+    $(function () {
+        $(".period").barrating({
+            theme: "{{config('star-rating-ui.theme','css-stars')}}",            
+        });
+    });
+</script>
+
+<script type="text/javascript">
+    $(function () {
+        $(".record").barrating({
+            theme: "{{config('star-rating-ui.theme','css-stars')}}",
+            readonly:true
+        });
+    });
+</script>
 @endsection

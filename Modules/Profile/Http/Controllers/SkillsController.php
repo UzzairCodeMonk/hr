@@ -58,7 +58,7 @@ class SkillsController extends Controller
         return redirect()->route('skill.index');
     }
 
-    public function destroy(BulkDeleteRequest $request)
+    public function destroy(Request $request)
     {
 
         $ids = $request->ids;

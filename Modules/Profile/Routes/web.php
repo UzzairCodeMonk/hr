@@ -38,6 +38,7 @@ Route::group(['prefix' => 'profile', 'middleware' => 'auth'], function () {
             Route::post('store', ['uses' => 'SkillsController@store', 'as' => 'skill.store']);
             Route::get('{id}/edit', ['uses' => 'SkillsController@edit', 'as' => 'skill.edit']);
             Route::post('{id}/update', ['uses' => 'SkillsController@update', 'as' => 'skill.update']);
+            Route::delete('bulk-delete',['uses' => 'SkillsController@destroy','as' =>'skill.bulkdelete']);
         });
 
         Route::group(['prefix' => 'awards'], function () {

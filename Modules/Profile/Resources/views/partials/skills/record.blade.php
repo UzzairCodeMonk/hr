@@ -1,5 +1,5 @@
 @if(count($skills))
-<form action="{{route('family.bulkdelete')}}" method="POST" class="skill-bulk-delete">
+<form action="{{route('skill.bulkdelete')}}" method="POST" class="skill-bulk-delete">
     <button type="submit" class="btn btn-sm btn-danger pull-right">Delete Selected</button>
     <div class="mt-4"></div>
     @csrf
@@ -16,7 +16,13 @@
             <p>{{$record->skill ?? 'N/A'}}</p>
         </td>
         <td>
-            <p>{{$record->period ?? 'N/A'}}</p>
+            <select class="record">
+                @for($i = 1; $i <= config('star-rating-ui.star-count',5);$i++) 
+                <option value="{{$i}}"
+                    {{ isset($record) && $i == $record->period ? 'selected':null}}>{{$i}}
+                </option>
+                @endfor
+            </select>
         </td>
         <td class="text-center">
             <a href="{{route('skill.edit',['id'=>$record->id])}}" class="btn btn-link btn-sm text-dark">Edit</a>

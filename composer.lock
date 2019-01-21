@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "ec096fe28bdea7dfde3205e3ac799e6c",
+    "content-hash": "cd54785cc4a374c2beb7c16cabf10ce6",
     "packages": [
         {
             "name": "anahkiasen/underscore-php",
@@ -5058,12 +5058,17 @@
         },
         {
             "name": "uzzaircode/star-rating-ui",
-            "version": "dev-master",
+            "version": "v1.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/Uzzaircode/star-rating-ui.git",
+                "reference": "33f983cf6ea09c1d9099f2ceeb6fdbc21d0b48d0"
+            },
             "dist": {
-                "type": "path",
-                "url": "packages/uzzaircode/star-rating-ui",
-                "reference": "a751ad2914572440e20c7cb114e5a55320d2207d",
-                "shasum": null
+                "type": "zip",
+                "url": "https://api.github.com/repos/Uzzaircode/star-rating-ui/zipball/33f983cf6ea09c1d9099f2ceeb6fdbc21d0b48d0",
+                "reference": "33f983cf6ea09c1d9099f2ceeb6fdbc21d0b48d0",
+                "shasum": ""
             },
             "type": "library",
             "extra": {
@@ -5079,8 +5084,12 @@
             "autoload": {
                 "psr-4": {
                     "Uzzaircode\\StarRatingUI\\": "src/"
-                }
+                },
+                "files": [
+                    "src/helpers/Helper.php"
+                ]
             },
+            "notification-url": "https://packagist.org/downloads/",
             "license": [
                 "MIT"
             ],
@@ -5091,9 +5100,7 @@
                 }
             ],
             "description": "star rating ui",
-            "transport-options": {
-                "symlink": true
-            }
+            "time": "2019-01-21T07:39:11+00:00"
         },
         {
             "name": "vlucas/phpdotenv",

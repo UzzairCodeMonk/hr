@@ -17,8 +17,8 @@
             </div>
             <div class="col">
                 <label for="">Proficiency Rate</label>
-                <input type="text" name="period" class="form-control" value="{{old('period',$skill->period ?? null)}}" />
-                @include('star-rating-ui::star-rating')
+                <!-- <input type="text" name="period" class="form-control" value="{{old('period',$skill->period ?? null)}}" /> -->
+                @include('vendor.star-rating-ui.star-rating',['fieldName' => 'period','class'=>'period'])
             </div>
         </div>
     </div>
