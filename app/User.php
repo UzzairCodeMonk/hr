@@ -58,7 +58,8 @@ class User extends Authenticatable
 
     public function leaves()
     {
-        return $this->hasMany(Leave::class);
+        return $this->hasMany(Leave::class)
+            ->orderBy('created_at','desc');
     }
 
     public function personalDetail()

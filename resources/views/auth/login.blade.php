@@ -7,11 +7,12 @@ Login
     <img src="{{asset('images/login-logo.svg')}}" alt="" class="text-center" height="200">
     <br>
     <h5 class="text-uppercase">Login</h5>
-    <form class="form-type-material" method="POST" action="{{ route('login') }}">
+    <form class="" method="POST" action="{{ route('login') }}">
         @csrf
         <div class="form-group">
             <label for="email">{{ __('E-Mail Address') }}</label>
-            <input type="text" name="email" class="form-control{{ $errors->has('email') ? ' is-invalid' : '' }}" value="{{ old('email') }}" required autofocus>
+            <input type="text" name="email" class="form-control{{ $errors->has('email') ? ' is-invalid' : '' }}" value="{{ old('email') }}"
+                required autocomplete="nope">
             @if ($errors->has('email'))
             <span class="invalid-feedback">
                 <strong>{{ $errors->first('email') }}</strong>
@@ -19,8 +20,10 @@ Login
             @endif
         </div>
         <div class="form-group">
-            <input type="password" name="password" class="form-control{{ $errors->has('password') ? ' is-invalid' : '' }}" id="password">
             <label for="email">{{ __('Password') }}</label>
+            <input type="password" name="password" class="form-control{{ $errors->has('password') ? ' is-invalid' : '' }}"
+                id="password" autocomplete="nope">
+
         </div>
         <!-- <div class="form-group flexbox">
             <div class="custom-control custom-checkbox">

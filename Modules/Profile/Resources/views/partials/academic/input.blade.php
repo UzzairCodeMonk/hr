@@ -13,7 +13,14 @@
             <div class="col">
                 <div class="form-group">
                     <label for="">Study Level</label>
-                    <input type="text" name="study_level" class="form-control" value="{{old('study_level',$academy->study_level ?? '')}}" />
+                    <select name="study_level" class="form-control">
+                        <option value="">Please choose</option>
+                        <option value="SPM" {{isset($academy) && $academy->study_level == 'SPM' ? 'selected':''}}>SPM</option>
+                        <option value="STPM"  {{isset($academy) && $academy->study_level == 'STPM' ? 'selected':''}}>STPM</option>
+                        <option value="Matriculation"  {{isset($academy) && $academy->study_level == 'Matriculation' ? 'selected':''}}>Matriculation</option>
+                        <option value="Bachelor's Degree"  {{isset($academy) && $academy->study_level == 'Bachelor\'s Degree' ? 'selected':''}}>Bachelor's Degree</option>
+                        <option value="Master's Degree"  {{isset($academy) && $academy->study_level == 'Master\'s Degree' ? 'selected':''}}>Master's Degree</option>
+                    </select>                    
                     @include('backend.shared._errors',['entity'=>'study_level'])
                 </div>
             </div>

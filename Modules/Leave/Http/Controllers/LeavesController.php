@@ -67,7 +67,7 @@ class LeavesController extends Controller
     public function show($id)
     {
         return view('leave::leave.admin.user-leaves', [
-            'leaves' => $this->user->find($id)->leaves,
+            'leaves' => $this->user->find($id)->leaves
         ]);
     }
 
@@ -84,12 +84,20 @@ class LeavesController extends Controller
         ]);
     }
 
+    public function editUserLeaves($id)
+    {
+        return view('leave::leave.forms.edit', [
+            'leave' => $this->leave->find($id),
+            'types' => $this->type->all(),
+            'statuses' => $this->leave->find($id)->statuses,
+            // 'actionVisibility' => $actionVisibility
+        ]);
+    }
+
     public function showMyLeaveApplications()
     {
-
         return view('leave::leave.my-leave', [
-            'results' => Auth::user()->leaves
-
+            'results' => Auth::user()->leaves,
         ]);
     }
 
@@ -98,7 +106,7 @@ class LeavesController extends Controller
         return view('leave::leave.forms.apply', [
             'types' => $this->type->all(),
             'holidays' => $this->holiday->all()
-            ]);
+        ]);
     }
 
     public function store(ApplyLeaveRequest $request)
@@ -116,6 +124,21 @@ class LeavesController extends Controller
 
         toast('Leave record submitted', 'success', 'top-right');
         return redirect()->back();
+    }
+
+    public function update($id, Request $request)
+    {
+        $leave = Leave::find($id);
+
+        $leave->update($this->data);
+
+        $this->saveTotalDaysTaken($leave);
+
+        $this->saveAttachments($request, $leave);
+
+        toast('Leave record submitted', 'success', 'top-right');
+        return redirect()->back();
+
     }
 
     public function saveTotalDaysTaken($leave)
