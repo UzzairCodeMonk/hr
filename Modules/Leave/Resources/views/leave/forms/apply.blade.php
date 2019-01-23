@@ -14,9 +14,10 @@ Leave Application Form
     <div class="card-header">
         <h3>Leave Application Form</h3>
         <div class="card-options">
-            <button type="button" class="btn btn-sm btn-primary" data-toggle="quickview" data-target="#qv-minimal">View
+            <button type="button" class="btn btn-sm btn-info" data-toggle="quickview" data-target="#public-holidays">View
                 Public
                 Holidays</button>
+                <button type="button" class="btn btn-sm btn-info" data-toggle="quickview" data-target="#leave-balance">Your Leave Balance</button>
         </div>
     </div>
     <div class="card-body">
@@ -35,8 +36,7 @@ Leave Application Form
                                 <label for="" class="require">{{ucwords(__('leave::leave.leave-type'))}}</label>
                                 <select name="leavetype_id" id="" class="form-control">
                                     @foreach($types as $type)
-                                    <option value="{{$type->id}}">{{$type->name}} || Balance:
-                                        {{getUserLeaveBalance($type)}}{{$type->days}} {{str_plural('day',$type->days)}}</option>
+                                    <option value="{{$type->id}}">{{$type->name}}</option>
                                     @endforeach
                                 </select>
                                 @include('backend.shared._errors',['entity'=>'leavetype_id'])
@@ -90,7 +90,7 @@ Leave Application Form
 </div>
 
 <!-- public holiday modal -->
-<div id="qv-minimal" class="quickview quickview-xl">
+<div id="public-holidays" class="quickview quickview-xl">
     <header class="quickview-header">
         <p class="quickview-title">Available public holidays. Plan your leave wisely 😁</p>
         <span class="close"><i class="ti-close"></i></span>
@@ -112,6 +112,36 @@ Leave Application Form
                         <td>{{++$key}}</td>
                         <td>{{$h->name ?? 'N/Application'}}</td>
                         <td>{{$h->date ?? 'N/A'}}</td>
+                    </tr>
+                    @endforeach
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<div id="leave-balance" class="quickview quickview-xl">
+    <header class="quickview-header">
+        <p class="quickview-title">Your leave balance. Plan your leave wisely 😁</p>
+        <span class="close"><i class="ti-close"></i></span>
+    </header>
+
+    <div class="quickview-body">
+        <div class="quickview-block">
+            <table class="table table-bordered datatable">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Leave Type</th>
+                        <th>Balance</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach($types as $key=>$type)
+                    <tr>
+                        <td>{{++$key}}</td>
+                        <td>{{$type->name ?? 'N/A'}}</td>
+                        <td>{{getUserLeaveBalance($type)}}{{$type->days}} {{str_plural('day',$type->days)}}</td>
                     </tr>
                     @endforeach
                 </tbody>
