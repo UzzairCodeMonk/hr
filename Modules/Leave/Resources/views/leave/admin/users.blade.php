@@ -26,7 +26,7 @@ Employee user Records
                             <img class="avatar" src="{{asset($user->personalDetail->avatar) ?? '' }}" alt="">
                             <div class="media-body">
                                 <p class="lh-1">{{$user->name ?? 'N/A'}}</p>
-                                <small>{{$user->personalDetail->position->name ?? 'N/A'}}</small>
+                                <small>{{$user->personalDetail->position->name ?? 'N/A'}}  {{$user->personalDetail->staff_number ?? 'N/A'}}</small>
                             </div>
                         </div></td>
                     <td class="text-center">{{$user->email ?? 'N/A'}}</td>                    

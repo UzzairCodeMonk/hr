@@ -58,9 +58,7 @@ class LeavesController extends Controller
     protected $submittedStatus = 'submitted';
 
     public function index()
-    {
-        // $leaves = $this->leave->all();        
-        // return view('leave::leave.admin.leave-records', compact('leaves'));
+    {       
         return view('leave::leave.admin.users', ['users' => $this->user->has('personalDetail')->get()]);
     }
 
