@@ -67,7 +67,8 @@ class LeavesController extends Controller
     public function show($id)
     {
         return view('leave::leave.admin.user-leaves', [
-            'leaves' => $this->user->find($id)->leaves
+            'leaves' => $this->user->find($id)->leaves,
+            'user' => $this->user->find($id)
         ]);
     }
 
