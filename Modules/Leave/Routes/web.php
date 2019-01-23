@@ -19,9 +19,11 @@ Route::group(['prefix' => 'leaves', 'middleware' => 'auth'], function () {
     Route::post('store', 'LeavesController@store')->name('leave.store');
     Route::get('{id}/show', 'LeavesController@show')->name('leave.show')->middleware('signed');
     Route::get('{id}/show/my-leave', 'LeavesController@showUserLeaves')->name('my-leave.show')->middleware('signed');
+    Route::get('{id}/edit/my-leave', 'LeavesController@editUserLeaves')->name('my-leave.edit')->middleware('signed');
+    Route::post('{id}/update','LeavesController@update')->name('my-leave.update');
     Route::get('personal', 'LeavesController@showMyLeaveApplications')->name('leave.personal');
     Route::get('apply', ['uses' => 'LeavesController@showLeaveApplicationForm', 'as' => 'leave.apply']);
-
+    Route::delete('{id}/delete', ['uses' => 'LeavesController@destroy', 'as' => 'leave.user.destroy']);
 });
 
 // Administration routes

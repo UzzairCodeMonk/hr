@@ -31,11 +31,24 @@ My Leave Applications
                         <td>{{$result->end_date ?? 'N/A'}}</td>
                         <td class="text-center">{{$result->days_taken ?? 'N/A'}}</td>
                         <td class="text-center"><span class="badge badge-md {{statusColor($result->status) ?? ''}}">
-                                {{ ucwords($result->status() ?? 'Missing Status') }}</span></td>
+                                {{ ucwords($result->status ?? 'Missing Status') }}</span></td>
                         <td class="text-center">
                             <a href="{{URL::signedRoute('my-leave.show',['id'=>$result->id])}}" class="btn btn-sm" id="">
                                 View
                             </a>
+                            @php
+                            $editVisibility = !in_array(Modules\Leave\Entities\Leave::find($result->id)->status, ['approved', 'rejected']);
+                            @endphp
+                            @if($editVisibility)
+                            <a href="{{URL::signedRoute('my-leave.edit',['id'=>$result->id])}}" class="btn btn-sm">
+                                Edit
+                            </a>
+                            <form action="{{route('leave.user.destroy',['id'=>$result->id])}}" method="POST" class="delete-user-leave d-inline">
+                                @csrf
+                                @method('DELETE')
+                                <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+                            </form>
+                            @endif
                         </td>
                     </tr>
                     @endforeach
@@ -53,10 +66,10 @@ My Leave Applications
 
 @section('page-js')
 @include('asset-partials.datatable')
+@include('components.form.confirmDeleteOnSubmission',['entity'=>'delete-user-leave'])
 <script type="text/javascript">
     $(document).ready(function () {
         $('.datatable').DataTable();
     });
-
 </script>
 @endsection
