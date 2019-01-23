@@ -15,8 +15,9 @@ class CreateFamilyRequest extends FormRequest
     {
         return [
             'name' => 'required',
-            'ic_number' => 'required',
-            'relationship_id' => 'required',                        
+            'ic_number' => 'required|numeric',
+            'relationship_id' => 'required',
+            'mobile_number' => 'required|numeric',            
         ];
     }
 
