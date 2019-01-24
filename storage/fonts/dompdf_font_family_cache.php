@@ -80,4 +80,7 @@
   'poppins' => array(
     'normal' => $fontDir . '\2adb8f3e4a7f1a952a79706199d8aa1e',
   ),
+  'orkneyregular' => array(
+    'normal' => $fontDir . '\5df54b0b337c9e5e772e15184bd65b0e',
+  ),
 ) ?>

@@ -25,15 +25,15 @@ Login
                 id="password" autocomplete="nope">
 
         </div>
-        <!-- <div class="form-group flexbox">
-            <div class="custom-control custom-checkbox">
+        <div class="form-group flexbox">
+            <div class="custom-control custom-checkbox" style="visibility: hidden">
                 <input type="checkbox" class="custom-control-input" name="remember"
                     {{ old('remember') ? 'checked' : '' }}>
                 <label class="custom-control-label">{{ __('Remember Me') }}</label>
             </div>
             <a class="text-muted hover-primary fs-13" href="{{ route('password.request') }}">{{ __('Forgot Your
                 Password?') }}</a>
-        </div> -->
+        </div>
         <div class="form-group">
             <button class="btn btn-bold btn-block btn-primary" type="submit">Login</button>
         </div>
