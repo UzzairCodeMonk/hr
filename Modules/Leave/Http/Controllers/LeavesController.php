@@ -58,8 +58,13 @@ class LeavesController extends Controller
     protected $submittedStatus = 'submitted';
 
     public function index()
-    {       
-        return view('leave::leave.admin.users', ['users' => $this->user->has('personalDetail')->get()]);
+    {    
+        return view('leave::leave.admin.all-records',[
+            'leaves' => $this->leave->whereHas('statuses',function($query){
+                $query->groupBy('name');
+            })->orderBy('created_at','desc')->get()
+        ]);   
+        // return view('leave::leave.admin.users', ['users' => $this->user->has('personalDetail')->get()]);
     }
 
     public function show($id)
