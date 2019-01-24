@@ -12,9 +12,14 @@ class NotificationsController extends Controller
         return view('backend.notifications.index', ['notifications' => auth()->user()->notifications]);
     }
 
-    public function markAsRead($id)
+    public function markAsRead($id, $url = null)
     {
         DB::table('notifications')->where('id', $id)->update(['read_at' => now()]);
+        if ($url != null || $url == '') {
+            return redirect($url);
+        }
+
+        return redirect()->back();
     }
 
     public function deleteNotifications(Request $request)
