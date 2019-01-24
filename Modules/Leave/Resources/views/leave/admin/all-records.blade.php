@@ -1,22 +1,24 @@
 @extends('backend.master')
 @section('page-title')
-{{$user->personalDetail->name ?? ''}}'s Leave Records
+Employees Leave Records
 @endsection
 @section('content')
 <div class="card">
     <div class="card-header">
-        <!-- <h3 class="cad-title">{{$user->personalDetail->name ?? ''}}'s Leave Records</h3> -->
+        <h3 class="cad-title">Employees Leave Records</h3>
     </div>
     <div class="card-body">
+        <div class="table-responsive">
         <table class="table table-striped table-bordered datatable">
             <thead>
                 <tr>
                     <th>#</th>
+                    <th>Applicant</th>
                     <th>Leave Type</th>
                     <th>Start Date</th>
                     <th>End Date</th>
                     <th class="text-center">Total Days</th>
-                    <th class="text-center">Notes</th>
+                    <th class="text-center">Application Date</th>
                     <th class="text-center">Status</th>
                     <th class="text-center">Actions</th>
                 </tr>
@@ -25,11 +27,12 @@
                 @foreach($leaves as $key=>$leave)
                 <tr>
                     <td>{{++$key}}</td>
+                    <td>{{$leave->user->personalDetail->name ?? 'N/A'}}</td>
                     <th>{{$leave->type->name ?? 'N/A'}}</th>
                     <td>{{$leave->start_date ?? 'N/A'}}</td>
                     <td>{{$leave->end_date ?? 'N/A'}}</td>
                     <td class="text-center">{{$leave->days_taken ?? 'N/A'}}</td>
-                    <td class="text-center">{!! $leave->notes ?? 'N/A' !!}</td>
+                    <td class="text-center">{{ $leave->created_at->toDayDateTimeString() ?? 'N/A' }}</td>
                     <td class="text-center"><span class="badge badge-md {{statusColor($leave->status) ?? ''}}">{!! ucwords($leave->status) ?? 'N/A'!!}</span></td>
                     <td class="text-center">
                         <a href="{{URL::signedRoute('leave.employee.show',['id'=>$leave->id])}}" class="btn btn-sm text-dark btn-link">View</a>
@@ -43,6 +46,7 @@
                 @endforeach
             </tbody>            
         </table>
+        </div>
     </div>
 </div>
 <!-- user records -->
