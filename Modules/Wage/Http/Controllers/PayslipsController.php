@@ -107,10 +107,11 @@ class PayslipsController extends Controller
     public function printPayslip(int $id, $month, $year)
     {
         $payslip = Payslip::where('user_id', $id)->where('month', $month)->where('year', $year)->first();
-        $pdf = PDF::loadView('wage::payslips.payslip-pdf', compact('payslip'));
-        $pdfName = $payslip->user->personalDetail->name . '-' . getMonthNameBasedOnInt($payslip->month) . '-' . $payslip->year;
+        // $pdf = PDF::loadView('wage::payslips.pdf', compact('payslip'));
+        // $pdfName = $payslip->user->personalDetail->name . '-' . getMonthNameBasedOnInt($payslip->month) . '-' . $payslip->year;
+        return view('wage::payslips.pdf', ['payslip' => $payslip]);
         // return $pdf->download($pdfName . '.pdf');
-        return $pdf->stream();
+        // return $pdf->stream();
     }
 
 
