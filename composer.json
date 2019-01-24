@@ -28,7 +28,7 @@
         "spatie/laravel-model-status": "^1.6",
         "spatie/laravel-permission": "^2.29",
         "uzzaircode/password-strength": "^1.0",
-        "uzzaircode/star-rating-ui":"^1.0"
+        "uzzaircode/star-rating-ui": "^1.0"
     },
     "require-dev": {
         "beyondcode/laravel-dump-server": "^1.0",

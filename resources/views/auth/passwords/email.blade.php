@@ -1,9 +1,11 @@
-@extends('layouts.app')
-
+@extends('auth.master')
+@section('page-title')
+    Forgot Password
+@endsection
 @section('content')
 <div class="container">
     <div class="row justify-content-center">
-        <div class="col-md-8">
+        <div class="col-md-6">
             <div class="card">
                 <div class="card-header">{{ __('Reset Password') }}</div>
 
@@ -16,7 +18,6 @@
 
                     <form method="POST" action="{{ route('password.email') }}">
                         @csrf
-
                         <div class="form-group row">
                             <label for="email" class="col-md-4 col-form-label text-md-right">{{ __('E-Mail Address') }}</label>
 

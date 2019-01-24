@@ -2,7 +2,7 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
@@ -18,13 +18,13 @@
 </head>
 
 <body>
-    <div class="card">
-        <div class="card-header">
+    <div class="card d-print-block">
+        <div class="card-header d-print-inline">
             <h3 class="card-title">
                 {{getMonthNameBasedOnInt($payslip->month) ?? 'N/A'}} {{$payslip->year ?? 'N/A'}} Payslip
             </h3>           
         </div>
-        <div class="card-body">
+        <div class="card-body d-print-inline">
             <div class="row">
                 <div class="col">
                     <h6><strong>{{$payslip->user->personalDetail->name ?? 'N/A'}}</strong></h6>
@@ -67,7 +67,7 @@
             <hr>
             <div class="row">
                 <div class="col">
-                    <table class="table table-bordered">
+                    <table class="table table-bordered d-print-block">
                         <thead>
                             <tr>
                                 <th class="text-center" colspan="2">Earnings</th>
@@ -94,7 +94,7 @@
                     </table>
                 </div>
                 <div class="col">
-                    <table class="table table-bordered">
+                    <table class="table table-bordered d-print-block">
                         <thead>
                             <tr>
                                 <th class="text-center" colspan="2">Employee Contributions</th>
@@ -125,9 +125,9 @@
                     </table>
                 </div>
             </div>
-            <div class="row">
+            <div class="row d-print-block">
                 <div class="col">
-                    <table class="table table-bordered">
+                    <table class="table table-bordered d-print-block">
                         <thead>
                             <tr>
                                 <th class="text-center" colspan="2">Employer Contributions</th>
@@ -154,7 +154,7 @@
                     </table>
                 </div>
                 <div class="col">
-                    <table class="table table-bordered">
+                    <table class="table table-bordered d-print-block">
                         <thead>
                             <tr>
                                 <th class="text-center" colspan="2">Summary</th>
@@ -182,9 +182,9 @@
                     </table>
                 </div>
             </div>
-            <div class="row">
+            <div class="row d-print-block">
                 <div class="col">
-                    <table class="table table-bordered">
+                    <table class="table table-bordered d-print-block">
                         <thead>
                             <tr>
                                 <th class="text-center" colspan="2">Remarks</th>

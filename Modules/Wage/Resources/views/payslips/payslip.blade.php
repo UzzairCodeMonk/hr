@@ -9,9 +9,9 @@
         <h3 class="card-title">
             {{getMonthNameBasedOnInt($payslip->month) ?? 'N/A'}} {{$payslip->year ?? 'N/A'}} Payslip
         </h3>
-        <!-- <div class="card-options">
+        <div class="card-options">
             <a class="btn btn-primary btn-sm pull-right" href="{{URL::signedRoute('payslip.print',['id'=>$payslip->user_id,'month'=>$payslip->month,'year'=>$payslip->year])}}">Print</a>
-        </div> -->
+        </div>
     </div>
     <div class="card-body">
         <div class="row">
