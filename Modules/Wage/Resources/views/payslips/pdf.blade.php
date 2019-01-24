@@ -133,11 +133,7 @@
             <tr class="item-row">
                 <td class="item-name" colspan="3">EIS</td>
                 <td class="description" colspan="2">{{number_format($payslip->socso_eis_employer,2) ?? 'N/A'}}</td>
-            </tr>
-            <tr>
-                <td class="description" colspan="5">Total: RM 5000.00</td>
-            </tr>
-
+            </tr>            
         </table>
         <table id="items">
             <tr>
@@ -153,11 +149,11 @@
             </tr>
             <tr class="item-row">
                 <td class="item-name" colspan="3">Total Deductions</td>
-                <td class="description" colspan="2">-{{number_format($payslip->total_deductions,2) ?? 'N/A'}}</td>
+                <td class="description" colspan="2"> -{{number_format($payslip->total_deductions,2) ?? 'N/A'}}</td>
             </tr>
             <tr class="item-row">
                 <td class="item-name" colspan="3">Net Pay</td>
-                <td class="description" colspan="2">{{number_format($payslip->net_wage,2) ?? 'N/A'}}</td>
+                <td class="description" colspan="2"><strong>{{number_format($payslip->net_wage,2) ?? 'N/A'}}</strong></td>
             </tr>
         </table>
         <div style="clear:both"></div>
