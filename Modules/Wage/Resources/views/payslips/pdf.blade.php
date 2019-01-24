@@ -133,7 +133,7 @@
             <tr class="item-row">
                 <td class="item-name" colspan="3">EIS</td>
                 <td class="description" colspan="2">{{number_format($payslip->socso_eis_employer,2) ?? 'N/A'}}</td>
-            </tr>            
+            </tr>
         </table>
         <table id="items">
             <tr>
@@ -162,7 +162,13 @@
                 <th>Remarks</th>
             </tr>
             <tr class="item-row">
+                @if($payslip->remarks == '')
+                <td>
+                    No remarks.
+                </td>
+                @else
                 <td>{!! $payslip->remarks !!}</td>
+                @endif
             </tr>
         </table>
 
