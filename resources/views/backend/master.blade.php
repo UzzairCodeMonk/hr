@@ -14,16 +14,27 @@
     @yield('page-css')
     <meta name="csrf-token" content="{{ csrf_token() }}" />
     <style>
-    .topbar-btns .topbar-btn.has-new i::after{
-       content: "{{ Auth::user()->unreadNotifications->count()}}" ;
-       color: black;
-    }
+        .topbar-btns .topbar-btn.has-new i::after{
+        content: "{{ Auth::user()->unreadNotifications->count()}}" ; 
+        position: absolute;
+        top: -11px;
+        right: -7px;
+        /* display: inline-block; */
+        width: 15px;
+        height: 15px;
+        border-radius: 50%;
+        /* border: 2px solid #fff; */
+        background-color: #f96868;
+        padding: 0.3em;
+        font-size: 9px;
+        line-height: 11px;
+}
     </style>
 </head>
 
 <body class="sidebar-folded">
     <div class="preloader">
-            <div class="spinner-circle-shadow spinner-primary"></div>
+        <div class="spinner-circle-shadow spinner-primary"></div>
     </div>
     @include('backend.partials.sidebar')
     @include('backend.partials.top-bar')
