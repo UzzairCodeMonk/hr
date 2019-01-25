@@ -33,13 +33,13 @@ My Notifications
                         <td>
                             @if(isset($n->data['type']) && $n->data['type'] == 'leave')
                             <?php $leave_id = $n->data['leave_id']; ?>
-                            <a class="media mark-read" href="{{URL::signedRoute('leave.employee.show',['id'=>$leave_id])}}"
+                            <a class="media" href="{{URL::signedRoute('leave.employee.show',['id'=>$leave_id])}}"
                                 data-id="{{ $n->id }}">
                                 <span class="avatar"><i class="ti-files"></i></span>
                                 <!-- payslip -->
                                 @elseif(isset($n->data['type']) && $n->data['type'] == 'payslip')
                                 <?php $user_id = $n->data['user_id'];$month= $n->data['month'];$year= $n->data['year']; ?>
-                                <a class="media mark-read" href="{{URL::signedRoute('payslip.my.record',['id'=>$user_id,'month'=>$month,'year'=>$year])}}"
+                                <a class="media" href="{{URL::signedRoute('payslip.my.record',['id'=>$user_id,'month'=>$month,'year'=>$year])}}"
                                     data-id="{{ $n->id }}">
                                     <span class="avatar"><i class="ti-money"></i></span>
                                     @else
@@ -81,5 +81,5 @@ My Notifications
     });
 
 </script>
-@include('components.form.confirmDeleteOnSubmission',['entity'=>'notification-bulk-delete'])
+<!-- @include('components.form.confirmDeleteOnSubmission',['entity'=>'notification-bulk-delete']) -->
 @endsection
