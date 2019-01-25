@@ -13,6 +13,12 @@
     <link rel="stylesheet" href="{{asset('css/style.css')}}">
     @yield('page-css')
     <meta name="csrf-token" content="{{ csrf_token() }}" />
+    <style>
+    .topbar-btns .topbar-btn.has-new i::after{
+       content: "{{ Auth::user()->unreadNotifications->count()}}" ;
+       color: black;
+    }
+    </style>
 </head>
 
 <body class="sidebar-folded">
