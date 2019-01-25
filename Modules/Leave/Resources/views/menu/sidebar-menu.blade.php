@@ -36,3 +36,20 @@
         </li>        
     </ul>
 </li>
+
+<li class="menu-item">
+        <a class="menu-link" href="#">
+            <span class="icon ti-files"></span>
+            <span class="title">Claim</span>
+            <span class="arrow"></span>
+        </a>
+    
+        <ul class="menu-submenu">
+            <li class="menu-item">
+                <a class="menu-link" href="{{route('claim.submit')}}">
+                    <span class="dot"></span>
+                    <span class="title">Submit Claim</span>
+                </a>
+            </li>        
+        </ul>
+    </li>
