@@ -15,7 +15,7 @@
     <meta name="csrf-token" content="{{ csrf_token() }}" />
     <style>
         .topbar-btns .topbar-btn.has-new i::after{
-        content: "{{ Auth::user()->unreadNotifications->count()}}" ;         
+        content: "{{ Auth::user()->unreadNotifications->count() ?? 0}}" ;         
     position: absolute;
     top: -11px;
     right: -7px;
