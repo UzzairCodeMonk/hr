@@ -246,19 +246,19 @@
     }
 
     &.has-new i::after {
-    content: '23';
-    position: absolute;
-    top: -11px;
-    right: -9px;
-    /* display: inline-block; */
-    width: 19px;
-    height: 19px;
-    border-radius: 50%;
-    /* border: 2px solid #fff; */
-    background-color:$color-danger;
-    padding: 0.6em;
-    font-size: 9px;
-    line-height: 11px;
+      content: '';
+      position: absolute;
+      top: -11px;
+      right: -7px;
+      /* display: inline-block; */
+      width: 15px;
+      height: 15px;
+      border-radius: 50%;
+      /* border: 2px solid #fff; */
+      background-color: #f96868;
+      padding: 0.3em;
+      font-size: 9px;
+      line-height: 11px;
     }
 
     .avatar {
