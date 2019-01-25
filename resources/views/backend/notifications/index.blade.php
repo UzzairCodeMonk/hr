@@ -7,7 +7,7 @@ My Notifications
     <div class="card-header">
         <h3 class="card-title">My Notifications</h3>
     </div>
-    <form action="{{route('delete.notifications')}}" method="POST" class="family-bulk-delete">
+    <form action="{{route('delete.notifications')}}" method="POST" class="notification-bulk-delete">
         @csrf
         @method('DELETE')
         <div class="card-body">
@@ -81,4 +81,5 @@ My Notifications
     });
 
 </script>
+@include('components.form.confirmDeleteOnSubmission',['entity'=>'notification-bulk-delete'])
 @endsection
