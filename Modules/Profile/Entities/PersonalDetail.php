@@ -7,6 +7,7 @@ use Datakraf\User;
 use Modules\Profile\Events\PersonalDetailCreated;
 use Modules\Profile\Entities\Position;
 use Carbon\Carbon;
+use Modules\Wage\Entities\Bank;
 
 class PersonalDetail extends Model
 {
@@ -22,6 +23,11 @@ class PersonalDetail extends Model
     public function position()
     {
         return $this->belongsTo(Position::class, 'position_id');
+    }
+
+    public function bank()
+    {
+        return $this->belongsTo(Bank::class,'bank_id');
     }
 
     public function setDateOfBirthAttribute($value)
