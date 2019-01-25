@@ -15,19 +15,19 @@
     <meta name="csrf-token" content="{{ csrf_token() }}" />
     <style>
         .topbar-btns .topbar-btn.has-new i::after{
-        content: "{{ Auth::user()->unreadNotifications->count()}}" ; 
-        position: absolute;
-        top: -11px;
-        right: -7px;
-        /* display: inline-block; */
-        width: 15px;
-        height: 15px;
-        border-radius: 50%;
-        /* border: 2px solid #fff; */
-        background-color: #f96868;
-        padding: 0.3em;
-        font-size: 9px;
-        line-height: 11px;
+        content: "{{ Auth::user()->unreadNotifications->count()}}" ;         
+    position: absolute;
+    top: -11px;
+    right: -7px;
+    /* display: inline-block; */
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    /* border: 2px solid #fff; */
+    background-color: #f96868;
+    padding: 0.em;
+    font-size: 9px;
+    line-height: 11px;
 }
     </style>
 </head>
