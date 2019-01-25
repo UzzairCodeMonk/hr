@@ -43,6 +43,7 @@ Personal Details
                     <div class="form-group">
                         <label for="">{{ucwords(__('profile::personal-detail.name'))}}</label>
                         <input type="text" name="name" id="" class="form-control" value="{!! old('name',  isset($personalDetail->name) ? $personalDetail->name : null) !!}">
+                        <p class="form-text">Enter your name as in IC/Birth Certificate</p>
                     </div>
                     <div class="row">
                         <div class="col">
@@ -64,31 +65,19 @@ Personal Details
                             <div class="form-group">
                                 <label for="">{{ucwords(__('profile::personal-detail.ic-number'))}}</label>
                                 <input type="text" name="ic_number" id="" class="form-control" value="{{old('ic_number',isset($personalDetail->ic_number) ? $personalDetail->ic_number:null)}}">
+                                <p class="form-text">Numeric, without hyphen '-'. e.g: 940214075976</p>
                             </div>
                         </div>
                         <div class="col">
                             <div class="form-group">
                                 <label for="">{{ucwords(__('profile::personal-detail.staff-no'))}}</label>
-                                <p>{{old('staff_number',isset($personalDetail->staff_number)? $personalDetail->staff_number:null)}}</p>
+                                <p>{{old('staff_number',isset($personalDetail->staff_number)?
+                                    $personalDetail->staff_number:null)}}</p>
                             </div>
                         </div>
 
                     </div>
-                    <div class="row">
-                        <div class="col">
-                            <div class="form-group">
-                                <label for="">{{ucwords(__('profile::personal-detail.basic-salary'))}}</label>
-                                <p>{{$personalDetail->user->wages->first()->wage ?? 0.00}}</p>
-                            </div>
-                        </div>
-                        <div class="col">
-                            <div class="form-group">
-                                <label for="">{{ucwords(__('profile::personal-detail.bank-account-number'))}}</label>
-                                <input type="text" name="bank_account_number" id="" class="form-control" value="{{old('bank_account_number',isset($personalDetail->bank_account_number)? $personalDetail->bank_account_number:null)}}">
-                            </div>
-                        </div>
 
-                    </div>
                     <div class="row">
                         <div class="col">
                             <div class="form-group">
@@ -141,12 +130,14 @@ Personal Details
                             <div class="form-group">
                                 <label for="">{{ucwords(__('profile::personal-detail.phone-number'))}}</label>
                                 <input type="text" name="phone_number" id="" class="form-control" value="{{old('phone_number',isset($personalDetail->phone_number)?$personalDetail->phone_number:null)}}">
+                                <p class="form-text">Numeric, without hyphen '-'. e.g: 0312345678</p>
                             </div>
                         </div>
                         <div class="col">
                             <div class="form-group">
                                 <label for="">{{ucwords(__('profile::personal-detail.mobile-number'))}}</label>
                                 <input type="text" name="mobile_number" id="" class="form-control" value="{{old('mobile_number',isset($personalDetail->mobile_number)?$personalDetail->mobile_number:null)}}">
+                                <p class="form-text">Numeric, without hyphen '-'. e.g: 0135637817</p>
                             </div>
                         </div>
                     </div>
@@ -204,6 +195,41 @@ Personal Details
                             <div class="form-group">
                                 <label for="">{{ucwords(__('profile::personal-detail.country'))}}</label>
                                 <input type="text" name="country" id="" class="form-control" value="{{old('country',isset($personalDetail->country)? $personalDetail->country:null)}}">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <hr>
+            <div class="row">
+                <div class="col-4">
+                    <h3>Wage & Banking Information</h3>
+                </div>
+                <div class="col-8">
+                    <div class="row">
+                        <div class="col">
+                            <div class="form-group">
+                                <label for="">{{ucwords(__('profile::personal-detail.basic-salary'))}}</label>
+                                <p>{{$personalDetail->user->wages->first()->wage ?? 0.00}}</p>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="form-group">
+                                <label for="">Bank Name</label>                                
+                                <p>
+                                    {{$personalDetail->bank->name ?? 'N/A'}}
+                                </p>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            <div class="form-group">
+                                <label for="">Bank Account Number</label>
+                                <p>
+                                    {{$personalDetail->bank_account_number ?? 'N/A'}}
+                                </p>                        
                             </div>
                         </div>
                     </div>
