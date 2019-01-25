@@ -33,14 +33,12 @@ My Notifications
                         <td>
                             @if(isset($n->data['type']) && $n->data['type'] == 'leave')
                             <?php $leave_id = $n->data['leave_id']; ?>
-                            <a class="media" href="#"
-                                data-id="{{ $n->id }}">
+                            <a class="media" href="#" data-id="{{ $n->id }}">
                                 <span class="avatar"><i class="ti-files"></i></span>
                                 <!-- payslip -->
                                 @elseif(isset($n->data['type']) && $n->data['type'] == 'payslip')
                                 <?php $user_id = $n->data['user_id'];$month= $n->data['month'];$year= $n->data['year']; ?>
-                                <a class="media" href="#"
-                                    data-id="{{ $n->id }}">
+                                <a class="media" href="#" data-id="{{ $n->id }}">
                                     <span class="avatar"><i class="ti-money"></i></span>
                                     @else
                                     <a class="media" href="#">
