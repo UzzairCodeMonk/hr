@@ -20,6 +20,12 @@ class Claim extends Model
     {
         return $this->belongsTo(User::class, 'user_id');
     }
+
+    public function attachments()
+    {
+        return $this->hasMany(ClaimAttachment::class);
+    }
+    
     public function setDateAttribute($value)
     {
         $this->attributes['date'] = Carbon::createFromFormat(config('app.date_format'), $value)->format('Y-m-d');

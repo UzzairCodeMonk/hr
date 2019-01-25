@@ -92,9 +92,11 @@ class ClaimsController extends Controller
      * Show the specified resource.
      * @return Response
      */
-    public function show()
+    public function show($id)
     {
-        return view('wage::show');
+        return view('wage::claims.show', [
+            'claim' => $this->claim->find($id),
+        ]);
     }
 
     /**
@@ -122,7 +124,7 @@ class ClaimsController extends Controller
     public function destroy($id)
     {
         $this->claim->find($id)->delete();
-        
+
         toast('Claim deleted successfully', 'success', 'top-right');
         return redirect()->back();
     }

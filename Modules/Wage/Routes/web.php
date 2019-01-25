@@ -13,6 +13,7 @@ Route::group(['prefix' => 'claim', 'middleware' => ['auth']], function () {
     Route::get('apply', 'ClaimsController@index')->name('claim.submit');
     Route::post('store', 'ClaimsController@store')->name('claim.store');
     Route::delete('{id}/delete', ['uses' => 'ClaimsController@destroy', 'as' => 'claim.destroy']);
+    Route::get('{id}/show','ClaimsController@show')->name('claim.show')->middleware('signed');
 });
 
 Route::group(['prefix' => config('app.administration_prefix'), 'middleware' => 'auth'], function () {
