@@ -4,6 +4,7 @@ namespace Modules\Wage\Entities;
 
 use Illuminate\Database\Eloquent\Model;
 use Carbon\Carbon;
+use Datakraf\User;
 
 class Claim extends Model
 {
@@ -15,6 +16,10 @@ class Claim extends Model
         return $this->belongsTo(ClaimType::class, 'claimtype_id');
     }
 
+    public function user()
+    {
+        return $this->belongsTo(User::class, 'user_id');
+    }
     public function setDateAttribute($value)
     {
         $this->attributes['date'] = Carbon::createFromFormat(config('app.date_format'), $value)->format('Y-m-d');

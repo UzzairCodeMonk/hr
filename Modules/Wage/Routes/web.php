@@ -12,6 +12,7 @@ Route::group(['prefix' => 'wage', 'middleware' => 'auth'], function () {
 Route::group(['prefix' => 'claim', 'middleware' => ['auth']], function () {
     Route::get('apply', 'ClaimsController@index')->name('claim.submit');
     Route::post('store', 'ClaimsController@store')->name('claim.store');
+    Route::delete('{id}/delete', ['uses' => 'ClaimsController@destroy', 'as' => 'claim.destroy']);
 });
 
 Route::group(['prefix' => config('app.administration_prefix'), 'middleware' => 'auth'], function () {
@@ -22,6 +23,10 @@ Route::group(['prefix' => config('app.administration_prefix'), 'middleware' => '
         Route::post('generate', ['uses' => 'PayslipsController@generatePayslip', 'as' => 'payslip.generate']);
         Route::get('{id}/{month}/{year}/view', ['uses' => 'PayslipsController@viewPayslip', 'as' => 'payslip.employee.record'])->middleware('signed');
         Route::delete('{id}/delete', ['uses' => 'PayslipsController@destroy', 'as' => 'payslip.delete']);
+    });
+
+    Route::group(['prefix'=>'claim'],function(){
+        Route::get('records',['uses'=>'ClaimsController@claimRecords','as' => 'claim.records']);        
     });
 
 });

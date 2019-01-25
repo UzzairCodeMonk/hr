@@ -44,6 +44,13 @@ class ClaimsController extends Controller
         return view('wage::claim');
     }
 
+    public function claimRecords()
+    {
+        return view('wage::claims.admin.all-records', [
+            'claims' => $this->claim->orderBy('created_at', 'desc')->get()
+        ]);
+    }
+
     /**
      * Store a newly created resource in storage.
      * @param  Request $request
@@ -112,7 +119,11 @@ class ClaimsController extends Controller
      * Remove the specified resource from storage.
      * @return Response
      */
-    public function destroy()
+    public function destroy($id)
     {
+        $this->claim->find($id)->delete();
+        
+        toast('Claim deleted successfully', 'success', 'top-right');
+        return redirect()->back();
     }
 }
