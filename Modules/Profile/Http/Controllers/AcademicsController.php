@@ -8,6 +8,7 @@ use Illuminate\Routing\Controller;
 use Datakraf\Traits\Crudable;
 use Datakraf\Traits\AlertMessage;
 use Modules\Profile\Entities\Academic;
+use Modules\Profile\Http\Requests\CreateAcademicsRequest;
 
 class AcademicsController extends Controller
 {
@@ -26,7 +27,7 @@ class AcademicsController extends Controller
         return view('profile::forms.personal-details.academic', compact('academics'));
     }
 
-    public function store(Request $request)
+    public function store(CreateAcademicsRequest $request)
     {
         Academic::create([
             'user_id' => auth()->id(),
@@ -55,7 +56,7 @@ class AcademicsController extends Controller
      * @param  Request $request
      * @return Response
      */
-    public function update(Request $request, $id)
+    public function update(CreateAcademicsRequest $request, $id)
     {
         Academic::find($id)->update($request->all());
         toast($this->message('update', 'Academic record'), 'success', 'top-right');
