@@ -8,6 +8,7 @@ use Illuminate\Routing\Controller;
 use Modules\Profile\Entities\Experience;
 use Datakraf\Traits\AlertMessage;
 use Datakraf\Traits\Crudable;
+use Modules\Profile\Http\Requests\CreateExperiencesRequest;
 
 class ExperiencesController extends Controller
 {
@@ -27,18 +28,18 @@ class ExperiencesController extends Controller
         return view('profile::forms.personal-details.experience', compact('experience'));
     }
 
-    public function store(Request $request)
+    public function store(CreateExperiencesRequest $request)
     {
-        for ($i = 0; $i < count($request->company); ++$i) {
+        // for ($i = 0; $i < count($request->company); ++$i) {
             Experience::create([
                 'user_id' => auth()->id(),
-                'company' => $request->company[$i],
-                'position' => $request->position[$i],
-                'start_date' => $request->start_date[$i],
-                'end_date' => $request->end_date[$i],    
-                'description' => $request->description[$i]
+                'company' => $request->company,
+                'position' => $request->position,
+                'start_date' => $request->start_date,
+                'end_date' => $request->end_date,    
+                'description' => $request->description
             ]);
-        }
+        // }
         toast($this->message('save', 'Employment histroy'), 'success', 'top-right');
         return redirect()->back();
     }
@@ -54,7 +55,7 @@ class ExperiencesController extends Controller
      * @param  Request $request
      * @return Response
      */
-    public function update(Request $request, $id)
+    public function update(CreateExperiencesRequest $request, $id)
     {
         Experience::find($id)->update($request->all());
         toast($this->message('update', 'Employment history'), 'success', 'top-right');
