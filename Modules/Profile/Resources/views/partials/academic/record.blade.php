@@ -40,7 +40,7 @@
 </form>
 @else
 <tr>
-    <td colspan="8">
+    <td colspan="9">
         <p class="text-center">No academic records can be found.</p>
     </td>
 </tr>
