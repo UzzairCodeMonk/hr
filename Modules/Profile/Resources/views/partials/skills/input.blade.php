@@ -12,14 +12,16 @@
     <div class="card-body">
         <div class="row">
             <div class="col">
-                <label for="">Name</label>
+                <label for="" class="require">Name</label>
                 <input type="text" name="skill" class="form-control" 
                 value="{{old('skill',$skill->skill ?? null)}}" />
+                @include('backend.shared._errors',['entity'=>'skill'])
             </div>
             <div class="col">
-                <label for="">Proficiency Rate</label>
+                <label for="" class="require">Proficiency Rate</label>
                 <!-- <input type="text" name="period" class="form-control" value="{{old('period',$skill->period ?? null)}}" /> -->
                 @include('vendor.star-rating-ui.star-rating',['fieldName' => 'period','class'=>'period'])
+                @include('backend.shared._errors',['entity'=>'period'])
             </div>
         </div>
     </div>
