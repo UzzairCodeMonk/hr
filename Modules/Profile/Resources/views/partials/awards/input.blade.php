@@ -10,21 +10,24 @@
         <div class="row">
             <div class="col">
                 <div class="form-group">
-                    <label for="">Name</label>
+                    <label for="" class="require">Name</label>
                     <input type="text" name="name" class="form-control" />
+                    @include('backend.shared._errors',['entity'=>'name'])
                 </div>
             </div>
             <div class="col">
                 <div class="form-group">
-                    <label for="">Received Date</label>
+                    <label for="" class="require">Received Date</label>
                     <input type="text" name="received_date" class="form-control received-date" />
+                    @include('backend.shared._errors',['entity'=>'received_date'])
                 </div>
             </div>
         </div>
         <div class="row">
             <div class="col">
-                <label for="">Notes</label>
+                <label for="" class="require">Notes</label>
                 <textarea name="notes" id="" cols="30" rows="4" class="form-control"></textarea>
+                @include('backend.shared._errors',['entity'=>'notes'])
             </div>
         </div>
     </div>

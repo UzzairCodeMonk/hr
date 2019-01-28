@@ -8,6 +8,7 @@ use Illuminate\Routing\Controller;
 use Datakraf\Traits\Crudable;
 use Datakraf\Traits\AlertMessage;
 use Modules\Profile\Entities\Skill;
+use Modules\Profile\Http\Requests\CreateSkillsRequest;
 
 class SkillsController extends Controller
 {
@@ -26,7 +27,7 @@ class SkillsController extends Controller
         return view('profile::forms.personal-details.skills', compact('skills'));
     }
 
-    public function store(Request $request)
+    public function store(CreateSkillsRequest $request)
     {
 
         $this->skill->create([
@@ -50,7 +51,7 @@ class SkillsController extends Controller
      * @param  Request $request
      * @return Response
      */
-    public function update(Request $request, $id)
+    public function update(CreateSkillsRequest $request, $id)
     {
         Skill::find($id)->update($request->all());
         toast($this->message('update', 'Skill record'), 'success', 'top-right');

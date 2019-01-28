@@ -8,6 +8,7 @@ use Illuminate\Routing\Controller;
 use Datakraf\Traits\Crudable;
 use Datakraf\Traits\AlertMessage;
 use Modules\Profile\Entities\Award;
+use Modules\Profile\Http\Requests\CreateAwardsRequest;
 
 class AwardsController extends Controller
 {
@@ -26,7 +27,7 @@ class AwardsController extends Controller
         return view('profile::forms.personal-details.awards', compact('awards'));
     }
 
-    public function store(Request $request)
+    public function store(CreateAwardsRequest $request)
     {
         $this->award->create([
             'user_id' => auth()->id(),
@@ -50,7 +51,7 @@ class AwardsController extends Controller
      * @param  Request $request
      * @return Response
      */
-    public function update(Request $request, $id)
+    public function update(CreateAwardsRequest $request, $id)
     {
         Award::find($id)->update($request->all());
         toast($this->message('update', 'Award record'), 'success', 'top-right');
