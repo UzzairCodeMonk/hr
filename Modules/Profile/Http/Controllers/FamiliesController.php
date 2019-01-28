@@ -98,14 +98,18 @@ class FamiliesController extends Controller
      * Remove the specified resource from storage.
      * @return Response
      */
-    public function destroy(BulkDeleteRequest $request)
+    public function destroy(Request $request)
     {
 
         $ids = $request->ids;
-        foreach ($ids as $id) {
-            Family::find($id)->delete();
+        if (count($ids) > 0) {
+            foreach ($ids as $id) {
+                Family::find($id)->delete();
+            }
+            toast('Selected records deleted', 'success', 'top-right');
+            return back();
         }
-        toast('Selected records deleted', 'success', 'top-right');
+        toast('Please select a record before delete', 'error', 'top-right');
         return back();
 
     }
