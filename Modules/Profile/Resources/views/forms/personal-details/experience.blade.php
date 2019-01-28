@@ -53,11 +53,9 @@ Employment History
 <script type="text/javascript">
     $(document).ready(function () {
         $('.summernote').summernote({
-            toolbar: [
-                // [groupName, [list of button]]                    
+            toolbar: [                            
                 ['para', ['ul', 'ol']]
-            ],
-            width:300
+            ],            
         });
     });
 

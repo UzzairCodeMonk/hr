@@ -45,10 +45,10 @@
 
         </div>
         <div class="row">
-            <div class="col">
+            <div class="col-lg-12">
                 <div class="form-group">
                     <label for="" class="require">Description</label>
-                    <textarea name="description" id="" cols="30" rows="5" class="form-control">{!! old('description',$expPersonal->description ?? null)!!}</textarea>
+                    <textarea name="description" id="" rows="5" class="form-control summernote" width="100%">{!! old('description',$expPersonal->description ?? null)!!}</textarea>
                     @include('backend.shared._errors',['entity'=>'description'])
                 </div>
             </div>
