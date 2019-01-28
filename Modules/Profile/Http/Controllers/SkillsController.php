@@ -60,12 +60,14 @@ class SkillsController extends Controller
 
     public function destroy(Request $request)
     {
-
         $ids = $request->ids;
-        foreach ($ids as $id) {
-            Skill::find($id)->delete();
+        if (count($ids) > 0) {
+            foreach ($ids as $id) {
+                Skill::find($id)->delete();
+            }
+            toast('Selected records deleted', 'success', 'top-right');
         }
-        toast('Selected records deleted', 'success', 'top-right');
+        toast('Please select a record before delete', 'error', 'top-right');
         return back();
 
     }
