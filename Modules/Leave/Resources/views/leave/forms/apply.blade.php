@@ -17,7 +17,8 @@ Leave Application Form
             <button type="button" class="btn btn-sm btn-info" data-toggle="quickview" data-target="#public-holidays">View
                 Public
                 Holidays</button>
-                <button type="button" class="btn btn-sm btn-info" data-toggle="quickview" data-target="#leave-balance">Your Leave Balance</button>
+            <button type="button" class="btn btn-sm btn-info" data-toggle="quickview" data-target="#leave-balance">Your
+                Leave Balance</button>
         </div>
     </div>
     <div class="card-body">
@@ -27,6 +28,8 @@ Leave Application Form
             <div class="row">
                 <div class="col-4">
                     <h4>Leave Information</h4>
+                    <p class="text-danger">Important Notes! <br>
+                        Please apply leave only by its respective dates only.Please exclude weekends and public holidays.</p>
                 </div>
                 <div class="col-8">
                     <div class="row">
