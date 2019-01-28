@@ -21,7 +21,8 @@
     <div class="wrapper">
         <div class="sidebar-wrapper">
             <div class="profile-container">
-                <img class="profile" src="{{!empty($personalDetail->avatar) ? asset($personalDetail->avatar):''}}" alt="" width="150px"/>
+                <img class="profile" src="{{!empty($personalDetail->avatar) ? asset($personalDetail->avatar):''}}" alt=""
+                    width="150px" />
                 <h1 class="name">{{$personalDetail->name ?? 'N/A'}}</h1>
                 <h3 class="tagline">{{$personalDetail->position->name ?? 'N/A'}}</h3>
             </div>
@@ -31,7 +32,7 @@
                 <ul class="list-unstyled contact-list">
                     <li class="email"><i class="fas fa-envelope"></i><a href="mailto:" .{!! $personalDetail->user->email
                             !!}>{{$personalDetail->user->email}}</a></li>
-                    <li class="phone"><i class="fas fa-phone"></i><a href="">{{$personalDetail->mobile_number?:'N/A'}}</a></li>                   
+                    <li class="phone"><i class="fas fa-phone"></i><a href="">{{$personalDetail->mobile_number?:'N/A'}}</a></li>
                 </ul>
             </div>
             <!--//contact-container-->
@@ -49,6 +50,15 @@
                 @endforeach
                 <!--//item-->
             </div>
+            @else
+            <div class="item">
+                <ul>
+                    <li>
+                        <p class="font-weight-bold"> This employee does not have academic records. Please require
+                            him/her to complete the information.</p>
+                    </li>
+                </ul>
+            </div>
             @endif
             <!--//education-container-->
 
@@ -56,15 +66,6 @@
         <!--//sidebar-wrapper-->
 
         <div class="main-wrapper">
-
-            <!-- <section class="section summary-section">
-                <h2 class="section-title"><span class="icon-holder"><i class="fas fa-user"></i></span>Career Profile</h2>
-                <div class="summary">
-                    <p>Summarise your career here lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget
-                        dolor aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur
-                        ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu.</p>
-                </div>                
-            </section> -->
             <!--//section-->
             @if($experience->count() > 0)
             <section class="section experiences-section">
@@ -89,6 +90,16 @@
                 @endforeach
                 <!--//item-->
             </section>
+            @else
+            <section class="section experiences-section">
+                <h2 class="section-title"><span class="icon-holder"><i class="fas fa-briefcase"></i></span>Experiences</h2>
+                <div class="text-center">
+                    <img src="{{asset('images/empty-dk.svg')}}" alt="" width="300px" class="mx-auto">
+                    <div class="mt-4"></div>
+                    <p class="font-weight-bold"> This employee does not have employment history records. Please require
+                        him/her to complete the information.</p>
+                </div>
+            </section>
             @endif
             <!--//section-->
 
@@ -101,15 +112,27 @@
                     <div class="item">
                         <h3 class="level-title">{{$skill->skill}}</h3>
                         <div class="progress level-bar">
-                            <div class="progress-bar theme-progress-bar" role="progressbar" 
-                            style="width: {{$skill->period}}%" aria-valuenow="{{$skill->period}}" aria-valuemin="0" aria-valuemax="100">{{$skill->period??'N/A'}}%</div>
+                            <div class="progress-bar theme-progress-bar" role="progressbar" style="width: {{$skill->period}}%"
+                                aria-valuenow="{{$skill->period}}" aria-valuemin="0" aria-valuemax="100">{{$skill->period??'N/A'}}%</div>
                         </div>
                     </div>
                     @endforeach
                     <!--//item-->
                 </div>
             </section>
+            @else
+            <section class="skills-section section">
+                <h2 class="section-title"><span class="icon-holder"><i class="fas fa-rocket"></i></span>Skills &amp;
+                    Proficiency</h2>
+                <div class="text-center">
+                    <img src="{{asset('images/empty-dk.svg')}}" alt="" width="300px" class="mx-auto">
+                    <div class="mt-4"></div>
+                    <p class="font-weight-bold"> This employee does not have skills records. Please require him/her to
+                        complete the information.</p>
+                </div>
+            </section>
             @endif
+
             <!--//skills-section-->
 
         </div>
@@ -117,9 +140,9 @@
     </div>
 
     <footer class="footer">
-        <div class="text-center">            
+        <div class="text-center">
             <small class="copyright">Datakraf Solutions Sdn. Bhd.</small>
-        <!--//container-->
+            <!--//container-->
     </footer>
     <!--//footer-->
 
