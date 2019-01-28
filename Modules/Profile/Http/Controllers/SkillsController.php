@@ -66,6 +66,7 @@ class SkillsController extends Controller
                 Skill::find($id)->delete();
             }
             toast('Selected records deleted', 'success', 'top-right');
+            return back();
         }
         toast('Please select a record before delete', 'error', 'top-right');
         return back();
