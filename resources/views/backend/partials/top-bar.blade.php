@@ -40,18 +40,12 @@
                 </div>
                 @endif
 
-            </li>
-            <!-- END Notifications -->
-            @role('Admin')
-            <!-- <li>
-                <span class="topbar-btn"><i  data-provide="tooltip" data-original-title="Publish new memo" class="ti ti-announcement"></i></span>
-            </li> -->
-            @endrole
+            </li>          
         </ul>
-        @role('Admin')
+        <!-- @role('Admin')
         <div class="topbar-divider"></div>
         <a href="" class="btn btn-xs btn-primary" style="margin-top:6px;"> Access Admin Panel</a>
-        @endrole
+        @endrole -->
     </div>
 </header>
 <!-- END Topbar -->
