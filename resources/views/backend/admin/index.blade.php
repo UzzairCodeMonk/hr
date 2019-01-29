@@ -3,7 +3,16 @@
 Administration Panel
 @endsection
 @section('content')
-<div class="container">    
+<div class="container">
+    <header class="header bg-ui-general">
+        <div class="header-info">
+            <h1 class="header-title">
+                <strong>Administration</strong> Panels
+                <small>Contains various Datakraf HRMS administration controls.</small>
+            </h1>
+        </div>
+    </header>
+
     <div class="row">
         @include('components.admin.panel',[
         'title' => 'Employees',
