@@ -5,7 +5,7 @@ Administration Panel
 @section('content')
 <div class="container">
     <header class="header bg-ui-general">
-        <div class="header-info">
+        <div class="header-info" style="margin:11px 0 !important;">
             <h1 class="header-title">
                 <strong>Administration</strong> Panels
                 <small>Contains various Datakraf HRMS administration controls.</small>
