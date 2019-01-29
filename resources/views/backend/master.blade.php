@@ -33,9 +33,9 @@
 </head>
 
 <body class="sidebar-folded">
-    <div class="preloader">
+    <!-- <div class="preloader">
         <div class="spinner-circle-shadow spinner-primary"></div>
-    </div>
+    </div> -->
     @include('backend.partials.sidebar')
     @include('backend.partials.top-bar')
     <main class="main-container">
