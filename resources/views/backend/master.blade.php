@@ -61,11 +61,11 @@
         var msg = "";
         var icon;
         var img;
-        if (hrs > 0) msg = "Night", icon = "{!! asset('images/moon.svg')!!}"; // REALLY early
-        if (hrs > 6) msg = "Good morning", icon = "{!! asset('images/sunny.svg')!!}"; // After 6am
-        if (hrs > 12) msg = "Good afternoon", icon = "{!! asset('images/sunny.svg')!!}"; // After 12pm
+        if (hrs > 0) msg = "Good night!", icon = "{!! asset('images/moon.svg')!!}";
+        if (hrs > 6) msg = "Good morning", icon = "{!! asset('images/sunny.svg')!!}";
+        if (hrs > 12) msg = "Good afternoon", icon = "{!! asset('images/sunny.svg')!!}";
         if (hrs > 17) msg = "Good evening", icon = "{!! asset('images/sunrise.svg')!!}";
-        if (hrs > 22) msg = "Go to bed!", icon = "{!! asset('images/moon.svg')!!}"; // After 10pm
+        if (hrs > 22) msg = "Go to bed!", icon = "{!! asset('images/moon.svg')!!}";
         @if(Auth::user())
         document.getElementById('greeting').append(msg + " {{Auth::user()->name}}");
         $('#icon').html("<img width='30' src='" + icon + "' />");
