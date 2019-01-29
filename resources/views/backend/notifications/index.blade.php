@@ -11,7 +11,13 @@ My Notifications
         @csrf
         @method('DELETE')
         <div class="card-body">
-            <button type="submit" class="btn btn-sm btn-danger pull-right">Delete <span class="counter-text"></span> selected records</button>
+            <div class="pull-right">
+                <button type="submit" class="btn btn-sm btn-danger pull-right">Delete <span class="counter-text"></span>
+                    selected records</button>
+                <button type="submit" name="mark-read" class="btn btn-sm btn-primary mr-2">Mark <span class="counter-text"></span>
+                    record as read</button>
+            </div>
+
             <div class="mt-5"></div>
             <table class="table-striped table-bordered table datatable">
                 <thead>
@@ -20,7 +26,8 @@ My Notifications
                         <th>#</th>
                         <th>Notifications</th>
                         <th>Date/Time</th>
-                        <th>Status</th>
+                        <th class="text-center">Status</th>
+                        <th class="text-center">Actions</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -52,21 +59,27 @@ My Notifications
                         <td>
                             {{Carbon\Carbon::parse($n->created_at)->toDayDateTimeString()}}
                         </td>
-                        <td>
-                                @if(isset($n->data['type']) && $n->data['type'] == 'leave')
-                                <?php $leave_id = $n->data['leave_id']; ?>
-                                <a class="btn btn-sm btn-secondary" href="{{URL::signedRoute('leave.employee.show',['id'=>$leave_id])}}"
-                                    data-id="{{ $n->id }}">                                   
-                                    <!-- payslip -->
-                                    @elseif(isset($n->data['type']) && $n->data['type'] == 'payslip')
-                                    <?php $user_id = $n->data['user_id'];$month= $n->data['month'];$year= $n->data['year']; ?>
-                                    <a class="btn btn-sm btn-secondary" href="{{URL::signedRoute('payslip.my.record',['id'=>$user_id,'month'=>$month,'year'=>$year])}}"
-                                        data-id="{{ $n->id }}">                                        
-                                        @else
-                                        <a class="btn btn-sm btn-secondary" href="#">                                          
-                                            @endif
-                                          View
-                                        </a>
+                        <td class="text-center">
+
+                            <div class="badge badge-{{$n->read_at != null ? 'success':'danger'}} badge-lg">{{$n->read_at
+                                != null ? 'Read':'Unread'}}</div>
+
+                        </td>
+                        <td class="text-center">
+                            @if(isset($n->data['type']) && $n->data['type'] == 'leave')
+                            <?php $leave_id = $n->data['leave_id']; ?>
+                            <a class="btn btn-sm btn-secondary" href="{{URL::signedRoute('leave.employee.show',['id'=>$leave_id])}}"
+                                data-id="{{ $n->id }}">
+                                <!-- payslip -->
+                                @elseif(isset($n->data['type']) && $n->data['type'] == 'payslip')
+                                <?php $user_id = $n->data['user_id'];$month= $n->data['month'];$year= $n->data['year']; ?>
+                                <a class="btn btn-sm btn-secondary" href="{{URL::signedRoute('payslip.my.record',['id'=>$user_id,'month'=>$month,'year'=>$year])}}"
+                                    data-id="{{ $n->id }}">
+                                    @else
+                                    <a class="btn btn-sm btn-secondary" href="#">
+                                        @endif
+                                        View
+                                    </a>
                         </td>
                     </tr>
                     @endforeach
@@ -94,5 +107,5 @@ My Notifications
     });
 
 </script>
-@include('components.form.confirmDeleteOnSubmission',['entity'=>'notification-bulk-delete'])
+<!-- @include('components.form.confirmDeleteOnSubmission',['entity'=>'notification-bulk-delete']) -->
 @endsection

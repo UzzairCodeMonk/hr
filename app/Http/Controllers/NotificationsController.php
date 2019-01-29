@@ -28,7 +28,14 @@ class NotificationsController extends Controller
         $ids = $request->ids;
         if (count($ids) > 0) {
             foreach ($ids as $id) {
-                DB::table('notifications')->where('id', $id)->delete();
+                // if delete
+                if($request->has('delete')){
+                    DB::table('notifications')->where('id', $id)->delete();
+                }
+                // if mark as read
+                if($request->has('mark-read')){
+                    DB::table('notifications')->where('id', $id)->update(['read_at' => now()]);
+                }                
             }
             toast('Selected records deleted', 'success', 'top-right');
             return back();

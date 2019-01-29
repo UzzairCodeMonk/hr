@@ -60,7 +60,7 @@
         var hrs = now.getHours();
         var msg = "";
         var icon;
-        var img;
+        var img;        
         if (hrs > 0) msg = "Good night!", icon = "{!! asset('images/moon.svg')!!}";
         if (hrs > 6) msg = "Good morning", icon = "{!! asset('images/sunny.svg')!!}";
         if (hrs > 12) msg = "Good afternoon", icon = "{!! asset('images/sunny.svg')!!}";
