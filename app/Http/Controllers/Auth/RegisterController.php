@@ -28,7 +28,7 @@ class RegisterController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = '/home';
+    protected $redirectTo = 'in-profile-modules/in-personal-details/viewing-personal-details';
 
     /**
      * Create a new controller instance.
