@@ -144,7 +144,9 @@ Leave Application Form
                     <tr>
                         <td>{{++$key}}</td>
                         <td>{{$type->name ?? 'N/A'}}</td>
-                        <td>{{getUserLeaveBalance($type)}}{{$type->days}} {{str_plural('day',$type->days)}}</td>
+                        <td>@if(DB::table('leavebalances')->where('user_id',auth()->id())->where('leavetype_id',$type->id)->exists())
+                                {{DB::table('leavebalances')->where('user_id',auth()->id())->where('leavetype_id',$type->id)->first()->balance}}/@endif{{$type->days}}
+                                {{str_plural('day',$type->days)}}</td>
                     </tr>
                     @endforeach
                 </tbody>
