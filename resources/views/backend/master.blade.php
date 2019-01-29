@@ -33,14 +33,16 @@
 </head>
 
 <body class="sidebar-folded">
-    <!-- <div class="preloader">
+    <div class="preloader">
         <div class="spinner-circle-shadow spinner-primary"></div>
-    </div> -->
+    </div>
     @include('backend.partials.sidebar')
     @include('backend.partials.top-bar')
     <main class="main-container">
         @role('Admin')
+        @if(Request::is('administration*'))
         @include('backend.partials.admin-sidebar')
+        @endif
         @endrole
         <div class="main-content">
             @yield('content')

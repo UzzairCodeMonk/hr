@@ -42,7 +42,7 @@ Administration Panel
         'title' => 'Site Configurations',
         'img' => asset('images/dashboard/config.svg'),
         'description' => 'Manage site configurations',
-        'link' => 'hey',
+        'link' => route('siteconfig.index'),
         'linkClass' => 'btn-primary',
         'linkText' => 'Manage'
         ])
