@@ -9,7 +9,7 @@
         @if(Request::is('profile/security*'))
         @include('profile::partials.security.menu')
         @endif        
-        @if(Request::is('profile/personal-details*'))
+        @if(Request::is('in-profile-modules/in-personal-details*'))
         @include('profile::partials.profile.menu')
         @endif
         @include('profile::partials.profile.personal-details-content')

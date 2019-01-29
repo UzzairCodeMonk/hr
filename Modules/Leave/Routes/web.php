@@ -27,8 +27,7 @@ Route::group(['prefix' => 'leaves', 'middleware' => 'auth'], function () {
 });
 
 // Administration routes
-Route::group(['prefix' => config('app.administration_prefix'), 'middleware' => 'auth'], function () {
-    
+Route::group(['prefix' => config('app.administration_prefix'), 'middleware' => ['auth','role:Admin']], function () {    
     // leaves
     Route::group(['prefix' => 'leaves'], function () {
 

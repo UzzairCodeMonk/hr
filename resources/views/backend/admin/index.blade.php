@@ -3,13 +3,13 @@
 Administration Panel
 @endsection
 @section('content')
-<div class="container">
+<div class="container">    
     <div class="row">
         @include('components.admin.panel',[
         'title' => 'Employees',
         'img' => asset('images/dashboard/employees.svg'),
         'description' => 'View and manage employees profiles',
-        'link' => 'hey',
+        'link' => route('user.index'),
         'linkClass' => 'btn-primary',
         'linkText' => 'Manage'
         ])
@@ -18,7 +18,7 @@ Administration Panel
         'title' => 'Leave',
         'img' => asset('images/dashboard/requests.svg'),
         'description' => 'View, approve or reject employees leave applications',
-        'link' => 'hey',
+        'link' => route('leave.index'),
         'linkClass' => 'btn-primary',
         'linkText' => 'Manage'
         ])
@@ -26,7 +26,7 @@ Administration Panel
         'title' => 'Wage',
         'img' => asset('images/dashboard/wage.svg'),
         'description' => 'Calculate and generate employees payslips',
-        'link' => 'hey',
+        'link' => route('payslip.index'),
         'linkClass' => 'btn-primary',
         'linkText' => 'Manage'
         ])
@@ -34,7 +34,7 @@ Administration Panel
         'title' => 'Roles and Permissions',
         'img' => asset('images/dashboard/roles.svg'),
         'description' => 'Manage employees roles and permissions',
-        'link' => 'hey',
+        'link' => route('roles.index'),
         'linkClass' => 'btn-primary',
         'linkText' => 'Manage'
         ])

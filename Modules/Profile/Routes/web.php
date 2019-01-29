@@ -1,39 +1,39 @@
 <?php
 
 
-Route::group(['prefix' => 'profile', 'middleware' => 'auth'], function () {
+Route::group(['prefix' => 'in-profile-modules', 'middleware' => 'auth'], function () {
 
-    Route::group(['prefix' => 'personal-details'], function () {
-        Route::get('/', ['uses' => 'PersonalDetailsController@index', 'as' => 'personal.index']);
-        Route::post('store', ['uses' => 'PersonalDetailsController@store', 'as' => 'personal.store']);
+    Route::group(['prefix' => 'in-personal-details'], function () {
+        Route::get('viewing-personal-details', ['uses' => 'PersonalDetailsController@index', 'as' => 'personal.index']);
+        Route::post('storing-personal-details', ['uses' => 'PersonalDetailsController@store', 'as' => 'personal.store']);
 
         // family
-        Route::group(['prefix' => 'family'], function () {
-            Route::get('/', ['uses' => 'FamiliesController@index', 'as' => 'family.index']);
-            Route::post('store', ['uses' => 'FamiliesController@store', 'as' => 'family.store']);
-            Route::get('{id}/edit', ['uses' => 'FamiliesController@edit', 'as' => 'family.edit']);
+        Route::group(['prefix' => 'in-family'], function () {
+            Route::get('viewing-family-information', ['uses' => 'FamiliesController@index', 'as' => 'family.index']);
+            Route::post('storing-family-information', ['uses' => 'FamiliesController@store', 'as' => 'family.store']);
+            Route::get('editing-family-information/where-identity-is/{id}', ['uses' => 'FamiliesController@edit', 'as' => 'family.edit']);
             Route::post('{id}/update', ['uses' => 'FamiliesController@update', 'as' => 'family.update']);
             Route::delete('bulk-delete',['uses' => 'FamiliesController@destroy','as' =>'family.bulkdelete']);
         });
 
     // academic
-        Route::group(['prefix' => 'academic'], function () {
-            Route::get('/', ['uses' => 'AcademicsController@index', 'as' => 'academic.index']);
-            Route::post('store', ['uses' => 'AcademicsController@store', 'as' => 'academic.store']);
-            Route::get('{id}/edit', ['uses' => 'AcademicsController@edit', 'as' => 'academic.edit']);
+        Route::group(['prefix' => 'in-academic-records'], function () {
+            Route::get('viewing-academic-records', ['uses' => 'AcademicsController@index', 'as' => 'academic.index']);
+            Route::post('storing-academic-records', ['uses' => 'AcademicsController@store', 'as' => 'academic.store']);
+            Route::get('editing-academic-records/where-identity-is/{id}', ['uses' => 'AcademicsController@edit', 'as' => 'academic.edit']);
             Route::post('{id}/update', ['uses' => 'AcademicsController@update', 'as' => 'academic.update']);
             Route::delete('bulk-delete',['uses' => 'AcademicsController@destroy','as' =>'academic.bulkdelete']);
         });
     
     // experience
-        Route::group(['prefix' => 'employment-history'], function () {
+        Route::group(['prefix' => 'in-employment-history'], function () {
             Route::get('/', ['uses' => 'ExperiencesController@index', 'as' => 'experience.index']);
             Route::post('store', ['uses' => 'ExperiencesController@store', 'as' => 'experience.store']);
             Route::get('{id}/edit', ['uses' => 'ExperiencesController@edit', 'as' => 'experience.edit']);
             Route::post('{id}/update', ['uses' => 'ExperiencesController@update', 'as' => 'experience.update']);
         });
 
-        Route::group(['prefix' => 'skills'], function () {
+        Route::group(['prefix' => 'in-skills'], function () {
             Route::get('/', ['uses' => 'SkillsController@index', 'as' => 'skill.index']);
             Route::post('store', ['uses' => 'SkillsController@store', 'as' => 'skill.store']);
             Route::get('{id}/edit', ['uses' => 'SkillsController@edit', 'as' => 'skill.edit']);
@@ -41,7 +41,7 @@ Route::group(['prefix' => 'profile', 'middleware' => 'auth'], function () {
             Route::delete('bulk-delete',['uses' => 'SkillsController@destroy','as' =>'skill.bulkdelete']);
         });
 
-        Route::group(['prefix' => 'awards'], function () {
+        Route::group(['prefix' => 'in-awards'], function () {
             Route::get('/', ['uses' => 'AwardsController@index', 'as' => 'award.index']);
             Route::post('store', ['uses' => 'AwardsController@store', 'as' => 'award.store']);
             Route::get('{id}/edit', ['uses' => 'AwardsController@edit', 'as' => 'award.edit']);
@@ -57,7 +57,7 @@ Route::group(['prefix' => 'profile', 'middleware' => 'auth'], function () {
     });
 });
 
-Route::group(['prefix' => config('app.administration_prefix'), 'middleware' => 'auth'], function () {
+Route::group(['prefix' => config('app.administration_prefix'), 'middleware' => ['auth','role:Admin']], function () {
 
     Route::group(['prefix' => 'family-types'], function () {
         Route::get('/', ['uses' => 'FamilyTypesController@index', 'as' => 'family-type.index']);
@@ -67,7 +67,7 @@ Route::group(['prefix' => config('app.administration_prefix'), 'middleware' => '
         Route::delete('{id}/delete', ['uses' => 'FamilyTypesController@destroy', 'as' => 'family-type.destroy']);
     });
 
-    Route::group(['prefix' => 'positions'], function () {
+    Route::group(['prefix' => 'employees/positions'], function () {
         Route::get('/', ['uses' => 'PositionsController@index', 'as' => 'position.index']);
         Route::post('store', ['uses' => 'PositionsController@store', 'as' => 'position.store']);
         Route::post('{id}/update', ['uses' => 'PositionsController@update', 'as' => 'position.update']);

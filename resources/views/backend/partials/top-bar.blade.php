@@ -42,10 +42,10 @@
 
             </li>          
         </ul>
-        <!-- @role('Admin')
+        @role('Admin')
         <div class="topbar-divider"></div>
-        <a href="" class="btn btn-xs btn-primary" style="margin-top:6px;"> Access Admin Panel</a>
-        @endrole -->
+        <a href="/admin-panel" class="btn btn-xs btn-primary" style="margin-top:6px;"> Access Admin Panel</a>
+        @endrole
     </div>
 </header>
 <!-- END Topbar -->
