@@ -30,5 +30,5 @@ Route::group(['prefix' => config('app.administration_prefix'), 'middleware' => [
 });
 Route::get('load-primary-school', 'UsersController@loadPrimarySchools')->name('load.primarySchool');
 Route::get('test-api', 'UsersController@testApi')->name('load.api');
-Route::view('admin-panel', 'backend.admin.index');
+Route::view('admin-panel', 'backend.admin.index')->middleware(['auth','role:Admin']);
 
