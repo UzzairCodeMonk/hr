@@ -12,7 +12,7 @@ Administration Panel
             </h1>
         </div>
     </header>
-    
+
     <div class="row">
         @include('components.admin.panel',[
         'title' => 'Employees',
