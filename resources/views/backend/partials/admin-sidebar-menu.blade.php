@@ -2,6 +2,7 @@
 @include('profile::admin.sidebar.menu')
 @endif
 
+@if(Request::is(config('app.administration_prefix')."/employees*"))
 <div class="aside-block">
     <div class="flexbox mb-1">
         <h6 class="aside-title">Employees Management</h6>
@@ -24,6 +25,9 @@
     </li>
 </ul>
 <hr>
+@endif
+
+@if(Request::is(config('app.administration_prefix')."/leaves*"))
 <div class="aside-block">
     <div class="flexbox mb-1">
         <h6 class="aside-title">Leave Management</h6>
@@ -44,6 +48,8 @@
     </li>
 </ul>
 <hr>
+@endif
+@if(Request::is(config('app.administration_prefix')."/wages*"))
 <div class="aside-block">
     <div class="flexbox mb-1">
         <h6 class="aside-title">Wage Management</h6>
@@ -56,6 +62,7 @@
     </li>
 </ul>
 <hr>
+@endif
 <!-- <div class="aside-block">
     <div class="flexbox mb-1">
         <h6 class="aside-title">Broadcast</h6>
@@ -68,6 +75,7 @@
     </li>
 </ul>
 <hr> -->
+@if(Request::is(config('app.administration_prefix')."/roles*") || Request::is(config('app.administration_prefix')."/site*"))
 <div class="aside-block">
     <div class="flexbox mb-1">
         <h6 class="aside-title">Configurations</h6>
@@ -77,9 +85,11 @@
     <li class="nav-item {{Route::currentRouteName() == 'siteconfig.index'  ? 'active':''}}">
         <i class="ti ti-settings"></i>
         <a class="nav-link" href="{{route('siteconfig.index')}} ">Site Configurations</a>
-    </li>
+    </li>    
     <li class="nav-item {{Route::currentRouteName() == 'roles.index'  ? 'active':''}}">
         <i class="ti ti-id-badge"></i>
         <a class="nav-link" href="{{route('roles.index')}} ">Roles & Permissions</a>
     </li>
+    
 </ul>
+@endif

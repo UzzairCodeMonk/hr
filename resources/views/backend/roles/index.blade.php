@@ -1,4 +1,7 @@
 @extends('backend.master')
+@section('page-title')
+    Roles &amp; Permissions
+@endsection
 @section('content')
 <div class="card">
     <div class="card-header">

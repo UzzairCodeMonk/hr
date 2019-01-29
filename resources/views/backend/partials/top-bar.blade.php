@@ -14,17 +14,11 @@
         <ul class="topbar-btns">
             <li class="dropdown">
                 <span class="topbar-btn" data-toggle="dropdown">
-                        @if(!empty(auth()->user()->personalDetail->avatar))
-                        <img class="" src="{{asset(auth()->user()->personalDetail->avatar)}}" style=" vertical-align: middle;
-                        width: 40px;
-                        height: 40px;
-                        border-radius: 50%;">
-                        @else
-                        <img style=" vertical-align: middle;
-                        width: 40px;
-                        height: 40px;
-                        border-radius: 50%;" src="https://api.adorable.io/avatars/285/abott@adorable.png">
-                        @endif</span>
+                    @if(!empty(auth()->user()->personalDetail->avatar))
+                    <img class="avatar avatar-bordered" src="{{asset(auth()->user()->personalDetail->avatar)}}">
+                    @else
+                    <img class="avatar" src="https://api.adorable.io/avatars/285/abott@adorable.png">
+                    @endif</span>
                 <div class="dropdown-menu dropdown-menu-right">
                     <a class="dropdown-item" href="{{route('personal.index')}}"><i class="ti-user"></i> My Profile</a>
                     <div class="dropdown-divider"></div>
@@ -38,22 +32,20 @@
             </li>
             <!-- Notifications -->
             <li class="dropdown d-none d-md-block">
-                <span class="topbar-btn {{ Auth::user()->unreadNotifications->count() > 0 ? 'has-new':'' }}" data-toggle="dropdown"><i class="ti-bell"></i></span>
+                <span class="topbar-btn {{ Auth::user()->unreadNotifications->count() > 0 ? 'has-new':'' }}"
+                    data-toggle="dropdown"><i class="ti-bell"></i></span>
                 @if(userHasNotification())
                 <div class="dropdown-menu dropdown-menu-right">
                     @include('components.notification.notification-item')
                 </div>
                 @endif
 
-            </li>
-            <!-- END Notifications -->
-            @role('Admin')
-            <!-- <li>
-                <span class="topbar-btn"><i  data-provide="tooltip" data-original-title="Publish new memo" class="ti ti-announcement"></i></span>
-            </li> -->
-            @endrole
+            </li>          
         </ul>
-
+        @role('Admin')
+        <div class="topbar-divider"></div>
+        <a href="/admin-panel" class="btn btn-xs btn-primary" style="margin-top:6px;"> Access Admin Panel</a>
+        @endrole
     </div>
 </header>
 <!-- END Topbar -->

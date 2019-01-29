@@ -40,7 +40,9 @@
     @include('backend.partials.top-bar')
     <main class="main-container">
         @role('Admin')
+        @if(Request::is('administration*'))
         @include('backend.partials.admin-sidebar')
+        @endif
         @endrole
         <div class="main-content">
             @yield('content')
@@ -59,7 +61,7 @@
         var msg = "";
         var icon;
         var img;
-        if (hrs > 0) msg = "Mornin'", icon = "{!! asset('images/moon.svg')!!}"; // REALLY early
+        if (hrs > 0) msg = "Night", icon = "{!! asset('images/moon.svg')!!}"; // REALLY early
         if (hrs > 6) msg = "Good morning", icon = "{!! asset('images/sunny.svg')!!}"; // After 6am
         if (hrs > 12) msg = "Good afternoon", icon = "{!! asset('images/sunny.svg')!!}"; // After 12pm
         if (hrs > 17) msg = "Good evening", icon = "{!! asset('images/sunrise.svg')!!}";

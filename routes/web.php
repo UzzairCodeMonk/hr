@@ -1,7 +1,7 @@
 <?php
 
 Auth::routes();
-Route::view('dashboard','dashboard');
+Route::view('dashboard', 'dashboard');
 Route::get('/', 'Auth\LoginController@showLoginForm');
 Route::group(['middleware' => 'auth'], function () {
     Route::post('notification/{id}/{url}/mark', ['uses' => 'NotificationsController@markAsRead', 'as' => 'notification.read']);
@@ -9,9 +9,12 @@ Route::group(['middleware' => 'auth'], function () {
     Route::delete('notifications/delete', ['uses' => 'NotificationsController@deleteNotifications', 'as' => 'delete.notifications']);
 
 });
+// prefix
+// middleware
+// name
 
-Route::group(['prefix' => config('app.administration_prefix'), 'middleware' => ['auth', 'role:Admin']], function () {
-    Route::resource('roles', 'RolesController');
+Route::group(['prefix' => config('app.administration_prefix') . '/employees', 'middleware' => ['auth', 'role:Admin']], function () {
+
     Route::group(['prefix' => 'employees'], function () {
         Route::get('/', 'UsersController@index')->name('user.index');
         Route::get('create', 'UsersController@create')->name('user.create');
@@ -22,6 +25,10 @@ Route::group(['prefix' => config('app.administration_prefix'), 'middleware' => [
         Route::post('send-email', 'UsersController@hantarEmail');
     });
 });
+Route::group(['prefix' => config('app.administration_prefix'), 'middleware' => ['auth', 'role:Admin']], function () {
+    Route::resource('roles', 'RolesController');
+});
 Route::get('load-primary-school', 'UsersController@loadPrimarySchools')->name('load.primarySchool');
 Route::get('test-api', 'UsersController@testApi')->name('load.api');
+Route::view('admin-panel', 'backend.admin.index')->middleware(['auth','role:Admin']);
 

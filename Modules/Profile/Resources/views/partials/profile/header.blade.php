@@ -23,9 +23,9 @@
     </div>
     <div class="header-action bg-white">
         <nav class="nav">
-            <a class="nav-link {{Request::is('profile/personal-details*')?'active':''}}" href="{{route('personal.index')}}">Personal
+            <a class="nav-link {{Request::is('in-profile-modules/in-personal-details*')?'active':''}}" href="{{route('personal.index')}}">Personal
                 Details</a>
-            <a class="nav-link {{Request::is('profile/security*')?'active':''}}" href="{{route('security')}}">Security</a>
+            <a class="nav-link {{Request::is('in-profile-modules/security*')?'active':''}}" href="{{route('security')}}">Security</a>
         </nav>
     </div>
 </header>

@@ -9,7 +9,7 @@ Route::group(['prefix'=>'wage','middleware'=>'auth'],function () {
     Route::get('{id}/{month}/{year}/print', ['uses' => 'PayslipsController@printPayslip', 'as' => 'payslip.print'])->middleware('signed');
 });
 
-Route::group(['prefix' => config('app.administration_prefix'), 'middleware' => 'auth'], function () {
+Route::group(['prefix' => config('app.administration_prefix').'/wages', 'middleware' => ['auth','role:Admin']], function () {
 
     Route::group(['prefix' => 'payslips'], function () {
         Route::get('view', ['uses' => 'PayslipsController@index', 'as' => 'payslip.index']);
