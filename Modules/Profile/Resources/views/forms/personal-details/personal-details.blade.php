@@ -11,6 +11,7 @@ Personal Details
         height: 200px;
         border-radius: 50%;
     }
+
 </style>
 @endsection
 @section('form-content')
@@ -18,7 +19,7 @@ Personal Details
     @csrf
     <div class="card">
         <div class="card-body">
-            <div class="row">
+            <!-- <div class="row">
                 <div class="col-lg-4 col-sm-12">
                     <h3>{{ucwords(__('profile::personal-detail.avatar'))}}</h3>
                     <p class="help-text">
@@ -42,7 +43,7 @@ Personal Details
                     </div>
                 </div>
             </div>
-            <hr>
+            <hr> -->
             <div class="row">
                 <div class="col-lg-4 col-sm-12">
                     <h3>{{ucwords(__('profile::personal-detail.identity'))}}</h3>
