@@ -8,19 +8,9 @@ use Modules\Profile\Entities\PersonalDetail;
 use Datakraf\User;
 
 class DemoController extends Controller
-{
-   /**
-     * To display the show page
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function showJqueryImageUpload() 
-    {
-        return view('demos.jqueryimageupload');
-    }
-
+{   
     /**
-     * To handle the comming post request
+     * To handle the coming post request
      *
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response

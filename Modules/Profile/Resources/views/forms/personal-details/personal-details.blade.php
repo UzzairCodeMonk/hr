@@ -2,6 +2,17 @@
 @section('page-title')
 Personal Details
 @endsection
+@section('page-css')
+<!-- Croppie css -->
+<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/croppie/2.6.2/croppie.min.css">
+<style type="text/css">
+    .profile-img img {
+        width: 200px;
+        height: 200px;
+        border-radius: 50%;
+    }
+</style>
+@endsection
 @section('form-content')
 <form action="{{route('personal.store')}}" method="POST" enctype="multipart/form-data">
     @csrf
@@ -22,7 +33,8 @@ Personal Details
                                 <input type="file" name="avatar" id="" class="form-control">
                                 <p class="form-text">Please upload the avatar in 150px x 150px dimension for best
                                     display</p>
-                                <div class="badge badge-md badge-info d-xs-none d-sm-none">Existing file: {!!asset($personalDetail->avatar
+                                <div class="badge badge-md badge-info d-xs-none d-sm-none">Existing file:
+                                    {!!asset($personalDetail->avatar
                                     ?? '')!!}</div>
 
                             </div>
@@ -215,7 +227,7 @@ Personal Details
                         </div>
                         <div class="col-lg-6 col-sm-12">
                             <div class="form-group">
-                                <label for="">Bank Name</label>                                
+                                <label for="">Bank Name</label>
                                 <p>
                                     {{$personalDetail->bank->name ?? 'N/A'}}
                                 </p>
@@ -229,7 +241,7 @@ Personal Details
                                 <label for="">Bank Account Number</label>
                                 <p>
                                     {{$personalDetail->bank_account_number ?? 'N/A'}}
-                                </p>                        
+                                </p>
                             </div>
                         </div>
                     </div>
@@ -272,6 +284,7 @@ Personal Details
 
     </div>
 </form>
+@include('components.form.avatar-modal')
 @endsection
 @section('page-js')
 @include('asset-partials.datepicker')
@@ -298,4 +311,5 @@ Personal Details
     });
 
 </script>
+@include('components.form.upload-avatar')
 @endsection

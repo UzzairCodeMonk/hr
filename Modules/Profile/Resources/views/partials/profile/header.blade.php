@@ -37,9 +37,9 @@
   margin: auto;
 }
 .avatar-upload .avatar-preview {
-  width: 192px;
-  height: 192px;
-  position: relative;
+  width: 180px;
+  height: 180px;
+  /* position: relative; */
   border-radius: 100%;
   border: 6px solid #F8F8F8;
   box-shadow: 0px 2px 4px 0px rgba(0, 0, 0, 0.1);
@@ -61,17 +61,30 @@
     </div> -->
 
     <div class="header-info h-250px mb-0">
-        <!-- <div class="avatar-upload">
-            <div class="avatar-edit" data-provide="tooltip" data-placement="bottom" title="" data-original-title="Change profile picture">
-                <input type='file' id="imageUpload" accept=".png, .jpg, .jpeg" />
-                <label for="imageUpload"></label>
-            </div>
-            <div class="avatar-preview">
-                <div id="imagePreview" style="background-image: url(http://i.pravatar.cc/500?img=7);">
+        <div class="media align-items-end">
+            <div class="avatar-upload">
+                <div class="avatar-edit" data-provide="tooltip" data-placement="bottom" title="" data-original-title="Change profile picture">                   
+                    <input type='file' id="file-upload" accept=".png, .jpg, .jpeg" />
+                    <label for="file-upload"></label>
+                </div>
+                <div class="avatar-preview">
+                    <div id="imagePreview" style="background-image: 
+                    @if(!empty(auth()->user()->personalDetail->avatar))
+                    {{"url(".asset(auth()->user()->personalDetail->avatar).")"}}
+                    @else
+                        url(https://api.adorable.io/avatars/285/abott@adorable.png)
+                    @endif
+                    ">
+                    </div>
                 </div>
             </div>
-        </div> -->
-        <div class="media align-items-end">
+            <div class="media-body">
+                <h1 class="text-white"><strong>{{auth()->user()->personalDetail->name ?? ''}}</strong></h1>
+                <p class="text-white">{{Auth::user()->personalDetail->position->name ?? ''}}</p>
+            </div>
+        </div>
+        
+        <!-- <div class="media align-items-end">
             @if(!empty(auth()->user()->personalDetail->avatar))
             <img class="" src="{{asset(auth()->user()->personalDetail->avatar)}}" style="vertical-align: middle;
             width: 150px;
@@ -85,7 +98,7 @@
                 <h1 class="text-white"><strong>{{auth()->user()->personalDetail->name ?? ''}}</strong></h1>
                 <p class="text-white">{{Auth::user()->personalDetail->position->name ?? ''}}</p>
             </div>
-        </div>
+        </div> -->
     </div>
     <div class="header-action bg-white">
         <nav class="nav">
