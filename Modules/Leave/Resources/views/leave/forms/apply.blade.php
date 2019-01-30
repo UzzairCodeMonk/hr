@@ -14,10 +14,10 @@ Leave Application Form
     <div class="card-header">
         <h3>Leave Application Form</h3>
         <div class="card-options">
-            <button type="button" class="btn btn-sm btn-info" data-toggle="quickview" data-target="#public-holidays">View
+            <button type="button" class="btn btn-sm btn-secondary" data-toggle="quickview" data-target="#public-holidays">View
                 Public
                 Holidays</button>
-            <button type="button" class="btn btn-sm btn-info" data-toggle="quickview" data-target="#leave-balance">Your
+            <button type="button" class="btn btn-sm btn-secondary" data-toggle="quickview" data-target="#leave-balance">Your
                 Leave Balance</button>
         </div>
     </div>
