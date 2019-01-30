@@ -61,7 +61,7 @@
     </div> -->
 
     <div class="header-info h-250px mb-0">
-        <div class="avatar-upload">
+        <!-- <div class="avatar-upload">
             <div class="avatar-edit" data-provide="tooltip" data-placement="bottom" title="" data-original-title="Change profile picture">
                 <input type='file' id="imageUpload" accept=".png, .jpg, .jpeg" />
                 <label for="imageUpload"></label>
@@ -70,8 +70,8 @@
                 <div id="imagePreview" style="background-image: url(http://i.pravatar.cc/500?img=7);">
                 </div>
             </div>
-        </div>
-        <!-- <div class="media align-items-end">
+        </div> -->
+        <div class="media align-items-end">
             @if(!empty(auth()->user()->personalDetail->avatar))
             <img class="" src="{{asset(auth()->user()->personalDetail->avatar)}}" style="vertical-align: middle;
             width: 150px;
@@ -85,7 +85,7 @@
                 <h1 class="text-white"><strong>{{auth()->user()->personalDetail->name ?? ''}}</strong></h1>
                 <p class="text-white">{{Auth::user()->personalDetail->position->name ?? ''}}</p>
             </div>
-        </div> -->
+        </div>
     </div>
     <div class="header-action bg-white">
         <nav class="nav">
