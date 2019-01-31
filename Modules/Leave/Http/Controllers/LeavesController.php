@@ -113,6 +113,12 @@ class LeavesController extends Controller
         ]);
     }
 
+    public function showAdminLeaveApplicationForm(){
+        return view('leave::leave.admin.apply', [
+            'types' => $this->type->all(),
+            'holidays' => $this->holiday->all()
+        ]);
+    }
     public function store(ApplyLeaveRequest $request)
     {
         // create leave

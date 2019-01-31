@@ -32,7 +32,7 @@ Route::group(['prefix' => config('app.administration_prefix'), 'middleware' => [
     Route::group(['prefix' => 'leaves'], function () {
 
         Route::get('/', 'LeavesController@index')->name('leave.index');
-
+        Route::get('apply-for-employees','LeavesController@showAdminLeaveApplicationForm')->name('admin.apply.leave');
         Route::group(['prefix' => 'leave-records'], function () {
             Route::delete('{id}/delete', ['uses' => 'LeavesController@destroy', 'as' => 'leave.destroy']);
             Route::get('{id}/show', 'LeavesController@showUserLeaves')->name('leave.employee.show')->middleware('signed');
