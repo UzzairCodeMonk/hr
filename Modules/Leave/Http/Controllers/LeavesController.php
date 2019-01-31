@@ -224,6 +224,7 @@ class LeavesController extends Controller
     {   
             
         $leave = $this->leave->find($id);        
+        //check if the leave has been approved
         $that_leave = $this->balance->where('leavetype_id',$leave->leavetype_id)->where('user_id',$leave->user_id)->first();
         $that_leave_balance = $that_leave->balance;
         $that_leave_balance += $leave->days_taken;
