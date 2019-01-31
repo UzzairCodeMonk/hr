@@ -23,9 +23,9 @@ trait EpfRates
         // if employee current age exceeds or equals to 60
         return $this->EmployeeCurrentAge($user) >= $this->age ? 
         // return employee_contribution_60 column
-        DB::table('epfrates')->where('min_salary', '>', $basic_salary)->where('max_salary', '!=', $basic_salary)->first()->employee_contribution_60 ?? 0.00 :
+        DB::table('epfrates')->whereRaw($basic_salary.' BETWEEN min_salary and max_salary')->first()->employee_contribution_60 ?? 0.00 :
         // else return normal employee_contribution column
-        DB::table('epfrates')->where('min_salary', '>', $basic_salary)->where('max_salary', '!=', $basic_salary)->first()->employee_contribution ?? 0.00;
+        DB::table('epfrates')->whereRaw($basic_salary.' BETWEEN min_salary and max_salary')->first()->employee_contribution ?? 0.00;
 
     }
 
@@ -34,23 +34,23 @@ trait EpfRates
         // if employee current age exceeds or equals to 60
         return $this->EmployeeCurrentAge($user) >= $this->age ?
         // return employer_contribution_60 column
-        DB::table('epfrates')->where('min_salary', '>', $basic_salary)->where('max_salary', '!=', $basic_salary)->first()->employer_contribution_60 ?? 0.00 :
+        DB::table('epfrates')->whereRaw($basic_salary.' BETWEEN min_salary and max_salary')->first()->employer_contribution_60 ?? 0.00 :
          // else return normal employer_contribution column
-        DB::table('epfrates')->where('min_salary', '>', $basic_salary)->where('max_salary', '!=', $basic_salary)->first()->employer_contribution ?? 0.00;
+        DB::table('epfrates')->whereRaw($basic_salary.' BETWEEN min_salary and max_salary')->first()->employer_contribution ?? 0.00;
 
     }
 
     public function getSipEmployeeContribution(int $basic_salary)
     {
 
-        return DB::table('siprates')->where('min_salary', '>', $basic_salary)->where('max_salary', '!=', $basic_salary)->first()->sip_employee_contribution ?? 0.00;
+        return DB::table('siprates')->whereRaw($basic_salary.' BETWEEN min_salary and max_salary')->first()->sip_employee_contribution ?? 0.00;
 
     }
 
     public function getSipEmployerContribution(int $basic_salary)
     {
 
-        return DB::table('siprates')->where('min_salary', '>', $basic_salary)->where('max_salary', '!=', $basic_salary)->first()->sip_employer_contribution ?? 0.00;
+        return DB::table('siprates')->whereRaw($basic_salary.' BETWEEN min_salary and max_salary')->first()->sip_employer_contribution ?? 0.00;
 
     }
 }

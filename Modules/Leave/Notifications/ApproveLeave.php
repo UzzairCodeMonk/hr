@@ -54,7 +54,8 @@ class ApproveLeave extends Notification implements ShouldQueue
             ->line('Leave Type: ' . $this->leave->type->name)
             ->line('Start Date: ' . $this->leave->start_date)
             ->line('End Date: ' . $this->leave->end_date)
-            ->line('Approved by: '.$this->approver->name);            
+            ->line('Approved by: '.$this->approver->name)
+            ->action();            
     }
 
     /**
