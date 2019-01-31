@@ -113,13 +113,6 @@ class LeavesController extends Controller
         ]);
     }
 
-    public function showAdminLeaveApplicationForm(){
-        return view('leave::leave.admin.apply', [
-            'types' => $this->type->all(),
-            'holidays' => $this->holiday->all(),
-            'users' => $this->user->all()
-        ]);
-    }
     public function store(ApplyLeaveRequest $request)
     {
         // create leave
@@ -160,7 +153,6 @@ class LeavesController extends Controller
 
     public function notifyHR($leave)
     {
-        if(auth()->user()->hasRole('User')){
         $admins = User::whereHas('roles', function ($q) {
             $q->where('name', 'Admin');
         })->get();
@@ -168,7 +160,6 @@ class LeavesController extends Controller
         foreach ($admins as $admin) {
             $admin->notify(new ApplyLeave($leave, Auth::user()));
         }
-    }
 
 
     }
@@ -230,8 +221,17 @@ class LeavesController extends Controller
     }
 
     public function destroy($id)
-    {
-        $this->leave->find($id)->delete();
+    {   
+            
+        $leave = $this->leave->find($id);        
+        //check if the leave has been approved
+        $that_leave = $this->balance->where('leavetype_id',$leave->leavetype_id)->where('user_id',$leave->user_id)->first();
+        $that_leave_balance = $that_leave->balance;
+        $that_leave_balance += $leave->days_taken;
+        $that_leave->update([
+            'balance' => $that_leave_balance
+        ]);
+        $leave->delete();
         toast($this->message('delete', 'Leave record'), 'success', 'top-right');
         return back();
     }
