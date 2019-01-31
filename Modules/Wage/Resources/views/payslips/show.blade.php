@@ -93,14 +93,14 @@ Payslip Records
                             <div class="form-group">
                                 <label for="">EPF Contribution (Employer)</label>
                                 <input type="text" class="form-control" name="epf_employer" value="{{$epf_employer_contrib}}"
-                                    readonly>
+                                >
                             </div>
                         </div>
                         <div class="col">
                             <div class="form-group">
                                 <label for="">EPF Contribution (Employee)</label>
                                 <input type="text" class="form-control" name="epf_employee" value="{{$epf_employee_contrib}}"
-                                    readonly>
+                                >
                             </div>
                         </div>
                     </div>
@@ -109,14 +109,14 @@ Payslip Records
                             <div class="form-group">
                                 <label for="">SOCSO Contribution (Employer)</label>
                                 <input type="text" class="form-control" name="socso_employer" value="{{$socso_employer_contrib}}"
-                                    readonly>
+                                >
                             </div>
                         </div>
                         <div class="col">
                             <div class="form-group">
                                 <label for="">SOCSO Contribution (Employee)</label>
                                 <input type="text" class="form-control" name="socso_employee" value="{{$socso_employee_contrib}}"
-                                    readonly>
+                                >
                             </div>
                         </div>
                     </div>
@@ -125,14 +125,14 @@ Payslip Records
                             <div class="form-group">
                                 <label for="">SOCSO Contribution EIS (Employer)</label>
                                 <input type="text" class="form-control" name="socso_eis_employer" value="{{$eis_employer_contrib}}"
-                                    readonly>
+                                >
                             </div>
                         </div>
                         <div class="col">
                             <div class="form-group">
                                 <label for="">SOCSO Contribution EIS (Employee)</label>
                                 <input type="text" class="form-control" name="socso_eis_employee" value="{{$eis_employee_contrib}}"
-                                    readonly>
+                                >
                             </div>
                         </div>
                     </div>
@@ -140,7 +140,7 @@ Payslip Records
                         <div class="col">
                             <div class="form-group">
                                 <label for="">HRDF (1&#37 of Basic Salary)</label>
-                                <input type="text" name="hrdf" class="form-control" value="{{$hrdf}}" readonly>
+                                <input type="text" name="hrdf" class="form-control" value="{{$hrdf}}">
                             </div>
                         </div>
                         <div class="col">
