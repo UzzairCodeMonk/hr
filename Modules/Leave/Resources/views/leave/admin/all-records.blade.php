@@ -6,9 +6,9 @@ Employees Leave Records
 <div class="card">
     <div class="card-header">
         <h3 class="card-title">Employees Leave Records</h3>
-        <!-- <div class="card-options">
+        <div class="card-options">
             <a href="{{route('admin.apply.leave')}}" class="btn btn-sm btn-primary">Create Leave For Employee</a>
-        </div> -->
+        </div>
     </div>
     <div class="card-body">
         <div class="table-responsive">
