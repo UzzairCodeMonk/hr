@@ -93,7 +93,7 @@ class Handler extends ExceptionHandler
 
     public function invalidUrlSignature($request, Exception $exception)
     {
-        toast('Security token mismatched. You\'re not allowed to perform the operation', 'error', 'top');
+        // toast('Security token mismatched. You\'re not allowed to perform the operation', 'error', 'top');
         return redirect()->back();
     }
 
