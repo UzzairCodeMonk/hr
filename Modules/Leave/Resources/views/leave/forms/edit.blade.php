@@ -79,7 +79,7 @@ Leave Application Form
                         <div class="col">
                             <div class="form-group">                                
                                 <label for="input-normal">{{ucwords(__('leave::leave.start-date'))}}</label>
-                                <input type="text" class="form-control" name="start_date" id="" value="{{$leave->start_date ?? ''}}"
+                                <input type="text" class="form-control start-date" name="start_date" id="" value="{{$leave->start_date ?? ''}}"
                                     data-provide="datepicker">
                                 @include('backend.shared._errors',['entity'=>'start_date'])
                             </div>
@@ -87,7 +87,7 @@ Leave Application Form
                         <div class="col">
                             <div class="form-group">
                                 <label for="input-normal">{{ucwords(__('leave::leave.end-date'))}}</label>
-                                <input type="text" name="end_date" class="form-control" id="" data-provide="datepicker"
+                                <input type="text" name="end_date" class="form-control end-date" id="" data-provide="datepicker"
                                     value="{{$leave->end_date ?? ''}}">
                                 @include('backend.shared._errors',['entity'=>'end_date'])
                             </div>
@@ -182,11 +182,15 @@ Leave Application Form
 @include('asset-partials.datatable')
 @include('asset-partials.datepicker')
 <script type="text/javascript">
+    var date = new Date();
+    date.setDate(date.getDate());
     $('.start-date').datepicker({
         format: "{{config('app.date_format_js')}}",
+        startDate: date
     });
     $('.end-date').datepicker({
         format: "{{config('app.date_format_js')}}",
+        startDate: date
     });
 
 </script>
