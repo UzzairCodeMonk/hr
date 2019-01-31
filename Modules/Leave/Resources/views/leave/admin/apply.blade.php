@@ -17,8 +17,9 @@ Leave Application Form
             <button type="button" class="btn btn-sm btn-secondary" data-toggle="quickview" data-target="#public-holidays">View
                 Public
                 Holidays</button>
-            <button type="button" class="btn btn-sm btn-secondary" data-toggle="quickview" data-target="#leave-balance">Your
-                Leave Balance</button>
+            <button type="button" class="btn btn-sm btn-primary">Admin View</button>
+            <!-- <button type="button" class="btn btn-sm btn-secondary" data-toggle="quickview" data-target="#leave-balance">Your
+                Leave Balance</button> -->
         </div>
     </div>
     <div class="card-body">
@@ -29,12 +30,25 @@ Leave Application Form
                 <div class="col-4">
                     <h4>Leave Information</h4>
                     <p class="text-danger">Important Notes! <br>
-                        Please apply leave only by its respective dates only.Please exclude weekends and public holidays.</p>
+                        Please apply leave only by its respective dates only.Please exclude weekends and public
+                        holidays.</p>
                 </div>
                 <div class="col-8">
                     <div class="row">
                         <div class="col">
-                            <input type="hidden" name="user_id" value="{{Auth::id()}}">
+                            <div class="form-group">
+                                <label for="" class="require">Employee</label>
+                                <select name="user_id" id="" class="form-control select">
+                                    @foreach($users as $user)
+                                    <option value="{{$user->id}}">{{$user->name}}</option>
+                                    @endforeach
+                                </select>
+                                @include('backend.shared._errors',['entity'=>'user_id'])
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col">
                             <div class="form-group">
                                 <label for="" class="require">{{ucwords(__('leave::leave.leave-type'))}}</label>
                                 <select name="leavetype_id" id="" class="form-control">
@@ -84,7 +98,7 @@ Leave Application Form
             </div>
             <div class="form-group">
                 <button class="btn btn-primary pull-right" type="submit">
-                    Apply
+                    Create
                 </button>
             </div>
         </form>
@@ -145,8 +159,8 @@ Leave Application Form
                         <td>{{++$key}}</td>
                         <td>{{$type->name ?? 'N/A'}}</td>
                         <td>@if(DB::table('leavebalances')->where('user_id',auth()->id())->where('leavetype_id',$type->id)->exists())
-                                {{DB::table('leavebalances')->where('user_id',auth()->id())->where('leavetype_id',$type->id)->first()->balance}}/@endif{{$type->days}}
-                                {{str_plural('day',$type->days)}}</td>
+                            {{DB::table('leavebalances')->where('user_id',auth()->id())->where('leavetype_id',$type->id)->first()->balance}}/@endif{{$type->days}}
+                            {{str_plural('day',$type->days)}}</td>
                     </tr>
                     @endforeach
                 </tbody>
@@ -157,24 +171,29 @@ Leave Application Form
 @endsection
 @section('page-js')
 @include('asset-partials.datatable')
+@include('asset-partials.select2')
 @include('asset-partials.datepicker')
 <script type="text/javascript">
-    var date = new Date();
-    date.setDate(date.getDate());
-
     $('.start-date').datepicker({
         format: "{{config('app.date_format_js')}}",
-        startDate: date
     });
     $('.end-date').datepicker({
         format: "{{config('app.date_format_js')}}",
-        startDate: date
     });
 
 </script>
 <script type="text/javascript">
     $(document).ready(function () {
         $('.datatable').DataTable();
+    });
+
+</script>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('.select').select2({
+            theme: 'bootstrap',
+            placeholder: 'Please choose'
+        });
     });
 
 </script>

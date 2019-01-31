@@ -116,7 +116,8 @@ class LeavesController extends Controller
     public function showAdminLeaveApplicationForm(){
         return view('leave::leave.admin.apply', [
             'types' => $this->type->all(),
-            'holidays' => $this->holiday->all()
+            'holidays' => $this->holiday->all(),
+            'users' => $this->user->all()
         ]);
     }
     public function store(ApplyLeaveRequest $request)
@@ -159,6 +160,7 @@ class LeavesController extends Controller
 
     public function notifyHR($leave)
     {
+        if(auth()->user()->hasRole('User')){
         $admins = User::whereHas('roles', function ($q) {
             $q->where('name', 'Admin');
         })->get();
@@ -166,6 +168,7 @@ class LeavesController extends Controller
         foreach ($admins as $admin) {
             $admin->notify(new ApplyLeave($leave, Auth::user()));
         }
+    }
 
 
     }
