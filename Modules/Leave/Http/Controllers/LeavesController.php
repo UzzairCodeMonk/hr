@@ -221,16 +221,8 @@ class LeavesController extends Controller
     }
 
     public function destroy($id)
-    {   
-            
-        $leave = $this->leave->find($id);        
-        //check if the leave has been approved
-        $that_leave = $this->balance->where('leavetype_id',$leave->leavetype_id)->where('user_id',$leave->user_id)->first();
-        $that_leave_balance = $that_leave->balance;
-        $that_leave_balance += $leave->days_taken;
-        $that_leave->update([
-            'balance' => $that_leave_balance
-        ]);
+    {
+        $this->leave->find($id)->delete();
         toast($this->message('delete', 'Leave record'), 'success', 'top-right');
         return back();
     }
