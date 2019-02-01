@@ -17,6 +17,9 @@ Route::group(['prefix' => config('app.administration_prefix').'/wages', 'middlew
         Route::post('generate', ['uses' => 'PayslipsController@generatePayslip', 'as' => 'payslip.generate']);
         Route::get('{id}/{month}/{year}/view', ['uses' => 'PayslipsController@viewPayslip', 'as' => 'payslip.employee.record'])->middleware('signed');
         Route::delete('{id}/delete',['uses' => 'PayslipsController@destroy','as'=>'payslip.delete']);
+        Route::get('generate-payslip-index','PayslipsController@showPayslipSummaryForm')->name('payslip.summary');
+        Route::post('payslip-summary','PayslipsController@generatePayslipSummary')->name('generate.payslip.summary');
+        Route::get('show/payslip-summary/{month}/{year}','PayslipsController@showPayslipSummary')->name('show.payslip.summary');
     });
 
 });

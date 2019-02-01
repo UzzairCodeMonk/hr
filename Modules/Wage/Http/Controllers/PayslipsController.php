@@ -16,6 +16,7 @@ use Modules\Wage\Traits\EpfRates;
 use Modules\Wage\Traits\HrdfRates;
 use Carbon\Carbon;
 use Modules\Leave\Entities\Leave;
+use Modules\Wage\Entities\PayslipSummary;
 
 class PayslipsController extends Controller
 {
@@ -106,15 +107,14 @@ class PayslipsController extends Controller
 
     public function printPayslip(int $id, $month, $year)
     {
-        $payslip = Payslip::where('user_id', $id)->where('month', $month)->where('year', $year)->first();
-        // $pdf = PDF::loadView('wage::payslips.pdf', compact('payslip'));
-        // $pdfName = $payslip->user->personalDetail->name . '-' . getMonthNameBasedOnInt($payslip->month) . '-' . $payslip->year;
-        return view('wage::payslips.pdf', ['payslip' => $payslip]);
-        // return $pdf->download($pdfName . '.pdf');
-        // return $pdf->stream();
+        $payslip = Payslip::where('user_id', $id)->where('month', $month)->where('year', $year)->first();        
+        return view('wage::payslips.pdf', ['payslip' => $payslip]);        
     }
 
-
+    public function showPayslipSummaryForm(){
+        $summaries = PayslipSummary::all();
+        return view('wage::payslips.summary-form',compact('summaries'));
+    }
     public function destroy($id)
     {
         Payslip::find($id)->delete();
@@ -122,7 +122,39 @@ class PayslipsController extends Controller
         return back();
     }
 
+    public function generatePayslipSummary(Request $request){
+        
+        $payslip = Payslip::where('month',$request->month)->where('year',$request->year)->get()->toArray();
+        $m = [
+            'basic_salary' => array_sum(array_column($payslip, 'basic_salary')),
+            'upl_amount' => array_sum(array_column($payslip, 'upl_amount')),
+            'allowance' => array_sum(array_column($payslip, 'allowance')),
+            'epf_employer' => array_sum(array_column($payslip, 'epf_employer')),
+            'epf_employee' => array_sum(array_column($payslip, 'epf_employee')),
+            'socso_employer' => array_sum(array_column($payslip, 'socso_employer')),
+            'socso_employee' => array_sum(array_column($payslip, 'socso_employee')),
+            'socso_eis_employer' => array_sum(array_column($payslip, 'socso_eis_employer')),
+            'socso_eis_employee' => array_sum(array_column($payslip, 'socso_eis_employee'))
+        ];
+        // $employer_expenses = array_sum()
+       
+        dd($m);
+        PayslipSummary::create([
+            'month' => $request->month,
+            'year' => $request->year
+        ]);
+
+        
 
 
+
+        return back();
+    }
+
+    public function showPayslipSummary(int $month, int $year){
+        $summary = PayslipSummary::where('month',$month)->where('year',$year)->first();
+        $payslips = Payslip::where('month',$month)->where('year',$year)->get();
+        return view('wage::payslips.show-summary',compact('summary','payslips'));
+    }
 
 }

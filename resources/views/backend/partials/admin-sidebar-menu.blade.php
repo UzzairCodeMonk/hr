@@ -60,6 +60,10 @@
         <i class="ti ti-agenda"></i>
         <a class="nav-link" href="{{route('payslip.index')}}">Payslip Records</a>
     </li>
+    <li class="nav-item {{Route::currentRouteName() == 'payslip.summary'  ? 'active':''}}">
+        <i class="ti ti-bar-chart-alt"></i>
+        <a class="nav-link" href="{{route('payslip.summary')}}">Payslip Summary</a>
+    </li>
 </ul>
 <hr>
 @endif
@@ -75,7 +79,8 @@
     </li>
 </ul>
 <hr> -->
-@if(Request::is(config('app.administration_prefix')."/roles*") || Request::is(config('app.administration_prefix')."/site*"))
+@if(Request::is(config('app.administration_prefix')."/roles*") ||
+Request::is(config('app.administration_prefix')."/site*"))
 <div class="aside-block">
     <div class="flexbox mb-1">
         <h6 class="aside-title">Configurations</h6>
@@ -85,11 +90,11 @@
     <li class="nav-item {{Route::currentRouteName() == 'siteconfig.index'  ? 'active':''}}">
         <i class="ti ti-settings"></i>
         <a class="nav-link" href="{{route('siteconfig.index')}} ">Site Configurations</a>
-    </li>    
+    </li>
     <li class="nav-item {{Route::currentRouteName() == 'roles.index'  ? 'active':''}}">
         <i class="ti ti-id-badge"></i>
         <a class="nav-link" href="{{route('roles.index')}} ">Roles & Permissions</a>
     </li>
-    
+
 </ul>
 @endif
