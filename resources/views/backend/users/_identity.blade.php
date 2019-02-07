@@ -100,6 +100,8 @@
                     {{old('status',isset($user->personalDetail->status) && $user->personalDetail->status == 'permanent' ? 'selected':'')}}>Permanent</option>
                 <option value="probation"
                     {{old('status',isset($user->personalDetail->status) && $user->personalDetail->status == 'probation' ? 'selected':'')}}>Probation</option>
+                <option value="probation"
+                    {{old('status',isset($user->personalDetail->status) && $user->personalDetail->status == 'resigned' ? 'selected':'')}}>Resigned</option>
             </select>
             @include('backend.shared._errors',['entity'=>'status'])
         </div>
