@@ -8,12 +8,14 @@ use Modules\Leave\Entities\LeaveAttachment;
 use Carbon\Carbon;
 use Datakraf\User;
 use Spatie\ModelStatus\HasStatuses;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Leave extends Model
 {
-    use HasStatuses;
+    use HasStatuses, SoftDeletes;
 
     protected $table = 'leaves';
+    protected $dates = ['deleted_at'];
     protected $guarded = [];
 
     public function type()

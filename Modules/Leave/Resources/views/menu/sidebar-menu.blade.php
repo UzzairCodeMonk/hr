@@ -51,5 +51,11 @@
                 <span class="title">Submit Claim</span>
             </a>
         </li>
+        <li class="menu-item">
+            <a class="menu-link" href="{{route('claim.my-claims')}}">
+                <span class="dot"></span>
+                <span class="title">My Claims Record</span>
+            </a>
+        </li>
     </ul>
 </li>
