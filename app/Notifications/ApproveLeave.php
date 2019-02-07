@@ -49,7 +49,7 @@ class ApproveLeave extends Notification implements ShouldQueue
      */
     public function toMail($notifiable)
     {
-        $link = URL::signedRoute('leave.employee.show', ['id' => $this->leave->id]);
+    $link = URL::signedRoute('my-leave.show', ['id' => $this->leave->id]);
         return (new MailMessage)
             ->subject('Your Application Leave Has Been Approved')
             ->greeting('Your Application Leave Has Been Approved')
