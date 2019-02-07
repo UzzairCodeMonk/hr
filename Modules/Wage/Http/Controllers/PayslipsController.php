@@ -182,4 +182,10 @@ class PayslipsController extends Controller
         return view('wage::payslips.show-summary',compact('summary','payslips'));
     }
 
+    public function printPayslipSummary(int $month, int $year){
+        $summary = PayslipSummary::where('month',$month)->where('year',$year)->first();
+        $payslips = Payslip::where('month',$month)->where('year',$year)->get();
+        return view('wage::payslips.summary-pdf',compact('summary','payslips'));
+    }
+
 }

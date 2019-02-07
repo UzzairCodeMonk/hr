@@ -65,6 +65,13 @@
         <a class="nav-link" href="{{route('payslip.summary')}}">Payslip Summary</a>
     </li>
 </ul>
+
+<ul class="nav nav-pills flex-column">
+        <li class="nav-item {{Route::currentRouteName() == 'claim.records'  ? 'active':''}}">
+            <i class="ti ti-agenda"></i>
+            <a class="nav-link" href="{{route('claim.records')}}">Claim Submission Records</a>
+        </li>
+    </ul>
 <hr>
 @endif
 <!-- <div class="aside-block">

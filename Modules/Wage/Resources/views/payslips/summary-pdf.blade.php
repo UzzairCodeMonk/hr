@@ -1,31 +1,69 @@
-@extends('backend.master')
-@section('page-title')
-Payslip Summary
-@endsection
-@section('content')
-<a href="{{URL::previous()}}" class="btn btn-primary">Back</a>
-<div class="card">
-    <div class="card-header">
-        <h3 class="card-title">Payslip Summary - {{getMonthNameBasedOnInt($summary->month) ?? ''}} {{$summary->year ??
-            ''}}</h3>
-        <div class="card-options">
-            <a href="{{route('print.payslip.summary',['month'=>$summary,'year'=>$summary->year])}}" class="btn btn-primary btn-sm" target="_blank">Print</a>
-        </div>
-    </div>
-    <div class="card-body">
-      
-        <table class="table table-bordered table-condensed">
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+    <meta http-equiv='Content-Type' content='text/html; charset=UTF-8' />
+
+    <title>Payslip</title>
+    <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+        crossorigin="anonymous"> -->
+    <style type="text/css" media="print">
+        body {
+            font-family: Arial, sans-serif !important;
+        }
+
+        #header {
+            height: 15px;
+            width: 100%;
+            margin: 20px 0;
+            background: #222;
+            text-align: center;
+            color: white;
+            font: bold 15px Helvetica, Sans-Serif;
+            text-decoration: uppercase;
+            letter-spacing: 10px;
+            padding: 8px 0px;
+        }
+
+        td.null {
+            background-color: black;
+        }
+
+        table {
+            border-collapse: collapse;
+            font-size: 12px;
+        }
+
+        table tr,
+        table td,
+        table th {
+            border: 1px solid black;
+            padding: 5px;
+            text-align: center
+        }
+
+        @page {
+            size: landscape;
+        }
+
+    </style>
+</head>
+
+<body>
+
+    <div id="page-wrap" class="container">
+        <table class="" style="border:1px solid black">
             <thead>
                 <tr>
                     <th>#</th>
                     <th>Name</th>
                     <th>Basic Salary (MYR)</th>
                     <th>Allowance (MYR)</th>
-                    <th class="bg-dark">EPF Employer (MYR)</th>
+                    <th class="bg-dark text-white">EPF Employer (MYR)</th>
                     <th>EPF Employee (MYR)</th>
-                    <th class="bg-dark">SOCSO Employer (MYR)</th>
+                    <th class="bg-dark text-white">SOCSO Employer (MYR)</th>
                     <th>SOCSO Employee (MYR)</th>
-                    <th class="bg-dark">EIS Employer (MYR)</th>
+                    <th class="bg-dark text-white">EIS Employer (MYR)</th>
                     <th>EIS Employee (MYR)</th>
                     <th>Total Net Salary (MYR)</th>
                     <th>Bank Account No. (MYR)</th>
@@ -61,13 +99,13 @@ Payslip Summary
                     <td>{{number_format($summary->eis_employer,2,'.','') ?? 0.00}}</td>
                     <td>{{number_format($summary->eis_employee,2,'.','') ?? 0.00}}</td>
                     <td>{{number_format($summary->net_wage,2,'.','') ?? 0.00}}</td>
-                    <td class="bg-dark"></td>
+                    <td style="@media print{background:black}"></td>
                 </tr>
                 <tr>
-                    <td colspan="12" class="text-right font-weight-bold">
-                        <p>
+                    <td colspan="12">
+                        <p style="float:right">
                             Total Employer Expenses :
-                             MYR {{number_format($summary->employer_expenses,2,'.','') ?? 0.00}}
+                            MYR {{number_format($summary->employer_expenses,2,'.','') ?? 0.00}}
                         </p>
 
                     </td>
@@ -76,6 +114,14 @@ Payslip Summary
         </table>
 
     </div>
-</div>
+    <script src="https://code.jquery.com/jquery-2.2.4.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44="
+        crossorigin="anonymous"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            window.print();
+        });
 
-@endsection
+    </script>
+</body>
+
+</html>
