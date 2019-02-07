@@ -17,6 +17,7 @@ class ClaimsController extends Controller
         $this->data = [
             'user_id' => $request->user_id,
             'claimtype_id' => $request->claimtype_id,
+            'amount' => $request->amount,
             'date' => $request->date,
             'remarks' => $request->remarks
         ];
@@ -127,5 +128,12 @@ class ClaimsController extends Controller
 
         toast('Claim deleted successfully', 'success', 'top-right');
         return redirect()->back();
+    }
+
+    public function showMyClaims(){
+        
+        return view('wage::claims.admin.all-records', [
+            'claims' => $this->claim->where('user_id',auth()->id())->orderBy('created_at', 'desc')->get(),
+        ]);
     }
 }

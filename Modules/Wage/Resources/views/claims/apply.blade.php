@@ -48,6 +48,13 @@ Claim Form
                                 @include('backend.shared._errors',['entity'=>'date'])
                             </div>
                         </div>
+                        <div class="col">
+                            <div class="form-group">
+                                <label for="" class="require">Amount (MYR)</label>
+                                <input type="text" name="amount" id="" class="form-control">
+                                @include('backend.shared._errors',['entity'=>'amount'])
+                            </div>
+                        </div>
                     </div>
                     <div class="row">
                         <div class="col">
@@ -88,6 +95,7 @@ Claim Form
     $('.date').datepicker({
         format: "{{config('app.date_format_js')}}",
     });
+
 </script>
 <script type="text/javascript">
     $(document).ready(function () {
