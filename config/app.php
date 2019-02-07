@@ -29,6 +29,7 @@ return [
     'env' => env('APP_ENV', 'production'),
 
     'administration_prefix' => env('ADMINISTRATION_PREFIX', 'administration'),
+    'administration_middleware' => env('ADMINISTRATION_MIDDLEWARE','role:Admin'),
 
     /*
     |--------------------------------------------------------------------------

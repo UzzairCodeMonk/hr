@@ -123,9 +123,13 @@ class PayslipsController extends Controller
     }
 
     public function generatePayslipSummary(Request $request){
-        
-        $payslip = Payslip::where('month',$request->month)->where('year',$request->year)->get()->toArray();
-        $m = [
+
+        $payslipObject = Payslip::where('month',$request->month)->where('year',$request->year);
+
+        if($payslipObject->exists()){
+            $payslip = $payslipObject->get()->toArray();
+
+        $payslipRecords = [
             'basic_salary' => array_sum(array_column($payslip, 'basic_salary')),
             'upl_amount' => array_sum(array_column($payslip, 'upl_amount')),
             'allowance' => array_sum(array_column($payslip, 'allowance')),
@@ -134,20 +138,41 @@ class PayslipsController extends Controller
             'socso_employer' => array_sum(array_column($payslip, 'socso_employer')),
             'socso_employee' => array_sum(array_column($payslip, 'socso_employee')),
             'socso_eis_employer' => array_sum(array_column($payslip, 'socso_eis_employer')),
-            'socso_eis_employee' => array_sum(array_column($payslip, 'socso_eis_employee'))
+            'socso_eis_employee' => array_sum(array_column($payslip, 'socso_eis_employee')),
+            'net_wage' =>  array_sum(array_column($payslip, 'net_wage'))
         ];
-        // $employer_expenses = array_sum()
-       
-        dd($m);
-        PayslipSummary::create([
-            'month' => $request->month,
-            'year' => $request->year
+        $employer_costings = [
+            $payslipRecords['basic_salary'],
+            $payslipRecords['epf_employer'],
+            $payslipRecords['socso_employer'],
+            $payslipRecords['socso_eis_employer'],
+            $payslipRecords['allowance']
+        ];
+        $total = array_sum($employer_costings);       
+
+        PayslipSummary::updateOrCreate(
+            [
+                'month'=>$request->month,
+                'year'=>$request->year
+            ],
+            [
+                'month' => $request->month,
+                'year' => $request->year,
+                'basic_of_month' => $payslipRecords['basic_salary'],
+                'allowance' => $payslipRecords['allowance'],
+                'epf_employer' => $payslipRecords['epf_employer'],
+                'epf_employee' => $payslipRecords['epf_employee'],
+                'socso_employer' =>$payslipRecords['socso_employer'],
+                'socso_employee' =>$payslipRecords['socso_employee'],
+                'eis_employer' =>$payslipRecords['socso_eis_employer'],
+                'eis_employee' =>$payslipRecords['socso_eis_employee'],
+                'net_wage'  => $payslipRecords['net_wage'],
+                'employer_expenses' => $total
         ]);
-
-        
-
-
-
+        toast('Payslip summary generated successfully','success','top-right');
+        return back();
+        }
+        toast('Payslip for '.getMonthNameBasedOnInt($request->month).' '.$request->year.' can\'t be generated','error','top-right');
         return back();
     }
 

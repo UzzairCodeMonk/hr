@@ -24,7 +24,7 @@ Generate Payslip Summary
                 <div class="col">
                     <label for="">Which Year?</label>
                     <?php 
-                    $firstYear = (int)date('Y')-3;
+                    $firstYear = (int)date('Y');
                     $lastYear = $firstYear + 5;
                     ?>
                     <select name="year" id="" class="form-control">
@@ -47,7 +47,8 @@ Generate Payslip Summary
                 <tr>
                     <th>#</th>
                     <th>Month</th>
-                    <th>Actions</th>
+                    <th>Year</th>
+                    <th class="text-center">Actions</th>
                 </tr>
             </thead>
             <tbody>
@@ -55,9 +56,11 @@ Generate Payslip Summary
                 @foreach($summaries as $summary)
                 <tr>
                     <td>#</td>
-                    <td>{{$summary->month}}</td>
-                    <td>
-                        <a href="{{route('show.payslip.summary',['month'=>$summary->month,'year'=>$summary->year])}}" class="btn btn-primary btn-sm">View</a>                        
+                    <td>{{getMonthNameBasedOnInt($summary->month)}}</td>
+                    <td>{{$summary->year}}</td>
+                    <td class="text-center">
+                        <a target="_blank" href="{{URL::signedRoute('show.payslip.summary',['month'=>$summary->month,'year'=>$summary->year])}}" class="btn btn-primary btn-sm">View</a>
+                                                
                     </td>
                 </tr>
                 @endforeach

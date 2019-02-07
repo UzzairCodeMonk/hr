@@ -1,18 +1,21 @@
 @extends('backend.master')
-
+@section('page-title')
+Payslip Summary
+@endsection
 @section('content')
 <div class="card">
     <div class="card-header">
-
+        <h3 class="card-title">Payslip Summary - {{getMonthNameBasedOnInt($summary->month) ?? ''}} {{$summary->year ??
+            ''}}</h3>
     </div>
     <div class="card-body">
         <table class="table table-bordered table-condensed">
             <thead>
                 <tr>
-                    <th></th>
+                    <th>#</th>
                     <th>Name</th>
                     <th>Basic Salary (MYR)</th>
-                    <th>Allowance  (MYR)</th>
+                    <th>Allowance (MYR)</th>
                     <th class="bg-dark">EPF Employer (MYR)</th>
                     <th>EPF Employee (MYR)</th>
                     <th class="bg-dark">SOCSO Employer (MYR)</th>
@@ -25,7 +28,7 @@
             </thead>
             <tbody>
                 @foreach($payslips as $key=>$payslip)
-                <tr>
+                <tr class="text-center">
                     <td>{{++$key}}</td>
                     <td>{{$payslip->user->name ?? 0.00}}</td>
                     <td>{{$payslip->basic_salary ?? 0.00}}</td>
@@ -37,9 +40,34 @@
                     <td>{{$payslip->socso_eis_employer ?? 0.00}}</td>
                     <td>{{$payslip->socso_eis_employee ?? 0.00}}</td>
                     <td>{{$payslip->net_wage ?? 0.00}}</td>
-                    <td>{{$payslip->user->personalDetail->bank->name ?? 0.00}} {{$payslip->user->personalDetail->bank_account_number ?? 0.00}}</td>
+                    <td>{{$payslip->user->personalDetail->bank->name ?? 0.00}}
+                        {{$payslip->user->personalDetail->bank_account_number ?? 0.00}}</td>
                 </tr>
                 @endforeach
+                <tr class="text-center font-weight-bold">
+                    <td></td>
+                    <td>Total</td>
+                    <td>{{number_format($summary->basic_of_month,2,'.','') ?? 0.00}}</td>
+                    <td>{{number_format($summary->allowance,2,'.','') ?? 0.00}}</td>
+                    <td>{{number_format($summary->epf_employer,2,'.','') ?? 0.00}}</td>
+                    <td>{{number_format($summary->epf_employee,2,'.','') ?? 0.00}}</td>
+                    <td>{{number_format($summary->socso_employer,2,'.','') ?? 0.00}}</td>
+                    <td>{{number_format($summary->socso_employee,2,'.','') ?? 0.00}}</td>
+                    <td>{{number_format($summary->eis_employer,2,'.','') ?? 0.00}}</td>
+                    <td>{{number_format($summary->eis_employee,2,'.','') ?? 0.00}}</td>
+                    <td>{{number_format($summary->net_wage,2,'.','') ?? 0.00}}</td>
+                    <td></td>
+                </tr>
+
+            </tbody>
+        </table>
+        <table class="table table-bordered">
+            <tbody>
+                <tr>
+                    <td></td>
+                    <td>Total Employer Expenses</td>
+                    <td>MYR {{number_format($summary->employer_expenses,2,'.','') ?? 0.00}}</td>
+                </tr>
             </tbody>
         </table>
     </div>
