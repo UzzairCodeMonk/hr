@@ -13,14 +13,17 @@ class CreateSipratesTable extends Migration
      */
     public function up()
     {
-        Schema::create('siprates', function (Blueprint $table) {
-            $table->increments('id');
-            $table->decimal('min_salary',13,2)->nullable();
-            $table->decimal('max_salary',13,2)->nullable();
-            $table->decimal('sip_employer_contribution',13,2)->nullable();
-            $table->decimal('sip_employee_contribution',13,2)->nullable();
-            $table->timestamps();
-        });
+        if(!Schema::hasTable('siprates')){
+            Schema::create('siprates', function (Blueprint $table) {
+                $table->increments('id');
+                $table->decimal('min_salary',13,2)->nullable();
+                $table->decimal('max_salary',13,2)->nullable();
+                $table->decimal('sip_employer_contribution',13,2)->nullable();
+                $table->decimal('sip_employee_contribution',13,2)->nullable();
+                $table->timestamps();
+            });
+        }
+        
     }
 
     /**

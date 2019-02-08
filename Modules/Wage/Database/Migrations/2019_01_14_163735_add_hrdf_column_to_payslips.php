@@ -13,8 +13,12 @@ class AddHrdfColumnToPayslips extends Migration
      */
     public function up()
     {
+        
         Schema::table('payslips', function (Blueprint $table) {
-            $table->decimal('hrdf',13,2)->nullable()->after('socso_eis_employee');
+            if(!Schema::hasColumns('hrdf')){
+                $table->decimal('hrdf',13,2)->nullable()->after('socso_eis_employee');
+            }
+           
         });
     }
 
