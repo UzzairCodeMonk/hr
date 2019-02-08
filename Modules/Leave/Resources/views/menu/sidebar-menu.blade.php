@@ -13,7 +13,7 @@
             </a>
         </li>
         <li class="menu-item">
-            <a class="menu-link" href="{{route('leave.personal')}}">
+            <a class="menu-link" href="{{route('leave.index')}}">
                 <span class="dot"></span>
                 <span class="title">My Leave Applications</span>
             </a>

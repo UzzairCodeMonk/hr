@@ -56,58 +56,38 @@ class LeavesController extends Controller
     protected $approvedStatus = 'approved';
     protected $rejectedStatus = 'rejected';
     protected $submittedStatus = 'submitted';
+    
 
     public function index()
-    {    
-        return view('leave::leave.admin.all-records',[
-            'leaves' => $this->leave->whereHas('statuses',function($query){
-                $query->groupBy('name');
-            })->orderBy('created_at','desc')->get()
-        ]);   
-        // return view('leave::leave.admin.users', ['users' => $this->user->has('personalDetail')->get()]);
-    }
-
-    public function show($id)
     {
-        return view('leave::leave.admin.user-leaves', [
-            'leaves' => $this->user->find($id)->leaves,
-            'user' => $this->user->find($id)
-        ]);
-    }
-
-    public function showUserLeaves($id)
-    {
-        // determine if action buttons will be displayed or vice versa
-        $actionVisibility = !in_array($this->leave->find($id)->status, [$this->approvedStatus, $this->rejectedStatus]);
-
-        return view('leave::leave.forms.show', [
-            'leave' => $this->leave->find($id),
-            'types' => $this->type->all(),
-            'statuses' => $this->leave->find($id)->statuses,
-            'actionVisibility' => $actionVisibility
-        ]);
-    }
-
-    public function editUserLeaves($id)
-    {
-        return view('leave::leave.forms.edit', [
-            'leave' => $this->leave->find($id),
-            'types' => $this->type->all(),
-            'statuses' => $this->leave->find($id)->statuses,
-            // 'actionVisibility' => $actionVisibility
-        ]);
-    }
-
-    public function showMyLeaveApplications()
-    {
-        return view('leave::leave.my-leave', [
+        return view('leave::leave.user.index', [
             'results' => Auth::user()->leaves,
         ]);
     }
 
-    public function showLeaveApplicationForm()
+    public function show(int $id)
+    {        
+        return view('leave::leave.user.show', [
+            'leave' => $this->leave->find($id),
+            'types' => $this->type->all(),
+            'statuses' => $this->leave->find($id)->statuses,            
+        ]);
+    }
+
+    
+    public function edit(int $id)
     {
-        return view('leave::leave.forms.apply', [
+        return view('leave::leave.user.edit', [
+            'leave' => $this->leave->find($id),
+            'types' => $this->type->all(),
+            'statuses' => $this->leave->find($id)->statuses,            
+        ]);
+    }
+
+   
+    public function create()
+    {
+        return view('leave::leave.user.apply', [
             'types' => $this->type->all(),
             'holidays' => $this->holiday->all()
         ]);

@@ -36,7 +36,7 @@
 <ul class="nav nav-pills flex-column">
     <li class="nav-item {{Route::currentRouteName() == 'leave.index'  ? 'active':''}}">
         <i class="ti ti-agenda"></i>
-        <a class="nav-link" href="{{route('leave.index')}}">Leave Records</a>
+        <a class="nav-link" href="{{route('leave.admin.index')}}">Leave Records</a>
     </li>
     <li class="nav-item {{Route::currentRouteName() == 'leave-type.index'  ? 'active':''}}">
         <i class="ti ti-layers-alt"></i>

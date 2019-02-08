@@ -1,41 +1,48 @@
 <?php
 
-Route::get('test-upl', function () {
-    $now = Carbon\Carbon::now();
-    $month = $now->format('m');
-    $year = $now->format('Y');
-    $upl = Modules\Leave\Entities\Leave::whereHas('type', function ($query) {
-        $query->where('name', '=', 'Unpaid Leave');
-    })->whereMonth('start_date', $month)->whereYear('start_date', $year)->where('user_id',auth()->id())->get();
-    ;
-    
-    dd(collect($upl)->sum('days_taken'));
-});
 // Normal routes
 Route::group(['prefix' => 'leaves', 'middleware' => 'auth'], function () {
 
-    // leaves
 
-    Route::post('store', 'LeavesController@store')->name('leave.store');
-    Route::get('{id}/show', 'LeavesController@show')->name('leave.show')->middleware('signed');
-    Route::get('{id}/show/my-leave', 'LeavesController@showUserLeaves')->name('my-leave.show')->middleware('signed');
-    Route::get('{id}/edit/my-leave', 'LeavesController@editUserLeaves')->name('my-leave.edit')->middleware('signed');
-    Route::post('{id}/update','LeavesController@update')->name('my-leave.update');
-    Route::get('personal', 'LeavesController@showMyLeaveApplications')->name('leave.personal');
-    Route::get('apply', ['uses' => 'LeavesController@showLeaveApplicationForm', 'as' => 'leave.apply']);
-    Route::delete('{id}/delete', ['uses' => 'LeavesController@destroy', 'as' => 'leave.user.destroy']);
+Route::get('index',                      'LeavesController@index')->name('leave.index');
+
+
+
+Route::get('apply',                      'LeavesController@create')->name('leave.apply');    
+
+
+
+
+Route::post('store',                     'LeavesController@store')->name('leave.store');
+
+
+
+Route::get('show/{id}',                  'LeavesController@show')->name('leave.show')->middleware('signed');
+    
+
+
+Route::get('edit/{id}',                  'LeavesController@editUserLeaves')->name('leave.edit')->middleware('signed');
+    
+
+Route::put('my-leave/update/{id}',      'LeavesController@update')->name('my-leave.update');    
+    
+
+Route::delete('{id}/delete',             'LeavesController@destroy')->name('leave.user.destroy');
+
+
 });
 
 // Administration routes
-Route::group(['prefix' => config('app.administration_prefix'), 'middleware' => ['auth','role:Admin']], function () {    
+Route::group(['prefix' => config('app.administration_prefix'), 'middleware' => ['auth','role:Admin']], function (){    
     // leaves
     Route::group(['prefix' => 'leaves'], function () {
 
-        Route::get('/', 'LeavesController@index')->name('leave.index');
+        Route::get('/', 'AdminLeavesController@index')->name('leave.admin.index');
         Route::get('apply-for-employees','LeavesController@showAdminLeaveApplicationForm')->name('admin.apply.leave');
+        Route::get('{id}/show', 'AdminLeavesController@show')->name('leave.admin.show')->middleware('signed');
         Route::group(['prefix' => 'leave-records'], function () {
             Route::delete('{id}/delete', ['uses' => 'LeavesController@destroy', 'as' => 'leave.destroy']);
-            Route::get('{id}/show', 'LeavesController@showUserLeaves')->name('leave.employee.show')->middleware('signed');
+            
             Route::post('{id}/approve-reject', 'LeavesController@approveRejectLeave')->name('leave.approve.reject');
             Route::get('{id}/excel-export', 'LeavesController@exportUserLeaves')->name('leave.export.excel');
         });

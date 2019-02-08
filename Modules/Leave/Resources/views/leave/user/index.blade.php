@@ -33,14 +33,14 @@ My Leave Applications
                         <td class="text-center"><span class="badge badge-md {{statusColor($result->status) ?? ''}}">
                                 {{ ucwords($result->status ?? 'Missing Status') }}</span></td>
                         <td class="text-center">
-                            <a href="{{URL::signedRoute('my-leave.show',['id'=>$result->id])}}" class="btn btn-sm" id="">
+                            <a href="{{URL::signedRoute('leave.show',['id'=>$result->id])}}" class="btn btn-sm" id="">
                                 View
                             </a>
                             @php
                             $editVisibility = !in_array(Modules\Leave\Entities\Leave::find($result->id)->status, ['approved', 'rejected']);
                             @endphp
                             @if($editVisibility)
-                            <a href="{{URL::signedRoute('my-leave.edit',['id'=>$result->id])}}" class="btn btn-sm">
+                            <a href="{{URL::signedRoute('leave.edit',['id'=>$result->id])}}" class="btn btn-sm">
                                 Edit
                             </a>
                             <form action="{{route('leave.user.destroy',['id'=>$result->id])}}" method="POST" class="delete-user-leave d-inline">
