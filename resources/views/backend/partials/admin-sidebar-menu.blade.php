@@ -87,7 +87,7 @@
 </ul>
 <hr> -->
 @if(Request::is(config('app.administration_prefix')."/roles*") ||
-Request::is(config('app.administration_prefix')."/site*"))
+Request::is(config('app.administration_prefix')."/site*") || Request::is(config('app.administration_prefix')."/company*"))
 <div class="aside-block">
     <div class="flexbox mb-1">
         <h6 class="aside-title">Configurations</h6>
@@ -97,6 +97,10 @@ Request::is(config('app.administration_prefix')."/site*"))
     <li class="nav-item {{Route::currentRouteName() == 'siteconfig.index'  ? 'active':''}}">
         <i class="ti ti-settings"></i>
         <a class="nav-link" href="{{route('siteconfig.index')}} ">Site Configurations</a>
+    </li>
+    <li class="nav-item {{Route::currentRouteName() == 'roles.index'  ? 'active':''}}">
+        <i class="ti ti-location-pin"></i>
+        <a class="nav-link" href="{{route('company.index')}} ">Cost Centers</a>
     </li>
     <li class="nav-item {{Route::currentRouteName() == 'roles.index'  ? 'active':''}}">
         <i class="ti ti-id-badge"></i>

@@ -61,17 +61,12 @@ class AdminLeavesController extends Controller
      */
     public function create()
     {
-        return view('leave::create');
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     * @param  Request $request
-     * @return Response
-     */
-    public function store(Request $request)
-    {
-    }
+        return view('leave::leave.admin.apply', [
+            'types' => $this->type->all(),
+            'holidays' => $this->holiday->all(),
+            'users' => $this->user->all()
+        ]);
+    }    
 
     /**
      * Show the specified resource.
@@ -106,6 +101,7 @@ class AdminLeavesController extends Controller
      */
     public function update(Request $request)
     {
+        
     }
 
     /**

@@ -37,15 +37,26 @@ Route::group(['prefix' => config('app.administration_prefix'), 'middleware' => [
     // leaves
     Route::group(['prefix' => 'leaves'], function () {
 
-        Route::get('/', 'AdminLeavesController@index')->name('leave.admin.index');
-        Route::get('apply-for-employees','LeavesController@showAdminLeaveApplicationForm')->name('admin.apply.leave');
-        Route::get('{id}/show', 'AdminLeavesController@show')->name('leave.admin.show')->middleware('signed');
-        Route::group(['prefix' => 'leave-records'], function () {
-            Route::delete('{id}/delete', ['uses' => 'LeavesController@destroy', 'as' => 'leave.destroy']);
+    Route::get('/',                               'AdminLeavesController@index')->name('leave.admin.index');
+
+
+    Route::get('apply-for-employees',             'LeavesController@create')->name('admin.apply.leave');
+
+
+    Route::get('{id}/show',                       'AdminLeavesController@show')->name('leave.admin.show')->middleware('signed');
+    
+        
+    Route::delete('{id}/delete',                  'LeavesController@destroy')->name('leave.destroy');
             
-            Route::post('{id}/approve-reject', 'LeavesController@approveRejectLeave')->name('leave.approve.reject');
-            Route::get('{id}/excel-export', 'LeavesController@exportUserLeaves')->name('leave.export.excel');
-        });
+    
+    
+    Route::post('{id}/approve-reject',            'LeavesController@approveRejectLeave')->name('leave.approve.reject');
+    
+    
+    
+    Route::get('{id}/excel-export',               'LeavesController@exportUserLeaves')->name('leave.export.excel');
+        
+ });
                 
     // leave types
         Route::group(['prefix' => 'leave-types'], function () {
@@ -66,4 +77,3 @@ Route::group(['prefix' => config('app.administration_prefix'), 'middleware' => [
         });
     });
 
-});
