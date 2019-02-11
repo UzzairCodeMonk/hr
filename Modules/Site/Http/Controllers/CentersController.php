@@ -17,7 +17,7 @@ class CentersController extends Controller
 
         return view('site::company.index',[
             'centers' => Center::all()
-            ]);
+        ]);
 
     }
     

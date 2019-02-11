@@ -20,8 +20,7 @@
     </li>
     <li class="nav-item {{Route::currentRouteName() == 'position.index'  ? 'active':''}}">
         <i class="ti ti-layers-alt"></i>
-        <a class="nav-link" href="{{route('position.index')}}">Position
-            Categories</a>
+        <a class="nav-link" href="{{route('position.index')}}">Position Categories</a>
     </li>
 </ul>
 <hr>
@@ -46,6 +45,10 @@
         <i class="ti ti-calendar"></i>
         <a class="nav-link" href="{{route('holiday.index')}} ">Holidays</a>
     </li>
+    <li class="nav-item {{Route::currentRouteName() == 'leave.config.index'  ? 'active':''}}">
+        <i class="ti ti-agenda"></i>
+        <a class="nav-link" href="{{route('leave.config.index')}}">Leave Configurations</a>
+    </li>
 </ul>
 <hr>
 @endif
@@ -67,11 +70,11 @@
 </ul>
 
 <ul class="nav nav-pills flex-column">
-        <li class="nav-item {{Route::currentRouteName() == 'claim.records'  ? 'active':''}}">
-            <i class="ti ti-agenda"></i>
-            <a class="nav-link" href="{{route('claim.records')}}">Claim Submission Records</a>
-        </li>
-    </ul>
+    <li class="nav-item {{Route::currentRouteName() == 'claim.records'  ? 'active':''}}">
+        <i class="ti ti-agenda"></i>
+        <a class="nav-link" href="{{route('claim.records')}}">Claim Submission Records</a>
+    </li>
+</ul>
 <hr>
 @endif
 <!-- <div class="aside-block">
@@ -87,7 +90,8 @@
 </ul>
 <hr> -->
 @if(Request::is(config('app.administration_prefix')."/roles*") ||
-Request::is(config('app.administration_prefix')."/site*") || Request::is(config('app.administration_prefix')."/company*"))
+Request::is(config('app.administration_prefix')."/site*") ||
+Request::is(config('app.administration_prefix')."/company*"))
 <div class="aside-block">
     <div class="flexbox mb-1">
         <h6 class="aside-title">Configurations</h6>
