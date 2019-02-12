@@ -194,6 +194,16 @@ class LeavesController extends Controller
     }
 
     /**
+     * Check current user status
+     * 
+     * 
+     */
+
+     public function checkUserStatus(){
+         auth()->user()->
+     }
+
+    /**
      * Update leave application
      * 
      * @param integer $id

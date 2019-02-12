@@ -2,7 +2,7 @@
 @include('profile::admin.sidebar.menu')
 @endif
 
-@if(Request::is(config('app.administration_prefix')."/employees*"))
+@if(Request::is(config('app.administration_prefix')."/employees*") || Request::is(config('app.administration_prefix')."/employee-detail*"))
 <div class="aside-block">
     <div class="flexbox mb-1">
         <h6 class="aside-title">Employees Management</h6>
