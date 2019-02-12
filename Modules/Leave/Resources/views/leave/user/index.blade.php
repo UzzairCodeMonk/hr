@@ -60,7 +60,7 @@ My Leave Applications
                                         Edit
                                     </a>
                                     @endif
-                                    @if( $result->start_date < $todayDate ) <form action="{{route('leave.user.destroy',['id'=>$result->id])}}"
+                                    @if( $todayDate <  $result->start_date) <form action="{{route('leave.user.destroy',['id'=>$result->id])}}"
                                         method="POST" class="delete-user-leave d-inline" data-provide="tooltip"
                                         data-placement="bottom" title="" data-original-title="Withdraw this leave application">
                                         @csrf

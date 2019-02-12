@@ -22,6 +22,10 @@ Route::post('store',                     'LeavesController@store')->name('leave.
 
 
 Route::get('show/{id}',                  'LeavesController@show')->name('leave.show')->middleware('signed');
+
+
+
+Route::get('show/withdrawn/{id}',                  'LeavesController@showWithdrawn')->name('leave.show.withdrawn')->middleware('signed');
     
 
 
@@ -56,7 +60,7 @@ Route::group(['prefix' => config('app.administration_prefix'), 'middleware' => [
             
     
     
-    Route::post('{id}/approve-reject',            'LeavesController@approveRejectLeave')->name('leave.approve.reject');
+    Route::post('{id}/approve-reject',            'AdminLeavesController@approveRejectLeave')->name('leave.approve.reject');
     
     
     

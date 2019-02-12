@@ -15,6 +15,9 @@ function statusColor($value)
         case "withdrawn":
             echo "badge-warning";
             break;
+        case "remarks":
+            echo "badge-primary";
+            break;
         default:
             echo "badge-primary";
     }

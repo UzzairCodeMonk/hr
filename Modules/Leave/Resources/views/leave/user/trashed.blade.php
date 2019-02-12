@@ -52,27 +52,10 @@ My Leave Applications
                                 <td class="text-center"><span class="badge badge-md {{statusColor($result->status) ?? ''}}">
                                         {{ ucwords($result->status ?? 'Missing Status') }}</span></td>
                                 <td class="text-center">
-                                    <a href="{{URL::signedRoute('leave.show',['id'=>$result->id])}}" class="btn btn-sm"
+                                    <a href="{{URL::signedRoute('leave.show.withdrawn',['id'=>$result->id])}}" class="btn btn-sm"
                                         id="">
                                         View
-                                    </a>
-                                    @php                                    
-                                    $todayDate = date('Y-m-d');
-                                    @endphp
-                                    @if(isset($editVisibility))
-                                    <a href="{{URL::signedRoute('leave.edit',['id'=>$result->id])}}" class="btn btn-sm">
-                                        Edit
-                                    </a>
-                                    @endif
-                                    @if( $result->start_date < $todayDate ) <form action="{{route('leave.user.destroy',['id'=>$result->id])}}"
-                                        method="POST" class="delete-user-leave d-inline" data-provide="tooltip"
-                                        data-placement="bottom" title="" data-original-title="Withdraw this leave application">
-                                        @csrf
-                                        @method('DELETE')
-                                        <button type="submit" class="btn btn-danger btn-sm">Retract</button>
-                                        </form>
-                                        @endif
-
+                                    </a>                                  
                                 </td>
                             </tr>
                             @endforeach

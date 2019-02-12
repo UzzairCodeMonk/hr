@@ -58,6 +58,7 @@ class LeavesController extends Controller
     protected $rejectedStatus = 'rejected';
     protected $submittedStatus = 'submitted';
     protected $retractedStatus = 'withdrawn';
+    protected $remarkStatus = 'remarks';
     
 
     public function index()
@@ -72,6 +73,16 @@ class LeavesController extends Controller
         return view('leave::leave.user.trashed', [
             'results' => Leave::onlyTrashed()->where('user_id',auth()->id())->get(),
         ]);
+    }
+
+    public function showWithdrawn(int $id){
+        
+        return view('leave::leave.user.show-trash', [
+            'leave' => $this->leave->onlyTrashed()->where('id',$id)->first(),
+            'types' => $this->type->all(),
+            'statuses' => Leave::onlyTrashed()->where('id',$id)->first()->statuses,            
+        ]);
+
     }
 
     public function show(int $id)
@@ -118,7 +129,7 @@ class LeavesController extends Controller
         $this->saveAttachments($request, $leave);
 
         toast('Leave record submitted', 'success', 'top-right');
-        return redirect()->back();
+        return redirect()->route('leave.index');
     }
 
     public function update($id, Request $request)
@@ -152,7 +163,6 @@ class LeavesController extends Controller
             $admin->notify($notification);
         }
 
-
     }
 
     public function setLeaveStatus($leave)
@@ -180,36 +190,6 @@ class LeavesController extends Controller
         }
     }
 
-    public function approveRejectLeave(Request $request, $id)
-    {
-        // find this leave model
-        $leave = $this->leave->find($id);
-        // find the total days allowed for that particular leave type
-        $totalAllowedDaysOfLeave = $this->leave->find($id)->type->days;
-        // find total days taken for this leave
-        $totalDaysTaken = $this->leave->find($id)->days_taken;
-        // find the balance after approval
-        $balance = $totalAllowedDaysOfLeave - $totalDaysTaken;
-
-        if ($request->has('approve')) {            
-            // update or create leave balance record in leavebalances table
-            $this->balance->updateOrCreate(['user_id' => $leave->user_id, 'leavetype_id' => $leave->leavetype_id], ['balance' => $balance]);
-            // set the status of the leave
-            $leave->setStatus($this->approvedStatus, 'Leave approved by ' . Auth::user()->name . '<br>Remarks:<br> ' . $request->admin_remarks);
-            $leave->user->notify(new ApproveLeave($leave, $leave->user, Auth::user()));
-            toast('Leave application approved successfully', 'success', 'top-right');
-        }
-
-        if ($request->has('reject')) {
-            // set the status of the leave
-            $leave->setStatus($this->rejectedStatus, 'Leave rejected by ' . Auth::user()->name . '<br>Remarks:<br> ' . $request->admin_remarks);
-            $leave->user->notify(new RejectLeave($leave, $leave->user, Auth::user()));
-            toast('Leave application rejected', 'success', 'top-right');
-        }
-
-        return redirect()->back();
-
-    }
 
     public function destroy(int $id)
     {   
@@ -234,11 +214,15 @@ class LeavesController extends Controller
         $leave = $this->leave->find($id);        
         //check if the leave has been approved
         $that_leave = $this->balance->where('leavetype_id',$leave->leavetype_id)->where('user_id',$leave->user_id)->first();
-        $that_leave_balance = $that_leave->balance;
-        $that_leave_balance += $leave->days_taken;        
-        $that_leave->update([
-            'balance' => $that_leave_balance
-        ]);
+
+        if($leave->status == $this->approvedStatus){
+            $that_leave_balance = $that_leave->balance;
+            $that_leave_balance += $leave->days_taken;        
+            $that_leave->update([
+                'balance' => $that_leave_balance
+            ]);
+        }
+
         $leave->setStatus($this->retractedStatus, 'Leave withdrawn by ' . Auth::user()->name);
         $this->notifyHR($leave,new RetractLeave($leave, $leave->user, Auth::user()));
         $leave->delete();

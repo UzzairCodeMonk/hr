@@ -20,6 +20,7 @@ use Datakraf\Notifications\ApproveLeave;
 use Datakraf\Notifications\RejectLeave;
 use Modules\Leave\Http\Requests\ApplyLeaveRequest;
 use Modules\Leave\Entities\Holiday;
+use Datakraf\Notifications\AdminLeaveRemark;
 
 
 class AdminLeavesController extends Controller
@@ -47,6 +48,7 @@ class AdminLeavesController extends Controller
     protected $rejectedStatus = 'rejected';
     protected $submittedStatus = 'submitted';
     protected $retractedStatus = 'withdrawn';
+    protected $remarkStatus = 'remarks';
 
 
     /**
@@ -111,6 +113,44 @@ class AdminLeavesController extends Controller
         
     }
 
+
+    public function approveRejectLeave(Request $request, $id)
+    {
+        // find this leave model
+        $leave = $this->leave->find($id);
+        // find the total days allowed for that particular leave type
+        $totalAllowedDaysOfLeave = $this->leave->find($id)->type->days;
+        // find total days taken for this leave
+        $totalDaysTaken = $this->leave->find($id)->days_taken;
+        // find the balance after approval
+        $balance = $totalAllowedDaysOfLeave - $totalDaysTaken;
+
+        if ($request->has('approve')) {            
+            // update or create leave balance record in leavebalances table
+            $this->balance->updateOrCreate(['user_id' => $leave->user_id, 'leavetype_id' => $leave->leavetype_id], ['balance' => $balance]);
+            // set the status of the leave
+            $leave->setStatus($this->approvedStatus, 'Leave approved by ' . Auth::user()->name . '<br>Remarks:<br> ' . $request->admin_remarks);
+            $leave->user->notify(new ApproveLeave($leave, $leave->user, Auth::user()));
+            toast('Leave application approved successfully', 'success', 'top-right');
+        }
+
+        if ($request->has('reject')) {
+            // set the status of the leave
+            $leave->setStatus($this->rejectedStatus, 'Leave rejected by ' . Auth::user()->name . '<br>Remarks:<br> ' . $request->admin_remarks);
+            $leave->user->notify(new RejectLeave($leave, $leave->user, Auth::user()));
+            toast('Leave application rejected', 'success', 'top-right');
+        }
+
+        if ($request->has('remarks')) {
+            // set the status of the leave
+            $leave->setStatus($this->remarkStatus, '<b>Remarks by ' . Auth::user()->name . '</b><br>Remarks:<br> ' . $request->admin_remarks);
+            $leave->user->notify(new AdminLeaveRemark($leave, $leave->user, Auth::user()));
+            toast('Leave application rejected', 'success', 'top-right');
+        }
+
+        return redirect()->back();
+
+    }
     /**
      * Remove the specified resource from storage.
      * @return Response

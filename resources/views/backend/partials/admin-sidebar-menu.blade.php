@@ -33,7 +33,7 @@
     </div>
 </div>
 <ul class="nav nav-pills flex-column">
-    <li class="nav-item {{Route::currentRouteName() == 'leave.index'  ? 'active':''}}">
+    <li class="nav-item {{Route::currentRouteName() == 'leave.admin.index'  ? 'active':''}}">
         <i class="ti ti-agenda"></i>
         <a class="nav-link" href="{{route('leave.admin.index')}}">Leave Records</a>
     </li>

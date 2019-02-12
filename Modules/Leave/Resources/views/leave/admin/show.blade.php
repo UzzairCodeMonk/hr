@@ -7,10 +7,11 @@ Leave Application Form
 <div class="mb-3"></div>
 <div class="card">
     <div class="card-header">
-        <h3>Leave Application Form</h3> 
+        <h3>Leave Application Form</h3>
         <div class="card-options">
             <button type="button" class="btn btn-sm btn-info">{!! $leave->type->name ?? 'N/A' !!}</button>
-            <button type="button" class="btn btn-sm btn-secondary" data-toggle="modal" data-target="#leave-balance">View leave balance</button>
+            <button type="button" class="btn btn-sm btn-secondary" data-toggle="modal" data-target="#leave-balance">View
+                leave balance</button>
         </div>
     </div>
     <div class="card-body">
@@ -124,6 +125,7 @@ Leave Application Form
                         <div class="row">
                             <div class="col">
                                 <div class="form-group pull-right">
+                                    <button type="submit" name="remarks" class="btn btn-md btn-primary remarks-btn"> Submit Remarks Only</button>
                                     <button type="submit" name="approve" class="btn btn-md btn-success approve-btn"><i
                                             class="ti ti-check"></i> Approve</button>
                                     <button type="submit" name="reject" class="btn btn-md btn-danger reject-btn"><i
