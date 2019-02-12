@@ -5,7 +5,7 @@
         <!-- leave -->
         @if(isset($n->data['type']) && $n->data['type'] == 'leave')
         <?php $leave_id = $n->data['leave_id']; ?>
-        <a class="media mark-read" href="{{URL::signedRoute('leave.employee.show',['id'=>$leave_id])}}" data-id="{{ $n->id }}">
+        <a class="media mark-read" href="{{URL::signedRoute('leave.show',['id'=>$leave_id])}}" data-id="{{ $n->id }}">
             <span class="avatar"><i class="ti-files"></i></span>
             <!-- payslip -->
             @elseif(isset($n->data['type']) && $n->data['type'] == 'payslip')

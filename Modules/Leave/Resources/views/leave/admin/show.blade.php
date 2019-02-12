@@ -3,7 +3,7 @@
 Leave Application Form
 @endsection
 @section('content')
-<a href="{{URL::previous()}}" class="btn btn-primary btn-md">Back</a>
+<a href="{{route('leave.admin.index')}}" class="btn btn-primary btn-md">Back</a>
 <div class="mb-3"></div>
 <div class="card">
     <div class="card-header">
@@ -130,8 +130,6 @@ Leave Application Form
                                             class="ti ti-check"></i> Approve</button>
                                     <button type="submit" name="reject" class="btn btn-md btn-danger reject-btn"><i
                                             class="ti ti-close"></i> Reject</button>
-                                    <a href="{{URL::previous()}}" class="btn btn-md btn-primary"><i class="ti ti-back-left"></i>
-                                        Back</a>
                                 </div>
                             </div>
                         </div>

@@ -26,7 +26,7 @@ class NotificationsController extends Controller
     {
 
         $ids = $request->ids;
-        if (count($ids)) {     
+        if (count($ids) > 0) {     
                 // if delete
                 if($request->has('delete')){
                     foreach ($ids as $id) {
