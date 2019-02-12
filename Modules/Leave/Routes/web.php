@@ -8,6 +8,10 @@ Route::get('index',                      'LeavesController@index')->name('leave.
 
 
 
+Route::get('withdrawn',                  'LeavesController@withdrawn')->name('leave.withdrawn');
+
+
+
 Route::get('apply',                      'LeavesController@create')->name('leave.apply');    
 
 
@@ -48,7 +52,7 @@ Route::group(['prefix' => config('app.administration_prefix'), 'middleware' => [
     Route::get('{id}/show',                       'AdminLeavesController@show')->name('leave.admin.show')->middleware('signed');
     
         
-    Route::delete('{id}/delete',                  'LeavesController@destroy')->name('leave.destroy');
+    Route::delete('{id}/retract',                  'AdminLeavesController@retract')->name('leave.admin.retract');
             
     
     

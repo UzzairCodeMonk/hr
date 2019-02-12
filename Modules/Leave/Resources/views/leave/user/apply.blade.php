@@ -10,6 +10,8 @@ Leave Application Form
 </style>
 @endsection
 @section('content')
+<a href="{{route('leave.user.index')}}" class="btn btn-primary btn-md">Back</a>
+<div class="mb-3"></div>
 <div class="card">
     <div class="card-header">
         <h3>Leave Application Form</h3>

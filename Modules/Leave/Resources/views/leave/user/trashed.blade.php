@@ -2,6 +2,13 @@
 @section('page-title')
 My Leave Applications
 @endsection
+@section('page-css')
+<style>
+    .preloader{
+        display: none !important;
+    }
+</style>
+@endsection
 @section('content')
 <div class="card">
     <div class="card-header">
@@ -10,11 +17,11 @@ My Leave Applications
     <div class="card-body">
         <ul class="nav nav-tabs" id="myTab" role="tablist">
             <li class="nav-item">
-                <a class="nav-link active" href="{{route('leave.index')}}" role="tab" aria-controls="active"
+                <a class="nav-link"href="{{route('leave.index')}}" role="tab" aria-controls="active"
                     aria-selected="true">Active Applications</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link"  href="{{route('leave.withdrawn')}}" role="tab" aria-controls="withdrawn"
+                <a class="nav-link  active" href="{{route('leave.withdrawn')}}" role="tab" aria-controls="withdrawn"
                     aria-selected="false">Withdrawn Applications</a>
             </li>
         </ul>
@@ -49,13 +56,10 @@ My Leave Applications
                                         id="">
                                         View
                                     </a>
-                                    @php
-                                    $editVisibility =
-                                    !in_array(Modules\Leave\Entities\Leave::find($result->id)->status,
-                                    ['approved', 'rejected']);
+                                    @php                                    
                                     $todayDate = date('Y-m-d');
                                     @endphp
-                                    @if($editVisibility)
+                                    @if(isset($editVisibility))
                                     <a href="{{URL::signedRoute('leave.edit',['id'=>$result->id])}}" class="btn btn-sm">
                                         Edit
                                     </a>

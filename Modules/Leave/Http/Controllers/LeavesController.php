@@ -20,6 +20,7 @@ use Datakraf\Notifications\ApproveLeave;
 use Datakraf\Notifications\RejectLeave;
 use Modules\Leave\Http\Requests\ApplyLeaveRequest;
 use Modules\Leave\Entities\Holiday;
+use Datakraf\Notifications\RetractLeave;
 
 class LeavesController extends Controller
 {
@@ -56,12 +57,20 @@ class LeavesController extends Controller
     protected $approvedStatus = 'approved';
     protected $rejectedStatus = 'rejected';
     protected $submittedStatus = 'submitted';
+    protected $retractedStatus = 'withdrawn';
     
 
     public function index()
     {
         return view('leave::leave.user.index', [
             'results' => Auth::user()->leaves,
+        ]);
+    }
+
+    public function withdrawn()
+    {
+        return view('leave::leave.user.trashed', [
+            'results' => Leave::onlyTrashed()->where('user_id',auth()->id())->get(),
         ]);
     }
 
@@ -102,7 +111,7 @@ class LeavesController extends Controller
         // save total days
         $this->saveTotalDaysTaken($leave);
         // notify HR
-        $this->notifyHR($leave);
+        $this->notifyHR($leave,new ApplyLeave($leave, Auth::user()));
         // set leave status
         $this->setLeaveStatus($leave);
         // save attachments
@@ -133,14 +142,14 @@ class LeavesController extends Controller
         $leave->save();
     }
 
-    public function notifyHR($leave)
+    public function notifyHR($leave,$notification)
     {
         $admins = User::whereHas('roles', function ($q) {
             $q->where('name', 'Admin');
         })->get();
 
         foreach ($admins as $admin) {
-            $admin->notify(new ApplyLeave($leave, Auth::user()));
+            $admin->notify($notification);
         }
 
 
@@ -205,8 +214,7 @@ class LeavesController extends Controller
     public function destroy(int $id)
     {   
         $this->retract($id);
-        
-        toast($this->message('delete', 'Leave record'), 'success', 'top-right');
+                
         return back();
     }
 
@@ -231,7 +239,10 @@ class LeavesController extends Controller
         $that_leave->update([
             'balance' => $that_leave_balance
         ]);
+        $leave->setStatus($this->retractedStatus, 'Leave withdrawn by ' . Auth::user()->name);
+        $this->notifyHR($leave,new RetractLeave($leave, $leave->user, Auth::user()));
         $leave->delete();
+        toast('Leave application withdrawn successfully', 'success', 'top-right');
     }
 
 }

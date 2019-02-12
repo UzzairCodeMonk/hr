@@ -46,6 +46,7 @@ class AdminLeavesController extends Controller
     protected $approvedStatus = 'approved';
     protected $rejectedStatus = 'rejected';
     protected $submittedStatus = 'submitted';
+    protected $retractedStatus = 'withdrawn';
 
 
     /**
@@ -117,4 +118,20 @@ class AdminLeavesController extends Controller
     public function destroy()
     {
     }
+
+    public function retract(int $id){
+
+        $leave = $this->leave->find($id);        
+        //check if the leave has been approved
+        $that_leave = $this->balance->where('leavetype_id',$leave->leavetype_id)->where('user_id',$leave->user_id)->first();
+        $that_leave_balance = $that_leave->balance;
+        $that_leave_balance += $leave->days_taken;        
+        $that_leave->update([
+            'balance' => $that_leave_balance
+        ]);
+        $leave->setStatus($this->retractedStatus, 'Leave withdrawn by ' . Auth::user()->name);
+            $this->notifyHR($leave,new RetractLeave($leave, $leave->user, Auth::user()));
+            toast('Leave application withdrawn successfully', 'success', 'top-right');
+    }
+
 }

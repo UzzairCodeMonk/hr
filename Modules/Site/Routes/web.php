@@ -24,5 +24,5 @@ Route::group(['prefix' => config('app.administration_prefix')], function () {
         Route::delete('delete',['uses' => 'CentersController@destroy','as' => 'company.delete']);
     });
 
-    
+
 });
