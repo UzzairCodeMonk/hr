@@ -21,13 +21,15 @@ Route::get('show/{id}',                  'LeavesController@show')->name('leave.s
     
 
 
-Route::get('edit/{id}',                  'LeavesController@editUserLeaves')->name('leave.edit')->middleware('signed');
+Route::get('edit/{id}',                  'LeavesController@edit')->name('leave.edit')->middleware('signed');
     
 
-Route::put('my-leave/update/{id}',      'LeavesController@update')->name('my-leave.update');    
+Route::post('my-leave/update/{id}',      'LeavesController@update')->name('my-leave.update');    
     
 
 Route::delete('{id}/delete',             'LeavesController@destroy')->name('leave.user.destroy');
+
+Route::delete('{id}/retract',             'LeavesController@retract')->name('leave.user.retract');
 
 
 });

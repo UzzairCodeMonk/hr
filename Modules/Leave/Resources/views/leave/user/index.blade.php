@@ -43,12 +43,13 @@ My Leave Applications
                             <a href="{{URL::signedRoute('leave.edit',['id'=>$result->id])}}" class="btn btn-sm">
                                 Edit
                             </a>
-                            <form action="{{route('leave.user.destroy',['id'=>$result->id])}}" method="POST" class="delete-user-leave d-inline">
+                            @endif
+                            <form action="{{route('leave.user.destroy',['id'=>$result->id])}}" method="POST" class="delete-user-leave d-inline" data-provide="tooltip" data-placement="bottom" title="" data-original-title="Withdraw this leave application">
                                 @csrf
                                 @method('DELETE')
-                                <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+                                <button type="submit" class="btn btn-danger btn-sm">Retract</button>
                             </form>
-                            @endif
+                            
                         </td>
                     </tr>
                     @endforeach

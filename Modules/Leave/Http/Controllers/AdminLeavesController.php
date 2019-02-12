@@ -42,6 +42,12 @@ class AdminLeavesController extends Controller
         $this->balance = $balance;
         $this->holiday = $holiday;
     }
+
+    protected $approvedStatus = 'approved';
+    protected $rejectedStatus = 'rejected';
+    protected $submittedStatus = 'submitted';
+
+
     /**
      * Display a listing of the resource.
      * @return Response
@@ -77,7 +83,7 @@ class AdminLeavesController extends Controller
         // determine if action buttons will be displayed or vice versa
         $actionVisibility = !in_array($this->leave->find($id)->status, [$this->approvedStatus, $this->rejectedStatus]);
 
-        return view('leave::leave.forms.show', [
+        return view('leave::leave.admin.show', [
             'leave' => $this->leave->find($id),
             'types' => $this->type->all(),
             'statuses' => $this->leave->find($id)->statuses,

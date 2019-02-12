@@ -16,11 +16,10 @@ Leave Config
             <div class="col-4">
                 <h3>Holidays</h3>
                 <p class="help-text">
-                    Holidays for each cost center.
+                    Holidays (non-working days) for each cost center.
                 </p>
             </div>
             <div class="col-8">
-
                 <div class="form-group">
                     <label for="">Please mark the holidays for each working center</label>
                     <br>
@@ -28,18 +27,25 @@ Leave Config
                     @foreach($centers as $center)
                     <form action="{{route('leave.config.store')}}" method="POST">
                         @csrf
-                        <input type="hidden" value="{{$center->id}}" name="center_id" >
-                        <ul style="float:left">
-                            <li style="list-style:none">
-                                <h5>{{$center->name ?? 'N/A'}}</h5>
-                            </li>
-                            <ul style="list-style:none">
-                                @foreach($days as $day)
-                                <li><input type="checkbox" value="{{$day->id}}" name="days[]"> {{$day->name ?? 'N/A'}}</li>
-                                @endforeach
-                            </ul>
-                        </ul>
-                        <button type="submit">Submit</button>
+                        <div class="form-group">
+                            <input type="hidden" value="{{$center->id}}" name="center_id">
+                            <h5>{{$center->name ?? 'N/A'}}</h5>
+                            @foreach($days as $day)
+
+                            {{ Form::checkbox(
+                            'days[]',
+                            $day->id,
+                            (in_array($day->id, $center->holidays->pluck('id')->toArray())),
+                            ['class' => 'checkbox checkbox-inline']
+                            )
+                            }}
+                            <label for="">{{$day->name ?? 'N/A'}}</label>
+                            @endforeach
+
+                        </div>
+                        <div class="form-group mt-3">
+                            <button type="submit" class="btn btn-primary btn-sm">Update</button>
+                        </div>
                     </form>
                     @endforeach
                     @endif

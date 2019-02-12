@@ -42,6 +42,8 @@ class ConfigsController extends Controller
         $center = Center::find($request->center_id);
         $days = Day::find($request->days);        
         $center->holidays()->sync($days);
+        toast('Holidays set successfully', 'success', 'top-right');
+        return back();
     }
 
     /**
