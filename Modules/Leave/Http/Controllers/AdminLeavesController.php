@@ -66,7 +66,7 @@ class AdminLeavesController extends Controller
     public function withdrawn()
     {
         return view('leave::leave.admin.index', [
-            'results' => Leave::onlyTrashed()->get(),
+            'leaves' => Leave::onlyTrashed()->get(),
         ]);
     }
 
