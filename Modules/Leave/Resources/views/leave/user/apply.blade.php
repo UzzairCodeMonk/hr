@@ -10,7 +10,7 @@ Leave Application Form
 </style>
 @endsection
 @section('content')
-<a href="{{route('leave.index')}}" class="btn btn-primary btn-md">Back</a>
+<a href="{{route('leave.index',['status' => 'submitted'])}}" class="btn btn-primary btn-md">Back</a>
 <div class="mb-3"></div>
 <div class="card">
     <div class="card-header">
@@ -116,7 +116,7 @@ Leave Application Form
                     <tr>
                         <td>{{++$key}}</td>
                         <td>{{$h->name ?? 'N/Application'}}</td>
-                        <td>{{$h->date ?? 'N/A'}}</td>
+                        <td>{{Carbon\Carbon::createFromFormat('d/m/Y',$h->date)->format('d M Y') ?? 'N/A'}}</td>
                     </tr>
                     @endforeach
                 </tbody>

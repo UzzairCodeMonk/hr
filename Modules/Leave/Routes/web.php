@@ -4,7 +4,7 @@
 Route::group(['prefix' => 'leaves', 'middleware' => 'auth'], function () {
 
 
-Route::get('index',                      'LeavesController@index')->name('leave.index');
+Route::get('status/{status}',            'LeavesController@index')->name('leave.index');
 
 
 
@@ -47,8 +47,10 @@ Route::group(['prefix' => config('app.administration_prefix'), 'middleware' => [
     // leaves
     Route::group(['prefix' => 'leaves'], function () {
 
-    Route::get('/',                               'AdminLeavesController@index')->name('leave.admin.index');
+    Route::get('status/{status}',                               'AdminLeavesController@index')->name('leave.admin.index');
+    
 
+    Route::get('withdrawn',                                      'AdminLeavesController@withdrawn')->name('leave.admin.withdrawn');
 
     Route::get('apply-for-employees',             'LeavesController@create')->name('admin.apply.leave');
 

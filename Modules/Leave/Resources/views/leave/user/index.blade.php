@@ -8,16 +8,7 @@ My Leave Applications
         <h3>My Leave Applications</h3>
     </div>
     <div class="card-body">
-        <ul class="nav nav-tabs" id="myTab" role="tablist">
-            <li class="nav-item">
-                <a class="nav-link active" href="{{route('leave.index')}}" role="tab" aria-controls="active"
-                    aria-selected="true">Active Applications</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link"  href="{{route('leave.withdrawn')}}" role="tab" aria-controls="withdrawn"
-                    aria-selected="false">Withdrawn Applications</a>
-            </li>
-        </ul>
+        @include('leave::leave.user.leave-nav-by-status')
         <div class="tab-content" id="myTabContent">
             <div class="tab-pane fade show active" id="active" role="tabpanel" aria-labelledby="active-tab">
                 <div class="table-responsive">
@@ -55,7 +46,7 @@ My Leave Applications
                                     ['approved', 'rejected']);
                                     $todayDate = date('Y-m-d');
                                     @endphp
-                                    @if($editVisibility)
+                                    @if(isset($editVisibility))
                                     <a href="{{URL::signedRoute('leave.edit',['id'=>$result->id])}}" class="btn btn-sm">
                                         Edit
                                     </a>
@@ -65,7 +56,7 @@ My Leave Applications
                                         data-placement="bottom" title="" data-original-title="Withdraw this leave application">
                                         @csrf
                                         @method('DELETE')
-                                        <button type="submit" class="btn btn-danger btn-sm">Retract</button>
+                                        <button type="submit" class="btn btn-danger btn-sm">Withdraw</button>
                                         </form>
                                         @endif
 

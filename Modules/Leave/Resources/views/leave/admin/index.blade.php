@@ -11,6 +11,7 @@ Employees Leave Records
         </div>
     </div>
     <div class="card-body">
+        @include('leave::leave.admin.leave-nav-by-status')
         <div class="table-responsive">
         <table class="table table-striped table-bordered datatable">
             <thead>
@@ -22,7 +23,7 @@ Employees Leave Records
                     <th>End Date</th>
                     <th class="text-center">Total Days</th>
                     <th class="text-center">Application Date</th>
-                    <th class="text-center">Status</th>
+                    <th>Status</th>
                     <th class="text-center">Actions</th>
                 </tr>
             </thead>
@@ -36,7 +37,7 @@ Employees Leave Records
                     <td>{{$leave->end_date ?? 'N/A'}}</td>
                     <td class="text-center">{{$leave->days_taken ?? 'N/A'}}</td>
                     <td class="text-center">{{ $leave->created_at->toDayDateTimeString() ?? 'N/A' }}</td>
-                    <td class="text-center"><span class="badge badge-md {{statusColor($leave->status) ?? ''}}">{!! ucwords($leave->status) ?? 'N/A'!!}</span></td>
+                    <td class="text-center"><span class="badge badge-md {{statusColor($leave->status) ?? ''}}">{{ ucwords($leave->status) ?? 'N/A' }}</span></td>
                     <td class="text-center">
                         <a href="{{URL::signedRoute('leave.admin.show',['id'=>$leave->id])}}" class="btn btn-sm text-dark btn-link">View</a>
                         <form action="{{route('leave.user.destroy',['id'=>$leave->id])}}" method="POST" class="leave-record d-inline">

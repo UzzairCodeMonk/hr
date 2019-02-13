@@ -55,13 +55,19 @@ class AdminLeavesController extends Controller
      * Display a listing of the resource.
      * @return Response
      */
-    public function index()
+    public function index($status = null)
     {    
         return view('leave::leave.admin.index',[
-            'leaves' => $this->leave->whereHas('statuses',function($query){
-                $query->groupBy('name');
-            })->orderBy('created_at','desc')->get()
+            'leaves' => Leave::adminLeaveStatus($status)
         ]);    
+    }
+
+
+    public function withdrawn()
+    {
+        return view('leave::leave.admin.index', [
+            'results' => Leave::onlyTrashed()->get(),
+        ]);
     }
 
     /**

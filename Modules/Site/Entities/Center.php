@@ -4,6 +4,7 @@ namespace Modules\Site\Entities;
 
 use Illuminate\Database\Eloquent\Model;
 use Datakraf\Day;
+use Modules\Profile\Entities\PersonalDetail;
 
 class Center extends Model
 {
@@ -13,5 +14,9 @@ class Center extends Model
 
     public function holidays(){
         return $this->belongsToMany(Day::class,'center_holiday','center_id','day_id');
+    }
+
+    public function personaldetails(){
+        return $this->hasMany(PersonalDetail::class);
     }
 }

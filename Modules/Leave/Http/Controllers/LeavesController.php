@@ -21,6 +21,7 @@ use Datakraf\Notifications\RejectLeave;
 use Modules\Leave\Http\Requests\ApplyLeaveRequest;
 use Modules\Leave\Entities\Holiday;
 use Datakraf\Notifications\RetractLeave;
+use Modules\Leave\Traits\LeaveStatus;
 
 /***
  * 
@@ -51,7 +52,7 @@ use Datakraf\Notifications\RetractLeave;
 
 class LeavesController extends Controller
 {
-    use AlertMessage, Date;
+    use AlertMessage, Date, LeaveStatus;
    
     public $type;
     public $data;
@@ -76,13 +77,7 @@ class LeavesController extends Controller
         $this->attachment = $attachment;
         $this->balance = $balance;
         $this->holiday = $holiday;
-    }
-
-    protected $approvedStatus = 'approved';
-    protected $rejectedStatus = 'rejected';
-    protected $submittedStatus = 'submitted';
-    protected $retractedStatus = 'withdrawn';
-    protected $remarkStatus = 'remarks';
+    }    
     
 
     /**
@@ -91,12 +86,11 @@ class LeavesController extends Controller
      * @return void
      */
 
-    public function index()
-    {
+    public function index($status){
         return view('leave::leave.user.index', [
-            'results' => Auth::user()->leaves,
+            'results' => Leave::leaveStatus($status),
         ]);
-    }
+    }    
 
     /**
      *  Show the leave application details
@@ -112,6 +106,8 @@ class LeavesController extends Controller
             'statuses' => $this->leave->find($id)->statuses,            
         ]);
     }
+
+    
 
     /**
      * List all withdrawn leave applications
@@ -355,7 +351,7 @@ class LeavesController extends Controller
         }
         
         // set leave status
-        $leave->setStatus($this->retractedStatus, 'Leave withdrawn by ' . Auth::user()->name);
+        $leave->setStatus($this->withdrawnStatus, 'Leave withdrawn by ' . Auth::user()->name);
         
         // notify HR/Administrators
         $this->notifyHR($leave,new RetractLeave($leave, $leave->user, Auth::user()));

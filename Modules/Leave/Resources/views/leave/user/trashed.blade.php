@@ -15,16 +15,7 @@ My Leave Applications
         <h3>My Leave Applications</h3>
     </div>
     <div class="card-body">
-        <ul class="nav nav-tabs" id="myTab" role="tablist">
-            <li class="nav-item">
-                <a class="nav-link"href="{{route('leave.index')}}" role="tab" aria-controls="active"
-                    aria-selected="true">Active Applications</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link  active" href="{{route('leave.withdrawn')}}" role="tab" aria-controls="withdrawn"
-                    aria-selected="false">Withdrawn Applications</a>
-            </li>
-        </ul>
+        @include('leave::leave.user.leave-nav-by-status')
         <div class="tab-content" id="myTabContent">
             <div class="tab-pane fade show active" id="active" role="tabpanel" aria-labelledby="active-tab">
                 <div class="table-responsive">

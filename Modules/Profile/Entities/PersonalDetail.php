@@ -8,6 +8,7 @@ use Modules\Profile\Events\PersonalDetailCreated;
 use Modules\Profile\Entities\Position;
 use Carbon\Carbon;
 use Modules\Wage\Entities\Bank;
+use Modules\Site\Entities\Center;
 
 class PersonalDetail extends Model
 {
@@ -30,6 +31,10 @@ class PersonalDetail extends Model
         return $this->belongsTo(Bank::class,'bank_id');
     }
 
+    public function center(){
+        return $this->belongsTo(Center::class,'center_id');
+    }
+    
     public function setDateOfBirthAttribute($value)
     {
         if ($value != '') {

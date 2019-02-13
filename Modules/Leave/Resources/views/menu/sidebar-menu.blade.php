@@ -13,7 +13,7 @@
             </a>
         </li>
         <li class="menu-item">
-            <a class="menu-link" href="{{route('leave.index')}}">
+            <a class="menu-link" href="{{route('leave.index',['status' => 'submitted'])}}">
                 <span class="dot"></span>
                 <span class="title">My Leave Applications</span>
             </a>
