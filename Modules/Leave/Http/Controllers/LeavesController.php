@@ -199,9 +199,9 @@ class LeavesController extends Controller
      * 
      */
 
-     public function checkUserStatus(){
-         auth()->user()->
-     }
+    //  public function checkUserStatus(){
+    //      auth()->user()->
+    //  }
 
     /**
      * Update leave application
