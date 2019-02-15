@@ -44,7 +44,7 @@
         </ul>
         @role('Admin')
         <div class="topbar-divider"></div>
-        <a href="/admin-panel" class="btn btn-xs btn-primary" style="margin-top:6px;"> Access Admin Panel</a>
+        <a href="{{ is_active(config('app.administration_prefix').'/*') ? route('personal.index'):route('backend.admin.index')}}" class="btn btn-xs btn-primary" style="margin-top:6px;"> {{ is_active(config('app.administration_prefix').'/*') ? 'Access My Profile':'Access Admin Panel' }}</a>
         @endrole
     </div>
 </header>

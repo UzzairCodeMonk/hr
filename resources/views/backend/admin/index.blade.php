@@ -1,4 +1,14 @@
 @extends('backend.master')
+@section('page-css')
+    <style>
+        .aside{
+            display: none !important;
+        }
+        .aside ~ .header, .aside ~ .main-content, .aside ~ .site-footer{
+            margin-left:0 !important;
+        }
+    </style>
+@endsection
 @section('page-title')
 Administration Panel
 @endsection

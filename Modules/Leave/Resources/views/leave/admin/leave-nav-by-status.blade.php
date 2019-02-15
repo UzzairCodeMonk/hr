@@ -13,7 +13,7 @@
 
     <li class="nav-item">
         <a class="nav-link {{active($admin_link .'/leaves/status/approved')}}"  href="{{route('leave.admin.index',['status'=>'approved'])}}" role="tab" aria-controls="approved"
-            aria-selected="false">Approved Applications</a>
+            aria-selected="false">Approved Applications</toa>
     </li>
 
     <li class="nav-item">
