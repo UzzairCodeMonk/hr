@@ -185,7 +185,9 @@ Personal Details
                         <div class="col-lg-6 col-sm-12">
                             <div class="form-group">
                                 <label for="">{{ucwords(__('profile::personal-detail.city'))}}</label>
-                                <input type="text" name="city" id="" class="form-control" value="{{old('city',isset($personalDetail->city)? $personalDetail->city:null)}}">
+                                <input type="text" name="city" id="city" data-name="city" class="editInput"
+                                    value="{{old('city',isset($personalDetail->city)? $personalDetail->city:null)}}">
+                                <button type="button" class="btn btn-xs btn-primary" id="btn-city" data-edit="city">Edit</button>
                             </div>
                         </div>
                         <div class="col-lg-6 col-sm-12">
@@ -307,6 +309,25 @@ Personal Details
     });
     $('.date-of-birth').datepicker({
         format: "{{config('app.date_format_js')}}",
+    });
+
+</script>
+<script>
+    $(document).ready(function () {
+        var editmode = false;
+        $('.editInput').addClass('form-control-plaintext');
+        
+        $('#btn-city').on('click', function () {
+            if (editmode) {
+                $('.editInput').addClass('form-control');
+                editmode = false;
+            } else {
+                $('.editInput').addClass('form-control-plaintext');
+                editmode = true;
+            }
+
+        });
+
     });
 
 </script>
