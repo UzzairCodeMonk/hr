@@ -27,7 +27,7 @@ Administration Panel
         'title' => 'Leave',
         'img' => asset('images/dashboard/requests.svg'),
         'description' => 'View, approve or reject employees leave applications',
-        'link' => route('leave.admin.index'),
+        'link' => route('leave.admin.index',['status'=>'submitted']),
         'linkClass' => 'btn-primary',
         'linkText' => 'Manage'
         ])
