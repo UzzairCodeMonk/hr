@@ -53,9 +53,9 @@ Personal Details
                 </div>
                 <div class="col-lg-8 col-sm-12">
                     <input type="hidden" name="user_id" value="{{Auth::id()}}">
-                    <div class="form-group">
+                    <div class="form-group editable">
                         <label for="">{{ucwords(__('profile::personal-detail.name'))}}</label>
-                        <input type="text" name="name" id="" class="form-control" value="{!! old('name',  isset($personalDetail->name) ? $personalDetail->name : null) !!}">
+                        <input type="text" name="name" id="" class="" value="{!! old('name',  isset($personalDetail->name) ? $personalDetail->name : null) !!}">
                         <p class="form-text">Enter your name as in IC/Birth Certificate</p>
                     </div>
                     <div class="row">
@@ -75,9 +75,9 @@ Personal Details
 
                     <div class="row">
                         <div class="col-lg-6 col-sm-12">
-                            <div class="form-group">
+                            <div class="form-group editable">
                                 <label for="">{{ucwords(__('profile::personal-detail.ic-number'))}}</label>
-                                <input type="text" name="ic_number" id="" class="form-control" value="{{old('ic_number',isset($personalDetail->ic_number) ? $personalDetail->ic_number:null)}}">
+                                <input type="text" name="ic_number" id="" class="" value="{{old('ic_number',isset($personalDetail->ic_number) ? $personalDetail->ic_number:null)}}">
                                 <p class="form-text">Numeric, without hyphen '-'. e.g: 940214075976</p>
                             </div>
                         </div>
@@ -105,9 +105,9 @@ Personal Details
                             </div>
                         </div>
                         <div class="col-lg-6 col-sm-12">
-                            <div class="form-group">
+                            <div class="form-group editable">
                                 <label for="">{{ucwords(__('profile::personal-detail.date-of-birth'))}}</label>
-                                <input type="text" name="date_of_birth" id="" class="form-control date-of-birth" value="{{old('date_of_birth',isset($personalDetail->date_of_birth)? $personalDetail->date_of_birth:null)}}">
+                                <input type="text" name="date_of_birth" id="" class="date-of-birth" value="{{old('date_of_birth',isset($personalDetail->date_of_birth)? $personalDetail->date_of_birth:null)}}">
                             </div>
                         </div>
                     </div>
@@ -140,25 +140,25 @@ Personal Details
                     </div>
                     <div class="row">
                         <div class="col-lg-6 col-sm-12">
-                            <div class="form-group">
+                            <div class="form-group editable">
                                 <label for="">{{ucwords(__('profile::personal-detail.phone-number'))}}</label>
-                                <input type="text" name="phone_number" id="" class="form-control" value="{{old('phone_number',isset($personalDetail->phone_number)?$personalDetail->phone_number:null)}}">
+                                <input type="text" name="phone_number" id="" class="" value="{{old('phone_number',isset($personalDetail->phone_number)?$personalDetail->phone_number:null)}}">
                                 <p class="form-text">Numeric, without hyphen '-'. e.g: 0312345678</p>
                             </div>
                         </div>
                         <div class="col-lg-6 col-sm-12">
-                            <div class="form-group">
+                            <div class="form-group editable">
                                 <label for="">{{ucwords(__('profile::personal-detail.mobile-number'))}}</label>
-                                <input type="text" name="mobile_number" id="" class="form-control" value="{{old('mobile_number',isset($personalDetail->mobile_number)?$personalDetail->mobile_number:null)}}">
+                                <input type="text" name="mobile_number" id="" class="" value="{{old('mobile_number',isset($personalDetail->mobile_number)?$personalDetail->mobile_number:null)}}">
                                 <p class="form-text">Numeric, without hyphen '-'. e.g: 0135637817</p>
                             </div>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-lg-12 col-sm-12">
-                            <div class="form-group">
+                            <div class="form-group editable">
                                 <label for="">{{ucwords(__('profile::personal-detail.alternative-email'))}}</label>
-                                <input type="text" name="alternative_email" id="" class="form-control" value="{{old('alternative_email',isset($personalDetail->alternative_email)?$personalDetail->alternative_email:null)}}">
+                                <input type="text" name="alternative_email" id="" class="" value="{{old('alternative_email',isset($personalDetail->alternative_email)?$personalDetail->alternative_email:null)}}">
                             </div>
                         </div>
                     </div>
@@ -173,41 +173,39 @@ Personal Details
                     </p>
                 </div>
                 <div class="col-lg-8 col-sm-12">
-                    <div class="form-group">
+                    <div class="form-group editable">
                         <label for="">{{ucwords(__('profile::personal-detail.address-one'))}}</label>
-                        <input type="text" name="address_one" id="" class="form-control" value="{{old('address_one',isset($personalDetail->address_one)? $personalDetail->address_one:null)}}">
+                        <input type="text" name="address_one" id="" class="" value="{{old('address_one',isset($personalDetail->address_one)? $personalDetail->address_one:null)}}">
                     </div>
-                    <div class="form-group">
+                    <div class="form-group editable">
                         <label for="">{{ucwords(__('profile::personal-detail.address-two'))}}</label>
-                        <input type="text" name="address_two" id="" class="form-control" value="{{old('address_two',isset($personalDetail->address_two)? $personalDetail->address_two:null)}}">
+                        <input type="text" name="address_two" id="" class="" value="{{old('address_two',isset($personalDetail->address_two)? $personalDetail->address_two:null)}}">
                     </div>
                     <div class="row">
                         <div class="col-lg-6 col-sm-12">
-                            <div class="form-group">
+                            <div class="form-group editable">
                                 <label for="">{{ucwords(__('profile::personal-detail.city'))}}</label>
-                                <input type="text" name="city" id="city" data-name="city" class="editInput"
-                                    value="{{old('city',isset($personalDetail->city)? $personalDetail->city:null)}}">
-                                <button type="button" class="btn btn-xs btn-primary" id="btn-city" data-edit="city">Edit</button>
+                                <input type="text" name="city" id="city" value="{{old('city',isset($personalDetail->city)? $personalDetail->city:null)}}">
                             </div>
                         </div>
                         <div class="col-lg-6 col-sm-12">
-                            <div class="form-group">
+                            <div class="form-group editable">
                                 <label for="">{{ucwords(__('profile::personal-detail.postcode'))}}</label>
-                                <input type="text" name="postcode" id="" class="form-control" value="{{old('postcode',isset($personalDetail->postcode)? $personalDetail->postcode:null)}}">
+                                <input type="text" name="postcode" id="" class="" value="{{old('postcode',isset($personalDetail->postcode)? $personalDetail->postcode:null)}}">
                             </div>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-lg-6 col-sm-12">
-                            <div class="form-group">
+                            <div class="form-group editable">
                                 <label for="">{{ucwords(__('profile::personal-detail.state'))}}</label>
-                                <input type="text" name="state" id="" class="form-control" value="{{old('state',isset($personalDetail->state)? $personalDetail->state:null)}}">
+                                <input type="text" name="state" id="" class="" value="{{old('state',isset($personalDetail->state)? $personalDetail->state:null)}}">
                             </div>
                         </div>
                         <div class="col-lg-6 col-sm-12">
-                            <div class="form-group">
+                            <div class="form-group editable">
                                 <label for="">{{ucwords(__('profile::personal-detail.country'))}}</label>
-                                <input type="text" name="country" id="" class="form-control" value="{{old('country',isset($personalDetail->country)? $personalDetail->country:null)}}">
+                                <input type="text" name="country" id="" class="" value="{{old('country',isset($personalDetail->country)? $personalDetail->country:null)}}">
                             </div>
                         </div>
                     </div>
@@ -314,16 +312,33 @@ Personal Details
 </script>
 <script>
     $(document).ready(function () {
-        var editmode = false;
-        $('.editInput').addClass('form-control-plaintext');
-        
-        $('#btn-city').on('click', function () {
-            if (editmode) {
-                $('.editInput').addClass('form-control');
-                editmode = false;
-            } else {
-                $('.editInput').addClass('form-control-plaintext');
-                editmode = true;
+
+        let editable = $('.editable').find('input');
+        let toggleButton = $('.editableToggle');
+
+        editable.addClass('form-control-plaintext').attr('readonly', true);
+
+        toggleButton.on('click', function () {
+            editable.toggleClass('form-control');
+            var attrState = editable.prop('readonly');
+            editable.prop('readonly', !attrState);
+
+            const Toast = swal.mixin({
+                toast: true,
+                position: 'top-right',
+                showConfirmButton: false,
+                timer: 3000
+            });
+            if (attrState) {
+                Toast.fire({
+                    type:'info',
+                    title:'You\'ve just turn on the Edit Mode'
+                });
+            }else{
+                Toast.fire({
+                    type:'info',
+                    title:'Remember to hit the Update button at the bottom to save the changes'
+                }); 
             }
 
         });
