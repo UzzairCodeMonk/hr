@@ -40,11 +40,29 @@
                 </div>
                 @endif
 
-            </li>          
+            </li>
         </ul>
         @role('Admin')
         <div class="topbar-divider"></div>
-        <a href="{{ is_active(config('app.administration_prefix').'/*') ? route('personal.index'):route('backend.admin.index')}}" class="btn btn-xs btn-primary" style="margin-top:6px;"> {{ is_active(config('app.administration_prefix').'/*') ? 'Access My Profile':'Access Admin Panel' }}</a>
+        <a href="{{ is_active(config('app.administration_prefix').'/*') ? route('personal.index'):route('backend.admin.index')}}"
+            class="btn btn-xs btn-primary" style="margin-top:6px;"> {{
+            is_active(config('app.administration_prefix').'/*') ? 'Access My Profile':'Access Admin Panel' }}</a>
+
+        <div class="fab fab-dir-bottom">
+            <a class="btn btn-xs btn-primary mr-2 text-white" data-toggle="button" style="margin-top:6px;">
+                Admin Quicklinks
+            </a>
+
+            <ul class="fab-buttons" style="top:50px">
+                <li><a class="btn  btn-block btn-sm btn-primary" href="{{route('backend.admin.index')}}">Dashboard</a></li>
+                <li><a class="btn  btn-block btn-sm btn-primary" href="{{route('user.index')}}">Employees Module</a></li>
+                <li><a class="btn  btn-block btn-sm btn-primary" href="{{route('leave.admin.index',['status'=>'submitted'])}}">Leaves Module</a></li>
+                <li><a class="btn  btn-block btn-sm btn-primary" href="{{route('payslip.index')}}">Wages Module</a></li>
+                <li><a class="btn  btn-block btn-sm btn-primary" href="{{route('roles.index')}}">Roles &amp; Permission</a></li>
+                <li><a class="btn  btn-block btn-sm btn-primary" href="{{route('siteconfig.index')}}">Site Configurations</a></li>               
+            </ul>
+
+        </div>
         @endrole
     </div>
 </header>
