@@ -53,7 +53,7 @@ use Modules\Leave\Traits\LeaveStatus;
 class LeavesController extends Controller
 {
     use AlertMessage, Date, LeaveStatus;
-   
+
     public $type;
     public $data;
     public $leave;
@@ -68,8 +68,7 @@ class LeavesController extends Controller
             'user_id' => $request->user_id,
             'leavetype_id' => $request->leavetype_id,
             'start_date' => $request->start_date,
-            'end_date' => $request->end_date,
-            'days_taken' => 0,
+            'end_date' => $request->end_date,            
             'notes' => $request->notes
         ];
         $this->leave = $leave;
@@ -77,8 +76,8 @@ class LeavesController extends Controller
         $this->attachment = $attachment;
         $this->balance = $balance;
         $this->holiday = $holiday;
-    }    
-    
+    }
+
 
     /**
      * List all user leave applications
@@ -86,11 +85,12 @@ class LeavesController extends Controller
      * @return void
      */
 
-    public function index($status){
+    public function index($status)
+    {
         return view('leave::leave.user.index', [
             'results' => Leave::leaveStatus($status),
         ]);
-    }    
+    }
 
     /**
      *  Show the leave application details
@@ -99,15 +99,15 @@ class LeavesController extends Controller
      */
 
     public function show(int $id)
-    {        
+    {
         return view('leave::leave.user.show', [
             'leave' => $this->leave->find($id),
             'types' => $this->type->all(),
-            'statuses' => $this->leave->find($id)->statuses,            
+            'statuses' => $this->leave->find($id)->statuses,
         ]);
     }
 
-    
+
 
     /**
      * List all withdrawn leave applications
@@ -116,7 +116,7 @@ class LeavesController extends Controller
     public function withdrawn()
     {
         return view('leave::leave.user.trashed', [
-            'results' => Leave::onlyTrashed()->where('user_id',auth()->id())->orderBy('deleted_at','desc')->get(),
+            'results' => Leave::onlyTrashed()->where('user_id', auth()->id())->orderBy('deleted_at', 'desc')->get(),
         ]);
     }
 
@@ -126,12 +126,13 @@ class LeavesController extends Controller
      * @param integer $id
      */
 
-    public function showWithdrawn(int $id){
-        
+    public function showWithdrawn(int $id)
+    {
+
         return view('leave::leave.user.show-trash', [
-            'leave' => $this->leave->onlyTrashed()->where('id',$id)->first(),
+            'leave' => $this->leave->onlyTrashed()->where('id', $id)->first(),
             'types' => $this->type->all(),
-            'statuses' => Leave::onlyTrashed()->where('id',$id)->first()->statuses,            
+            'statuses' => Leave::onlyTrashed()->where('id', $id)->first()->statuses,
         ]);
 
     }
@@ -150,19 +151,19 @@ class LeavesController extends Controller
             'holidays' => $this->holiday->all()
         ]);
     }
-    
+
     /**
      * Show edit leave application page
      * 
      * @param integer $id
      */
-    
+
     public function edit(int $id)
     {
         return view('leave::leave.user.edit', [
             'leave' => $this->leave->find($id),
             'types' => $this->type->all(),
-            'statuses' => $this->leave->find($id)->statuses,            
+            'statuses' => $this->leave->find($id)->statuses,
         ]);
     }
 
@@ -171,22 +172,26 @@ class LeavesController extends Controller
      * 
      * @param array $request
      */
-    
+
     public function store(ApplyLeaveRequest $request)
     {
         // create leave
         $leave = $this->leave->create($this->data);
-        // save total days
-        $this->saveTotalDaysTaken($leave);
+                
+        if ($request->full_half == 1) {            
+            $this->isHalfDay($leave);
+        } else {
+            $this->saveTotalDaysTaken($leave);
+        }        
         // notify HR
-        $this->notifyHR($leave,new ApplyLeave($leave, Auth::user()));
+        $this->notifyHR($leave, new ApplyLeave($leave, Auth::user()));
         // set leave status
         $this->setLeaveStatus($leave);
         // save attachments
         $this->saveAttachments($request, $leave);
 
         toast('Leave record submitted', 'success', 'top-right');
-        return redirect()->route('leave.index',['status' => 'submitted']);
+        return redirect()->route('leave.index', ['status' => 'submitted']);
     }
 
     /**
@@ -242,7 +247,7 @@ class LeavesController extends Controller
      * @param object $notification
      * 
      */
-    public function notifyHR($leave,$notification)
+    public function notifyHR($leave, $notification)
     {
         $admins = User::whereHas('roles', function ($q) {
             $q->where('name', 'Admin');
@@ -299,9 +304,9 @@ class LeavesController extends Controller
      * @return void
      */
     public function destroy(int $id)
-    {   
+    {
         $this->retract($id);
-                
+
         return back();
     }
 
@@ -309,7 +314,7 @@ class LeavesController extends Controller
      * Generate leave application records into excel
      * 
      * @param integer $id
-    */
+     */
     public function exportUserLeaves($id)
     {
         $name = $this->user->find($id)->personalDetail->name;
@@ -333,18 +338,19 @@ class LeavesController extends Controller
      * @param integer $id
      * @return void
      */
-    public function retract(int $id){
+    public function retract(int $id)
+    {
 
         // find leave application
         $leave = $this->leave->find($id);        
         
         // check the user's leave type available balance
-        $that_leave = $this->balance->where('leavetype_id',$leave->leavetype_id)->where('user_id',$leave->user_id)->first();
+        $that_leave = $this->balance->where('leavetype_id', $leave->leavetype_id)->where('user_id', $leave->user_id)->first();
         
         //check if the leave has been approved
-        if($leave->status == $this->approvedStatus){
+        if ($leave->status == $this->approvedStatus) {
             $that_leave_balance = $that_leave->balance;
-            $that_leave_balance += $leave->days_taken;        
+            $that_leave_balance += $leave->days_taken;
             $that_leave->update([
                 'balance' => $that_leave_balance
             ]);
@@ -354,7 +360,7 @@ class LeavesController extends Controller
         $leave->setStatus($this->withdrawnStatus, 'Leave withdrawn by ' . Auth::user()->name);
         
         // notify HR/Administrators
-        $this->notifyHR($leave,new RetractLeave($leave, $leave->user, Auth::user()));
+        $this->notifyHR($leave, new RetractLeave($leave, $leave->user, Auth::user()));
 
         // soft delete the leave application
         $leave->delete();
@@ -363,7 +369,9 @@ class LeavesController extends Controller
     }
 
 
-    public function isHalfDay($request){
-
+    public function isHalfDay($leave)
+    {
+        $leave->days_taken = 0.5;
+        $leave->save();
     }
 }

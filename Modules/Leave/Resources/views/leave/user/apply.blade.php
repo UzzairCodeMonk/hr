@@ -67,7 +67,8 @@ Leave Application Form
                         <div class="col fullDaySelector">
                             <div class="form-group">
                                 <label for="" class="require">Half day or Full day?</label>
-                                <select name="full_day" id="selector" class="form-control">
+                                <select name="full_half" id="selector" class="form-control">
+                                    <option value="">Please choose</option>
                                     <option value="1">Half Day</option>
                                     <option value="2">Full Day</option>
                                 </select>
