@@ -66,7 +66,7 @@ Leave Application Form
                         </div>
                         <div class="col fullDaySelector">
                             <div class="form-group">
-                                <label for="" class="require">Half day of Full day?</label>
+                                <label for="" class="require">Half day or Full day?</label>
                                 <select name="full_day" id="selector" class="form-control">
                                     <option value="1">Half Day</option>
                                     <option value="2">Full Day</option>
@@ -200,9 +200,9 @@ Leave Application Form
 
     function endDateChange() {
         
-        let oneDaySummary = 'You will be on ' + $('#leave-type :selected').text() + ' on ' + startDate.val() + ' for ' + $('#selector :selected').text();
+        let oneDaySummary = '<i class="ti-info-alt"></i> '+'You will be on ' + $('#leave-type :selected').text() + ' on ' + startDate.val() + ' for ' + $('#selector :selected').text()+'.';
 
-        let daySummary = 'You will be on ' + $('#leave-type :selected').text() + ' from ' + startDate.val() + ' until ' + endDate.val();
+        let daySummary = '<i class="ti-info-alt"></i> '+'You will be on ' + $('#leave-type :selected').text() + ' from ' + startDate.val() + ' until ' + endDate.val()+'.';
 
         if (startDate.val() == endDate.val()) {
             

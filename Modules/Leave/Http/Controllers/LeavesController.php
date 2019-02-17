@@ -362,4 +362,8 @@ class LeavesController extends Controller
         toast('Leave application withdrawn successfully', 'success', 'top-right');
     }
 
+
+    public function isHalfDay($request){
+
+    }
 }
