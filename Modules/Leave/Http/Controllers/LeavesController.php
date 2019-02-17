@@ -116,7 +116,7 @@ class LeavesController extends Controller
     public function withdrawn()
     {
         return view('leave::leave.user.trashed', [
-            'results' => Leave::onlyTrashed()->where('user_id',auth()->id())->get(),
+            'results' => Leave::onlyTrashed()->where('user_id',auth()->id())->orderBy('deleted_at','desc')->get(),
         ]);
     }
 
@@ -186,7 +186,7 @@ class LeavesController extends Controller
         $this->saveAttachments($request, $leave);
 
         toast('Leave record submitted', 'success', 'top-right');
-        return redirect()->route('leave.index');
+        return redirect()->route('leave.index',['status' => 'submitted']);
     }
 
     /**

@@ -41,10 +41,10 @@ class Leave extends Model
     public function scopeLeaveStatus($query, $status = null){
         
         if($status != null){
-            return $query->where('user_id', auth()->id())->currentStatus($status)->get();
+            return $query->where('user_id', auth()->id())->currentStatus($status)->orderBy('created_at','desc')->get();
         }
 
-        return $query->where('user_id', auth()->id())->get();
+        return $query->where('user_id', auth()->id())->orderBy('created_at','desc')->get();
         
     }
 
@@ -52,9 +52,9 @@ class Leave extends Model
     public function scopeAdminLeaveStatus($query, $status = null){
         
         if($status != null){
-            return $query->currentStatus($status)->get();
+            return $query->currentStatus($status)->orderBy('created_at','desc')->get();
         }
-        return $query->get();
+        return $query->orderBy('created_at','desc')->get();
 
     }
 

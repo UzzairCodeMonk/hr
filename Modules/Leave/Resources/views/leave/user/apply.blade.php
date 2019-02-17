@@ -76,7 +76,7 @@ Leave Application Form
                     </div>
                     <div class="row">
                         <div class="col">
-                            <p class="summary"></p>
+                            <p class="summary font-weight-bold"></p>
                         </div>
                     </div>
                     <div class="row">
@@ -190,27 +190,34 @@ Leave Application Form
         format: "{{config('app.date_format_js')}}",
         startDate: date
     });
+    
     $('.end-date').datepicker({
         format: "{{config('app.date_format_js')}}",
         startDate: date
     });
 
-    let startDateVal = startDate.val();
-    let endDateVal = endDate.val();
-
     $('.start-date, .end-date, #selector, #leave-type').on('change', endDateChange);
 
     function endDateChange() {
+        
+        let oneDaySummary = 'You will be on ' + $('#leave-type :selected').text() + ' on ' + startDate.val() + ' for ' + $('#selector :selected').text();
+
+        let daySummary = 'You will be on ' + $('#leave-type :selected').text() + ' from ' + startDate.val() + ' until ' + endDate.val();
+
         if (startDate.val() == endDate.val()) {
+            
             $('.fullDaySelector').show();
             startDate.datepicker();
             endDate.datepicker();
             $('.summary').empty();
-            $('.summary').append('You will be on '+ $('#leave-type :selected').text() + ' on ' + startDate.val() + ' for ' + $('#selector :selected').text());
+            $('.summary').append(oneDaySummary);
+
         } else {
+            
             $('.fullDaySelector').hide();
             $('.summary').empty();
-            $('.summary').append('You will be on ' + $('#leave-type :selected').text() + ' from ' + startDate.val() + ' until ' + endDate.val());
+            $('.summary').append(daySummary);
+            
         }
 
     }
