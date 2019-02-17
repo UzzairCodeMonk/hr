@@ -198,7 +198,7 @@ Leave Application Form
     let startDateVal = startDate.val();
     let endDateVal = endDate.val();
 
-    $('.start-date, .end-date, #selector').on('change', endDateChange);
+    $('.start-date, .end-date, #selector, #leave-type').on('change', endDateChange);
 
     function endDateChange() {
         if (startDate.val() == endDate.val()) {
@@ -210,7 +210,7 @@ Leave Application Form
         } else {
             $('.fullDaySelector').hide();
             $('.summary').empty();
-            $('.summary').append('You will be taking leave from ' + startDate.val() + ' until ' + endDate.val());
+            $('.summary').append('You will be on ' + $('#leave-type :selected').text() + ' from ' + startDate.val() + ' until ' + endDate.val());
         }
 
     }
