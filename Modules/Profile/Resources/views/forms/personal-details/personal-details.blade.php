@@ -18,32 +18,7 @@ Personal Details
 <form action="{{route('personal.store')}}" method="POST" enctype="multipart/form-data">
     @csrf
     <div class="card">
-        <div class="card-body">
-            <!-- <div class="row">
-                <div class="col-lg-4 col-sm-12">
-                    <h3>{{ucwords(__('profile::personal-detail.avatar'))}}</h3>
-                    <p class="help-text">
-                        Upload your profile picture
-                    </p>
-                </div>
-                <div class="col-lg-8 col-sm-12">
-                    <div class="row">
-                        <div class="col">
-                            <div class="form-group">
-                                <label for="">{{ucwords(__('profile::personal-detail.avatar'))}}</label>
-                                <input type="file" name="avatar" id="" class="form-control">
-                                <p class="form-text">Please upload the avatar in 150px x 150px dimension for best
-                                    display</p>
-                                <div class="badge badge-md badge-info d-xs-none d-sm-none">Existing file:
-                                    {!!asset($personalDetail->avatar
-                                    ?? '')!!}</div>
-
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <hr> -->
+        <div class="card-body">           
             <div class="row">
                 <div class="col-lg-4 col-sm-12">
                     <h3>{{ucwords(__('profile::personal-detail.identity'))}}</h3>
@@ -257,15 +232,15 @@ Personal Details
                 <div class="col-lg-8 col-sm-12">
                     <div class="row">
                         <div class="col-lg-6 col-sm-12">
-                            <div class="form-group">
+                            <div class="form-group editable">
                                 <label for="">{{ucwords(__('profile::personal-detail.motorcycle-reg-number'))}}</label>
-                                <input type="text" name="motorcycle_reg_number" id="" class="form-control" value="{{old('motorcycle_reg_number',isset($personalDetail->motorcycle_reg_number)? $personalDetail->motorcycle_reg_number:null)}}">
+                                <input type="text" name="motorcycle_reg_number" id="" class="" value="{{old('motorcycle_reg_number',isset($personalDetail->motorcycle_reg_number)? $personalDetail->motorcycle_reg_number:null)}}">
                             </div>
                         </div>
                         <div class="col-lg-6 col-sm-12">
-                            <div class="form-group">
+                            <div class="form-group editable">
                                 <label for="">{{ucwords(__('profile::personal-detail.car-reg-number'))}}</label>
-                                <input type="text" name="car_reg_number" id="" class="form-control" value="{{old('car_reg_number',isset($personalDetail->car_reg_number)? $personalDetail->car_reg_number:null)}}">
+                                <input type="text" name="car_reg_number" id="" class="" value="{{old('car_reg_number',isset($personalDetail->car_reg_number)? $personalDetail->car_reg_number:null)}}">
                             </div>
                         </div>
                     </div>
@@ -315,14 +290,15 @@ Personal Details
 
         let editable = $('.editable').find('input');
         let toggleButton = $('.editableToggle');
-
+        let formHelp = $('.editable').find('p.form-text');
         editable.addClass('form-control-plaintext').attr('readonly', true);
+        formHelp.hide();
 
         toggleButton.on('click', function () {
             editable.toggleClass('form-control');
             var attrState = editable.prop('readonly');
             editable.prop('readonly', !attrState);
-
+            formHelp.toggle();
             const Toast = swal.mixin({
                 toast: true,
                 position: 'top-right',
