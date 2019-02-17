@@ -201,9 +201,9 @@ Leave Application Form
 
     function endDateChange() {
         
-        let oneDaySummary = '<i class="ti-info-alt"></i> '+'You will be on ' + $('#leave-type :selected').text() + ' on ' + startDate.val() + ' for ' + $('#selector :selected').text()+'.';
+        let oneDaySummary = '<i class="ti-info-alt"></i> '+'You are taking ' + $('#leave-type :selected').text() + ' on ' + startDate.val() + ' for ' + $('#selector :selected').text()+'.';
 
-        let daySummary = '<i class="ti-info-alt"></i> '+'You will be on ' + $('#leave-type :selected').text() + ' from ' + startDate.val() + ' until ' + endDate.val()+'.';
+        let daySummary = '<i class="ti-info-alt"></i> '+'You are taking ' + $('#leave-type :selected').text() + ' from ' + startDate.val() + ' until ' + endDate.val()+'.';
 
         if (startDate.val() == endDate.val()) {
             
