@@ -285,7 +285,7 @@ Personal Details
     });
 
 </script>
-<script>
+<script type="text/javascript">
     $(document).ready(function () {
 
         let editable = $('.editable').find('input');
