@@ -20,14 +20,40 @@ use Datakraf\Notifications\ApproveLeave;
 use Datakraf\Notifications\RejectLeave;
 use Modules\Leave\Http\Requests\ApplyLeaveRequest;
 use Modules\Leave\Entities\Holiday;
+use Datakraf\Notifications\RetractLeave;
+use Modules\Leave\Traits\LeaveStatus;
+
+/***
+ * 
+ *  User Leave Controller
+ * 
+ *  There are tons of logic here. Don't get yourself confused.
+ * 
+ *  Business Model
+ *  ==============
+ *  Stored leave records will not be deleted, it can only approved, rejected or withdrawn.
+ *  Basically this module will run a series of checks upon in each of these operation.
+ *  
+ *  -- Applying leave
+ *  
+ *  - Conditions;
+ *  - user cost center (determine the cost center of the user)
+ *  - user status (whether the user is a probation, permanent, contract, foreginer)
+ *  - leave balance (checking if the leave balance is still available for application)
+ *  - days (checking to see if the date range has predefined non-working days and holidays)
+ *  
+ *  -- Withdrawing leave application
+ *   - Conditions;
+ *   - latest leave status (whether the leave has been approved or rejected)
+ *   - 
+ * 
+ ***/
+
 
 class LeavesController extends Controller
 {
-    use AlertMessage, Date;
-    /**
-     * Display a listing of the resource.
-     * @return Response
-     */
+    use AlertMessage, Date, LeaveStatus;
+
     public $type;
     public $data;
     public $leave;
@@ -42,8 +68,7 @@ class LeavesController extends Controller
             'user_id' => $request->user_id,
             'leavetype_id' => $request->leavetype_id,
             'start_date' => $request->start_date,
-            'end_date' => $request->end_date,
-            'days_taken' => 0,
+            'end_date' => $request->end_date,            
             'notes' => $request->notes
         ];
         $this->leave = $leave;
@@ -53,91 +78,138 @@ class LeavesController extends Controller
         $this->holiday = $holiday;
     }
 
-    protected $approvedStatus = 'approved';
-    protected $rejectedStatus = 'rejected';
-    protected $submittedStatus = 'submitted';
 
-    public function index()
-    {    
-        return view('leave::leave.admin.all-records',[
-            'leaves' => $this->leave->whereHas('statuses',function($query){
-                $query->groupBy('name');
-            })->orderBy('created_at','desc')->get()
-        ]);   
-        // return view('leave::leave.admin.users', ['users' => $this->user->has('personalDetail')->get()]);
-    }
+    /**
+     * List all user leave applications
+     *
+     * @return void
+     */
 
-    public function show($id)
+    public function index($status)
     {
-        return view('leave::leave.admin.user-leaves', [
-            'leaves' => $this->user->find($id)->leaves,
-            'user' => $this->user->find($id)
+        return view('leave::leave.user.index', [
+            'results' => Leave::leaveStatus($status),
         ]);
     }
 
-    public function showUserLeaves($id)
-    {
-        // determine if action buttons will be displayed or vice versa
-        $actionVisibility = !in_array($this->leave->find($id)->status, [$this->approvedStatus, $this->rejectedStatus]);
+    /**
+     *  Show the leave application details
+     *  
+     *  @param integer $id
+     */
 
-        return view('leave::leave.forms.show', [
+    public function show(int $id)
+    {
+        return view('leave::leave.user.show', [
             'leave' => $this->leave->find($id),
             'types' => $this->type->all(),
             'statuses' => $this->leave->find($id)->statuses,
-            'actionVisibility' => $actionVisibility
         ]);
     }
 
-    public function editUserLeaves($id)
+
+
+    /**
+     * List all withdrawn leave applications
+     */
+
+    public function withdrawn()
     {
-        return view('leave::leave.forms.edit', [
-            'leave' => $this->leave->find($id),
+        return view('leave::leave.user.trashed', [
+            'results' => Leave::onlyTrashed()->where('user_id', auth()->id())->orderBy('deleted_at', 'desc')->get(),
+        ]);
+    }
+
+    /**
+     * Show the withdrawn leave application details
+     * 
+     * @param integer $id
+     */
+
+    public function showWithdrawn(int $id)
+    {
+
+        return view('leave::leave.user.show-trash', [
+            'leave' => $this->leave->onlyTrashed()->where('id', $id)->first(),
             'types' => $this->type->all(),
-            'statuses' => $this->leave->find($id)->statuses,
-            // 'actionVisibility' => $actionVisibility
+            'statuses' => Leave::onlyTrashed()->where('id', $id)->first()->statuses,
         ]);
+
     }
 
-    public function showMyLeaveApplications()
-    {
-        return view('leave::leave.my-leave', [
-            'results' => Auth::user()->leaves,
-        ]);
-    }
 
-    public function showLeaveApplicationForm()
+    /**
+     * Show create leave application page
+     * 
+     * @return void
+     */
+
+    public function create()
     {
-        return view('leave::leave.forms.apply', [
+        return view('leave::leave.user.apply', [
             'types' => $this->type->all(),
             'holidays' => $this->holiday->all()
         ]);
     }
 
-    public function showAdminLeaveApplicationForm()
+    /**
+     * Show edit leave application page
+     * 
+     * @param integer $id
+     */
+
+    public function edit(int $id)
     {
-        return view('leave::leave.admin.apply', [
+        return view('leave::leave.user.edit', [
+            'leave' => $this->leave->find($id),
             'types' => $this->type->all(),
-            'holidays' => $this->holiday->all(),
-            'users' => $this->user->all()
+            'statuses' => $this->leave->find($id)->statuses,
         ]);
     }
+
+    /**
+     * Store leave application
+     * 
+     * @param array $request
+     */
 
     public function store(ApplyLeaveRequest $request)
     {
         // create leave
         $leave = $this->leave->create($this->data);
-        // save total days
-        $this->saveTotalDaysTaken($leave);
+                
+        if ($request->full_half == 1) {            
+            $this->isHalfDay($leave);
+        } else {
+            $this->saveTotalDaysTaken($leave);
+        }        
         // notify HR
-        $this->notifyHR($leave);
+        $this->notifyHR($leave, new ApplyLeave($leave, Auth::user()));
         // set leave status
         $this->setLeaveStatus($leave);
         // save attachments
         $this->saveAttachments($request, $leave);
 
         toast('Leave record submitted', 'success', 'top-right');
-        return redirect()->back();
+        return redirect()->route('leave.index', ['status' => 'submitted']);
     }
+
+    /**
+     * Check current user status
+     * 
+     * 
+     */
+
+    //  public function checkUserStatus(){
+    //      auth()->user()->
+    //  }
+
+    /**
+     * Update leave application
+     * 
+     * @param integer $id
+     * @param array $request
+     */
 
     public function update($id, Request $request)
     {
@@ -154,30 +226,57 @@ class LeavesController extends Controller
 
     }
 
+
+    /**
+     * Store total days of leave
+     *
+     * @param object $leave
+     * @return void
+     */
+
     public function saveTotalDaysTaken($leave)
     {
         $leave->days_taken = $this->getLeaveTotalDays($leave);
         $leave->save();
     }
 
-    public function notifyHR($leave)
+    /**
+     * Notify HR Administrators
+     * 
+     * @param object $leave 
+     * @param object $notification
+     * 
+     */
+    public function notifyHR($leave, $notification)
     {
         $admins = User::whereHas('roles', function ($q) {
             $q->where('name', 'Admin');
         })->get();
 
         foreach ($admins as $admin) {
-            $admin->notify(new ApplyLeave($leave, Auth::user()));
+            $admin->notify($notification);
         }
-
 
     }
 
+    /**
+     * Set leave status
+     *
+     * @param object $leave
+     */
     public function setLeaveStatus($leave)
     {
         $leave->setStatus($this->submittedStatus, 'Leave submitted for review.<br>Remarks:<br>' . $leave->notes);
     }
 
+    /**
+     * Upload and store leave attachments
+     * 
+     *
+     * @param array $request
+     * @param object $leave
+     * @return void
+     */
     public function saveAttachments($request, $leave)
     {
         if ($request->hasFile('attachments')) {
@@ -198,62 +297,81 @@ class LeavesController extends Controller
         }
     }
 
-    public function approveRejectLeave(Request $request, $id)
+    /**
+     * Destroy leave application
+     *
+     * @param integer $id
+     * @return void
+     */
+    public function destroy(int $id)
     {
-        // find this leave model
-        $leave = $this->leave->find($id);
-        // find the total days allowed for that particular leave type
-        $totalAllowedDaysOfLeave = $this->leave->find($id)->type->days;
-        // find total days taken for this leave
-        $totalDaysTaken = $this->leave->find($id)->days_taken;
-        // find the balance after approval
-        $balance = $totalAllowedDaysOfLeave - $totalDaysTaken;
+        $this->retract($id);
 
-        if ($request->has('approve')) {            
-            // update or create leave balance record in leavebalances table
-            $this->balance->updateOrCreate(['user_id' => $leave->user_id, 'leavetype_id' => $leave->leavetype_id], ['balance' => $balance]);
-            // set the status of the leave
-            $leave->setStatus($this->approvedStatus, 'Leave approved by ' . Auth::user()->name . '<br>Remarks:<br> ' . $request->admin_remarks);
-            $leave->user->notify(new ApproveLeave($leave, $leave->user, Auth::user()));
-            toast('Leave application approved successfully', 'success', 'top-right');
-        }
-
-        if ($request->has('reject')) {
-            // set the status of the leave
-            $leave->setStatus($this->rejectedStatus, 'Leave rejected by ' . Auth::user()->name . '<br>Remarks:<br> ' . $request->admin_remarks);
-            $leave->user->notify(new RejectLeave($leave, $leave->user, Auth::user()));
-            toast('Leave application rejected', 'success', 'top-right');
-        }
-
-        return redirect()->back();
-
-    }
-
-    public function destroy($id)
-    {   
-            
-        $leave = $this->leave->find($id);        
-        //check if the leave has been approved
-        $that_leave = $this->balance->where('leavetype_id',$leave->leavetype_id)->where('user_id',$leave->user_id)->first();
-        $that_leave_balance = $that_leave->balance;
-        $that_leave_balance += $leave->days_taken;        
-        $that_leave->update([
-            'balance' => $that_leave_balance
-        ]);
-        $leave->delete();
-        toast($this->message('delete', 'Leave record'), 'success', 'top-right');
         return back();
     }
 
+    /** 
+     * Generate leave application records into excel
+     * 
+     * @param integer $id
+     */
     public function exportUserLeaves($id)
     {
         $name = $this->user->find($id)->personalDetail->name;
         return (new UserLeavesExport)->forUser($id)->download('hello.xlsx');
     }
 
+    /**
+     * Retrieve current status of leave application
+     *
+     * @param object $leave
+     * @return void
+     */
     public function leaveCurrentStatus($leave)
     {
         $leave->status;
     }
 
+    /**
+     * Retract (withdraw) the leave application
+     *
+     * @param integer $id
+     * @return void
+     */
+    public function retract(int $id)
+    {
+
+        // find leave application
+        $leave = $this->leave->find($id);        
+        
+        // check the user's leave type available balance
+        $that_leave = $this->balance->where('leavetype_id', $leave->leavetype_id)->where('user_id', $leave->user_id)->first();
+        
+        //check if the leave has been approved
+        if ($leave->status == $this->approvedStatus) {
+            $that_leave_balance = $that_leave->balance;
+            $that_leave_balance += $leave->days_taken;
+            $that_leave->update([
+                'balance' => $that_leave_balance
+            ]);
+        }
+        
+        // set leave status
+        $leave->setStatus($this->withdrawnStatus, 'Leave withdrawn by ' . Auth::user()->name);
+        
+        // notify HR/Administrators
+        $this->notifyHR($leave, new RetractLeave($leave, $leave->user, Auth::user()));
+
+        // soft delete the leave application
+        $leave->delete();
+
+        toast('Leave application withdrawn successfully', 'success', 'top-right');
+    }
+
+
+    public function isHalfDay($leave)
+    {
+        $leave->days_taken = 0.5;
+        $leave->save();
+    }
 }

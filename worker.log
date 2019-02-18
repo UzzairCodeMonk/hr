@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 [2019-01-22 22:29:48][4] Processing: Datakraf\Notifications\ApplyLeave
 [2019-01-22 22:29:48][6] Processing: Datakraf\Notifications\ApplyLeave
 [2019-01-22 22:29:48][5] Processing: Datakraf\Notifications\ApplyLeave
@@ -152,3 +153,25 @@
 [2019-02-17 16:47:35][152] Processing: Datakraf\Notifications\ApproveLeave
 [2019-02-17 16:48:12][153] Processing: Datakraf\Notifications\RejectLeave
 [2019-02-17 16:48:12][154] Processing: Datakraf\Notifications\RejectLeave
+=======
+[2019-02-17 23:41:54][155] Processing: Datakraf\Notifications\ApplyLeave
+[2019-02-17 23:41:54][156] Processing: Datakraf\Notifications\ApplyLeave
+[2019-02-17 23:41:55][157] Processing: Datakraf\Notifications\ApplyLeave
+[2019-02-17 23:41:55][160] Processing: Datakraf\Notifications\ApplyLeave
+[2019-02-17 23:41:55][161] Processing: Datakraf\Notifications\ApplyLeave
+[2019-02-17 23:41:55][159] Processing: Datakraf\Notifications\ApplyLeave
+[2019-02-17 23:41:55][162] Processing: Datakraf\Notifications\ApplyLeave
+[2019-02-17 23:41:55][158] Processing: Datakraf\Notifications\ApplyLeave
+[2019-02-17 23:41:55][163] Processing: Datakraf\Notifications\ApplyLeave
+[2019-02-17 23:41:55][164] Processing: Datakraf\Notifications\ApplyLeave
+[2019-02-17 23:41:55][165] Processing: Datakraf\Notifications\ApplyLeave
+[2019-02-17 23:41:55][166] Processing: Datakraf\Notifications\ApplyLeave
+[2019-02-17 23:41:55][167] Processing: Datakraf\Notifications\ApplyLeave
+[2019-02-17 23:41:55][168] Processing: Datakraf\Notifications\ApplyLeave
+[2019-02-17 23:41:55][169] Processing: Datakraf\Notifications\ApplyLeave
+[2019-02-17 23:41:55][167] Failed:     Datakraf\Notifications\ApplyLeave
+[2019-02-17 23:41:55][169] Failed:     Datakraf\Notifications\ApplyLeave
+[2019-02-17 23:41:55][168] Failed:     Datakraf\Notifications\ApplyLeave
+[2019-02-17 23:41:55][170] Processing: Datakraf\Notifications\ApplyLeave
+[2019-02-17 23:41:55][170] Failed:     Datakraf\Notifications\ApplyLeave
+>>>>>>> bug/uzzair/leave-module

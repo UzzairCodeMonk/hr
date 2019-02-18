@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class AddHrdfColumnToPayslips extends Migration
+class AddCostcenterColumn extends Migration
 {
     /**
      * Run the migrations.
@@ -13,13 +13,15 @@ class AddHrdfColumnToPayslips extends Migration
      */
     public function up()
     {
-        
-        Schema::table('payslips', function (Blueprint $table) {
-            if(!Schema::hasColumns('hrdf')){
-                $table->decimal('hrdf',13,2)->nullable()->after('socso_eis_employee');
-            }
-           
+        Schema::table('personaldetails', function (Blueprint $table) {
+            $table->unsignedInteger('center_id');
         });
+
+        Schema::table('personaldetails', function (Blueprint $table) {
+            $table->foreign('center_id')->references('id')->on('centers');
+        });
+
+
     }
 
     /**
@@ -29,8 +31,5 @@ class AddHrdfColumnToPayslips extends Migration
      */
     public function down()
     {
-        Schema::table('', function (Blueprint $table) {
-
-        });
     }
 }

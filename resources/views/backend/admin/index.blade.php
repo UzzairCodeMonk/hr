@@ -1,4 +1,14 @@
 @extends('backend.master')
+@section('page-css')
+    <style>
+        .aside{
+            display: none !important;
+        }
+        .aside ~ .header, .aside ~ .main-content, .aside ~ .site-footer{
+            margin-left:0 !important;
+        }
+    </style>
+@endsection
 @section('page-title')
 Administration Panel
 @endsection
@@ -27,7 +37,7 @@ Administration Panel
         'title' => 'Leave',
         'img' => asset('images/dashboard/requests.svg'),
         'description' => 'View, approve or reject employees leave applications',
-        'link' => route('leave.index'),
+        'link' => route('leave.admin.index',['status'=>'submitted']),
         'linkClass' => 'btn-primary',
         'linkText' => 'Manage'
         ])

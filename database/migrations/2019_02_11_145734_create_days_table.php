@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class AddHrdfColumnToPayslips extends Migration
+class CreateDaysTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,10 @@ class AddHrdfColumnToPayslips extends Migration
      */
     public function up()
     {
-        
-        Schema::table('payslips', function (Blueprint $table) {
-            if(!Schema::hasColumns('hrdf')){
-                $table->decimal('hrdf',13,2)->nullable()->after('socso_eis_employee');
-            }
-           
+        Schema::create('days', function (Blueprint $table) {
+            $table->increments('id');
+            $table->string('name')->nullable();
+            $table->timestamps();
         });
     }
 
@@ -29,8 +27,6 @@ class AddHrdfColumnToPayslips extends Migration
      */
     public function down()
     {
-        Schema::table('', function (Blueprint $table) {
-
-        });
+        Schema::dropIfExists('days');
     }
 }

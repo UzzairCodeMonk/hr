@@ -10,6 +10,8 @@ Leave Application Form
 </style>
 @endsection
 @section('content')
+<a href="{{URL::previous()}}" class="btn btn-primary btn-md">Back</a>
+<div class="mb-3"></div>
 <div class="card">
     <div class="card-header">
         <h3>Leave Application Form</h3>
@@ -29,7 +31,8 @@ Leave Application Form
                 <div class="col-4">
                     <h4>Leave Information</h4>
                     <p class="text-danger">Important Notes! <br>
-                        Please apply leave only by its respective dates only.Please exclude weekends and public holidays.</p>
+                        Please apply leave only by its respective dates only.Please exclude weekends and public
+                        holidays.</p>
                 </div>
                 <div class="col-8">
                     <div class="row">
@@ -37,7 +40,7 @@ Leave Application Form
                             <input type="hidden" name="user_id" value="{{Auth::id()}}">
                             <div class="form-group">
                                 <label for="" class="require">{{ucwords(__('leave::leave.leave-type'))}}</label>
-                                <select name="leavetype_id" id="" class="form-control">
+                                <select name="leavetype_id" id="leave-type" class="form-control">
                                     @foreach($types as $type)
                                     <option value="{{$type->id}}">{{$type->name}}</option>
                                     @endforeach
@@ -61,6 +64,21 @@ Leave Application Form
                                 @include('backend.shared._errors',['entity'=>'end_date'])
                             </div>
                         </div>
+                        <div class="col fullDaySelector">
+                            <div class="form-group">
+                                <label for="" class="require">Half day or Full day?</label>
+                                <select name="full_half" id="selector" class="form-control">
+                                    <option value="">Please choose</option>
+                                    <option value="1">Half Day</option>
+                                    <option value="2">Full Day</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            <p class="summary font-weight-bold"></p>
+                        </div>
                     </div>
                     <div class="row">
                         <div class="col">
@@ -80,6 +98,7 @@ Leave Application Form
                             </div>
                         </div>
                     </div>
+
                 </div>
             </div>
             <div class="form-group">
@@ -114,7 +133,7 @@ Leave Application Form
                     <tr>
                         <td>{{++$key}}</td>
                         <td>{{$h->name ?? 'N/Application'}}</td>
-                        <td>{{$h->date ?? 'N/A'}}</td>
+                        <td>{{Carbon\Carbon::createFromFormat('d/m/Y',$h->date)->format('d M Y') ?? 'N/A'}}</td>
                     </tr>
                     @endforeach
                 </tbody>
@@ -145,8 +164,8 @@ Leave Application Form
                         <td>{{++$key}}</td>
                         <td>{{$type->name ?? 'N/A'}}</td>
                         <td>@if(DB::table('leavebalances')->where('user_id',auth()->id())->where('leavetype_id',$type->id)->exists())
-                                {{DB::table('leavebalances')->where('user_id',auth()->id())->where('leavetype_id',$type->id)->first()->balance}}/@endif{{$type->days}}
-                                {{str_plural('day',$type->days)}}</td>
+                            {{DB::table('leavebalances')->where('user_id',auth()->id())->where('leavetype_id',$type->id)->first()->balance}}/@endif{{$type->days}}
+                            {{str_plural('day',$type->days)}}</td>
                     </tr>
                     @endforeach
                 </tbody>
@@ -162,14 +181,47 @@ Leave Application Form
     var date = new Date();
     date.setDate(date.getDate());
 
+    let startDate = $('.start-date');
+    let endDate = $('.end-date');
+    let fullDaySelector = $('.fullDaySelector');
+
+    fullDaySelector.hide();
+
     $('.start-date').datepicker({
         format: "{{config('app.date_format_js')}}",
         startDate: date
     });
+    
     $('.end-date').datepicker({
         format: "{{config('app.date_format_js')}}",
         startDate: date
     });
+
+    $('.start-date, .end-date, #selector, #leave-type').on('change', endDateChange);
+
+    function endDateChange() {
+        
+        let oneDaySummary = '<i class="ti-info-alt"></i> '+'You are taking ' + $('#leave-type :selected').text() + ' on ' + startDate.val() + ' for ' + $('#selector :selected').text()+'.';
+
+        let daySummary = '<i class="ti-info-alt"></i> '+'You are taking ' + $('#leave-type :selected').text() + ' from ' + startDate.val() + ' until ' + endDate.val()+'.';
+
+        if (startDate.val() == endDate.val()) {
+            
+            $('.fullDaySelector').show();
+            startDate.datepicker();
+            endDate.datepicker();
+            $('.summary').empty();
+            $('.summary').append(oneDaySummary);
+
+        } else {
+            
+            $('.fullDaySelector').hide();
+            $('.summary').empty();
+            $('.summary').append(daySummary);
+            
+        }
+
+    }
 
 </script>
 <script type="text/javascript">

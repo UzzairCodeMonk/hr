@@ -68,7 +68,7 @@ My Notifications
                         <td class="text-center">
                             @if(isset($n->data['type']) && $n->data['type'] == 'leave')
                             <?php $leave_id = $n->data['leave_id']; ?>
-                            <a class="btn btn-sm btn-secondary" href="{{URL::signedRoute('leave.employee.show',['id'=>$leave_id])}}"
+                            <a class="btn btn-sm btn-secondary" href="{{URL::signedRoute('leave.show',['id'=>$leave_id])}}"
                                 data-id="{{ $n->id }}">
                                 <!-- payslip -->
                                 @elseif(isset($n->data['type']) && $n->data['type'] == 'payslip')
