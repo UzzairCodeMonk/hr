@@ -3,7 +3,7 @@
 Leave Application Form
 @endsection
 @section('content')
-<a href="{{route('leave.withdrawn')}}" class="btn btn-primary btn-md">Back</a>
+<a href="{{URL::previous()}}" class="btn btn-primary btn-md">Back</a>
 <div class="mb-3"></div>
 <div class="card">
     <div class="card-header">
