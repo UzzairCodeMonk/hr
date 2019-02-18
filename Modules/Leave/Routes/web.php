@@ -52,6 +52,8 @@ Route::group(['prefix' => config('app.administration_prefix'), 'middleware' => [
 
     Route::get('withdrawn',                                      'AdminLeavesController@withdrawn')->name('leave.admin.withdrawn');
 
+    Route::get('show/withdrawn/{id}',                  'AdminLeavesController@showWithdrawn')->name('leave.admin.show.withdrawn')->middleware('signed');
+
     Route::get('apply-for-employees',             'LeavesController@create')->name('admin.apply.leave');
 
 

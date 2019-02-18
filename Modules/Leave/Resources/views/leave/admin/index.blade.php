@@ -39,7 +39,7 @@ Employees Leave Records
                     <td class="text-center">{{ $leave->created_at->toDayDateTimeString() ?? 'N/A' }}</td>
                     <td class="text-center"><span class="badge badge-md {{statusColor($leave->status) ?? ''}}">{{ ucwords($leave->status) ?? 'N/A' }}</span></td>
                     <td class="text-center">
-                        <a href="{{URL::signedRoute('leave.admin.show',['id'=>$leave->id])}}" class="btn btn-sm text-dark btn-link">View</a>
+                        <a href="{{URL::signedRoute('leave.admin.show.withdrawn',['id'=>$leave->id])}}" class="btn btn-sm text-dark btn-link">View</a>
                         <form action="{{route('leave.user.destroy',['id'=>$leave->id])}}" method="POST" class="leave-record d-inline">
                             @csrf
                             @method('DELETE')

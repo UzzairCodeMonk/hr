@@ -71,6 +71,23 @@ class AdminLeavesController extends Controller
     }
 
     /**
+     * Show the withdrawn leave application details
+     * 
+     * @param integer $id
+     */
+
+    public function showWithdrawn(int $id)
+    {
+
+        return view('leave::leave.admin.show-trash', [
+            'leave' => $this->leave->onlyTrashed()->where('id', $id)->first(),
+            'types' => $this->type->all(),
+            'statuses' => Leave::onlyTrashed()->where('id', $id)->first()->statuses,
+        ]);
+
+    }
+
+    /**
      * Show the form for creating a new resource.
      * @return Response
      */
