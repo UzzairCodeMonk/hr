@@ -76,12 +76,25 @@
 <div class="row">
     <div class="col">
         <div class="form-group">
+            <label for="" class="require">Cost Center</label>
+            <select name="center_id" id="" class="form-control select">
+                <option value=""></option>
+                @foreach($centers as $center)
+                    <option value="{{$center->id}}" {{old('center_id',isset($user->personalDetail->center_id) && $user->personalDetail->center_id == $center->id ? 'selected':'')}}>{{$center->name ?? 'N/A'}}</option>
+                @endforeach
+            </select>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col">
+        <div class="form-group">
             <label for="input-required" class="require">Position</label>
             <select name="position_id" id="" class="form-control select">
                 <option></option>
                 @foreach($positions as $position)
                 <option value="{{$position->id}}"
-                    {{old('status',isset($user->personalDetail->position_id) && $user->personalDetail->position_id == $position->id ? 'selected':'')}}>{{$position->name}}</option>
+                    {{old('position_id',isset($user->personalDetail->position_id) && $user->personalDetail->position_id == $position->id ? 'selected':'')}}>{{$position->name}}</option>
                 @endforeach
             </select>
             @include('backend.shared._errors',['entity'=>'position_id'])

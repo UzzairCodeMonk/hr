@@ -41,6 +41,7 @@ class UpdatePersonalDetailOnUserUpdate
         $p->gender = $this->request->gender;
         $p->join_date = $this->request->join_date;        
         $p->bank_id = $this->request->bank_id;
+        $p->center_id = $this->request->center_id;
         $p->save();
 
 

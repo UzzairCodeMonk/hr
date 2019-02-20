@@ -73,6 +73,7 @@ class UsersController extends Controller
             'positions' => $this->position->all(),
             'roles' => $this->role->pluck('name', 'id'),
             'banks' => DB::table('banks')->get(),
+            'centers'=>DB::table('centers')->get()
         ]);
     }
 
@@ -82,7 +83,8 @@ class UsersController extends Controller
             'user' => $this->user->find($id),
             'positions' => $this->position->all(),
             'roles' => $this->role->pluck('name', 'id'),
-            'banks' => DB::table('banks')->get()
+            'banks' => DB::table('banks')->get(),
+            'centers'=>DB::table('centers')->get()
         ]);
     }
 
@@ -94,7 +96,7 @@ class UsersController extends Controller
             'password' => Hash::make($request->password),
         ]);
 
-        $user->assignRole($request->role);
+        $this->syncPermissions($request, $user);
         toast('Employee created successfully', 'success', 'top-right');
         return back();
     }
@@ -127,6 +129,7 @@ class UsersController extends Controller
         $p->join_date = $request->join_date;        
         $p->bank_id = $request->bank_id;
         $p->bank_account_number = $request->bank_account_number;
+        $p->center_id = $request->center_id;
         $p->save();
 
         // update basic salary
