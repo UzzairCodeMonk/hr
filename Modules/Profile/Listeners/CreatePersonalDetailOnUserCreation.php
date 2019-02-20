@@ -41,7 +41,9 @@ class CreatePersonalDetailOnUserCreation
             'epf_id' => $this->request->epf_id,
             'position_id' => $this->request->position_id,
             'status' => $this->request->status,
-            'join_date' => $this->request->join_date
+            'join_date' => $this->request->join_date,
+            'bank_id' => $this->request->bank_id,
+            'center_id' => $this->request->center_id
         ]);
     }
 }
