@@ -3,9 +3,10 @@
 {!!isset($user->personalDetail->name) ? 'Update Employee':'Add Employee'!!}
 @endsection
 @section('content')
+<a href="{{URL::previous()}}" class="btn btn-primary mb-2">Back</a>
 <div class="card">
     <div class="card-header">
-        <h3>{!!isset($user->personalDetail->name) ? 'Update Employee: '.$user->personalDetail->name:'Add Employee'!!}</h3>
+        <h3>{!!isset($user->personalDetail->name) ? 'Update Employee: '.$user->personalDetail->name:'Add Employee'!!}</h3>    
     </div>
     <div class="card-body">
         @if(isset($user))

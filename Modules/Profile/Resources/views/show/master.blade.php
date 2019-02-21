@@ -10,6 +10,7 @@
         </h3>
         <div class="card-options">
             <a href="{{route('employee.resume',['id'=>$personalDetail->user_id])}}" target="_blank" class="btn btn-link btn-sm btn-primary pull-right text-white">View as resume</a>
+            <a href="{{URL::signedRoute('user.edit',['id'=>$personalDetail->user_id])}}" class="btn btn-secondary btn-sm mr-2">Edit {{$personalDetail->gender == 'male' ?? 'N/A' ? 'His':'Her'}} Profile</a>
         </div>
     </div>
     <div class="card-body">
