@@ -22,6 +22,8 @@ use Modules\Leave\Http\Requests\ApplyLeaveRequest;
 use Modules\Leave\Entities\Holiday;
 use Datakraf\Notifications\RetractLeave;
 use Modules\Leave\Traits\LeaveStatus;
+use Modules\Site\Entities\Center;
+use Carbon\Carbon;
 
 /***
  * 
@@ -68,7 +70,7 @@ class LeavesController extends Controller
             'user_id' => $request->user_id,
             'leavetype_id' => $request->leavetype_id,
             'start_date' => $request->start_date,
-            'end_date' => $request->end_date,            
+            'end_date' => $request->end_date,
             'notes' => $request->notes
         ];
         $this->leave = $leave;
@@ -177,8 +179,8 @@ class LeavesController extends Controller
     {
         // create leave
         $leave = $this->leave->create($this->data);
-                
-        if ($request->full_half == 1) {            
+
+        if ($request->full_half == 1) {
             $this->isHalfDay($leave);
         } else {
             $this->saveTotalDaysTaken($leave);
@@ -195,15 +197,65 @@ class LeavesController extends Controller
     }
 
     /**
-     * Check current user status
+     * Check current user cost center
      * 
      * 
      */
 
-    //  public function checkUserStatus(){
-    //      auth()->user()->
-    //  }
+    public function getNonWorkingDaysForThisUser()
+    {
 
+        return $holidays = Center::find(auth()->user()->personalDetail->center->id)->holidays->pluck('name');
+
+    }
+
+    public function getPublicHolidays()
+    
+    {
+
+        return Holiday::all();
+
+    }
+    
+    
+    public function generateDateRange(object $leave): array
+
+    {
+        
+        $start_date = Carbon::createFromFormat('d/m/Y', $leave->start_date);
+
+        $end_date = Carbon::createFromFormat('d/m/Y', $leave->end_date);
+
+        $dates = [];
+
+        for ($date = $start_date; $date->lte($end_date); $date->addDay()) {
+
+            $dates[] = $date;
+
+        }
+
+        return $dates;
+
+    }
+
+    public function convertDateRangeToDayFormat(array $datesArray)
+    {
+
+        $dates = collect($datesArray);
+
+        $days = $new->map(function ($date, $key) {
+            return $date->format('l');
+        });
+
+        return $days->toArray();
+    }
+
+
+    public function countDaysinDateRange(array $days){
+        
+        return count_array_values($days);
+        
+    }
     /**
      * Update leave application
      * 
@@ -374,4 +426,5 @@ class LeavesController extends Controller
         $leave->days_taken = 0.5;
         $leave->save();
     }
+
 }

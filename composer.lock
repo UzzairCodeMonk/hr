@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "12f98ce6147496be0f48f73694863aa1",
+    "content-hash": "84f7bf75a9c924ae874cc001eddc9f92",
     "packages": [
         {
             "name": "anahkiasen/underscore-php",
@@ -5017,6 +5017,45 @@
             "time": "2017-11-27T11:13:29+00:00"
         },
         {
+            "name": "uzzaircode/date-helper",
+            "version": "dev-master",
+            "dist": {
+                "type": "path",
+                "url": "packages/uzzaircode/date-helper",
+                "reference": "3a5e3bb4169d1870a92abbdbf67a44b745917e59",
+                "shasum": null
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Uzzaircode\\DateHelper\\DateHelperServiceProvider"
+                    ],
+                    "aliases": {
+                        "DateHelper": "Uzzaircode\\DateHelper\\DateHelperCrudableFacade"
+                    }
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Uzzaircode\\DateHelper\\": "src/"
+                }
+            },
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Uzzair Baharudin",
+                    "email": "uzzaircode@gmail.com"
+                }
+            ],
+            "description": "contains few functions related to dates",
+            "transport-options": {
+                "symlink": true
+            }
+        },
+        {
             "name": "uzzaircode/password-strength",
             "version": "1.21",
             "source": {
@@ -7385,7 +7424,9 @@
     ],
     "aliases": [],
     "minimum-stability": "dev",
-    "stability-flags": [],
+    "stability-flags": {
+        "uzzaircode/date-helper": 20
+    },
     "prefer-stable": true,
     "prefer-lowest": false,
     "platform": {

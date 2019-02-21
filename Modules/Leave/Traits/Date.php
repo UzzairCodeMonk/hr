@@ -23,4 +23,5 @@ trait Date
         $dt = $this->setDateObject($leave->end_date);
         return $this->getDiffDays($df, $dt) + 1;
     }
+    
 }

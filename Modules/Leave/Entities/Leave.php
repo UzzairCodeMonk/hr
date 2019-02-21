@@ -10,10 +10,11 @@ use Datakraf\User;
 use Spatie\ModelStatus\HasStatuses;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Modules\Leave\Traits\LeaveStatus;
+use Modules\Leave\Traits\Date;
 
 class Leave extends Model
 {
-    use HasStatuses, SoftDeletes, LeaveStatus;
+    use HasStatuses, SoftDeletes, LeaveStatus, Date;
 
     protected $table = 'leaves';
     protected $dates = ['deleted_at'];
