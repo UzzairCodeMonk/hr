@@ -24,6 +24,7 @@ use Datakraf\Notifications\RetractLeave;
 use Modules\Leave\Traits\LeaveStatus;
 use Modules\Site\Entities\Center;
 use Carbon\Carbon;
+use Uzzaircode\DateHelper\Traits\DateHelper;
 
 /***
  * 
@@ -54,7 +55,7 @@ use Carbon\Carbon;
 
 class LeavesController extends Controller
 {
-    use AlertMessage, Date, LeaveStatus;
+    use AlertMessage, LeaveStatus, DateHelper;
 
     public $type;
     public $data;
@@ -218,44 +219,44 @@ class LeavesController extends Controller
     }
     
     
-    public function generateDateRange(object $leave): array
+    // public function generateDateRange(object $leave): array
 
-    {
+    // {
         
-        $start_date = Carbon::createFromFormat('d/m/Y', $leave->start_date);
+    //     $start_date = Carbon::createFromFormat('d/m/Y', $leave->start_date);
 
-        $end_date = Carbon::createFromFormat('d/m/Y', $leave->end_date);
+    //     $end_date = Carbon::createFromFormat('d/m/Y', $leave->end_date);
 
-        $dates = [];
+    //     $dates = [];
 
-        for ($date = $start_date; $date->lte($end_date); $date->addDay()) {
+    //     for ($date = $start_date; $date->lte($end_date); $date->addDay()) {
 
-            $dates[] = $date;
+    //         $dates[] = $date;
 
-        }
+    //     }
 
-        return $dates;
+    //     return $dates;
 
-    }
+    // }
 
-    public function convertDateRangeToDayFormat(array $datesArray)
-    {
+    // public function convertDateRangeToDayFormat(array $datesArray)
+    // {
 
-        $dates = collect($datesArray);
+    //     $dates = collect($datesArray);
 
-        $days = $new->map(function ($date, $key) {
-            return $date->format('l');
-        });
+    //     $days = $new->map(function ($date, $key) {
+    //         return $date->format('l');
+    //     });
 
-        return $days->toArray();
-    }
+    //     return $days->toArray();
+    // }
 
 
-    public function countDaysinDateRange(array $days){
+    // public function countDaysinDateRange(array $days){
         
-        return count_array_values($days);
+    //     return count_array_values($days);
         
-    }
+    // }
     /**
      * Update leave application
      * 
@@ -427,4 +428,12 @@ class LeavesController extends Controller
         $leave->save();
     }
 
+
+    public function testDate(){
+
+        $start_date = $this->setDateObject('Y/m/d', '2019/02/10');
+        $end_date = $this->setDateObject('Y-m-d','2019-04-01');
+        $arr = $this->generateDateRange($start_date, $end_date,'l');        
+        dd($this->countDaysInDateRange($arr));
+    }
 }

@@ -39,7 +39,7 @@ Route::delete('{id}/delete',             'LeavesController@destroy')->name('leav
 
 Route::delete('{id}/retract',             'LeavesController@retract')->name('leave.user.retract');
 
-
+Route::get('test-date','LeavesController@testDate');
 });
 
 // Administration routes
@@ -127,7 +127,7 @@ Route::group(['prefix' => config('app.administration_prefix'), 'middleware' => [
     
  });
                 
-    
+
     
 
 });
