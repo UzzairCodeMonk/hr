@@ -47,7 +47,7 @@ class ApplyLeave extends Notification implements ShouldQueue
      */
     public function toMail($notifiable)
     {
-        $link = URL::signedRoute('leave.employee.show', ['id' => $this->leave->id]);
+        $link = URL::signedRoute('leave.admin.show', ['id' => $this->leave->id]);
 
         return (new MailMessage)
             ->subject('Leave Application: ' . $this->leave->user->name)
