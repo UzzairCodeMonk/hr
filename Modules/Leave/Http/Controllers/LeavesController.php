@@ -24,7 +24,7 @@ use Datakraf\Notifications\RetractLeave;
 use Modules\Leave\Traits\LeaveStatus;
 use Modules\Site\Entities\Center;
 use Carbon\Carbon;
-use Uzzaircode\DateHelper\Traits\DateHelper;
+// use Uzzaircode\DateHelper\Traits\DateHelper;
 
 /***
  * 
@@ -55,7 +55,7 @@ use Uzzaircode\DateHelper\Traits\DateHelper;
 
 class LeavesController extends Controller
 {
-    use AlertMessage, LeaveStatus, DateHelper;
+    use AlertMessage, LeaveStatus, Date;
 
     public $type;
     public $data;
