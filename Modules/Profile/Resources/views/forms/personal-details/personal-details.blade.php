@@ -68,7 +68,7 @@ Personal Details
 
                     <div class="row">
                         <div class="col-lg-6 col-sm-12">
-                            <div class="form-group">
+                            <div class="form-group editable">
                                 <label for="">{{ucwords(__('profile::personal-detail.gender'))}}</label>
                                 <select name="gender" id="gender" class="form-control">
                                     <option value="">Please choose</option>
@@ -88,7 +88,7 @@ Personal Details
                     </div>
                     <div class="row">
                         <div class="col-lg-6 col-sm-12">
-                            <div class="form-group">
+                            <div class="form-group editable">
                                 <label for="">{{ucwords(__('profile::personal-detail.marital-status'))}}</label>
                                 <select name="marital_status" id="marital_status" class="form-control">
                                     <option value="">Please choose</option>

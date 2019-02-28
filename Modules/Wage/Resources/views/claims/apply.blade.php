@@ -13,9 +13,6 @@ Claim Form
 <div class="card">
     <div class="card-header">
         <h3>Claim Submission Form</h3>
-        <div class="card-options">
-
-        </div>
     </div>
     <div class="card-body">
         <form action="{{route('claim.store')}}" method="POST" enctype="multipart/form-data">
@@ -26,6 +23,17 @@ Claim Form
                     <h4>Claim Information</h4>
                 </div>
                 <div class="col-8">
+                    <div class="row">
+                        <div class="col">
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" value="" name="send" id="defaultCheck1">
+                                <label class="form-check-label" for="">
+                                    Tick this box to submit this claim to Admin upon creation.
+                                </label>
+                            </div>
+                        </div>                       
+                    </div>
+                    <hr>
                     <div class="row">
                         <div class="col">
                             <input type="hidden" name="user_id" value="{{Auth::id()}}">
@@ -78,7 +86,7 @@ Claim Form
             </div>
             <div class="form-group">
                 <button class="btn btn-primary pull-right" type="submit">
-                    Submit
+                    Create
                 </button>
             </div>
         </form>

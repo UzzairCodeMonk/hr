@@ -8,6 +8,9 @@ use Illuminate\Routing\Controller;
 use Modules\Wage\Entities\Claim;
 use Modules\Wage\Entities\ClaimType;
 use Modules\Wage\Entities\ClaimAttachment;
+use Datakraf\Notifications\SubmitClaimToAdminNotification;
+use Auth;
+use Datakraf\User;
 
 class ClaimsController extends Controller
 {
@@ -18,7 +21,7 @@ class ClaimsController extends Controller
             'user_id' => $request->user_id,
             'claimtype_id' => $request->claimtype_id,
             'amount' => $request->amount,
-            'date' => $request->date,
+            'date' => $request->date,            
             'remarks' => $request->remarks
         ];
         $this->claim = $claim;
@@ -62,10 +65,33 @@ class ClaimsController extends Controller
         $claim = $this->claim->create($this->data);
 
         $this->saveAttachments($request, $claim);
-
-        toast('Claim submitted successfully', 'success', 'top-right');
+        
+        if($request->has('send')){
+            $this->notifyHR($claim, new SubmitClaimToAdminNotification($claim, Auth::user()));
+            toast('Claim submitted successfully', 'success', 'top-right');
+        }
+        toast('Claim created successfully', 'success', 'top-right');
         return redirect()->back();
 
+
+    }
+
+    /**
+     * Notify HR Administrators
+     * 
+     * @param object $leave 
+     * @param object $notification
+     * 
+     */
+    public function notifyHR($claim, $notification)
+    {
+        $admins = User::whereHas('roles', function ($q) {
+            $q->where('name', 'Admin');
+        })->get();
+
+        foreach ($admins as $admin) {
+            $admin->notify($notification);
+        }
 
     }
 

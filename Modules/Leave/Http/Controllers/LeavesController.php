@@ -80,7 +80,7 @@ class LeavesController extends Controller
         $this->balance = $balance;
         $this->holiday = $holiday;
     }
-
+    
 
     /**
      * List all user leave applications
@@ -219,44 +219,6 @@ class LeavesController extends Controller
     }
     
     
-    // public function generateDateRange(object $leave): array
-
-    // {
-        
-    //     $start_date = Carbon::createFromFormat('d/m/Y', $leave->start_date);
-
-    //     $end_date = Carbon::createFromFormat('d/m/Y', $leave->end_date);
-
-    //     $dates = [];
-
-    //     for ($date = $start_date; $date->lte($end_date); $date->addDay()) {
-
-    //         $dates[] = $date;
-
-    //     }
-
-    //     return $dates;
-
-    // }
-
-    // public function convertDateRangeToDayFormat(array $datesArray)
-    // {
-
-    //     $dates = collect($datesArray);
-
-    //     $days = $new->map(function ($date, $key) {
-    //         return $date->format('l');
-    //     });
-
-    //     return $days->toArray();
-    // }
-
-
-    // public function countDaysinDateRange(array $days){
-        
-    //     return count_array_values($days);
-        
-    // }
     /**
      * Update leave application
      * 
@@ -368,11 +330,11 @@ class LeavesController extends Controller
      * 
      * @param integer $id
      */
-    public function exportUserLeaves($id)
-    {
-        $name = $this->user->find($id)->personalDetail->name;
-        return (new UserLeavesExport)->forUser($id)->download('hello.xlsx');
-    }
+    // public function exportUserLeaves($id)
+    // {
+    //     $name = $this->user->find($id)->personalDetail->name;
+    //     return (new UserLeavesExport)->forUser($id)->download('hello.xlsx');
+    // }
 
     /**
      * Retrieve current status of leave application
