@@ -76,6 +76,8 @@ class ClaimsController extends Controller
     {
         if ($request->has('send')) {
             $this->notifyHR($claim, new SubmitClaimToAdminNotification($claim, Auth::user()));
+            $claim->status = 1;
+            $claim->save;
             toast('Claim submitted successfully', 'success', 'top-right');
         }
     }
