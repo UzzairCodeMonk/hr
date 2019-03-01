@@ -15,7 +15,7 @@
                 <span class="avatar"><i class="ti-money"></i></span>
                 @elseif(isset($n->data['type']) && $n->data['type'] == 'claim')                
                 <a class="media mark-read" href="{{$n->data['url']}}">
-                    <span class="avatar"><i class="ti-money"></i></span>
+                    <span class="avatar"><i class="{{$n->data['icon']}}"></i></span>
                     @else
                     <a class="media" href="#">
                         <span class="avatar"><i class="ti-user"></i></span>

@@ -64,7 +64,7 @@ class SubmitClaimToAdminNotification extends Notification implements ShouldQueue
             'message' => $this->user->name . ' has submitted a claim',
             'url' => URL::signedRoute('claim.show', ['id' => $this->claim->id]),
             'type' => 'claim',
-            'icon' => 'ti-text'
+            'icon' => 'ti-file'
         ];
     }
 }
