@@ -70,7 +70,7 @@ Personal Details
                         <div class="col-lg-6 col-sm-12">
                             <div class="form-group editable">
                                 <label for="">{{ucwords(__('profile::personal-detail.gender'))}}</label>
-                                <select name="gender" id="gender" class="form-control">
+                                <select name="gender" id="gender" class="form-control selectEditable">
                                     <option value="">Please choose</option>
                                     <option value="male"
                                         {{isset($personalDetail->gender) && $personalDetail->gender == 'male'? 'selected':''}}>Male</option>
@@ -90,7 +90,7 @@ Personal Details
                         <div class="col-lg-6 col-sm-12">
                             <div class="form-group editable">
                                 <label for="">{{ucwords(__('profile::personal-detail.marital-status'))}}</label>
-                                <select name="marital_status" id="marital_status" class="form-control">
+                                <select name="marital_status" id="marital_status" class="form-control selectEditable">
                                     <option value="">Please choose</option>
                                     <option value="Single"
                                         {{isset($personalDetail->marital_status) && $personalDetail->marital_status == 'Single'? 'selected':''}}>Single</option>
@@ -289,15 +289,19 @@ Personal Details
     $(document).ready(function () {
 
         let editable = $('.editable').find('input');
+        let selectEditable = $('.selectEditable');
         let toggleButton = $('.editableToggle');
         let formHelp = $('.editable').find('p.form-text');
         editable.addClass('form-control-plaintext').attr('readonly', true);
+        selectEditable.attr('disabled','true');
         formHelp.hide();
 
         toggleButton.on('click', function () {
             editable.toggleClass('form-control');
             var attrState = editable.prop('readonly');
             editable.prop('readonly', !attrState);
+            var selectAttrState = selectEditable.prop('disabled');
+            selectEditable.prop('disabled', !selectAttrState);
             formHelp.toggle();
             const Toast = swal.mixin({
                 toast: true,
