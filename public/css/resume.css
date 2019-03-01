@@ -44,7 +44,7 @@ p {
 }
 
 .sidebar-wrapper {
-  background: #E75480;
+  background:#1e3799;
   position: absolute;
   right: 0;
   width: 240px;
@@ -179,7 +179,7 @@ p {
   text-transform: uppercase;
   font-size: 20px;
   font-weight: 500;
-  color: #E75480;
+  color: #4a69bd;
   position: relative;
   margin-top: 0;
   margin-bottom: 20px;
@@ -199,7 +199,7 @@ p {
   -moz-background-clip: padding;
   -webkit-background-clip: padding-box;
   background-clip: padding-box;
-  background: #E75480;
+  background: #4a69bd;
   text-align: center;
   font-size: 16px;
   position: relative;
@@ -285,7 +285,7 @@ p {
 }
 
 .skillset .theme-progress-bar {
-  background: #E75480;
+  background: #4a69bd;
 }
 
 .footer {
