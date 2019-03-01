@@ -76,7 +76,9 @@ class ApplyLeave extends Notification implements ShouldQueue
             'user_id' => $this->user->id,
             'message' => $this->leave->user->name . ' has submitted application leave',
             'leave_id' => $this->leave->id,
-            'type' => 'leave'
+            'type' => 'leave',
+            'url' => URL::signedRoute('leave.admin.show', ['id' => $this->leave->id]),
+            'icon' => 'ti-files'
         ];
     }
 }
