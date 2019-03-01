@@ -51,15 +51,14 @@ class AdminLeaveRemark extends Notification implements ShouldQueue
      */
     public function toMail($notifiable)
     {
-        $link = URL::signedRoute('my-leave.show', ['id' => $this->leave->id]);
+        $link = URL::signedRoute('leave.show', ['id' => $this->leave->id]);
         return (new MailMessage)
             ->subject($this->admin->name . ' has leave a message on your leave application')
             ->greeting($this->admin->name . ' has leave a message on your leave application')
             ->line('Applicant: ' . $this->leave->user->name)
             ->line('Leave Type: ' . $this->leave->type->name)
             ->line('Start Date: ' . $this->leave->start_date)
-            ->line('End Date: ' . $this->leave->end_date)
-            ->line('Rejected by: ' . $this->rejecter->name)
+            ->line('End Date: ' . $this->leave->end_date)            
             ->action('View Leave Application', $link);
     }
 
