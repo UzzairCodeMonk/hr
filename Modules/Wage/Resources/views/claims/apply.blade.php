@@ -19,46 +19,7 @@ Claim Form
             @csrf
             <!-- identity -->
             <div class="card card-secondary">
-                <div class="card-body">
-                    <div class="row">
-                        <div class="" id="vue-notifications">
-                            <i class="os-icon os-icon-mail-14"></i>
-                            <div class="">
-                                    @{{ arraysize }}
-                            </div>
-                            <div class="">
-                                <ul>
-                                    <div v-if="results !== null">
-                                        <div v-if="results.length !== 0">
-                                            <div v-for="notification in results">
-                                                <li>
-                                                    <a href="#" v-on:click="redirect(notification.id,notification.data.url)">
-                                                        <div class="message-content">
-                                                            <h6 class="message-title">
-                                                                <p><span>@{{notification.data.message}}</span></p>
-                                                                <p>@{{notification.created_at}}</p>
-                                                            </h6>
-                                                        </div>
-                                                    </a>
-                                                </li>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div v-else>
-                                        <a href="#">
-                                            <div class="message-content">
-                                                <h6 class="message-title">
-                                                    Tiada notifikasi baru
-                                                </h6>
-                                            </div>
-                                        </a>
-                                    </div>                                   
-                                </ul>
-                            </div>
-
-                        </div>
-
-                    </div>
+                <div class="card-body">                   
                     <div class="row">
                         <div class="col">
                             <input type="hidden" name="user_id" value="{{Auth::id()}}">

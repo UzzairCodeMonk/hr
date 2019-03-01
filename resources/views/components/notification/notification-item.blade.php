@@ -1,17 +1,28 @@
-@foreach(Auth::user()->unreadNotifications as $n)
+<div  v-if="results.length !== 0">
+<div v-for="notification in results">
 <form action="#" method="POST" class="mark-read">
     @csrf
     <div class="media-list media-list-hover media-list-divided media-list-xs">
-        <a class="media mark-read" href="{{$n->data['url'] ?? ''}}" data-id="{{ $n->id ?? ''}}">
-            <span class="avatar"><i class="{{$n->data['icon'] ?? ''}}"></i></span>            
+        <a class="media mark-read" v-on:click="redirect(notification.id,notification.data.url)">
+            <span class="avatar"><i class=""></i></span>            
             <div class="media-body">
-                <p>{!! $n->data['message'] ?? '' !!}</p>
-                <time datetime="{{$n->created_at ?? ''}}">{{Carbon\Carbon::parse($n->created_at)->toDayDateTimeString()}}</time>
+                <p>@{{notification.data.message}}</p>
+                <time datetime="@{{notification.created_at}}">@{{notification.created_at}}</time>
             </div>
         </a>
     </div>
 </form>
-@endforeach
+</div>
+</div>
+<div v-else>
+        <a href="#">
+            <div class="message-content">
+                <h6 class="message-title">
+                    Tiada notifikasi baru
+                </h6>
+            </div>
+        </a>
+    </div> 
 <div class="dropdown-footer">
     <a href="{{route('personal.notifications')}}" class="text-center">View all notifications</a>
 </div>
