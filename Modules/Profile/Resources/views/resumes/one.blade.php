@@ -111,10 +111,12 @@
                     @foreach($skills as $skill)
                     <div class="item">
                         <h3 class="level-title">{{$skill->skill}}</h3>
-                        <div class="progress level-bar">
-                            <div class="progress-bar theme-progress-bar" role="progressbar" style="width: {{$skill->period}}%"
-                                aria-valuenow="{{$skill->period}}" aria-valuemin="0" aria-valuemax="100">{{$skill->period??'N/A'}}%</div>
-                        </div>
+                        <select class="record">
+                            @for($i = 1; $i <= config('star-rating-ui.star-count',5);$i++) <option value="{{$i}}"
+                                {{ isset($skill) && $i == $skill->period ? 'selected':null}}>{{$i}}
+                                </option>
+                                @endfor
+                        </select>
                     </div>
                     @endforeach
                     <!--//item-->
@@ -143,9 +145,19 @@
         <div class="text-center">
             <small class="copyright">Datakraf Solutions Sdn. Bhd.</small>
             <!--//container-->
-    </footer>
+    </footer>    
     <!--//footer-->
+    <script type="text/javascript" src="{{asset('js/core.min.js')}}"></script>
+    @include('vendor.star-rating-ui.assets')    
 
+    <script type="text/javascript">
+        $(function () {
+            $(".record").barrating({
+                theme: "{{config('star-rating-ui.theme','css-stars')}}",
+                readonly:true
+            });
+        });
+    </script>
 </body>
 
 </html>
