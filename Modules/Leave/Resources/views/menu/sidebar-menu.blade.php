@@ -48,7 +48,7 @@
         <li class="menu-item">
             <a class="menu-link" href="{{route('claim.submit')}}">
                 <span class="dot"></span>
-                <span class="title">Submit Claim</span>
+                <span class="title">Create Claim</span>
             </a>
         </li>
         <li class="menu-item">
