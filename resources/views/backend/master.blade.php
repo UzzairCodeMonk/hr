@@ -68,7 +68,7 @@
         if (hrs > 17) msg = "Good evening", icon = "{!! asset('images/sunrise.svg')!!}";
         if (hrs > 22) msg = "Go to bed!", icon = "{!! asset('images/moon.svg')!!}";
         @if(Auth::user())
-        document.getElementById('greeting').append(msg + " {{Auth::user()->name}}");
+        document.getElementById('greeting').append(msg + " {!! Auth::user()->name !!}");
         $('#icon').html("<img width='30' src='" + icon + "' />");
         @endif
 
