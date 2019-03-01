@@ -12,24 +12,8 @@
     <link rel="stylesheet" href="{{asset('css/app.css')}}">
     <link rel="stylesheet" href="{{asset('css/style.css')}}">
     @yield('page-css')
-    <meta name="csrf-token" content="{{ csrf_token() }}" />
-    <style>
-        .topbar-btns .topbar-btn.has-new i::after{
-        content: "{{ Auth::user()->unreadNotifications->count() ?? 0}}" !important;         
-    position: absolute;
-    top: -11px;
-    right: -7px;
-    /* display: inline-block; */
-    width: 16px;
-    height: 16px;
-    border-radius: 50%;
-    /* border: 2px solid #fff; */
-    background-color: #f96868;
-    padding: 0.em;
-    font-size: 9px;
-    line-height: 11px;
-}
-    </style>
+    <meta name="csrf-token" content="{{ csrf_field() }}" />
+
 </head>
 
 <body class="sidebar-folded">
@@ -39,6 +23,7 @@
     @include('backend.partials.sidebar')
     @include('backend.partials.top-bar')
     <main class="main-container">
+
         @role('Admin')
         @if(Request::is('administration*'))
         @include('backend.partials.admin-sidebar')
@@ -53,7 +38,7 @@
     <script type="text/javascript" src="{{asset('js/app.js')}}"></script>
     <script type="text/javascript" src="{{asset('js/script.js')}}"></script>
     @include('password-strength::asset')
-    
+
     @include('sweetalert::alert')
     @yield('page-js')
     <script type="text/javascript">
@@ -61,7 +46,7 @@
         var hrs = now.getHours();
         var msg = "";
         var icon;
-        var img;        
+        var img;
         if (hrs > 0) msg = "Good night!", icon = "{!! asset('images/moon.svg')!!}";
         if (hrs > 6) msg = "Good morning", icon = "{!! asset('images/sunny.svg')!!}";
         if (hrs > 12) msg = "Good afternoon", icon = "{!! asset('images/sunny.svg')!!}";
@@ -81,7 +66,85 @@
         });
 
     </script>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script type="text/javascript">
+        var vueNotifications = new Vue({
+            el: '#vue-notifications',
+            data: {
+                results: null,
+                arraysize: '',
+                timer: '',
+            },
+            created: function () {
+                this.fetchNotifications();
+                this.timer = setInterval(this.fetchNotifications, 15000);
+                this.redirect();
+            },
+            methods: {
+                fetchNotifications: function () {
+                    $.ajax({
+                        headers: {
+                            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                        },
+                        url: "{{ route('personal.notifications') }}",
+                        type: "GET",
+                        success: function (results) {
+                            // console.log(results);
+                            vueNotifications.results = results;
+                            vueNotifications.arraysize = results.length;
+                        },
+                        error: function () {
+                            // alert("Error get notifications");
+                            console.log('error get notifications');
+                        }
+                    });
+                },
+                redirect: function (id, url) {
+                    //console.log(id);
+                    data = {
+                        id: id,
+                    }
+                    $.ajax({
+                        headers: {
+                            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                        },
+                        url: "{{route('notification.read')}}",
+                        type: "POST",
+                        data: data,
+                        success: function (results) {
+                            //console.log("redirect: " + results)
+                            location.href = url
+                        },
+                        error: function () {
+                            // alert("Error get notifications");
+                            console.log('Error update notifications');
+                        }
+                    });
+                    //location.href = this.url
+                }
+                //end methods
+            }
+        });
 
+    </script>
+    <style>
+        .topbar-btns .topbar-btn.has-new i::after {
+            content: @{{arraysize}};
+            position: absolute;
+            top: -11px;
+            right: -7px;
+            /* display: inline-block; */
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+            /* border: 2px solid #fff; */
+            background-color: #f96868;
+            padding: 0.em;
+            font-size: 9px;
+            line-height: 11px;
+        }
+
+    </style>
 </body>
 
 </html>

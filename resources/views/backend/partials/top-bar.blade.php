@@ -31,7 +31,7 @@
                 </div>
             </li>
             <!-- Notifications -->
-            <li class="dropdown d-none d-md-block">
+            <li class="dropdown d-none d-md-block" id="vue-notifications">
                 <span class="topbar-btn {{ Auth::user()->unreadNotifications->count() > 0 ? 'has-new':'' }}"
                     data-toggle="dropdown"><i class="ti-bell"></i></span>
                 @if(userHasNotification())

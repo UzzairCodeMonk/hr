@@ -3,8 +3,9 @@
 Auth::routes();
 Route::view('dashboard', 'dashboard');
 Route::get('/', 'Auth\LoginController@showLoginForm');
+
 Route::group(['middleware' => 'auth'], function () {
-    Route::post('notification/{id}/{url}/mark', ['uses' => 'NotificationsController@markAsRead', 'as' => 'notification.read']);
+    Route::post('notification/mark', ['uses' => 'NotificationsController@markAsRead', 'as' => 'notification.read']);
     Route::get('my-notifications', ['uses' => 'NotificationsController@getMyNotifications', 'as' => 'personal.notifications']);
     Route::delete('notifications/delete', ['uses' => 'NotificationsController@deleteNotifications', 'as' => 'delete.notifications']);
 
