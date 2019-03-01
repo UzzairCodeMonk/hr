@@ -58,8 +58,7 @@ class RetractLeave extends Notification implements ShouldQueue
             ->line('Applicant: ' . $this->leave->user->name)
             ->line('Leave Type: ' . $this->leave->type->name)
             ->line('Start Date: ' . $this->leave->start_date)
-            ->line('End Date: ' . $this->leave->end_date)
-            ->line('Rejected by: ' . $this->rejecter->name)
+            ->line('End Date: ' . $this->leave->end_date)            
             ->action('View Leave Application', $link);
     }
 
@@ -72,7 +71,7 @@ class RetractLeave extends Notification implements ShouldQueue
     public function toArray($notifiable)
     {
         return [
-            //
+            
         ];
     }
 
