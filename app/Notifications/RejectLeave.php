@@ -51,7 +51,7 @@ class RejectLeave extends Notification implements ShouldQueue
      */
     public function toMail($notifiable)
     {
-        $link = URL::signedRoute('my-leave.show', ['id' => $this->leave->id]);
+        $link = URL::signedRoute('leave.show', ['id' => $this->leave->id]);
         return (new MailMessage)
             ->subject('Your Application Leave Has Been Rejected')
             ->greeting('Your Application Leave Has Been Rejected')
@@ -82,7 +82,9 @@ class RejectLeave extends Notification implements ShouldQueue
             'user_id' => $this->user->id,
             'message' => 'Sorry, ' . $this->rejecter->name . ' has rejected your leave application',
             'leave_id' => $this->leave->id,
-            'type' => 'leave'
+            'type' => 'leave',
+            'url' => URL::signedRoute('leave.show', ['id' => $this->leave->id]),
+            'icon' => 'ti-files'
         ];
     }
 }

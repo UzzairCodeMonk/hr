@@ -81,7 +81,8 @@ class AdminLeaveRemark extends Notification implements ShouldQueue
             'user_id' => $this->user->id,
             'message' => $this->admin->name . ' has leave a message on your leave application.',
             'leave_id' => $this->leave->id,
-            'type' => 'leave'
+            'type' => 'leave',
+            'url' => URL::signedRoute('leave.show', ['id' => $this->leave->id])
         ];
     }
 }
