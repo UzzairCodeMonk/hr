@@ -50,24 +50,21 @@ class SubmitClaimToAdminNotification extends Notification implements ShouldQueue
         $link = URL::signedRoute('claim.show', ['id' => $this->claim->id]);
         return (new MailMessage)
             ->subject($this->user->personalDetail->name. ' submitted a claim')
-            ->greeting($this->user->personalDetail->name. ' submitted a claim')
-            ->line('Submitter: ' . $this->claim->user->name)
+            ->greeting($this->user->personalDetail->name. ' submitted a claim')            
             ->line('Claim Type: ' . $this->claim->type->name)
             ->line('Amount: ' . $this->claim->amount)
             ->line('Remarks: ' . $this->claim->remarks)            
             ->action('View Claim', $link);
     }
 
-    /**
-     * Get the array representation of the notification.
-     *
-     * @param  mixed  $notifiable
-     * @return array
-     */
-    public function toArray($notifiable)
+    public function toDatabase($notifiable)
     {
         return [
-            //
+            'user_id' => $this->user->id,
+            'message' => $this->user->name . ' has submitted a claim',
+            'url' => URL::signedRoute('claim.show', ['id' => $this->claim->id]),
+            'type' => 'claim',
+            'icon' => 'ti-text'
         ];
     }
 }

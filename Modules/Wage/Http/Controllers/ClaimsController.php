@@ -21,7 +21,7 @@ class ClaimsController extends Controller
             'user_id' => $request->user_id,
             'claimtype_id' => $request->claimtype_id,
             'amount' => $request->amount,
-            'date' => $request->date,            
+            'date' => $request->date,
             'remarks' => $request->remarks
         ];
         $this->claim = $claim;
@@ -65,21 +65,25 @@ class ClaimsController extends Controller
         $claim = $this->claim->create($this->data);
 
         $this->saveAttachments($request, $claim);
-        
-        if($request->has('send')){
+
+        $this->sendCheck($request, $claim);
+
+        toast('Claim created successfully', 'success', 'top-right');
+        return redirect()->back();
+    }
+
+    public function sendCheck($request,$claim)
+    {
+        if ($request->has('send')) {
             $this->notifyHR($claim, new SubmitClaimToAdminNotification($claim, Auth::user()));
             toast('Claim submitted successfully', 'success', 'top-right');
         }
-        toast('Claim created successfully', 'success', 'top-right');
-        return redirect()->back();
-
-
     }
 
     /**
      * Notify HR Administrators
      * 
-     * @param object $leave 
+     * @param object $claim
      * @param object $notification
      * 
      */
@@ -92,7 +96,6 @@ class ClaimsController extends Controller
         foreach ($admins as $admin) {
             $admin->notify($notification);
         }
-
     }
 
     public function saveAttachments($request, $claim)
@@ -101,11 +104,11 @@ class ClaimsController extends Controller
 
             foreach ($request->file('attachments') as $file) {
                 if (!empty($file)) {
-               // save the attachment with event title and time as prefix
+                    // save the attachment with event title and time as prefix
                     $filename = time() . $file->getClientOriginalName();
-               // move the attachements to public/uploads/applicationsattachments folder
+                    // move the attachements to public/uploads/applicationsattachments folder
                     $file->move('uploads/claimattachments', $filename);
-               // create attachement record in database, attach it to Ticket ID
+                    // create attachement record in database, attach it to Ticket ID
                     $this->attachment->create([
                         'claim_id' => $claim->id,
                         'filename' => $filename,
@@ -141,8 +144,7 @@ class ClaimsController extends Controller
      * @return Response
      */
     public function update(Request $request)
-    {
-    }
+    { }
 
     /**
      * Remove the specified resource from storage.
@@ -156,10 +158,11 @@ class ClaimsController extends Controller
         return redirect()->back();
     }
 
-    public function showMyClaims(){
-        
+    public function showMyClaims()
+    {
+
         return view('wage::claims.admin.all-records', [
-            'claims' => $this->claim->where('user_id',auth()->id())->orderBy('created_at', 'desc')->get(),
+            'claims' => $this->claim->where('user_id', auth()->id())->orderBy('created_at', 'desc')->get(),
         ]);
     }
 }

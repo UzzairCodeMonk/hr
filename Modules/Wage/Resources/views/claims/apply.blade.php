@@ -26,12 +26,12 @@ Claim Form
                     <div class="row">
                         <div class="col">
                             <div class="form-check">
-                                <input class="form-check-input" type="checkbox" value="" name="send" id="defaultCheck1">
+                                <input class="form-check-input send-check" type="checkbox" value="" name="send" id="defaultCheck1">
                                 <label class="form-check-label" for="">
                                     Tick this box to submit this claim to Admin upon creation.
                                 </label>
                             </div>
-                        </div>                       
+                        </div>
                     </div>
                     <hr>
                     <div class="row">
@@ -85,7 +85,7 @@ Claim Form
                 </div>
             </div>
             <div class="form-group">
-                <button class="btn btn-primary pull-right" type="submit">
+                <button class="btn btn-primary pull-right submit-btn" type="submit">
                     Create
                 </button>
             </div>
@@ -111,4 +111,20 @@ Claim Form
     });
 
 </script>
+
+<!-- <script type="text/javascript">
+    $(document).ready(function () {
+        let inputs = $('.send-check');
+        $('.submit-btn').append('Create');
+        inputs.attr('checked', false);
+        inputs.on('click', function () {
+    
+            if (checked != elm.checked) {
+                inputs.;
+            }
+        });
+
+    });
+
+</script> -->
 @endsection

@@ -13,15 +13,18 @@
             <a class="media mark-read" href="{{URL::signedRoute('payslip.my.record',['id'=>$user_id,'month'=>$month,'year'=>$year])}}"
                 data-id="{{ $n->id }}">
                 <span class="avatar"><i class="ti-money"></i></span>
-                @else
-                <a class="media" href="#">
-                    <span class="avatar"><i class="ti-user"></i></span>
-                    @endif
-                    <div class="media-body">
-                        <p>{{$n->data['message']}}</p>
-                        <time datetime="{{$n->created_at}}">{{Carbon\Carbon::parse($n->created_at)->toDayDateTimeString()}}</time>
-                    </div>
-                </a>
+                @elseif(isset($n->data['type']) && $n->data['type'] == 'claim')                
+                <a class="media mark-read" href="{{$n->data['url']}}">
+                    <span class="avatar"><i class="ti-money"></i></span>
+                    @else
+                    <a class="media" href="#">
+                        <span class="avatar"><i class="ti-user"></i></span>
+                        @endif
+                        <div class="media-body">
+                            <p>{{$n->data['message']}}</p>
+                            <time datetime="{{$n->created_at}}">{{Carbon\Carbon::parse($n->created_at)->toDayDateTimeString()}}</time>
+                        </div>
+                    </a>
     </div>
 </form>
 @endforeach
