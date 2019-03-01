@@ -38,23 +38,12 @@ My Notifications
                             {{++$key}}
                         </td>
                         <td>
-                            @if(isset($n->data['type']) && $n->data['type'] == 'leave')
-                            <?php $leave_id = $n->data['leave_id']; ?>
-                            <a class="media" href="#" data-id="{{ $n->id }}">
-                                <span class="avatar"><i class="ti-files"></i></span>
-                                <!-- payslip -->
-                                @elseif(isset($n->data['type']) && $n->data['type'] == 'payslip')
-                                <?php $user_id = $n->data['user_id'];$month= $n->data['month'];$year= $n->data['year']; ?>
-                                <a class="media" href="#" data-id="{{ $n->id }}">
-                                    <span class="avatar"><i class="ti-money"></i></span>
-                                    @else
-                                    <a class="media" href="#">
-                                        <span class="avatar"><i class="ti-user"></i></span>
-                                        @endif
-                                        <div class="media-body">
-                                            <p>{{$n->data['message']}}</p>
-                                        </div>
-                                    </a>
+                            <a class="media" href="{{$n->data['url'] ?? ''}}" data-id="{{ $n->id ?? ''}}">
+                                <span class="avatar"><i class="{{$n->data['icon'] ?? ''}}"></i></span>
+                                <div class="media-body">
+                                    <p>{!! $n->data['message'] ?? '' !!}</p>
+                                </div>
+                            </a>
                         </td>
                         <td>
                             {{Carbon\Carbon::parse($n->created_at)->toDayDateTimeString()}}
@@ -66,20 +55,10 @@ My Notifications
 
                         </td>
                         <td class="text-center">
-                            @if(isset($n->data['type']) && $n->data['type'] == 'leave')
-                            <?php $leave_id = $n->data['leave_id']; ?>
-                            <a class="btn btn-sm btn-secondary" href="{{URL::signedRoute('leave.show',['id'=>$leave_id])}}"
-                                data-id="{{ $n->id }}">
-                                <!-- payslip -->
-                                @elseif(isset($n->data['type']) && $n->data['type'] == 'payslip')
-                                <?php $user_id = $n->data['user_id'];$month= $n->data['month'];$year= $n->data['year']; ?>
-                                <a class="btn btn-sm btn-secondary" href="{{URL::signedRoute('payslip.my.record',['id'=>$user_id,'month'=>$month,'year'=>$year])}}"
-                                    data-id="{{ $n->id }}">
-                                    @else
-                                    <a class="btn btn-sm btn-secondary" href="#">
-                                        @endif
-                                        View
-                                    </a>
+
+                            <a class="btn btn-sm btn-secondary" href="{{$n->data['url'] ?? ''}}" data-id="{{ $n->id ?? ''}}">
+                                View
+                            </a>
                         </td>
                     </tr>
                     @endforeach
