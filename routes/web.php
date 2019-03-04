@@ -8,6 +8,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::post('notification/mark', ['uses' => 'NotificationsController@markAsRead', 'as' => 'notification.read']);
     Route::get('my-notifications', ['uses' => 'NotificationsController@getMyNotifications', 'as' => 'personal.notifications']);
     Route::delete('notifications/delete', ['uses' => 'NotificationsController@deleteNotifications', 'as' => 'delete.notifications']);
+    Route::get('notifications',['uses' => 'NotificationsController@index', 'as' => 'notifications']);
 
 });
 // prefix
