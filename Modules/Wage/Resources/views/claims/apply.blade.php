@@ -18,22 +18,8 @@ Claim Form
         <form action="{{route('claim.store')}}" method="POST" enctype="multipart/form-data">
             @csrf
             <!-- identity -->
-            <div class="row">
-                <div class="col-4">
-                    <h4>Claim Information</h4>
-                </div>
-                <div class="col-8">
-                    <div class="row">
-                        <div class="col">
-                            <div class="form-check">
-                                <input class="form-check-input send-check" type="checkbox" value="" name="send" id="defaultCheck1">
-                                <label class="form-check-label" for="">
-                                    Tick this box to submit this claim to Admin upon creation.
-                                </label>
-                            </div>
-                        </div>
-                    </div>
-                    <hr>
+            <div class="card card-secondary">
+                <div class="card-body">
                     <div class="row">
                         <div class="col">
                             <input type="hidden" name="user_id" value="{{Auth::id()}}">
@@ -82,15 +68,40 @@ Claim Form
                             </div>
                         </div>
                     </div>
+                    <div class="form-group">
+                        <button class="btn btn-primary pull-right submit-btn" type="submit">
+                            Create
+                        </button>
+                    </div>
                 </div>
             </div>
-            <div class="form-group">
-                <button class="btn btn-primary pull-right submit-btn" type="submit">
-                    Create
-                </button>
-            </div>
         </form>
-
+        <hr>
+        <div class="card bg-lightest">
+            <div class="card-header">
+                <h3 class="card-title">
+                    Claim Records
+                </h3>
+            </div>
+            <div class="card-body">
+                <table class="table table-bordered datatable">
+                    <thead>
+                        <tr>
+                            <td>#</td>
+                            <td>Claim</td>
+                            <td>Status</td>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Claim</td>
+                            <td>Status</td>
+                            <td>Claim</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
     </div>
 </div>
 

@@ -12,8 +12,5 @@ class LeaveRepository{
         return User::find($id)->personalDetail->status;
     }
 
-    public function checkUserStatus(string $string)
-    {
-        if()
-    }
+   
 }
