@@ -12,8 +12,8 @@
     <link rel="stylesheet" href="{{asset('css/app.css')}}">
     <link rel="stylesheet" href="{{asset('css/style.css')}}">
     @yield('page-css')
-    <meta name="csrf-token" content="{{ csrf_field() }}" />
-
+    <meta name="csrf-token" content="{{ csrf_token() }}" />
+    
 </head>
 
 <body class="sidebar-folded">
@@ -126,25 +126,12 @@
             }
         });
 
-    </script>
-    <style>
-        .topbar-btns .topbar-btn.has-new i::after {
-            content: '@{{arraysize}}';
-            position: absolute;
-            top: -11px;
-            right: -7px;
-            /* display: inline-block; */
-            width: 16px;
-            height: 16px;
-            border-radius: 50%;
-            /* border: 2px solid #fff; */
-            background-color: #f96868;
-            padding: 0.em;
-            font-size: 9px;
-            line-height: 11px;
-        }
-
-    </style>
+    </script>    
+    <script>
+    // $(document).ready(function(){
+    //     $('.topbar-btns .topbar-btn.has-new i::after').append(''++'');
+    // });
+    // </script>
 </body>
 
 </html>

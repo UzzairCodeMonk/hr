@@ -1,7 +1,6 @@
 <div  v-if="results.length !== 0">
 <div v-for="notification in results">
-<form action="#" method="POST" class="mark-read">
-    @csrf
+    @csrf    
     <div class="media-list media-list-hover media-list-divided media-list-xs">
         <a class="media mark-read" v-on:click="redirect(notification.id,notification.data.url)">
             <span class="avatar"><i class=""></i></span>            
@@ -11,7 +10,6 @@
             </div>
         </a>
     </div>
-</form>
 </div>
 </div>
 <div v-else>
