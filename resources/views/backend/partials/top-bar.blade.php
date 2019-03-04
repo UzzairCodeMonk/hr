@@ -21,6 +21,7 @@
                     @endif</span>
                 <div class="dropdown-menu dropdown-menu-right">
                     <a class="dropdown-item" href="{{route('personal.index')}}"><i class="ti-user"></i> My Profile</a>
+                    <a class="dropdown-item" href="{{route('notifications')}}"><i class="ti-email"></i> My Notifications</a>
                     <div class="dropdown-divider"></div>
                     <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault();
                                   document.getElementById('logout-form').submit();"><i

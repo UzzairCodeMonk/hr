@@ -7,11 +7,17 @@ use DB;
 
 class NotificationsController extends Controller
 {
+
+    public function index()
+    {
+        $notifications = auth()->user()->notifications;
+        return view('backend.notifications.index', compact('notifications'));
+    }
+
     public function getMyNotifications()
     {
-        
-        return response()->json(auth()->user()->unreadNotifications, 200);
 
+        return response()->json(auth()->user()->unreadNotifications, 200);
     }
 
     public function markAsRead(Request $request)
@@ -22,17 +28,9 @@ class NotificationsController extends Controller
 
     public function deleteNotifications(Request $request)
     {
-        
+
         $ids = $request->ids;
-        if (count($ids) > 0) {
-            // if delete
-            if ($request->has('delete')) {
-                foreach ($ids as $id) {
-                    DB::table('notifications')->where('id', $id)->delete();
-                    toast('Selected records deleted', 'success', 'top-right');
-                    return back();
-                }
-            }
+        if (count($ids) > 0) {           
             // if mark as read
             if ($request->has('mark-read')) {
                 foreach ($ids as $id) {
