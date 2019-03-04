@@ -129,7 +129,7 @@
     </script>
     <style>
         .topbar-btns .topbar-btn.has-new i::after {
-            content: @{{arraysize}};
+            content: '@{{arraysize}}';
             position: absolute;
             top: -11px;
             right: -7px;
