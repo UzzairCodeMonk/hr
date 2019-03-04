@@ -50,8 +50,8 @@ class LoginController extends Controller
     public function login(Request $request)
     {
         $this->validateLogin($request);
-
-        $user = User::where('email', $request->email)->firstOrFail();
+        $username = $this->username();
+        $user = User::where($username, $request->$username)->firstOrFail();
         
         if ($user && $user->personalDetail->status == 'resigned') {
             return $this->sendLockedAccountResponse($request);
