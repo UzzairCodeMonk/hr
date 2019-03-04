@@ -19,7 +19,7 @@ Claim Form
             @csrf
             <!-- identity -->
             <div class="card card-secondary">
-                <div class="card-body">
+                <div class="card-body">                   
                     <div class="row">
                         <div class="col">
                             <input type="hidden" name="user_id" value="{{Auth::id()}}">
