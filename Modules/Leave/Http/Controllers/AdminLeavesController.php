@@ -166,7 +166,7 @@ class AdminLeavesController extends Controller
 
         if ($request->has('remarks')) {
             // set the status of the leave
-            $leave->setStatus($this->remarkStatus, '<b>Remarks by ' . Auth::user()->name . '</b><br>Remarks:<br> ' . $request->admin_remarks);
+            $leave->setStatus($this->submittedStatus, '<b>Remarks by ' . Auth::user()->name . '</b><br>Remarks:<br> ' . $request->admin_remarks);
             $leave->user->notify(new AdminLeaveRemark($leave, $leave->user, Auth::user()));
             toast('Remarks added to this leave application', 'success', 'top-right');
         }
