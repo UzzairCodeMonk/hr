@@ -5,43 +5,78 @@ Claim Submission Records
 @section('content')
 <div class="card">
     <div class="card-header">
-        <h3 class="cad-title">Claim Submission Records</h3>
+        <h3 class="card-title">Claim Submission Records</h3>
+        <div class="card-options">
+            <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#create-claim-modal">
+                Create New Claim
+            </button>
+        </div>
     </div>
     <div class="card-body">
         <div class="table-responsive">
-        <table class="table table-striped table-bordered datatable">
-            <thead>
-                <tr>
-                    <th>#</th>
-                    <th>Submitter</th>
-                    <th>Type</th>
-                    <th>Claim Date</th>
-                    <th>Remarks</th>                                                           
-                    <th class="text-center">Application Date</th>                  
-                    <th class="text-center">Actions</th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach($claims as $key=>$claim)
-                <tr>
-                    <td>{{++$key}}</td>
-                    <td>{{$claim->user->personalDetail->name ?? 'N/A'}}</td>
-                    <th>{{$claim->type->name ?? 'N/A'}}</th>
-                    <td>{{$claim->date ?? 'N/A'}}</td>
-                    <td>{!! $claim->remarks ?? 'N/A' !!}</td>                   
-                    <td class="text-center">{{ $claim->created_at->toDayDateTimeString() ?? 'N/A' }}</td>
-                    <td class="text-center">
-                        <a href="{{URL::signedRoute('claim.show',['id'=>$claim->id])}}" class="btn btn-sm text-dark btn-link">View</a>
-                        <form action="{{route('claim.destroy',['id'=>$claim->id])}}" method="POST" class="claim-record d-inline">
-                            @csrf
-                            @method('DELETE')
-                            <button type="submit" class="btn btn-sm text-danger btn-link">Delete</button>
-                        </form>
-                    </td>
-                </tr>
-                @endforeach
-            </tbody>            
-        </table>
+            <table class="table table-striped table-bordered datatable">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Submitter</th> 
+                        <th>Accumulated Amount (MYR)</th>                       
+                        <th class="text-center">Created At</th>
+                        <th class="text-center">Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach($claims as $key=>$claim)
+                    <tr>
+                        <td>{{++$key}}</td>
+                        <td>{{$claim->subject ?? 'N/A'}}</td>
+                        <td>0.00</td>
+                        <td class="text-center">{{ $claim->created_at->toDayDateTimeString() ?? 'N/A' }}</td>
+                        <td class="text-center">
+                            <a href="{{URL::signedRoute('claim.show',['id'=>$claim->id])}}" class="btn btn-sm text-dark btn-link">View</a>
+                            <form action="{{route('claim.destroy',['id'=>$claim->id])}}" method="POST" class="claim-record d-inline">
+                                @csrf
+                                @method('DELETE')
+                                <button type="submit" class="btn btn-sm text-danger btn-link">Delete</button>
+                            </form>
+                        </td>
+                    </tr>
+                    @endforeach
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="create-claim-modal" tabindex="-1" role="dialog" aria-labelledby="create-claim-modal"
+    aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Create New Claim</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form action="{{route('claim.store')}}" method="POST">
+                    <input type="hidden" name="user_id" value="{{auth()->id()}}">
+                    @csrf
+                    <div class="row">
+                        <div class="col">
+                            <div class="form-group">
+                                <label for="">Claim Subject</label>
+                                <input type="text" name="subject" class="form-control">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            <div class="form-group">
+                                <button type="submit" class="btn btn-primary">Create</button>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
         </div>
     </div>
 </div>
@@ -58,7 +93,9 @@ Claim Submission Records
             initComplete: function () {
                 this.api().columns([1]).every(function () {
                     var column = this;
-                    var select = $('<select class="form-control"><option value=""></option></select>')
+                    var select = $(
+                            '<select class="form-control"><option value=""></option></select>'
+                        )
                         .appendTo($(column.header()).empty())
                         .on('change', function () {
                             var val = $.fn.dataTable.util.escapeRegex(
@@ -89,7 +126,7 @@ Claim Submission Records
                 },
                 {
                     extend: 'copy',
-                    text:'Copy table',
+                    text: 'Copy table',
                     exportOptions: {
                         columns: 'th:not(:last-child)'
                     }
@@ -104,12 +141,12 @@ Claim Submission Records
                         },
                         columns: 'th:not(:last-child)'
                     }
-                },                
+                },
             ]
         });
         table.buttons().container().appendTo('.dataTables_wrapper .col-md-6:eq(0)');
 
-    });    
+    });
 
 </script>
 @include('components.form.confirmDeleteOnSubmission',['entity'=>'claim-record','action'=>'delete'])

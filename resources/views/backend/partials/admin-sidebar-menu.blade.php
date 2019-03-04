@@ -1,6 +1,5 @@
-
 @if(
-is_active(config('app.administration_prefix')."/employees*") 
+is_active(config('app.administration_prefix')."/employees*")
 ||is_active(config('app.administration_prefix')."/employee-detail*"))
 <div class="aside-block">
     <div class="flexbox mb-1">
@@ -69,6 +68,10 @@ is_active(config('app.administration_prefix')."/employees*")
 </ul>
 
 <ul class="nav nav-pills flex-column">
+    <li class="nav-item {{active('claim.records')}}">
+        <i class="ti ti-agenda"></i>
+        <a class="nav-link" href="{{route('claim.records')}}">Claim Categories</a>
+    </li>
     <li class="nav-item {{active('claim.records')}}">
         <i class="ti ti-agenda"></i>
         <a class="nav-link" href="{{route('claim.records')}}">Claim Submission Records</a>
