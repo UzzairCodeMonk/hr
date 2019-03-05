@@ -56,8 +56,7 @@ function endDateChange() {
         } else {
             $('.periodBoxSelector').hide();
             $('.summary').empty().append(oneDaySummary);
-            $('#num_nights').show();
-            
+            $('#num_nights').show();            
         }
 
     } else {
