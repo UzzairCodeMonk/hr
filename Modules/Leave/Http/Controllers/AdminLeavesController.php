@@ -197,4 +197,10 @@ class AdminLeavesController extends Controller
             toast('Leave application withdrawn successfully', 'success', 'top-right');
     }
 
+    public function calendar(){
+
+        return view('leave::leave.admin.calendar');
+        
+    }
+
 }
