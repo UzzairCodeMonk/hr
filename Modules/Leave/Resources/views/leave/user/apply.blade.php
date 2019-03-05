@@ -67,10 +67,20 @@ Leave Application Form
                         <div class="col fullDaySelector">
                             <div class="form-group">
                                 <label for="" class="require">Half day or Full day?</label>
-                                <select name="full_half" id="selector" class="form-control">
+                                <select name="full_half" id="daySelector" class="form-control">
                                     <option value="">Please choose</option>
                                     <option value="1">Half Day</option>
                                     <option value="2">Full Day</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col periodBoxSelector">
+                            <div class="form-group">
+                                <label for="" class="require">In which Period?</label>
+                                <select name="full_half" id="periodSelector" class="form-control periodSelector">
+                                    <option value="">Please choose</option>
+                                    <option value="1">Morning</option>
+                                    <option value="2">Afternoon</option>
                                 </select>
                             </div>
                         </div>
@@ -97,6 +107,12 @@ Leave Application Form
                                 @include('backend.shared._errors',['entity'=>'attachments'])
                             </div>
                         </div>
+                        <div class="col">
+                                <div class="form-group">
+                                    <label for="">{{ucwords(__('leave::leave.attachment'))}}</label>
+                                    <div id="num_nights"></div>
+                                </div>
+                            </div>
                     </div>
 
                 </div>
@@ -176,58 +192,12 @@ Leave Application Form
 @endsection
 @section('page-js')
 @include('asset-partials.datatable')
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
 @include('asset-partials.datepicker')
-<script type="text/javascript">
-    var date = new Date();
-    date.setDate(date.getDate());
-
-    let startDate = $('.start-date');
-    let endDate = $('.end-date');
-    let fullDaySelector = $('.fullDaySelector');
-
-    fullDaySelector.hide();
-
-    $('.start-date').datepicker({
-        format: "{{config('app.date_format_js')}}",
-        startDate: date
-    });
-    
-    $('.end-date').datepicker({
-        format: "{{config('app.date_format_js')}}",
-        startDate: date
-    });
-
-    $('.start-date, .end-date, #selector, #leave-type').on('change', endDateChange);
-
-    function endDateChange() {
-        
-        let oneDaySummary = '<i class="ti-info-alt"></i> '+'You are taking ' + $('#leave-type :selected').text() + ' on ' + startDate.val() + ' for ' + $('#selector :selected').text()+'.';
-
-        let daySummary = '<i class="ti-info-alt"></i> '+'You are taking ' + $('#leave-type :selected').text() + ' from ' + startDate.val() + ' until ' + endDate.val()+'.';
-
-        if (startDate.val() == endDate.val()) {
-            
-            $('.fullDaySelector').show();
-            startDate.datepicker();
-            endDate.datepicker();
-            $('.summary').empty();
-            $('.summary').append(oneDaySummary);
-
-        } else {
-            
-            $('.fullDaySelector').hide();
-            $('.summary').empty();
-            $('.summary').append(daySummary);
-            
-        }
-
-    }
-
-</script>
+<script type="text/javascript" src="{{asset('js/leave.js')}}"></script>
 <script type="text/javascript">
     $(document).ready(function () {
         $('.datatable').DataTable();
     });
-
 </script>
 @endsection
