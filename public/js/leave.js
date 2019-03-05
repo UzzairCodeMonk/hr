@@ -35,7 +35,7 @@ function endDateChange() {
 
     let oneDaySummary = '<i class="ti-info-alt"></i> ' + 'You are taking ' + $('#leave-type :selected').text() +
         ' on ' + startDate.val() + '. ' + $('#daySelector :selected').text() + '.';
-    let oneDaySummaryWithPeriod = '<i class="ti-info-alt"></i> ' + 'You are taking ' + $('#leave-type :selected').text() +
+    let oneDaySummaryWithPeriod = '<i class="ti-info-alt"></i> ' + $('#leave-type :selected').text() +
         ' on ' + startDate.val() + ' for ' + $('#daySelector :selected').text() + '. In the ' + $(
             '#periodSelector :selected').text() + '.';
 
@@ -51,18 +51,20 @@ function endDateChange() {
         
         if ($('#daySelector').val() == 1) {
             $('.periodBoxSelector').show();
-            $('.summary').empty().append(oneDaySummaryWithPeriod);
+            $('.summary').empty().append(oneDaySummaryWithPeriod);   
+            $('#num_nights').hide();         
         } else {
             $('.periodBoxSelector').hide();
             $('.summary').empty().append(oneDaySummary);
+            $('#num_nights').show();
+            
         }
 
     } else {
 
         $('.fullDaySelector').hide();
         $('.summary').empty().append(daySummary);
-    }
-
+    }    
 }
 
 function showDays() {
@@ -75,8 +77,8 @@ function showDays() {
     }
     let total = duration.days() + 1;
 
-    let normalMessage = `You're taking ${total} days leave`;
-    let moreThan10DaysMessage = `Holy smoke! You're taking ${total} days leave`;
+    let normalMessage = `You're taking ${total} ${pluralize('day',total)} leave`;
+    let moreThan10DaysMessage = `Holy smoke! You're taking ${total} ${pluralize('day',total)} leave`;    
 
     total > 10 ? $('#num_nights').empty().append(moreThan10DaysMessage) : $('#num_nights').empty().append(normalMessage);
 

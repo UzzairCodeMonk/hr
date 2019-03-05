@@ -76,7 +76,7 @@ Leave Application Form
                         </div>
                         <div class="col periodBoxSelector">
                             <div class="form-group">
-                                <label for="" class="require">In which Period?</label>
+                                <label for="" class="require">Which Period?</label>
                                 <select name="full_half" id="periodSelector" class="form-control periodSelector">
                                     <option value="">Please choose</option>
                                     <option value="1">Morning</option>
@@ -87,7 +87,8 @@ Leave Application Form
                     </div>
                     <div class="row">
                         <div class="col">
-                            <p class="summary font-weight-bold"></p>
+                            <span class="summary font-weight-bold"></span> <span id="num_nights" class="font-weight-bold"></span>
+                            
                         </div>
                     </div>
                     <div class="row">
@@ -109,8 +110,8 @@ Leave Application Form
                         </div>
                         <div class="col">
                                 <div class="form-group">
-                                    <label for="">{{ucwords(__('leave::leave.attachment'))}}</label>
-                                    <div id="num_nights"></div>
+                                    <label for="">Total Days</label>
+                                    
                                 </div>
                             </div>
                     </div>
@@ -194,6 +195,7 @@ Leave Application Form
 @include('asset-partials.datatable')
 <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
 @include('asset-partials.datepicker')
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pluralize/7.0.0/pluralize.min.js"></script>
 <script type="text/javascript" src="{{asset('js/leave.js')}}"></script>
 <script type="text/javascript">
     $(document).ready(function () {
