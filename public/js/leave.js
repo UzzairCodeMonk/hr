@@ -14,7 +14,7 @@ periodBoxSelector.hide();
 $('.start-date').datepicker({
     format: dateFormat,
     startDate: date,
-}).on('changeDate',function(){
+}).on('changeDate', function () {
     showDays();
 });
 
@@ -22,7 +22,7 @@ $('.end-date').datepicker({
     format: dateFormat,
     startDate: date,
 
-}).on('changeDate',function(){
+}).on('changeDate', function () {
     showDays();
 })
 
@@ -45,43 +45,44 @@ function endDateChange() {
     if (startDate.val() == endDate.val()) {
 
         $('.fullDaySelector').show();
-        startDate.datepicker();
-        endDate.datepicker();
-        $('.summary').empty();
-        $('.summary').append(oneDaySummary);
 
+        $('.summary').empty().append(oneDaySummary);
+        initializeDatepicker();
+        
         if ($('#daySelector').val() == 1) {
             $('.periodBoxSelector').show();
-            $('.summary').empty();
-            $('.summary').append(oneDaySummaryWithPeriod);
+            $('.summary').empty().append(oneDaySummaryWithPeriod);
         } else {
             $('.periodBoxSelector').hide();
-            $('.summary').empty();
-            $('.summary').append(oneDaySummary);
+            $('.summary').empty().append(oneDaySummary);
         }
 
     } else {
 
         $('.fullDaySelector').hide();
-        $('.summary').empty();
-        $('.summary').append(daySummary);
+        $('.summary').empty().append(daySummary);
     }
 
 }
 
 function showDays() {
-    
+
     var start = moment($('.start-date').datepicker('getDate'), dateFormat);
     var end = moment($('.end-date').datepicker('getDate'), dateFormat);
-    
+
     if (start.isValid() && end.isValid()) {
-        var duration = moment.duration(end.diff(start));        
-    }   
+        var duration = moment.duration(end.diff(start));
+    }
     let total = duration.days() + 1;
 
     let normalMessage = `You're taking ${total} days leave`;
     let moreThan10DaysMessage = `Holy smoke! You're taking ${total} days leave`;
 
-    total > 10 ? $('#num_nights').empty().append(moreThan10DaysMessage): $('#num_nights').empty().append(normalMessage);
-    
+    total > 10 ? $('#num_nights').empty().append(moreThan10DaysMessage) : $('#num_nights').empty().append(normalMessage);
+
+}
+
+function initializeDatepicker() {
+    startDate.datepicker();
+    endDate.datepicker();
 }
