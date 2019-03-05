@@ -44,13 +44,7 @@
             <span class="arrow"></span>
         </a>
     
-        <ul class="menu-submenu">
-            <li class="menu-item">
-                <a class="menu-link" href="{{route('claim.submit')}}">
-                    <span class="dot"></span>
-                    <span class="title">Create Claim</span>
-                </a>
-            </li>
+        <ul class="menu-submenu">            
             <li class="menu-item">
                 <a class="menu-link" href="{{route('claim.my-claims')}}">
                     <span class="dot"></span>
