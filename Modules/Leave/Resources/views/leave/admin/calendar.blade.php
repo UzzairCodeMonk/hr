@@ -1,5 +1,7 @@
 @extends('backend.master')
-
+@section('page-title')
+Leave Calendar View
+@endsection
 @section('page-css')
 <style>
     .preloader {
