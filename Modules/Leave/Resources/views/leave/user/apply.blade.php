@@ -107,13 +107,7 @@ Leave Application Form
                                 <input id="fileInput" type="file" style="display:none;" name="attachments[]" multiple />
                                 @include('backend.shared._errors',['entity'=>'attachments'])
                             </div>
-                        </div>
-                        <div class="col">
-                                <div class="form-group">
-                                    <label for="">Total Days</label>
-                                    
-                                </div>
-                            </div>
+                        </div>                        
                     </div>
 
                 </div>
