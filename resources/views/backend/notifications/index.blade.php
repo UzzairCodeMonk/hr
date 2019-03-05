@@ -12,8 +12,8 @@ My Notifications
         @method('DELETE')
         <div class="card-body">
             <div class="pull-right">
-                <button type="submit" name="delete" class="btn btn-sm btn-danger pull-right">Delete <span class="counter-text"></span>
-                    selected records</button>
+                <!-- <button type="submit" name="delete" class="btn btn-sm btn-danger pull-right">Delete <span class="counter-text"></span>
+                    selected records</button> -->
                 <button type="submit" name="mark-read" class="btn btn-sm btn-primary mr-2">Mark <span class="counter-text"></span>
                     record as read</button>
             </div>
@@ -82,7 +82,9 @@ My Notifications
 
 <script type="text/javascript">
     $(document).ready(function () {
-        $('.datatable').DataTable();
+        $('.datatable').DataTable({
+            stateSave: true
+        });
     });
 
 </script>

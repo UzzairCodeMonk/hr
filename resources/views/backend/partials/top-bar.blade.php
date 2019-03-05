@@ -21,6 +21,7 @@
                     @endif</span>
                 <div class="dropdown-menu dropdown-menu-right">
                     <a class="dropdown-item" href="{{route('personal.index')}}"><i class="ti-user"></i> My Profile</a>
+                    <a class="dropdown-item" href="{{route('notifications')}}"><i class="ti-email"></i> My Notifications</a>
                     <div class="dropdown-divider"></div>
                     <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault();
                                   document.getElementById('logout-form').submit();"><i
@@ -31,9 +32,15 @@
                 </div>
             </li>
             <!-- Notifications -->
-            <li class="dropdown d-none d-md-block">
-                <span class="topbar-btn {{ Auth::user()->unreadNotifications->count() > 0 ? 'has-new':'' }}"
-                    data-toggle="dropdown"><i class="ti-bell"></i></span>
+            <li class="dropdown d-none d-md-block" id="vue-notifications">
+                <span class="topbar-btn" data-toggle="dropdown"><i class="ti-bell"></i> 
+                <div class="badge badge-danger" style="border-radius: 50%;
+                    font-weight: 400;
+                    line-height: normal;
+                    font-size: 9px;
+                    width: 16px;
+                    height: 16px;
+                    padding: 4px;">@{{arraysize}}</div></span>
                 @if(userHasNotification())
                 <div class="dropdown-menu dropdown-menu-right">
                     @include('components.notification.notification-item')

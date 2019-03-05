@@ -5,23 +5,29 @@ namespace Modules\Wage\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
-use Modules\Wage\Entities\Claim;
+use Modules\Wage\Entities\ClaimType;
+use Modules\Wage\Entities\ClaimAttachment;
 use Datakraf\Notifications\SubmitClaimToAdminNotification;
+use Modules\Wage\Entities\ClaimDetail;
 use Auth;
 use Datakraf\User;
-use URL;
-use Modules\Wage\Entities\ClaimType;
 
-class ClaimsController extends Controller
+class ClaimDetailsController extends Controller
 {
 
-    public function __construct(Request $request, Claim $claim, ClaimType $type)
+    public function __construct(Request $request, Claim $claim, ClaimType $type, ClaimAttachment $attachment, ClaimDetail $detail)
     {
         $this->data = [
-            'user_id' => $request->user_id,
+            'claim_id' => $request->claim_id,
+            'claimtype_id' => $request->claimtype_id,
+            'amount' => $request->amount,
+            'date' => $request->date,
+            'remarks' => $request->remarks
         ];
         $this->claim = $claim;
+        $this->detail = $detail;
         $this->type = $type;
+        $this->attachment = $attachment;
     }
     /**
      * Display a listing of the resource.
@@ -33,8 +39,6 @@ class ClaimsController extends Controller
             'types' => $this->type->all()
         ]);
     }
-    
-
 
     /**
      * Show the form for creating a new resource.
@@ -53,23 +57,16 @@ class ClaimsController extends Controller
     }
 
     /**
-     * 
      * Store a newly created resource in storage.
      * @param  Request $request
      * @return Response
-     * 
      */
     public function store(Request $request)
     {
-        $claim = $this->claim->create(
-            [
-                'user_id' => auth()->id(),
-                'subject' => $request->subject
-            ]
-        );
+        $this->detail->create($this->data);
 
-        toast('Success. Please fill in your claim details', 'success', 'top-right');
-        return redirect(URL::signedRoute('claim.show',['id'=>$claim->id]));
+        toast('Claim detail saved successfully', 'success', 'top-right');        
+        return redirect()->back();
     }
 
     public function sendCheck($request, $claim)
@@ -126,9 +123,8 @@ class ClaimsController extends Controller
      */
     public function show($id)
     {
-        return view('wage::claims.apply', [
+        return view('wage::claims.show', [
             'claim' => $this->claim->find($id),
-            'types' => $this->type->all()
         ]);
     }
 

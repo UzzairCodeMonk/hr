@@ -8,8 +8,9 @@ Route::group(['prefix' => 'wage', 'middleware' => 'auth'], function () {
     Route::get('{id}/{month}/{year}/view', ['uses' => 'PayslipsController@viewPayslip', 'as' => 'payslip.my.record'])->middleware('signed');
     Route::get('{id}/{month}/{year}/print', ['uses' => 'PayslipsController@printPayslip', 'as' => 'payslip.print'])->middleware('signed');
 });
+
 Route::group(['prefix' => 'claim', 'middleware' => ['auth']], function () {
-    Route::get('apply', 'ClaimsController@index')->name('claim.submit');
+    Route::get('{id}/detail', 'ClaimsController@index')->name('claim.detail')->middleware('signed');
     Route::post('store', 'ClaimsController@store')->name('claim.store');
     Route::delete('{id}/delete', ['uses' => 'ClaimsController@destroy', 'as' => 'claim.destroy']);
     Route::get('{id}/show','ClaimsController@show')->name('claim.show')->middleware('signed');    
