@@ -77,10 +77,10 @@ Leave Application Form
                         <div class="col periodBoxSelector">
                             <div class="form-group">
                                 <label for="" class="require">Which Period?</label>
-                                <select name="full_half" id="periodSelector" class="form-control periodSelector">
+                                <select name="period" id="periodSelector" class="form-control periodSelector">
                                     <option value="">Please choose</option>
-                                    <option value="1">Morning</option>
-                                    <option value="2">Afternoon</option>
+                                    <option value="morning">Morning</option>
+                                    <option value="afternoon">Afternoon</option>
                                 </select>
                             </div>
                         </div>

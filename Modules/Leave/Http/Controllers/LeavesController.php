@@ -182,7 +182,7 @@ class LeavesController extends Controller
         $leave = $this->leave->create($this->data);
 
         if ($request->full_half == 1) {
-            $this->isHalfDay($leave);
+            $this->isHalfDay($request,$leave);
         } else {
             $this->saveTotalDaysTaken($leave);
         }        
@@ -384,9 +384,10 @@ class LeavesController extends Controller
     }
 
 
-    public function isHalfDay($leave)
+    public function isHalfDay($request, $leave)
     {
         $leave->days_taken = 0.5;
+        $leave->period = $request->period;
         $leave->save();
     }
 

@@ -36,7 +36,7 @@ function endDateChange() {
     let oneDaySummary = '<i class="ti-info-alt"></i> ' + 'You are taking ' + $('#leave-type :selected').text() +
         ' on ' + startDate.val() + '. ' + $('#daySelector :selected').text() + '.';
     let oneDaySummaryWithPeriod = '<i class="ti-info-alt"></i> ' + $('#leave-type :selected').text() +
-        ' on ' + startDate.val() + ' for ' + $('#daySelector :selected').text() + '. In the ' + $(
+        ' on ' + startDate.val() + ' for ' + $('#daySelector :selected').text() + '. I will be absent in the ' + $(
             '#periodSelector :selected').text() + '.';
 
     let daySummary = '<i class="ti-info-alt"></i> ' + 'You are taking ' + $('#leave-type :selected').text() +
