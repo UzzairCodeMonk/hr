@@ -74,4 +74,16 @@ class PersonalDetail extends Model
             return Carbon::createFromFormat('Y-m-d', $value)->format(config('app.date_format'));
         }
     }
+
+    public function setResignationDateAttribute($value)
+    {
+        $this->attributes['resignation_date'] = Carbon::createFromFormat(config('app.date_format'), $value)->format('Y-m-d');
+    }
+    
+    
+    
+    public function getResignationDateAttribute($value)
+    {
+        return Carbon::createFromFormat('Y-m-d', $value)->format(config('app.date_format'));
+    }
 }
