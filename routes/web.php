@@ -32,5 +32,9 @@ Route::group(['prefix' => config('app.administration_prefix'), 'middleware' => [
 });
 Route::get('load-primary-school', 'UsersController@loadPrimarySchools')->name('load.primarySchool');
 Route::get('test-api', 'UsersController@testApi')->name('load.api');
+
 Route::view('admin-panel', 'backend.admin.index')->middleware(['auth','role:Admin'])->prefix(config('app.administration_prefix'))->name('backend.admin.index');
+
+Route::view('dashboard', 'backend.admin.dashboard')->middleware(['auth','role:Admin'])->prefix(config('app.administration_prefix'))->name('backend.admin.index');
+
 Route::post('demos/jquery-image-upload','DemoController@saveJqueryImageUpload');

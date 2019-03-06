@@ -25,8 +25,7 @@ use Modules\Leave\Traits\LeaveStatus;
 use Modules\Site\Entities\Center;
 use Carbon\Carbon;
 use Uzzaircode\DateHelper\Traits\DateHelper;
-use DatePeriod;
-use DateInterval;
+
 // use Uzzaircode\DateHelper\Traits\DateHelper;
 
 /***
@@ -58,7 +57,7 @@ use DateInterval;
 
 class LeavesController extends Controller
 {
-    use AlertMessage, LeaveStatus, Date;
+    use AlertMessage, LeaveStatus, DateHelper;
 
     public $type;
     public $data;
@@ -393,29 +392,31 @@ class LeavesController extends Controller
     public function testDate()
     {
 
-        $start_date = $this->setDateObject('Y/m/d', '2019/02/13');
-        $end_date = $this->setDateObject('Y/m/d', '2019/02/20');
-        $days = $this->getDaysDifference($start_date, $end_date, true);
-        $period = new DatePeriod($start_date, new DateInterval('P1D'), $end_date);
-        // $arr = $this->generateDateRange($start_date, $end_date,'l');        
-        $holidays = array('2019-02-15');
-        // dd($this->countDaysInDateRange($arr));
-        $nonWorkingDays = ['Saturday', 'Sunday'];
+        $holidays = Holiday::pluck('date');
 
-        foreach($period as $dt) {
-            // $curr = $dt->format('l');
+    //     $start_date = $this->setDateObject('Y/m/d', '2019/02/13');
+    //     $end_date = $this->setDateObject('Y/m/d', '2019/02/20');
+    //     $days = $this->getDaysDifference($start_date, $end_date, true);
+    //     $period = $this->getDateInterval($start_date,$end_date);
+    //     // $arr = $this->generateDateRange($start_date, $end_date,'l');        
+    //     $holidays = ['2019-02-15'];
+    //     // dd($this->countDaysInDateRange($arr));
+    //     $nonWorkingDays = ['Saturday', 'Sunday'];
 
-            // substract if Saturday or Sunday
-            if (in_array($dt->format('l'), $nonWorkingDays)) {
-                $days--;
-            }
+    //     foreach($period as $dt) {
+    //         // $curr = $dt->format('l');
 
-            // (optional) for the updated question
-            elseif (in_array($dt->format('Y-m-d'), $holidays)) {
-                $days--;
-            }
-        }
+    //         // substract if Saturday or Sunday
+    //         if (in_array($dt->format('l'), $nonWorkingDays)) {
+    //             $days--;
+    //         }
 
-        dd($days);
+    //         // (optional) for the updated question
+    //         elseif (in_array($dt->format('Y-m-d'), $holidays)) {
+    //             $days--;
+    //         }
+    //     }
+
+    //     dd($days);
     }
 }
