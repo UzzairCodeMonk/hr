@@ -28,13 +28,14 @@ class PersonalDetail extends Model
 
     public function bank()
     {
-        return $this->belongsTo(Bank::class,'bank_id');
+        return $this->belongsTo(Bank::class, 'bank_id');
     }
 
-    public function center(){
-        return $this->belongsTo(Center::class,'center_id');
+    public function center()
+    {
+        return $this->belongsTo(Center::class, 'center_id');
     }
-    
+
     public function setDateOfBirthAttribute($value)
     {
         if ($value != '') {
@@ -52,14 +53,12 @@ class PersonalDetail extends Model
         if ($value != '') {
             $this->attributes['date_of_marriage'] = Carbon::createFromFormat(config('app.date_format'), $value)->format('Y-m-d');
         }
-
     }
     public function getDateOfMarriageAttribute($value)
     {
         if ($value != '') {
             return Carbon::createFromFormat('Y-m-d', $value)->format(config('app.date_format'));
         }
-
     }
 
     public function setJoinDateAttribute($value)
@@ -79,11 +78,13 @@ class PersonalDetail extends Model
     {
         $this->attributes['resignation_date'] = Carbon::createFromFormat(config('app.date_format'), $value)->format('Y-m-d');
     }
-    
-    
-    
+
+
+
     public function getResignationDateAttribute($value)
     {
-        return Carbon::createFromFormat('Y-m-d', $value)->format(config('app.date_format'));
+        if ($value != '') {
+            return Carbon::createFromFormat('Y-m-d', $value)->format(config('app.date_format'));
+        }
     }
 }
