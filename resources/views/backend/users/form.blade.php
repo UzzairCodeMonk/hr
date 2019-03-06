@@ -6,7 +6,7 @@
 <a href="{{URL::previous()}}" class="btn btn-primary mb-2">Back</a>
 <div class="card">
     <div class="card-header">
-        <h3>{!!isset($user->personalDetail->name) ? 'Update Employee: '.$user->personalDetail->name:'Add Employee'!!}</h3>    
+        <h3>{!!isset($user->personalDetail->name) ? 'Update Employee: '.$user->personalDetail->name:'Add Employee'!!}</h3>
     </div>
     <div class="card-body">
         @if(isset($user))
@@ -48,7 +48,7 @@
 @include('asset-partials.datepicker')
 <script type="text/javascript">
     $(document).ready(function () {
-        $('.join-date').datepicker({
+        $('.join-date, .datepicker').datepicker({
             format: "{{config('app.date_format_js')}}",
         });
     });
@@ -83,6 +83,26 @@
         $("table.dynamic-list").on("click", ".ibtnDel", function (event) {
             $(this).closest("tr").remove();
             counter -= 1
+        });
+    });
+
+</script>
+<script type="text/javascript">
+    $(document).ready(function () {
+
+        $('#employee_status').ready(function () {
+            if ($('#employee_status :selected').val() == 'resigned') {
+                $('.resignation_date').show();
+            } else {
+                $('.resignation_date').hide();
+            }
+        })
+        $('#employee_status').on('change',function () {
+            if ($('#employee_status :selected').val() == 'resigned') {
+                $('.resignation_date').show();
+            } else {
+                $('.resignation_date').hide();
+            }
         });
     });
 

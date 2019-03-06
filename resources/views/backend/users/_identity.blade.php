@@ -103,7 +103,7 @@
     <div class="col">
         <div class="form-group">
             <label for="">Employee Status</label>
-            <select name="status" id="" class="form-control select">
+            <select name="status" id="employee_status" class="form-control select">
                 <option></option>
                 <option value="contract"
                     {{old('status',isset($user->personalDetail->status) && $user->personalDetail->status == 'contract' ? 'selected':'')}}>Contract</option>
@@ -117,6 +117,12 @@
                     {{old('status',isset($user->personalDetail->status) && $user->personalDetail->status == 'resigned' ? 'selected':'')}}>Resigned</option>
             </select>
             @include('backend.shared._errors',['entity'=>'status'])
+        </div>
+    </div>
+    <div class="col resignation_date">
+        <div class="form-group">
+            <label for="">Resignation Date</label>
+            <input type="text" class="form-control datepicker" name="resignation_date" value="{{old('resignation_date',isset($user->personalDetail->resignation_date)?$user->personalDetail->resignation_date:'')}}">
         </div>
     </div>
 </div>

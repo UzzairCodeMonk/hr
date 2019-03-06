@@ -42,6 +42,7 @@ class CreatePersonalDetailOnUserCreation
             'position_id' => $this->request->position_id,
             'status' => $this->request->status,
             'join_date' => $this->request->join_date,
+            'resignation_date' => $this->request->resignation_date,
             'bank_id' => $this->request->bank_id,
             'center_id' => $this->request->center_id
         ]);

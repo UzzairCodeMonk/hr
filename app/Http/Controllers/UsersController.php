@@ -126,7 +126,8 @@ class UsersController extends Controller
         $p->position_id = $request->position_id;
         $p->status = $request->status;
         $p->gender = $request->gender;
-        $p->join_date = $request->join_date;        
+        $p->join_date = $request->join_date;
+        $p->resignation_date = $request->resignation_date;        
         $p->bank_id = $request->bank_id;
         $p->bank_account_number = $request->bank_account_number;
         $p->center_id = $request->center_id;
