@@ -24,6 +24,9 @@ use Datakraf\Notifications\RetractLeave;
 use Modules\Leave\Traits\LeaveStatus;
 use Modules\Site\Entities\Center;
 use Carbon\Carbon;
+use Uzzaircode\DateHelper\Traits\DateHelper;
+use DatePeriod;
+use DateInterval;
 // use Uzzaircode\DateHelper\Traits\DateHelper;
 
 /***
@@ -80,7 +83,7 @@ class LeavesController extends Controller
         $this->balance = $balance;
         $this->holiday = $holiday;
     }
-    
+
 
     /**
      * List all user leave applications
@@ -137,7 +140,6 @@ class LeavesController extends Controller
             'types' => $this->type->all(),
             'statuses' => Leave::onlyTrashed()->where('id', $id)->first()->statuses,
         ]);
-
     }
 
 
@@ -182,10 +184,10 @@ class LeavesController extends Controller
         $leave = $this->leave->create($this->data);
 
         if ($request->full_half == 1) {
-            $this->isHalfDay($request,$leave);
+            $this->isHalfDay($request, $leave);
         } else {
             $this->saveTotalDaysTaken($leave);
-        }        
+        }
         // notify HR
         $this->notifyHR($leave, new ApplyLeave($leave, Auth::user()));
         // set leave status
@@ -207,18 +209,16 @@ class LeavesController extends Controller
     {
 
         return $holidays = Center::find(auth()->user()->personalDetail->center->id)->holidays->pluck('name');
-
     }
 
     public function getPublicHolidays()
-    
+
     {
 
         return Holiday::all();
-
     }
-    
-    
+
+
     /**
      * Update leave application
      * 
@@ -238,7 +238,6 @@ class LeavesController extends Controller
 
         toast('Leave record submitted', 'success', 'top-right');
         return redirect()->back();
-
     }
 
 
@@ -271,7 +270,6 @@ class LeavesController extends Controller
         foreach ($admins as $admin) {
             $admin->notify($notification);
         }
-
     }
 
     /**
@@ -297,11 +295,11 @@ class LeavesController extends Controller
         if ($request->hasFile('attachments')) {
             foreach ($request->file('attachments') as $file) {
                 if (!empty($file)) {
-               // save the attachment with event title and time as prefix
+                    // save the attachment with event title and time as prefix
                     $filename = time() . $file->getClientOriginalName();
-               // move the attachements to public/uploads/applicationsattachments folder
+                    // move the attachements to public/uploads/applicationsattachments folder
                     $file->move('uploads/leaveattachments', $filename);
-               // create attachement record in database, attach it to Ticket ID
+                    // create attachement record in database, attach it to Ticket ID
                     $this->attachment->create([
                         'leave_id' => $leave->id,
                         'filename' => $filename,
@@ -357,11 +355,11 @@ class LeavesController extends Controller
     {
 
         // find leave application
-        $leave = $this->leave->find($id);        
-        
+        $leave = $this->leave->find($id);
+
         // check the user's leave type available balance
         $that_leave = $this->balance->where('leavetype_id', $leave->leavetype_id)->where('user_id', $leave->user_id)->first();
-        
+
         //check if the leave has been approved
         if ($leave->status == $this->approvedStatus) {
             $that_leave_balance = $that_leave->balance;
@@ -370,10 +368,10 @@ class LeavesController extends Controller
                 'balance' => $that_leave_balance
             ]);
         }
-        
+
         // set leave status
         $leave->setStatus($this->withdrawnStatus, 'Leave withdrawn by ' . Auth::user()->name);
-        
+
         // notify HR/Administrators
         $this->notifyHR($leave, new RetractLeave($leave, $leave->user, Auth::user()));
 
@@ -392,11 +390,32 @@ class LeavesController extends Controller
     }
 
 
-    public function testDate(){
+    public function testDate()
+    {
 
-        $start_date = $this->setDateObject('Y/m/d', '2019/02/10');
-        $end_date = $this->setDateObject('Y-m-d','2019-04-01');
-        $arr = $this->generateDateRange($start_date, $end_date,'l');        
-        dd($this->countDaysInDateRange($arr));
+        $start_date = $this->setDateObject('Y/m/d', '2019/02/13');
+        $end_date = $this->setDateObject('Y/m/d', '2019/02/20');
+        $days = $this->getDaysDifference($start_date, $end_date, true);
+        $period = new DatePeriod($start_date, new DateInterval('P1D'), $end_date);
+        // $arr = $this->generateDateRange($start_date, $end_date,'l');        
+        $holidays = array('2019-02-15');
+        // dd($this->countDaysInDateRange($arr));
+        $nonWorkingDays = ['Saturday', 'Sunday'];
+
+        foreach($period as $dt) {
+            // $curr = $dt->format('l');
+
+            // substract if Saturday or Sunday
+            if (in_array($dt->format('l'), $nonWorkingDays)) {
+                $days--;
+            }
+
+            // (optional) for the updated question
+            elseif (in_array($dt->format('Y-m-d'), $holidays)) {
+                $days--;
+            }
+        }
+
+        dd($days);
     }
 }
