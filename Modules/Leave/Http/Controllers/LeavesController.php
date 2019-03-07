@@ -178,8 +178,9 @@ class LeavesController extends Controller
      */
 
     public function store(ApplyLeaveRequest $request)
-    {
-        // create leave
+    {           
+        
+        //create leave
         $leave = $this->leave->create($this->data);
 
         if ($request->full_half == 1) {
@@ -188,7 +189,7 @@ class LeavesController extends Controller
             $this->saveTotalDaysTaken($leave);
         }
         // notify HR
-        $this->notifyHR($leave, new ApplyLeave($leave, Auth::user()));
+        $this->notifyHR($request, $leave, new ApplyLeave($leave, Auth::user()));
         // set leave status
         $this->setLeaveStatus($leave);
         // save attachments
@@ -260,14 +261,20 @@ class LeavesController extends Controller
      * @param object $notification
      * 
      */
-    public function notifyHR($leave, $notification)
-    {
+    public function notifyHR($request, $leave, $notification)
+    {   
+        $recepients = $request->users;
+
+        $recipients = User::where('id');
+        
         $admins = User::whereHas('roles', function ($q) {
             $q->where('name', 'Admin');
-        })->get();
+        })->get();        
 
-        foreach ($admins as $admin) {
-            $admin->notify($notification);
+        $recepients = $recepients->merge($admins);
+
+        foreach ($recepients as $recepient) {
+            $recepient->notify($notification);
         }
     }
 
@@ -394,29 +401,46 @@ class LeavesController extends Controller
 
         $holidays = Holiday::pluck('date');
 
-    //     $start_date = $this->setDateObject('Y/m/d', '2019/02/13');
-    //     $end_date = $this->setDateObject('Y/m/d', '2019/02/20');
-    //     $days = $this->getDaysDifference($start_date, $end_date, true);
-    //     $period = $this->getDateInterval($start_date,$end_date);
-    //     // $arr = $this->generateDateRange($start_date, $end_date,'l');        
-    //     $holidays = ['2019-02-15'];
-    //     // dd($this->countDaysInDateRange($arr));
-    //     $nonWorkingDays = ['Saturday', 'Sunday'];
+        //     $start_date = $this->setDateObject('Y/m/d', '2019/02/13');
+        //     $end_date = $this->setDateObject('Y/m/d', '2019/02/20');
+        //     $days = $this->getDaysDifference($start_date, $end_date, true);
+        //     $period = $this->getDateInterval($start_date,$end_date);
+        //     // $arr = $this->generateDateRange($start_date, $end_date,'l');        
+        //     $holidays = ['2019-02-15'];
+        //     // dd($this->countDaysInDateRange($arr));
+        //     $nonWorkingDays = ['Saturday', 'Sunday'];
 
-    //     foreach($period as $dt) {
-    //         // $curr = $dt->format('l');
+        //     foreach($period as $dt) {
+        //         // $curr = $dt->format('l');
 
-    //         // substract if Saturday or Sunday
-    //         if (in_array($dt->format('l'), $nonWorkingDays)) {
-    //             $days--;
-    //         }
+        //         // substract if Saturday or Sunday
+        //         if (in_array($dt->format('l'), $nonWorkingDays)) {
+        //             $days--;
+        //         }
 
-    //         // (optional) for the updated question
-    //         elseif (in_array($dt->format('Y-m-d'), $holidays)) {
-    //             $days--;
-    //         }
-    //     }
+        //         // (optional) for the updated question
+        //         elseif (in_array($dt->format('Y-m-d'), $holidays)) {
+        //             $days--;
+        //         }
+        //     }
 
-    //     dd($days);
+        //     dd($days);
+    }
+
+    public function json()
+    {
+
+        $arr = [
+            [
+                "id" => 1,
+                "name" => "zniaates"
+            ],
+            [
+                "id" => 2,
+                "name" => "United Arabasas"
+            ],
+        ];
+
+        return response()->json($arr, 200);
     }
 }

@@ -8,6 +8,9 @@ Leave Application Form
         display: none !important;
     }
 </style>
+<link rel="stylesheet" href="{{asset('css/select2-bootstrap.min.css')}}">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.5/css/select2.min.css" />
+
 @endsection
 @section('content')
 <a href="{{URL::previous()}}" class="btn btn-primary btn-md">Back</a>
@@ -52,6 +55,14 @@ Leave Application Form
                     <div class="row">
                         <div class="col">
                             <div class="form-group">
+                                <label for="">Approver</label>
+                                <select id="users" multiple class="form-control" name="users[]"></select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            <div class="form-group">
                                 <label for="" class="require">{{ucwords(__('leave::leave.start-date'))}}</label>
                                 <input type="text" name="start_date" id="" class="form-control start-date" data-provide="datepicker">
                                 @include('backend.shared._errors',['entity'=>'start_date'])
@@ -88,7 +99,7 @@ Leave Application Form
                     <div class="row">
                         <div class="col">
                             <span class="summary font-weight-bold"></span> <span id="num_nights" class="font-weight-bold"></span>
-                            
+
                         </div>
                     </div>
                     <div class="row">
@@ -107,7 +118,7 @@ Leave Application Form
                                 <input id="fileInput" type="file" style="display:none;" name="attachments[]" multiple />
                                 @include('backend.shared._errors',['entity'=>'attachments'])
                             </div>
-                        </div>                        
+                        </div>
                     </div>
 
                 </div>
@@ -190,10 +201,35 @@ Leave Application Form
 <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
 @include('asset-partials.datepicker')
 <script src="https://cdnjs.cloudflare.com/ajax/libs/pluralize/7.0.0/pluralize.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/js/select2.min.js"></script>
 <script type="text/javascript" src="{{asset('js/leave.js')}}"></script>
 <script type="text/javascript">
     $(document).ready(function () {
         $('.datatable').DataTable();
     });
+
+</script>
+<script>
+    $('#users').select2({
+        placeholder: 'Please select this application approver. You may select more than one.',
+        ajax: {
+            url: "{{route('api.users.index')}}",
+            dataType: 'json',
+            delay: 250,
+            processResults: function (data) {
+                return {
+                    results: $.map(data, function (item) {
+                        return {
+                            text: item.name,
+                            id: item.id,
+                        }
+                    })
+                };
+            },
+            cache: true,
+            allowClear: true
+        }
+    });
+
 </script>
 @endsection

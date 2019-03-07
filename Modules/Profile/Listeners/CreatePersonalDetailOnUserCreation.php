@@ -35,6 +35,7 @@ class CreatePersonalDetailOnUserCreation
             'user_id' => $event->user->id,
             'avatar' => 'images/avatar.png',
             'name' => $event->user->name,
+            'gender' => $this->request->gender,
             'ic_number' => $this->request->ic_number,
             'staff_number' => $this->request->staff_number,
             'socso_id' => $this->request->socso_id,
