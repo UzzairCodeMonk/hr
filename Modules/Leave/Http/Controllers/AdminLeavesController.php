@@ -22,7 +22,6 @@ use Modules\Leave\Http\Requests\ApplyLeaveRequest;
 use Modules\Leave\Entities\Holiday;
 use Datakraf\Notifications\AdminLeaveRemark;
 
-
 class AdminLeavesController extends Controller
 {
     

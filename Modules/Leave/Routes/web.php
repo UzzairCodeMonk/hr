@@ -4,6 +4,10 @@
 Route::group(['prefix' => 'leaves', 'middleware' => 'auth'], function () {
 
 
+Route::get('test','LeavesController@test')->name('leave.test');
+
+
+
 Route::get('status/{status}',            'LeavesController@index')->name('leave.index');
 
 
