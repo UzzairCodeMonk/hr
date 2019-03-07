@@ -72,7 +72,7 @@ Leave Application Form
                         <div class="col">
                             <div class="form-group">
                                 <label for="input-normal">{{ucwords(__('leave::leave.days-taken'))}}</label>
-                                <p>{{$leave->days_taken ?? 'N/A'}} ({{$leave->period ?? ''}})</p>
+                                <p>{{$leave->days_taken ?? 'N/A'}} ({{ucwords($leave->period ?? '')}})</p>
                             </div>
                         </div>
                         <div class="col">
