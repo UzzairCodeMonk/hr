@@ -57,7 +57,7 @@ use Uzzaircode\DateHelper\Traits\DateHelper;
 
 class LeavesController extends Controller
 {
-    use AlertMessage, LeaveStatus, DateHelper;
+    use AlertMessage, LeaveStatus, Date;
 
     public $type;
     public $data;
