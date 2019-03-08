@@ -1,8 +1,6 @@
 <?php
 
 // Normal routes
-Route::get('show/{id}',                  'LeavesController@show')->name('leave.show')->middleware(['signed']);
-
 Route::group(['prefix' => 'leaves', 'middleware' => 'auth'], function () {
 
 Route::get('data', 'LeavesController@json')->name('data.json');
@@ -28,7 +26,7 @@ Route::post('store',                     'LeavesController@store')->name('leave.
 
 
 
-
+Route::get('show/{id}',                  'LeavesController@show')->name('leave.show')->middleware('signed');
 
 
 
