@@ -10,14 +10,30 @@ use Datakraf\User;
 class UsersController extends Controller
 { 
     
-    public function index(){
+    public function index(Request $request){
 
-        $users = User::whereHas('personalDetail',function($q){
-            $q->where('status','!=', 'resigned');
-        })->get();
-        
-        return response()->json($users, 200);
+        $term = trim($request->q);
+
+        if (empty($term)) {
+            return \Response::json([]);
+        }
+
+        $users = User::search($term)->limit(5)->get();
+
+        $formatted_users = [];
+
+        foreach ($users as $user) {
+            $formatted_users[] = ['id' => $user->id, 'text' => $user->name];
+        }
+
+        return \Response::json($formatted_users);
 
     }
+
+    public function find(Request $request)
+    {
+        
+    }
+
 
 }

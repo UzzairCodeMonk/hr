@@ -211,24 +211,22 @@ Leave Application Form
 </script>
 <script>
     $('#users').select2({
-        placeholder: 'Please select this application approver. You may select more than one.',
+        placeholder: 'Please select this application approver. You may select more than one.',        
         ajax: {
             url: "{{route('api.users.index')}}",
-            dataType: 'json',
-            delay: 250,
-            processResults: function (data) {
-                return {
-                    results: $.map(data, function (item) {
-                        return {
-                            text: item.name,
-                            id: item.id,
-                        }
-                    })
-                };
-            },
-            cache: true,
-            allowClear: true
-        }
+                dataType: 'json',
+                data: function (params) {
+                    return {
+                        q: $.trim(params.term)
+                    };
+                },
+                processResults: function (data) {
+                    return {
+                        results: data
+                    };
+                },
+                cache: true
+            }
     });
 
 </script>

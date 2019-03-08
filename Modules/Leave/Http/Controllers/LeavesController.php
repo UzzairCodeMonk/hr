@@ -92,9 +92,11 @@ class LeavesController extends Controller
 
     public function index($status)
     {
+        
         return view('leave::leave.user.index', [
             'results' => Leave::leaveStatus($status),
         ]);
+
     }
 
     /**
@@ -178,8 +180,8 @@ class LeavesController extends Controller
      */
 
     public function store(ApplyLeaveRequest $request)
-    {           
-        
+    {
+
         //create leave
         $leave = $this->leave->create($this->data);
 
@@ -188,8 +190,9 @@ class LeavesController extends Controller
         } else {
             $this->saveTotalDaysTaken($leave);
         }
+        $recipients = $request->users;
         // notify HR
-        $this->notifyHR($request, $leave, new ApplyLeave($leave, Auth::user()));
+        $this->notifyHR($recipients, $leave, new ApplyLeave($leave, Auth::user()));
         // set leave status
         $this->setLeaveStatus($leave);
         // save attachments
@@ -261,20 +264,24 @@ class LeavesController extends Controller
      * @param object $notification
      * 
      */
-    public function notifyHR($request, $leave, $notification)
-    {   
-        $recepients = $request->users;
+    public function notifyHR(array $recipients, $leave, $notification)
+    {       
 
-        $recipients = User::where('id');
-        
-        $admins = User::whereHas('roles', function ($q) {
-            $q->where('name', 'Admin');
-        })->get();        
+        // get user based on id from request
+        $recipients = User::whereIn('id', $recipients)->get();
 
-        $recepients = $recepients->merge($admins);
+        // $admins = User::whereHas('roles', function ($q) {
+        //     $q->where('name', 'Admin');
+        // })->get();
+        // merge recipients
+        // $recipients = $recipients->merge($admins);
 
-        foreach ($recepients as $recepient) {
-            $recepient->notify($notification);
+        $approvers = $recipients->pluck('id');
+
+        $leave->approvers()->sync($approvers);       
+
+        foreach ($recipients as $recipient) {
+            $recipient->notify($notification);
         }
     }
 
@@ -375,14 +382,15 @@ class LeavesController extends Controller
             ]);
         }
 
-        // set leave status
+        $approvers = $leave->approvers->pluck('id')->toArray();
+
         $leave->setStatus($this->withdrawnStatus, 'Leave withdrawn by ' . Auth::user()->name);
 
-        // notify HR/Administrators
-        $this->notifyHR($leave, new RetractLeave($leave, $leave->user, Auth::user()));
-
-        // soft delete the leave application
         $leave->delete();
+        
+        // notify HR/Administrators
+        $this->notifyHR($approvers, $leave, new RetractLeave($leave, $leave->user, Auth::user()));    
+       
 
         toast('Leave application withdrawn successfully', 'success', 'top-right');
     }

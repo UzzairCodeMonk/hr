@@ -16,20 +16,20 @@ use Modules\Profile\Entities\Position;
 use Spatie\Activitylog\Traits\LogsActivity;
 use Modules\Wage\Entities\Wage;
 use Modules\Wage\Entities\Payslip;
+use Sofa\Eloquence\Eloquence;
 
 class User extends Authenticatable
 {
-    use Notifiable, HasRoles;
+    use Notifiable, HasRoles, Eloquence;
 
+    protected $searchableColumns = ['name'];
+    
     protected $dispatchesEvents = [
         'created' => UserCreated::class,
         'updated' => UserUpdated::class
     ];
 
-    // public function getDescriptionForEvent(string $eventName) : string
-    // {
-    //     return "This user has been {$eventName}";
-    // }
+
     /**
      * The attributes that are mass assignable.
      *
@@ -59,7 +59,12 @@ class User extends Authenticatable
     public function leaves()
     {
         return $this->hasMany(Leave::class)
-            ->orderBy('created_at','desc');
+            ->orderBy('created_at', 'desc');
+    }
+
+    public function leaveApprovals()
+    {
+        return $this->belongsToMany(Leave::class, 'approver_leave', 'user_id', 'leave_id');
     }
 
     public function personalDetail()
@@ -72,8 +77,8 @@ class User extends Authenticatable
         return $this->hasMany(Wage::class);
     }
 
-    public function payslips(){
+    public function payslips()
+    {
         return $this->hasMany(Payslip::class);
     }
-    
 }
