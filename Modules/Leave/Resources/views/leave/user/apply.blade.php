@@ -211,7 +211,7 @@ Leave Application Form
 </script>
 <script>
     $('#users').select2({
-        placeholder: 'Please select this application approver. You may select more than one.',        
+        placeholder: 'Please type the approver\'s name. You may tag multiple approvers',        
         ajax: {
             url: "{{route('api.users.index')}}",
                 dataType: 'json',
