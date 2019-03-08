@@ -39,6 +39,11 @@ class Leave extends Model
     }
 
     
+    public function approvers(){
+        return $this->belongsToMany(User::class,'approver_leave','leave_id','user_id');
+    }
+
+    
     public function scopeLeaveStatus($query, $status = null){
         
         if($status != null){

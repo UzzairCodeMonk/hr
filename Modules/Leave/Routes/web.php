@@ -3,6 +3,7 @@
 // Normal routes
 Route::group(['prefix' => 'leaves', 'middleware' => 'auth'], function () {
 
+Route::get('data', 'LeavesController@json')->name('data.json');
 
 Route::get('test','LeavesController@test')->name('leave.test');
 

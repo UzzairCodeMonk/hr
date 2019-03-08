@@ -92,9 +92,11 @@ class LeavesController extends Controller
 
     public function index($status)
     {
+        
         return view('leave::leave.user.index', [
             'results' => Leave::leaveStatus($status),
         ]);
+
     }
 
     /**
@@ -179,7 +181,8 @@ class LeavesController extends Controller
 
     public function store(ApplyLeaveRequest $request)
     {
-        // create leave
+
+        //create leave
         $leave = $this->leave->create($this->data);
 
         if ($request->full_half == 1) {
@@ -187,8 +190,9 @@ class LeavesController extends Controller
         } else {
             $this->saveTotalDaysTaken($leave);
         }
+        $recipients = $request->users;
         // notify HR
-        $this->notifyHR($leave, new ApplyLeave($leave, Auth::user()));
+        $this->notifyHR($recipients, $leave, new ApplyLeave($leave, Auth::user()));
         // set leave status
         $this->setLeaveStatus($leave);
         // save attachments
@@ -260,14 +264,24 @@ class LeavesController extends Controller
      * @param object $notification
      * 
      */
-    public function notifyHR($leave, $notification)
-    {
-        $admins = User::whereHas('roles', function ($q) {
-            $q->where('name', 'Admin');
-        })->get();
+    public function notifyHR(array $recipients, $leave, $notification)
+    {       
 
-        foreach ($admins as $admin) {
-            $admin->notify($notification);
+        // get user based on id from request
+        $recipients = User::whereIn('id', $recipients)->get();
+
+        // $admins = User::whereHas('roles', function ($q) {
+        //     $q->where('name', 'Admin');
+        // })->get();
+        // merge recipients
+        // $recipients = $recipients->merge($admins);
+
+        $approvers = $recipients->pluck('id');
+
+        $leave->approvers()->sync($approvers);       
+
+        foreach ($recipients as $recipient) {
+            $recipient->notify($notification);
         }
     }
 
@@ -368,14 +382,15 @@ class LeavesController extends Controller
             ]);
         }
 
-        // set leave status
+        $approvers = $leave->approvers->pluck('id')->toArray();
+
         $leave->setStatus($this->withdrawnStatus, 'Leave withdrawn by ' . Auth::user()->name);
 
-        // notify HR/Administrators
-        $this->notifyHR($leave, new RetractLeave($leave, $leave->user, Auth::user()));
-
-        // soft delete the leave application
         $leave->delete();
+        
+        // notify HR/Administrators
+        $this->notifyHR($approvers, $leave, new RetractLeave($leave, $leave->user, Auth::user()));    
+       
 
         toast('Leave application withdrawn successfully', 'success', 'top-right');
     }
@@ -394,29 +409,46 @@ class LeavesController extends Controller
 
         $holidays = Holiday::pluck('date');
 
-    //     $start_date = $this->setDateObject('Y/m/d', '2019/02/13');
-    //     $end_date = $this->setDateObject('Y/m/d', '2019/02/20');
-    //     $days = $this->getDaysDifference($start_date, $end_date, true);
-    //     $period = $this->getDateInterval($start_date,$end_date);
-    //     // $arr = $this->generateDateRange($start_date, $end_date,'l');        
-    //     $holidays = ['2019-02-15'];
-    //     // dd($this->countDaysInDateRange($arr));
-    //     $nonWorkingDays = ['Saturday', 'Sunday'];
+        //     $start_date = $this->setDateObject('Y/m/d', '2019/02/13');
+        //     $end_date = $this->setDateObject('Y/m/d', '2019/02/20');
+        //     $days = $this->getDaysDifference($start_date, $end_date, true);
+        //     $period = $this->getDateInterval($start_date,$end_date);
+        //     // $arr = $this->generateDateRange($start_date, $end_date,'l');        
+        //     $holidays = ['2019-02-15'];
+        //     // dd($this->countDaysInDateRange($arr));
+        //     $nonWorkingDays = ['Saturday', 'Sunday'];
 
-    //     foreach($period as $dt) {
-    //         // $curr = $dt->format('l');
+        //     foreach($period as $dt) {
+        //         // $curr = $dt->format('l');
 
-    //         // substract if Saturday or Sunday
-    //         if (in_array($dt->format('l'), $nonWorkingDays)) {
-    //             $days--;
-    //         }
+        //         // substract if Saturday or Sunday
+        //         if (in_array($dt->format('l'), $nonWorkingDays)) {
+        //             $days--;
+        //         }
 
-    //         // (optional) for the updated question
-    //         elseif (in_array($dt->format('Y-m-d'), $holidays)) {
-    //             $days--;
-    //         }
-    //     }
+        //         // (optional) for the updated question
+        //         elseif (in_array($dt->format('Y-m-d'), $holidays)) {
+        //             $days--;
+        //         }
+        //     }
 
-    //     dd($days);
+        //     dd($days);
+    }
+
+    public function json()
+    {
+
+        $arr = [
+            [
+                "id" => 1,
+                "name" => "zniaates"
+            ],
+            [
+                "id" => 2,
+                "name" => "United Arabasas"
+            ],
+        ];
+
+        return response()->json($arr, 200);
     }
 }

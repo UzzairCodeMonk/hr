@@ -44,14 +44,15 @@ My Leave Applications
                                     $editVisibility =
                                     !in_array(Modules\Leave\Entities\Leave::find($result->id)->status,
                                     ['approved', 'rejected']);
-                                    $todayDate = date('Y-m-d');
+                                    $todayDate = Carbon\Carbon::now();
+                                    $start_date = Carbon\Carbon::createFromFormat('d/m/Y',$result->start_date);
                                     @endphp
                                     @if(isset($editVisibility))
                                     <a href="{{URL::signedRoute('leave.edit',['id'=>$result->id])}}" class="btn btn-sm">
                                         Edit
                                     </a>
                                     @endif
-                                    @if( $todayDate >  $result->start_date) 
+                                    @if( $todayDate->lt($start_date))                                   
                                     <form action="{{route('leave.user.destroy',['id'=>$result->id])}}"
                                         method="POST" class="delete-user-leave d-inline" data-provide="tooltip"
                                         data-placement="bottom" title="" data-original-title="Withdraw this leave application">
@@ -59,7 +60,7 @@ My Leave Applications
                                         @method('DELETE')
                                         <button type="submit" class="btn btn-danger btn-sm">Withdraw</button>
                                         </form>
-                                        @endif
+                                    @endif
 
                                 </td>
                             </tr>

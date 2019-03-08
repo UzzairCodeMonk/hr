@@ -6,16 +6,18 @@ let startDate = $('.start-date');
 let endDate = $('.end-date');
 let fullDaySelector = $('.fullDaySelector');
 let periodBoxSelector = $('.periodBoxSelector');
+let hoursBoxSelector = $('.hoursBoxSelector');
 
 fullDaySelector.hide();
 periodBoxSelector.hide();
+hoursBoxSelector.hide();
 
 // get the non working days
 
 $('.start-date').datepicker({
     format: dateFormat,
     startDate: date,
-    daysOfWeekDisabled:[0,6]
+    daysOfWeekDisabled: [0, 6]
 }).on('changeDate', function () {
     showDays();
 });
@@ -23,14 +25,17 @@ $('.start-date').datepicker({
 $('.end-date').datepicker({
     format: dateFormat,
     startDate: date,
-    daysOfWeekDisabled:[0,6]
+    daysOfWeekDisabled: [0, 6]
 
 }).on('changeDate', function () {
     showDays();
 })
 
+// $('#hourStart').timepicker();
+// $('#hourEnd').bootstrapMaterialDatePicker({ date: false });
 
-$('.start-date, .end-date, #daySelector, #periodSelector, #leave-type').on('change', endDateChange);
+
+$('.start-date, .end-date, #daySelector, #periodSelector, #hoursSelector, #leave-type').on('change', endDateChange);
 
 
 
@@ -45,28 +50,39 @@ function endDateChange() {
     let daySummary = '<i class="ti-info-alt"></i> ' + 'You are taking ' + $('#leave-type :selected').text() +
         ' from ' + startDate.val() + ' until ' + endDate.val() + '.';
 
+    let oneDaySummaryWithHours = '<i class="ti-info-alt"></i> ' + $('#leave-type :selected').text() +
+        ' on ' + startDate.val() + ' for ' + '. I will be absent from ' + $(
+            '#hourStart').val() + ' until ' + $(
+            '#hourEnd').val();
+
     if (startDate.val() == endDate.val()) {
 
         $('.fullDaySelector').show();
 
         $('.summary').empty().append(oneDaySummary);
         initializeDatepicker();
-        
+
         if ($('#daySelector').val() == 1) {
             $('.periodBoxSelector').show();
-            $('.summary').empty().append(oneDaySummaryWithPeriod);   
-            $('#num_nights').hide();         
+            $('.hoursBoxSelector').hide();
+            $('.summary').empty().append(oneDaySummaryWithPeriod);
+            $('#num_nights').hide();
+        } else if ($('#daySelector').val() == 3) {
+            $('.periodBoxSelector').hide();
+            $('.hoursBoxSelector').show();
+            $('.summary').empty().append(oneDaySummaryWithHours);
+            $('#num_nights').show();
         } else {
             $('.periodBoxSelector').hide();
             $('.summary').empty().append(oneDaySummary);
-            $('#num_nights').show();            
+            $('#num_nights').show();
         }
 
     } else {
 
         $('.fullDaySelector').hide();
         $('.summary').empty().append(daySummary);
-    }    
+    }
 }
 
 function showDays() {
@@ -80,7 +96,7 @@ function showDays() {
     let total = duration.days() + 1;
 
     let normalMessage = `You're taking ${total} ${pluralize('day',total)} leave`;
-    let moreThan10DaysMessage = `Holy smoke! You're taking ${total} ${pluralize('day',total)} leave`;    
+    let moreThan10DaysMessage = `Holy smoke! You're taking ${total} ${pluralize('day',total)} leave`;
 
     total > 10 ? $('#num_nights').empty().append(moreThan10DaysMessage) : $('#num_nights').empty().append(normalMessage);
 

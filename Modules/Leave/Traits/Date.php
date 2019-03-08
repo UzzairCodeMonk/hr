@@ -24,4 +24,5 @@ trait Date
         return $this->getDiffDays($df, $dt) + 1;
     }
     
+    
 }
