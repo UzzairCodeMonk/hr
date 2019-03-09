@@ -452,3 +452,4 @@ class LeavesController extends Controller
         return response()->json($arr, 200);
     }
 }
+
