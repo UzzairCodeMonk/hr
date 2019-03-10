@@ -9,6 +9,7 @@ use Modules\Wage\Entities\ClaimType;
 use Modules\Wage\Entities\ClaimAttachment;
 use Datakraf\Notifications\SubmitClaimToAdminNotification;
 use Modules\Wage\Entities\ClaimDetail;
+use Modules\Wage\Entities\Claim;
 use Auth;
 use Datakraf\User;
 
@@ -63,8 +64,10 @@ class ClaimDetailsController extends Controller
      */
     public function store(Request $request)
     {
-        $this->detail->create($this->data);
-
+        $claimdetail = $this->detail->create($this->data);
+        
+        $this->saveAttachments($request, $claimdetail);
+        
         toast('Claim detail saved successfully', 'success', 'top-right');        
         return redirect()->back();
     }
@@ -97,7 +100,7 @@ class ClaimDetailsController extends Controller
         }
     }
 
-    public function saveAttachments($request, $claim)
+    public function saveAttachments($request, $claimdetail)
     {
         if ($request->hasFile('attachments')) {
 
@@ -109,7 +112,8 @@ class ClaimDetailsController extends Controller
                     $file->move('uploads/claimattachments', $filename);
                     // create attachement record in database, attach it to Ticket ID
                     $this->attachment->create([
-                        'claim_id' => $claim->id,
+                        'claim_id' => $claimdetail->claim_id,
+                        'claimdetail_id' =>$claimdetail->id,
                         'filename' => $filename,
                         'filepath' => 'uploads/claimattachments/' . $filename
                     ]);

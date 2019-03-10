@@ -4,6 +4,7 @@ namespace Modules\Wage\Entities;
 
 use Illuminate\Database\Eloquent\Model;
 use Carbon\Carbon;
+use Module\Wage\Entities\Claim;
 
 class ClaimDetail extends Model
 {
@@ -17,7 +18,11 @@ class ClaimDetail extends Model
 
     public function attachments()
     {
-        return $this->hasMany(ClaimAttachment::class);
+        return $this->hasMany(ClaimAttachment::class); 
+    }
+
+    public function claim(){
+        return $this->belongsTo(Claim::class,'claim_id');
     }
     
     public function setDateAttribute($value)

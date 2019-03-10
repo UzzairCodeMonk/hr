@@ -17,7 +17,7 @@ Claim Form
     <div class="card-body">
         <div class="row">
             <div class="col">
-                <form action="{{route('claim.store')}}" method="POST" enctype="multipart/form-data">
+                <form action="{{route('claimdetail.store')}}" method="POST" enctype="multipart/form-data">
                     @csrf
                     <!-- identity -->
                     <div class="card">
@@ -32,6 +32,7 @@ Claim Form
                             <div class="row">
                                 <div class="col">
                                     <input type="hidden" name="user_id" value="{{Auth::id()}}">
+                                    <input type="hidden" name="claim_id" value="{{$claim->id ?? 0}}">
                                     <div class="form-group">
                                         <label for="" class="require">Claim Type</label>
                                         <select name="claimtype_id" id="" class="form-control">
@@ -100,14 +101,32 @@ Claim Form
                                 <tr>
                                     <td>#</td>
                                     <td>Claim</td>
-                                    <td>Status</td>
+                                    <td>Date</td>
+                                    <td>Remarks</td>
                                 </tr>
                             </thead>
                             <tbody>
+                                @foreach($claim->details as $key => $detail)
                                 <tr>
-                                    <td>Claim</td>
-                                    <td>Status</td>
-                                    <td>Claim</td>
+                                    <td>{{++$key}}</td>
+                                    <td>{{$detail->amount}}</td>
+                                    <td>{{$detail->date}}</td>
+                                    <td>{{$detail->remarks}}</td>
+                                    <td>
+                                        <ol>
+                                            @if($detail->attachments->count() > 0)
+                                            @foreach($detail->attachments as $attachment)
+                                                <li>{{$attachment->filename}}</li>
+                                            @endforeach
+                                            @endif
+                                        </ol>
+
+                                    </td>
+                                </tr>
+                                @endforeach
+                                <tr>
+                                    <td colspan="3">Total</td>
+                                    <td>RM 3.00</td>
                                 </tr>
                             </tbody>
                         </table>
