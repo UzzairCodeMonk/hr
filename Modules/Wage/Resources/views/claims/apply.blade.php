@@ -13,6 +13,13 @@ Claim Form
 <div class="card">
     <div class="card-header">
         <h3>Claim Subject: {!! $claim->subject!!}</h3>
+        <div class="card-options">
+            <form action="{{route('claim.submit')}}" method="POST">
+                @csrf
+                <input type="hidden" name="claim_id" value="{{$claim->id}}">
+                <button type="submit" class="btn btn-primary btn-sm">Submit</button>
+            </form>
+        </div>
     </div>
     <div class="card-body">
         <div class="row">
@@ -103,6 +110,7 @@ Claim Form
                                     <td>Claim</td>
                                     <td>Date</td>
                                     <td>Remarks</td>
+                                    <td>Attachments</td>
                                 </tr>
                             </thead>
                             <tbody>
@@ -116,7 +124,11 @@ Claim Form
                                         <ol>
                                             @if($detail->attachments->count() > 0)
                                             @foreach($detail->attachments as $attachment)
-                                                <li>{{$attachment->filename}}</li>
+                                                <li>
+                                                    <a href="{{url($attachment->filepath) ?? ''}}" target="_blank">
+                                                        {{ $attachment->filename ?? 'No attachments available.' }}
+                                                    </a>
+                                                </li>
                                             @endforeach
                                             @endif
                                         </ol>
@@ -125,8 +137,8 @@ Claim Form
                                 </tr>
                                 @endforeach
                                 <tr>
-                                    <td colspan="3">Total</td>
-                                    <td>RM 3.00</td>
+                                    <td colspan="4" class="text-right">Total</td>
+                                    <td>MYR {{$claim->amount ?? 0.00}}</td>
                                 </tr>
                             </tbody>
                         </table>

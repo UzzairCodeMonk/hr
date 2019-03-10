@@ -17,6 +17,7 @@ Route::group(['prefix' => 'claim', 'middleware' => ['auth']], function () {
     Route::delete('{id}/delete', ['uses' => 'ClaimsController@destroy', 'as' => 'claim.destroy']);
     Route::get('{id}/show','ClaimsController@show')->name('claim.show')->middleware('signed');    
     Route::get('my-claims','ClaimsController@showMyClaims')->name('claim.my-claims');
+    Route::post('submit', 'ClaimSubmissionsController@store')->name('claim.submit');
 
 });
 

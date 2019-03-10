@@ -68,6 +68,8 @@ class ClaimDetailsController extends Controller
         
         $this->saveAttachments($request, $claimdetail);
         
+        $this->calculateClaimTotal($claimdetail);
+        
         toast('Claim detail saved successfully', 'success', 'top-right');        
         return redirect()->back();
     }
@@ -113,7 +115,7 @@ class ClaimDetailsController extends Controller
                     // create attachement record in database, attach it to Ticket ID
                     $this->attachment->create([
                         'claim_id' => $claimdetail->claim_id,
-                        'claimdetail_id' =>$claimdetail->id,
+                        'claim_detail_id' =>$claimdetail->id,
                         'filename' => $filename,
                         'filepath' => 'uploads/claimattachments/' . $filename
                     ]);
@@ -166,6 +168,17 @@ class ClaimDetailsController extends Controller
 
         return view('wage::claims.admin.all-records', [
             'claims' => $this->claim->where('user_id', auth()->id())->orderBy('created_at', 'desc')->get(),
+        ]);
+    }
+
+    public function calculateClaimTotal($claimdetail){
+
+        $total = 0;
+        $claim = ClaimDetail::where('claim_id','=',$claimdetail->claim_id)->pluck('amount');
+        $claimTotal = collect($claim)->sum();
+
+        Claim::find($claimdetail->claim_id)->update([
+            'amount' => $claimTotal
         ]);
     }
 }
