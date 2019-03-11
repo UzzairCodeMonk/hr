@@ -6,15 +6,15 @@ use Illuminate\Bus\Queueable;
 use Illuminate\Notifications\Notification;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
-use Modules\Leave\Entities\Leave;
 use Datakraf\User;
 use Illuminate\Support\Facades\URL;
+use Modules\Wage\Entities\Claim;
 
-class ApplyLeave extends Notification implements ShouldQueue
+class SubmitClaim extends Notification implements ShouldQueue
 {
     use Queueable;
 
-    public $leave;
+    public $claim;
     public $user;
     public $notifier;
     /**
@@ -22,9 +22,9 @@ class ApplyLeave extends Notification implements ShouldQueue
      *
      * @return void
      */
-    public function __construct(Leave $leave, User $user)
+    public function __construct(Claim $claim, User $user)
     {
-        $this->leave = $leave;
+        $this->claim = $claim;
         $this->user = $user;
     }
 
@@ -47,16 +47,16 @@ class ApplyLeave extends Notification implements ShouldQueue
      */
     public function toMail($notifiable)
     {
-        $link = URL::signedRoute('leave.show', ['id' => $this->leave->id]);
+        $link = URL::signedRoute('claim.show', ['id' => $this->claim->id]);
 
         return (new MailMessage)
-            ->subject('Leave Application: ' . $this->leave->user->name)
-            ->greeting($this->leave->user->name . ' has applied for leave')
-            ->line('Applicant: ' . $this->leave->user->name)
-            ->line('Leave Type: ' . $this->leave->type->name)
-            ->line('Start Date: ' . $this->leave->start_date)
-            ->line('End Date: ' . $this->leave->end_date)
-            ->action('View leave application', $link);
+            ->subject('Claim: ' . $this->claim->user->name)
+            ->greeting($this->claim->user->name . ' has applied for claim')
+            ->line('Applicant: ' . $this->claim->user->name)
+            ->line('Claim Type: ' . $this->claim->type->name)
+            ->line('Submission Date: ' . $this->claim->created_at)
+            ->line('Amount: ' . $this->claim->amount)
+            ->action('View claim application', $link);
     }
 
     /**
@@ -74,10 +74,10 @@ class ApplyLeave extends Notification implements ShouldQueue
     {
         return [
             'user_id' => $this->user->id,
-            'message' => $this->leave->user->name . ' has submitted application leave',
-            'leave_id' => $this->leave->id,
-            'type' => 'leave',
-            'url' => URL::signedRoute('leave.show', ['id' => $this->leave->id]),
+            'message' => $this->claim->user->name . ' has submitted a claim',
+            'claim_id' => $this->claim->id,
+            'type' => 'claim',
+            'url' => URL::signedRoute('claim.show', ['id' => $this->claim->id]),
             'icon' => 'ti-files'
         ];
     }

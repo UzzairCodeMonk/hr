@@ -3,7 +3,7 @@
 namespace Modules\Wage\Entities;
 
 use Illuminate\Database\Eloquent\Model;
-use Carbon\Carbon;
+use Modules\Wage\Entities\ClaimDetail;
 use Datakraf\User;
 
 class Claim extends Model
@@ -14,5 +14,9 @@ class Claim extends Model
     public function user()
     {
         return $this->belongsTo(User::class, 'user_id');
-    }        
+    }    
+    
+    public function details(){
+        return $this->hasMany(ClaimDetail::class);
+    }
 }

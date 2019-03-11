@@ -9,6 +9,7 @@ use Modules\Wage\Entities\ClaimType;
 use Modules\Wage\Entities\ClaimAttachment;
 use Datakraf\Notifications\SubmitClaimToAdminNotification;
 use Modules\Wage\Entities\ClaimDetail;
+use Modules\Wage\Entities\Claim;
 use Auth;
 use Datakraf\User;
 
@@ -63,8 +64,12 @@ class ClaimDetailsController extends Controller
      */
     public function store(Request $request)
     {
-        $this->detail->create($this->data);
-
+        $claimdetail = $this->detail->create($this->data);
+        
+        $this->saveAttachments($request, $claimdetail);
+        
+        $this->calculateClaimTotal($claimdetail);
+        
         toast('Claim detail saved successfully', 'success', 'top-right');        
         return redirect()->back();
     }
@@ -97,7 +102,7 @@ class ClaimDetailsController extends Controller
         }
     }
 
-    public function saveAttachments($request, $claim)
+    public function saveAttachments($request, $claimdetail)
     {
         if ($request->hasFile('attachments')) {
 
@@ -109,7 +114,8 @@ class ClaimDetailsController extends Controller
                     $file->move('uploads/claimattachments', $filename);
                     // create attachement record in database, attach it to Ticket ID
                     $this->attachment->create([
-                        'claim_id' => $claim->id,
+                        'claim_id' => $claimdetail->claim_id,
+                        'claim_detail_id' =>$claimdetail->id,
                         'filename' => $filename,
                         'filepath' => 'uploads/claimattachments/' . $filename
                     ]);
@@ -162,6 +168,17 @@ class ClaimDetailsController extends Controller
 
         return view('wage::claims.admin.all-records', [
             'claims' => $this->claim->where('user_id', auth()->id())->orderBy('created_at', 'desc')->get(),
+        ]);
+    }
+
+    public function calculateClaimTotal($claimdetail){
+
+        $total = 0;
+        $claim = ClaimDetail::where('claim_id','=',$claimdetail->claim_id)->pluck('amount');
+        $claimTotal = collect($claim)->sum();
+
+        Claim::find($claimdetail->claim_id)->update([
+            'amount' => $claimTotal
         ]);
     }
 }
