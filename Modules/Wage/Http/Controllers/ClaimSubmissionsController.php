@@ -17,7 +17,7 @@ class ClaimSubmissionsController extends Controller
 
         $claim = Claim::find($request->claim_id);
 
-        $this->notifyHR(new SubmitClaimToAdminNotification($claim, Auth::user()));
+        $this->notifyHR(new SubmitClaimToAdminNotification($claim, $claim->user));
 
         toast('Claim submitted', 'success', 'top-right');
 
