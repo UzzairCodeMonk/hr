@@ -12,7 +12,7 @@ Claim Form
 @section('content')
 <div class="card">
     <div class="card-header">
-        <h3>Claim Subject: {!! $claim->subject!!}</h3>
+        <h3>Claim Subject: {!! $claim->subject ?? 'N/A' !!}</h3>
         <div class="card-options">
             <form action="{{route('claim.submit')}}" method="POST">
                 @csrf

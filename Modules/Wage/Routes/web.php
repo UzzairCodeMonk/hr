@@ -18,12 +18,14 @@ Route::group(['prefix' => 'claim', 'middleware' => ['auth']], function () {
     Route::get('{id}/show','ClaimsController@show')->name('claim.show')->middleware('signed');    
     Route::get('my-claims','ClaimsController@showMyClaims')->name('claim.my-claims');
     Route::post('submit', 'ClaimSubmissionsController@store')->name('claim.submit');
+    Route::post('approval', 'ClaimApprovalsController@store')->name('claim.approval.store');
 
 });
 
 Route::group(['prefix' => 'claimdetails', 'middleware' => ['auth']],function(){
 
     Route::post('store','ClaimDetailsController@store')->name('claimdetail.store');
+    Route::get('show/{id}', 'ClaimDetailsController@show')->name('claimdetail.show');    
 
 });
 

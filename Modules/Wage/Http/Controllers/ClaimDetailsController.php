@@ -91,7 +91,7 @@ class ClaimDetailsController extends Controller
      * @param object $notification
      * 
      */
-    public function notifyHR($claim, $notification)
+    public function notifyHR($notification)
     {
         $admins = User::whereHas('roles', function ($q) {
             $q->where('name', 'Admin');
@@ -127,10 +127,14 @@ class ClaimDetailsController extends Controller
      * Show the specified resource.
      * @return Response
      */
+
     public function show($id)
-    {
+    {        
         return view('wage::claims.show', [
+
             'claim' => $this->claim->find($id),
+            'detail' => $this->claim->details
+
         ]);
     }
 
@@ -172,8 +176,7 @@ class ClaimDetailsController extends Controller
     }
 
     public function calculateClaimTotal($claimdetail){
-
-        $total = 0;
+        
         $claim = ClaimDetail::where('claim_id','=',$claimdetail->claim_id)->pluck('amount');
         $claimTotal = collect($claim)->sum();
 
