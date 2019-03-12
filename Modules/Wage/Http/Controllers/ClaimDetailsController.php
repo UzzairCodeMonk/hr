@@ -65,12 +65,12 @@ class ClaimDetailsController extends Controller
     public function store(Request $request)
     {
         $claimdetail = $this->detail->create($this->data);
-        
+
         $this->saveAttachments($request, $claimdetail);
-        
+
         $this->calculateClaimTotal($claimdetail);
-        
-        toast('Claim detail saved successfully', 'success', 'top-right');        
+
+        toast('Claim detail saved successfully', 'success', 'top-right');
         return redirect()->back();
     }
 
@@ -115,7 +115,7 @@ class ClaimDetailsController extends Controller
                     // create attachement record in database, attach it to Ticket ID
                     $this->attachment->create([
                         'claim_id' => $claimdetail->claim_id,
-                        'claim_detail_id' =>$claimdetail->id,
+                        'claim_detail_id' => $claimdetail->id,
                         'filename' => $filename,
                         'filepath' => 'uploads/claimattachments/' . $filename
                     ]);
@@ -129,7 +129,7 @@ class ClaimDetailsController extends Controller
      */
 
     public function show($id)
-    {        
+    {
         return view('wage::claims.show', [
 
             'claim' => $this->claim->find($id),
@@ -153,7 +153,15 @@ class ClaimDetailsController extends Controller
      * @return Response
      */
     public function update(Request $request)
-    { }
+    {
+        dd($request->all());
+        $id = $request->pk;
+        $key = $request->name;
+        $value = $request->value;
+
+        $cd = ClaimDetail::findOrFail($id);
+        $cd->update([$key => $value]);
+    }
 
     /**
      * Remove the specified resource from storage.
@@ -175,9 +183,10 @@ class ClaimDetailsController extends Controller
         ]);
     }
 
-    public function calculateClaimTotal($claimdetail){
-        
-        $claim = ClaimDetail::where('claim_id','=',$claimdetail->claim_id)->pluck('amount');
+    public function calculateClaimTotal($claimdetail)
+    {
+
+        $claim = ClaimDetail::where('claim_id', '=', $claimdetail->claim_id)->pluck('amount');
         $claimTotal = collect($claim)->sum();
 
         Claim::find($claimdetail->claim_id)->update([

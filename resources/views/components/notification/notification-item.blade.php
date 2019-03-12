@@ -22,5 +22,5 @@
         </a>
     </div> 
 <div class="dropdown-footer">
-    <a href="{{route('personal.notifications')}}" class="text-center">View all notifications</a>
+    <a href="{{route('notifications')}}" class="text-center">View all notifications</a>
 </div>

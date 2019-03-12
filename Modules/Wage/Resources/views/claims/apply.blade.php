@@ -8,6 +8,7 @@ Claim Form
         display: none !important;
     }
 </style>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/x-editable/1.5.1/bootstrap-editable/css/bootstrap-editable.css" />
 @endsection
 @section('content')
 <div class="card">
@@ -114,24 +115,34 @@ Claim Form
                                 </tr>
                             </thead>
                             <tbody>
+                                
                                 @foreach($claim->details as $key => $detail)
                                 <tr>
                                     <td>{{++$key}}</td>
-                                    <td>{{$detail->amount}}</td>
+                                    <td>
+                                        <a href="#" id="amount" data-type="text" data-pk="{{$detail->id}}" data-url=""
+                                            data-title="Enter amount" data-url="{{route('claimdetail.update', ['id'=>$detail->id])}}"
+                                            data-name="amount" class="editable">
+                                            {{$detail->amount}}
+                                        </a></td>
                                     <td>{{$detail->date}}</td>
                                     <td>{{$detail->remarks}}</td>
                                     <td>
-                                        <ol>
+                                        <ul>
                                             @if($detail->attachments->count() > 0)
                                             @foreach($detail->attachments as $attachment)
-                                                <li>
-                                                    <a href="{{url($attachment->filepath) ?? ''}}" target="_blank">
-                                                        {{ $attachment->filename ?? 'No attachments available.' }}
-                                                    </a>
-                                                </li>
+                                            <li>
+                                                <a href="{{url($attachment->filepath) ?? ''}}" target="_blank">
+                                                    {{ $attachment->filename ?? 'No attachments available.' }}
+                                                </a>
+                                            </li>
                                             @endforeach
+                                            @else
+                                            <li>
+                                                No attachments available.
+                                            </li>
                                             @endif
-                                        </ol>
+                                        </ul>
 
                                     </td>
                                 </tr>
@@ -140,6 +151,7 @@ Claim Form
                                     <td colspan="4" class="text-right">Total</td>
                                     <td>MYR {{$claim->amount ?? 0.00}}</td>
                                 </tr>
+                            </form>
                             </tbody>
                         </table>
                     </div>
@@ -154,6 +166,7 @@ Claim Form
 @section('page-js')
 @include('asset-partials.datatable')
 @include('asset-partials.datepicker')
+<script src="{{asset('js/bootstrap-editable.min.js')}}"></script>
 <script type="text/javascript">
     $('.date').datepicker({
         format: "{{config('app.date_format_js')}}",
@@ -166,7 +179,28 @@ Claim Form
     });
 
 </script>
+<script>
+    $.fn.editable.defaults.mode = 'inline';
+    $(document).ready(function () {
+        $('.editable').editable({
+            params: function (params) {
+                // add additional params from data-attributes of trigger element
+                params._token = '{{csrf_token()}}';
+                params.name = $(this).editable().data('name');
+                return params;
+            },
+            error: function (response, newValue) {
+                if (response.status === 500) {
+                    return 'Server error. Check entered data.';
+                } else {
+                    return response.responseText;
+                    // return "Error.";
+                }
+            }
+        });
+    });
 
+</script>
 <!-- <script type="text/javascript">
     $(document).ready(function () {
         let inputs = $('.send-check');

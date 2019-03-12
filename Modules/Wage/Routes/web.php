@@ -25,7 +25,9 @@ Route::group(['prefix' => 'claim', 'middleware' => ['auth']], function () {
 Route::group(['prefix' => 'claimdetails', 'middleware' => ['auth']],function(){
 
     Route::post('store','ClaimDetailsController@store')->name('claimdetail.store');
-    Route::get('show/{id}', 'ClaimDetailsController@show')->name('claimdetail.show');    
+    Route::get('show/{id}', 'ClaimDetailsController@show')->name('claimdetail.show'); 
+    Route::post('update',['before' => 'auth|csrf','uses' =>'ClaimDetailsController@update', 
+    'as' => 'claimdetail.update' ]);
 
 });
 
