@@ -61,7 +61,8 @@
             </a>
 
             <ul class="fab-buttons" style="top:50px">
-                <li><a class="btn  btn-block btn-sm btn-primary" href="{{route('backend.admin.index')}}">Dashboard</a></li>
+                <li><a class="btn  btn-block btn-sm btn-primary" href="{{route('backend.admin.dashboard')}}">Dashboard</a></li>
+                <li><a class="btn  btn-block btn-sm btn-primary" href="{{route('backend.admin.index')}}">Admin Panels</a></li>
                 <li><a class="btn  btn-block btn-sm btn-primary" href="{{route('user.index')}}">Employees Module</a></li>
                 <li><a class="btn  btn-block btn-sm btn-primary" href="{{route('leave.admin.index',['status'=>'submitted'])}}">Leaves Module</a></li>
                 <li><a class="btn  btn-block btn-sm btn-primary" href="{{route('payslip.index')}}">Wages Module</a></li>
