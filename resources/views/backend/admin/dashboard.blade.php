@@ -48,21 +48,21 @@ Dashboard
         @include('components.admin.panel',[
         'title' => ' 19 Total Employees ',
         'img' => asset('images/dashboard/employees.svg'),
-        'link' => '#',
+        'link' => route('user.index'),
         'linkText' => 'View',
         'linkClass' => 'btn-primary'
         ])
         @include('components.admin.panel',[
         'title' => $leaveCount. ' new leave requests',
         'img' => asset('images/dashboard/requests.svg'),
-        'link' => url('#'),
+        'link' => route('leave.admin.index',['status'=>'submitted']),
         'linkText' => 'View',
         'linkClass' => 'btn-primary'
         ])
         @include('components.admin.panel',[
         'title' => $payslipGenerated.' payslips generated',
         'img' => asset('images/dashboard/wage.svg'),
-        'link' => url('#'),
+        'link' => route('payslip.index'),
         'linkText' => 'View',
         'linkClass' => 'btn-primary'
         ])
@@ -73,7 +73,7 @@ Dashboard
                 </div>
                 <h5 class="">Configure this system</h5>
                 <p class="text-light fs-12 mb-30"></p>
-                <a href="" class="btn btn-round btn-xs btn-primary">Manage</a>
+                <a href="{{route('siteconfig.index')}}" class="btn btn-round btn-xs btn-primary">Manage</a>
             </div>
         </div>
 
