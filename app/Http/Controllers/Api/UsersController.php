@@ -3,6 +3,7 @@
 namespace Datakraf\Http\Controllers\Api;
 
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 use Datakraf\Http\Controllers\Controller;
 use Datakraf\User;
 
@@ -28,12 +29,7 @@ class UsersController extends Controller
 
         return \Response::json($formatted_users);
 
-    }
-
-    public function find(Request $request)
-    {
-        
-    }
+    }   
 
 
 }

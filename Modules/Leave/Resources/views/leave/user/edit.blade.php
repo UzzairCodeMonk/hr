@@ -8,6 +8,8 @@ Leave Application Form
         display:none !important
     }
 </style>
+<link rel="stylesheet" href="{{asset('css/select2-bootstrap.min.css')}}">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.5/css/select2.min.css" />
 @endsection
 @section('content')
 <a href="{{URL::previous()}}" class="btn btn-primary btn-md">Back</a>
@@ -64,12 +66,23 @@ Leave Application Form
                     </div>
                     <div class="row">
                         <div class="col">
+                            <div class="form-group">
+                                <label for="">Approver</label>
+                                <select id="users" multiple class="form-control" name="users[]"></select>
+                                <p class="font-weight-bold">Existing Approvers: {{$leave->approvers->pluck('name')}}</p>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="row">
+                        <div class="col">
                             <input type="hidden" name="user_id" value="{{Auth::id()}}">
                             <div class="form-group">
                                 <label for="" class="require">{{ucwords(__('leave::leave.leave-type'))}}</label>
                                 <select name="leavetype_id" id="" class="form-control">
                                     @foreach($types as $type)
-                                    <option value="{{$type->id}}" {{isset($type) && $type->id == $leave->type->id ? 'selected':''}}>{{$type->name}}</option>
+                                    <option value="{{$type->id}}"
+                                        {{isset($type) && $type->id == $leave->type->id ? 'selected':''}}>{{$type->name}}</option>
                                     @endforeach
                                 </select>
                                 @include('backend.shared._errors',['entity'=>'leavetype_id'])
@@ -78,7 +91,7 @@ Leave Application Form
                     </div>
                     <div class="row">
                         <div class="col">
-                            <div class="form-group">                                
+                            <div class="form-group">
                                 <label for="input-normal">{{ucwords(__('leave::leave.start-date'))}}</label>
                                 <input type="text" class="form-control start-date" name="start_date" id="" value="{{$leave->start_date ?? ''}}"
                                     data-provide="datepicker">
@@ -92,6 +105,31 @@ Leave Application Form
                                     value="{{$leave->end_date ?? ''}}">
                                 @include('backend.shared._errors',['entity'=>'end_date'])
                             </div>
+                        </div>
+                        <div class="col fullDaySelector">
+                            <div class="form-group">
+                                <label for="" class="require">Half day or Full day?</label>
+                                <select name="full_half" id="daySelector" class="form-control">
+                                    <option value="">Please choose</option>
+                                    <option value="1">Half Day</option>
+                                    <option value="2">Full Day</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col periodBoxSelector">
+                            <div class="form-group">
+                                <label for="" class="require">Which Period?</label>
+                                <select name="period" id="periodSelector" class="form-control periodSelector">
+                                    <option value="">Please choose</option>
+                                    <option value="morning">Morning</option>
+                                    <option value="afternoon">Afternoon</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            <span class="summary font-weight-bold"></span> <span id="num_nights" class="font-weight-bold"></span>
                         </div>
                     </div>
                     <div class="row">
@@ -181,7 +219,11 @@ Leave Application Form
 @endsection
 @section('page-js')
 @include('asset-partials.datatable')
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
 @include('asset-partials.datepicker')
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pluralize/7.0.0/pluralize.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/js/select2.min.js"></script>
+<script type="text/javascript" src="{{asset('js/leave.js')}}"></script>
 <script type="text/javascript">
     var date = new Date();
     date.setDate(date.getDate());
@@ -198,6 +240,27 @@ Leave Application Form
 <script type="text/javascript">
     $(document).ready(function () {
         $('.datatable').DataTable();
+    });
+
+</script>
+<script>
+    $('#users').select2({
+        placeholder: 'Please type the approver\'s name. You may tag multiple approvers',
+        ajax: {
+            url: "{{route('api.users.index')}}",
+            dataType: 'json',
+            data: function (params) {
+                return {
+                    q: $.trim(params.term)
+                };
+            },
+            processResults: function (data) {
+                return {
+                    results: data
+                };
+            },
+            cache: true
+        }
     });
 
 </script>
