@@ -87,6 +87,20 @@ Leave Application Form
                                 </div>
                             </div>
                         </div>
+                        <div class="row">
+                            <div class="col">
+                                <div class="form-group">
+                                    <label for="">List Of Approvers</label>
+                                    <ol>
+                                        @foreach($leave->approvers as $approver)
+                                        <li>
+                                            {!! $approver->personalDetail->name ?? 'N/A' !!}
+                                        </li>
+                                        @endforeach
+                                    </ol>
+                                </div>
+                            </div>
+                        </div>
                         @if($leave->attachments->count() > 0)
                         <div class="row">
                             <div class="col">
@@ -125,7 +139,8 @@ Leave Application Form
                         <div class="row">
                             <div class="col">
                                 <div class="form-group pull-right">
-                                    <button type="submit" name="remarks" class="btn btn-md btn-primary remarks-btn"> Submit Remarks Only</button>
+                                    <button type="submit" name="remarks" class="btn btn-md btn-primary remarks-btn">
+                                        Submit Remarks Only</button>
                                     <button type="submit" name="approve" class="btn btn-md btn-success approve-btn"><i
                                             class="ti ti-check"></i> Approve</button>
                                     <button type="submit" name="reject" class="btn btn-md btn-danger reject-btn"><i
