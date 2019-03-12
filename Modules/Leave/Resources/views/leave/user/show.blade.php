@@ -81,6 +81,20 @@ Leave Application Form
                         </div>
                     </div>
                 </div>
+                <div class="row">
+                    <div class="col">
+                        <div class="form-group">
+                            <label for="">List Of Approvers</label>
+                            <ol>
+                                @foreach($leave->approvers as $approver)
+                                    <li>
+                                        {!! $approver->personalDetail->name ?? 'N/A' !!}
+                                    </li>
+                                @endforeach
+                            </ol>
+                        </div>
+                    </div>
+                </div>
                 @if($leave->attachments->count() > 0)
                 <div class="row">
                     <div class="col">
