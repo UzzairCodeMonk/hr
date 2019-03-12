@@ -127,11 +127,7 @@
         });
 
     </script>    
-    <script>
-    // $(document).ready(function(){
-    //     $('.topbar-btns .topbar-btn.has-new i::after').append(''++'');
-    // });
-    // </script>
+    @stash('widget-js')
 </body>
 
 </html>
