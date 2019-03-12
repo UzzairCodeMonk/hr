@@ -235,7 +235,11 @@ class LeavesController extends Controller
 
         $leave->update($this->data);
 
-        $this->saveTotalDaysTaken($leave);
+        if ($request->full_half == 1) {
+            $this->isHalfDay($request, $leave);
+        } else {
+            $this->saveTotalDaysTaken($leave);
+        }        
 
         $this->saveAttachments($request, $leave);
 
