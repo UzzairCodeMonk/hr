@@ -67,7 +67,7 @@ class ClaimsController extends Controller
                 'subject' => $request->subject
             ]
         );
-
+        
         toast('Success. Please fill in your claim details', 'success', 'top-right');
         return redirect(URL::signedRoute('claim.show',['id'=>$claim->id]));
     }

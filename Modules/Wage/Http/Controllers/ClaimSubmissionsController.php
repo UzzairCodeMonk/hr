@@ -12,12 +12,20 @@ use Auth;
 
 class ClaimSubmissionsController extends Controller
 {
-    
+    protected $approvedStatus = 'approved';
+    protected $rejectedStatus = 'rejected';
+    protected $submittedStatus = 'submitted';
+    protected $withdrawnStatus = 'withdrawn';
+    protected $remarkStatus = 'remarks';
+
+
     public function store(Request $request){
 
         $claim = Claim::find($request->claim_id);
 
         $this->notifyHR(new SubmitClaimToAdminNotification($claim, $claim->user));
+
+        $claim->setStatus($this->submittedStatus, 'Claim submitted for review');
 
         toast('Claim submitted', 'success', 'top-right');
 

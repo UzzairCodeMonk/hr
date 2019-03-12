@@ -65,12 +65,12 @@ class ClaimDetailsController extends Controller
     public function store(Request $request)
     {
         $claimdetail = $this->detail->create($this->data);
-        
+
         $this->saveAttachments($request, $claimdetail);
-        
+
         $this->calculateClaimTotal($claimdetail);
-        
-        toast('Claim detail saved successfully', 'success', 'top-right');        
+
+        toast('Claim detail saved successfully', 'success', 'top-right');
         return redirect()->back();
     }
 
@@ -91,7 +91,7 @@ class ClaimDetailsController extends Controller
      * @param object $notification
      * 
      */
-    public function notifyHR($claim, $notification)
+    public function notifyHR($notification)
     {
         $admins = User::whereHas('roles', function ($q) {
             $q->where('name', 'Admin');
@@ -115,7 +115,7 @@ class ClaimDetailsController extends Controller
                     // create attachement record in database, attach it to Ticket ID
                     $this->attachment->create([
                         'claim_id' => $claimdetail->claim_id,
-                        'claim_detail_id' =>$claimdetail->id,
+                        'claim_detail_id' => $claimdetail->id,
                         'filename' => $filename,
                         'filepath' => 'uploads/claimattachments/' . $filename
                     ]);
@@ -127,10 +127,14 @@ class ClaimDetailsController extends Controller
      * Show the specified resource.
      * @return Response
      */
+
     public function show($id)
     {
         return view('wage::claims.show', [
+
             'claim' => $this->claim->find($id),
+            'detail' => $this->claim->details
+
         ]);
     }
 
@@ -149,7 +153,15 @@ class ClaimDetailsController extends Controller
      * @return Response
      */
     public function update(Request $request)
-    { }
+    {
+        dd($request->all());
+        $id = $request->pk;
+        $key = $request->name;
+        $value = $request->value;
+
+        $cd = ClaimDetail::findOrFail($id);
+        $cd->update([$key => $value]);
+    }
 
     /**
      * Remove the specified resource from storage.
@@ -171,10 +183,10 @@ class ClaimDetailsController extends Controller
         ]);
     }
 
-    public function calculateClaimTotal($claimdetail){
+    public function calculateClaimTotal($claimdetail)
+    {
 
-        $total = 0;
-        $claim = ClaimDetail::where('claim_id','=',$claimdetail->claim_id)->pluck('amount');
+        $claim = ClaimDetail::where('claim_id', '=', $claimdetail->claim_id)->pluck('amount');
         $claimTotal = collect($claim)->sum();
 
         Claim::find($claimdetail->claim_id)->update([

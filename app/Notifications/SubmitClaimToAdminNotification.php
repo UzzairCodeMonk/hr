@@ -45,7 +45,7 @@ class SubmitClaimToAdminNotification extends Notification implements ShouldQueue
      */
     public function toMail($notifiable)
     {
-        $link = URL::signedRoute('claim.show', ['id' => $this->claim->id]);
+        $link = URL::signedRoute('claimdetail.show', ['id' => $this->claim->id]);
         return (new MailMessage)
             ->subject($this->claim->user->personalDetail->name. ' submitted a claim')
             ->greeting($this->claim->user->personalDetail->name. ' submitted a claim')                        
@@ -58,7 +58,7 @@ class SubmitClaimToAdminNotification extends Notification implements ShouldQueue
         return [
             'user_id' => $this->claim->user->id,
             'message' => $this->claim->user->personalDetail->name . ' has submitted a claim',
-            'url' => URL::signedRoute('claim.show', ['id' => $this->claim->id]),
+            'url' => URL::signedRoute('claimdetail.show', ['id' => $this->claim->id]),
             'type' => 'claim',
             'icon' => 'ti-file'
         ];

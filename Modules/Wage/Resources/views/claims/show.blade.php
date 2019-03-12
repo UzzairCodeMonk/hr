@@ -1,80 +1,104 @@
 @extends('backend.master')
 @section('page-title')
-Claim Submission - {{$claim->user->personalDetail->name ?? 'N/A'}}
+Claim Form
+@endsection
+@section('page-css')
+<style>
+    .preloader{
+        display: none !important;
+    }
+</style>
 @endsection
 @section('content')
-<a href="{{URL::previous()}}" class="btn btn-primary btn-md">Back</a>
-<div class="mb-3"></div>
 <div class="card">
     <div class="card-header">
-        <h3>Claim Submission - {{$claim->user->personalDetail->name ?? 'N/A'}}</h3>
+        <h3>Claim Subject: {!! $claim->subject ?? 'N/A' !!}</h3>
         <div class="card-options">
-            <button type="button" class="btn btn-sm btn-info">{!! $claim->type->name ?? 'N/A' !!}</button>
+            <form action="">
+
+            </form>
         </div>
     </div>
     <div class="card-body">
-        @if(Auth::user()->hasRole('Admin'))
-        @csrf
-        @else
-        <form>
-            @endif
-            <!-- identity -->
-            <div class="row">
-                <div class="col-4">
-                    <div class="row">
-                        <div class="col">
-
-                        </div>
-                    </div>
-
+        <div class="row">
+            <div class="col">
+                <div class="form-group">
+                    <label for="">Claim Status</label>
+                    <ol class="timeline timeline-activity timeline-point-sm timeline-content-right w-100 py-20 pr-20">
+                        @foreach($claim->statuses as $status)
+                        <li class="timeline-block">
+                            <div class="timeline-point">
+                                <span class="badge badge-dot badge-lg {{statusColor($status['name']) ?? ''}}"></span>
+                            </div>
+                            <div class="timeline-content">
+                                <time datetime="">{{Carbon\Carbon::parse($status['created_at'])->toDayDateTimeString()}}</time>
+                                <p>{!!$status->reason!!}</p>
+                            </div>
+                        </li>
+                        @endforeach
+                    </ol>
                 </div>
-                <div class="col-8">
-                    <div class="row">
-                        <div class="col">
-                            <div class="form-group">
-                                <label for="">Applicant</label>
-                                <p>{!! $claim->user->personalDetail->name ?? 'N/A' !!}</p>
-                            </div>
-                        </div>
-                        <div class="col">
-                            <label for="">Application Date</label>
-                            <p>{{Carbon\Carbon::parse($claim->created_at)->toDayDateTimeString() ?? 'N/A'}}</p>
-                        </div>
+            </div>
+            <div class="col">
+                <div class="card">
+                    <div class="card-header">
+                        <h3 class="card-title">
+                            Claim Records
+                        </h3>
                     </div>
-                    <div class="row">
-                        <div class="col">
-                            <div class="form-group">
-                                <label for="input-normal">Claim Date</label>
-                                <p>{{$claim->date ?? 'N/A'}}</p>
-                            </div>
-                        </div>
-                        <div class="col">
-                            <div class="form-group">
-                                <label for="input-normal">Remarks</label>
-                                <p>{!! $claim->remarks ?? 'N/A'!!}</p>
-                            </div>
-                        </div>
+                    <div class="card-body">
+                        <table class="table table-bordered datatable">
+                            <thead>
+                                <tr>
+                                    <td>#</td>
+                                    <td>Type</td>
+                                    <td>Date</td>
+                                    <td>Amount</td>
+                                    <td>Remarks</td>
+                                    <td>Attachments</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach($claim->details as $key => $detail)
+                                <tr>
+                                    <td>{{++$key}}</td>
+                                    <td>{!!$detail->type->name ?? 'N/A'!!}</td>
+                                    <td>{{$detail->date ?? 'N/A'}}</td>
+                                    <td>{{$detail->amount ?? 0.00}}</td>
+                                    <td>{!! $detail->remarks ?? 'N/A' !!}</td>
+                                    <td>
+                                        <ul>
+                                            @if($detail->attachments->count() > 0)
+                                            @foreach($detail->attachments as $attachment)
+                                            <li>
+                                                <a href="{{url($attachment->filepath) ?? ''}}" target="_blank">
+                                                    {{ $attachment->filename }}
+                                                </a>
+                                            </li>
+                                            @endforeach
+                                            @else
+                                            <li> No attachments available.</li>
+                                            @endif
+                                        </ul>
+                                    </td>
+                                </tr>
+                                @endforeach
+                                <tr>
+                                    <td colspan="5" class="text-right">Total</td>
+                                    <td>MYR {{$claim->amount ?? 0.00}}</td>
+                                </tr>
+                            </tbody>
+                        </table>
                     </div>
-                    @if($claim->attachments->count() > 0)
-                    <div class="row">
-                        <div class="col">
-                            <div class="form-group">
-                                <label for="">Attachments</label>
-                                <ul>
-                                    @foreach($claim->attachments as $attachment)
-                                    <li>
-                                        <a href="{{asset($attachment->filepath)}}" target="_blank" download="{{$attachment->filename}}">
-                                            {{$attachment->filename}}
-                                        </a>
-                                    </li>
-                                    @endforeach
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                    @endif
-                    @role('Admin')
-                    <form action="{{route('leave.approve.reject',['id'=>$claim->id])}}" method="POST" class="approve-reject"></form>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col"></div>
+            <div class="col">
+                <form action="{{route('claim.approval.store',['id'=>$claim->id])}}" method="POST" class="approve-reject">
+                    <input type="hidden" name="claim_id" value="{{$claim->id}}">
+                    @csrf
                     <div class="row">
                         <div class="col">
                             <div class="form-group">
@@ -86,21 +110,55 @@ Claim Submission - {{$claim->user->personalDetail->name ?? 'N/A'}}
                     <div class="row">
                         <div class="col">
                             <div class="form-group pull-right">
-                                <button type="submit" name="approve" class="btn btn-md btn-success approve-btn">
-                                    <i class="ti ti-check"></i> Mark As Paid</button>
+                                <button type="submit" name="remarks" class="btn btn-md btn-primary remarks-btn">
+                                    Submit
+                                    Remarks Only</button>
+                                <button type="submit" name="approve" class="btn btn-md btn-success approve-btn"><i
+                                        class="ti ti-check"></i>
+                                    Approve</button>
                                 <button type="submit" name="reject" class="btn btn-md btn-danger reject-btn"><i class="ti ti-close"></i>
-                                    Reject </button>
-                                <a href="{{URL::previous()}}" class="btn btn-md btn-primary"><i class="ti ti-back-left"></i>
-                                    Back</a>
+                                    Reject</button>
                             </div>
                         </div>
                     </div>
-        </form>
-        @endrole
+                </form>
+            </div>
+
+        </div>
     </div>
 </div>
 
+<!-- public holiday modal -->
+@endsection
+@section('page-js')
+@include('asset-partials.datatable')
+@include('asset-partials.datepicker')
+<script type="text/javascript">
+    $('.date').datepicker({
+        format: "{{config('app.date_format_js')}}",
+    });
 
-</div>
-</div>
+</script>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('.datatable').DataTable();
+    });
+
+</script>
+
+<!-- <script type="text/javascript">
+    $(document).ready(function () {
+        let inputs = $('.send-check');
+        $('.submit-btn').append('Create');
+        inputs.attr('checked', false);
+        inputs.on('click', function () {
+    
+            if (checked != elm.checked) {
+                inputs.;
+            }
+        });
+
+    });
+
+</script> -->
 @endsection
