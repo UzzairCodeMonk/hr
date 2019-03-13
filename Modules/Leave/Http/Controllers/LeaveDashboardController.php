@@ -14,20 +14,24 @@ class LeaveDashboardController extends Controller
     public function index()
     {
 
-        $users = Leave::all();
+        $leaves = Leave::all();
 
-        $chart = Charts::database($users, 'bar', 'highcharts')
-
+        $monthly = Charts::database($leaves, 'bar', 'highcharts')
             ->title("Leave Applications By Month")
-
-            ->elementLabel("Total Leave Applications")           
-
+            ->elementLabel("Total Leave Applications")
             ->responsive(true)
-
             ->groupByMonth(date('Y'), true);
 
+        // $type = Leave::with('type')->get()->groupBy('type.name');
+
+        // $byType = Charts::database($type, 'bar', 'highcharts')
+        //     ->elementLabel('Leave Applications By Types')
+        //     ->responsive(true);
+            // ->groupByMonth(date('Y'), true)            
+
         return view('leave::leave.admin.dashboard', [
-            'chart' => $chart
+            'monthly' => $monthly,
+            // 'byType' => $byType
         ]);
     }
 }

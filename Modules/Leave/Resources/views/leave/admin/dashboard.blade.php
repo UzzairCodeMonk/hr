@@ -45,18 +45,21 @@ Dashboard
         </div>
     </div>
     <div class="row">
-            <div class="col">
-                <div class="card">
-                    <div class="card-header">
-                        <h3 class="card-title">Leave Applications By Month</h3>                        
-                    </div>
-                    <div class="card-body">
-                            {!! $chart->render() !!}
-                    </div>
+        <div class="col">
+            <div class="card">
+                <div class="card-header">
+                    <h3 class="card-title">Leave Applications By Month</h3>
                 </div>
-    
+                <div class="card-body">
+                    <div id="monthly">
+                        {!! $monthly->render() !!}
+                    </div>
+
+                </div>
             </div>
+
         </div>
+    </div>
     <div class="row">
         <div class="col">
             <div class="card">
@@ -74,31 +77,6 @@ Dashboard
                 </div>
             </div>
 
-        </div>
-    </div>
-    <div class="row">
-        <div class="col">
-            <div class="card">
-                <div class="card-header">
-                    <h3 class="card-title">Upcoming Events</h3>
-                </div>
-                <div class="card-body">
-                    <table class="table table-card datatable">
-                        <thead>
-                            <tr>
-                                <th>#</th>
-                                <th>Event Name</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td>1</td>
-                                <td>Hello</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
         </div>
     </div>
 </div>
