@@ -11,7 +11,7 @@
         "php": "^7.1.3",
         "arrilot/laravel-widgets": "^3.12",
         "barryvdh/laravel-dompdf": "^0.8.3",
-        "consoletvs/charts": "6.*",
+        "consoletvs/charts": "5.*",
         "fideloper/proxy": "^4.0",
         "freshbitsweb/laratables": "^1.1",
         "guzzlehttp/guzzle": "^6.3",
