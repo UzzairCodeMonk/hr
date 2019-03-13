@@ -48,13 +48,7 @@ Dashboard
             <div class="col">
                 <div class="card">
                     <div class="card-header">
-                        <h3 class="card-title">Who's not in the office?</h3>
-                        <div class="card-options">
-                            <select name="" id="daysSelector" class="form-control">
-                                <option value="7">In 7 Days</option>
-                                <option value="30">In 30 Days</option>
-                            </select>
-                        </div>
+                        <h3 class="card-title">Leave Applications By Month</h3>                        
                     </div>
                     <div class="card-body">
                             {!! $chart->render() !!}
