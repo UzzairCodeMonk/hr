@@ -64,7 +64,7 @@
                 <li><a class="btn  btn-block btn-sm btn-primary" href="{{route('backend.admin.dashboard')}}">Dashboard</a></li>
                 <li><a class="btn  btn-block btn-sm btn-primary" href="{{route('backend.admin.index')}}">Admin Panels</a></li>
                 <li><a class="btn  btn-block btn-sm btn-primary" href="{{route('user.index')}}">Employees Module</a></li>
-                <li><a class="btn  btn-block btn-sm btn-primary" href="{{route('leave.admin.index',['status'=>'submitted'])}}">Leaves Module</a></li>
+                <li><a class="btn  btn-block btn-sm btn-primary" href="{{route('leave.dashboard.index')}}">Leaves Module</a></li>
                 <li><a class="btn  btn-block btn-sm btn-primary" href="{{route('payslip.index')}}">Wages Module</a></li>
                 <li><a class="btn  btn-block btn-sm btn-primary" href="{{route('roles.index')}}">Roles &amp; Permission</a></li>
                 <li><a class="btn  btn-block btn-sm btn-primary" href="{{route('siteconfig.index')}}">Site Configurations</a></li>               
