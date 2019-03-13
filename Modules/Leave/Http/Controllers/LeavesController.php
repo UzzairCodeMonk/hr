@@ -57,7 +57,7 @@ use Uzzaircode\DateHelper\Traits\DateHelper;
 
 class LeavesController extends Controller
 {
-    use AlertMessage, LeaveStatus, Date;
+    use AlertMessage, LeaveStatus, DateHelper;
 
     public $type;
     public $data;
@@ -92,11 +92,10 @@ class LeavesController extends Controller
 
     public function index($status)
     {
-        
+
         return view('leave::leave.user.index', [
             'results' => Leave::leaveStatus($status),
         ]);
-
     }
 
     /**
@@ -239,7 +238,7 @@ class LeavesController extends Controller
             $this->isHalfDay($request, $leave);
         } else {
             $this->saveTotalDaysTaken($leave);
-        }        
+        }
 
         $this->saveAttachments($request, $leave);
 
@@ -269,7 +268,7 @@ class LeavesController extends Controller
      * 
      */
     public function notifyHR(array $recipients, $leave, $notification)
-    {       
+    {
 
         // get user based on id from request
         $recipients = User::whereIn('id', $recipients)->get();
@@ -282,7 +281,7 @@ class LeavesController extends Controller
 
         $approvers = $recipients->pluck('id');
 
-        $leave->approvers()->sync($approvers);       
+        $leave->approvers()->sync($approvers);
 
         foreach ($recipients as $recipient) {
             $recipient->notify($notification);
@@ -391,10 +390,10 @@ class LeavesController extends Controller
         $leave->setStatus($this->withdrawnStatus, 'Leave withdrawn by ' . Auth::user()->name);
 
         $leave->delete();
-        
+
         // notify HR/Administrators
-        $this->notifyHR($approvers, $leave, new RetractLeave($leave, $leave->user, Auth::user()));    
-       
+        $this->notifyHR($approvers, $leave, new RetractLeave($leave, $leave->user, Auth::user()));
+
 
         toast('Leave application withdrawn successfully', 'success', 'top-right');
     }
@@ -413,30 +412,42 @@ class LeavesController extends Controller
 
         $holidays = Holiday::pluck('date');
 
-        //     $start_date = $this->setDateObject('Y/m/d', '2019/02/13');
-        //     $end_date = $this->setDateObject('Y/m/d', '2019/02/20');
-        //     $days = $this->getDaysDifference($start_date, $end_date, true);
-        //     $period = $this->getDateInterval($start_date,$end_date);
-        //     // $arr = $this->generateDateRange($start_date, $end_date,'l');        
-        //     $holidays = ['2019-02-15'];
-        //     // dd($this->countDaysInDateRange($arr));
-        //     $nonWorkingDays = ['Saturday', 'Sunday'];
+        $start_date = $this->setDateObject('Y/m/d', '2019/02/13');
+        $end_date = $this->setDateObject('Y/m/d', '2019/02/20');
+        $days = $this->getDaysDifference($start_date, $end_date, true);
+        $period = $this->getDateInterval($start_date, $end_date,'P1D',true);
+        $arr = $this->generateDateRange($start_date, $end_date, 'Y-m-d');
+        $holidays = ['2019-02-15'];
+        // dd($this->countDaysInDateRange($arr));
+        $nonWorkingDays = ['Saturday', 'Sunday'];
+        
+        $dg = [];
+        
+        $f = $this->excludeHolidaysOrNonWorkingDays($start_date, $end_date, $holidays, $nonWorkingDays);
 
-        //     foreach($period as $dt) {
-        //         // $curr = $dt->format('l');
+        foreach ($period as $dt) {
 
-        //         // substract if Saturday or Sunday
-        //         if (in_array($dt->format('l'), $nonWorkingDays)) {
-        //             $days--;
-        //         }
+            // substract if Saturday or Sunday
+            if (in_array($dt->format('l'), $nonWorkingDays)) {                
+                
+                $days--;
+                unset($dt);
 
-        //         // (optional) for the updated question
-        //         elseif (in_array($dt->format('Y-m-d'), $holidays)) {
-        //             $days--;
-        //         }
-        //     }
+            } elseif (in_array($dt->format('Y-m-d'), $holidays)) {                
+                
+                $days--;
+                unset($dt);
 
-        //     dd($days);
+            }else{
+                
+                $dg[] = $dt;
+
+            }
+
+            
+        }
+
+        dd($f);
     }
 
     public function json()
@@ -456,4 +467,3 @@ class LeavesController extends Controller
         return response()->json($arr, 200);
     }
 }
-

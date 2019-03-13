@@ -31,6 +31,7 @@
         "spatie/laravel-permission": "^2.29",
         "uzzaircode/password-strength": "^1.0",
         "uzzaircode/star-rating-ui": "^1.0",
+        "uzzaircode/date-helper": "master-dev",
         "watson/active": "^3.0"
     },
     "require-dev": {
@@ -83,5 +84,15 @@
         "post-create-project-cmd": [
             "@php artisan key:generate --ansi"
         ]
+    },
+    "repositories": {
+        "package-name": {
+            "type": "path",
+            "url": "packages/uzzaircode/date-helper",
+            "options": {
+                "symlink": true
+            }
+        }
     }
+
 }
