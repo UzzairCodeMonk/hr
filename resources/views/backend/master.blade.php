@@ -126,8 +126,7 @@
             }
         });
 
-    </script>    
-    @stash('widget-js')
+    </script>        
 </body>
 
 </html>
