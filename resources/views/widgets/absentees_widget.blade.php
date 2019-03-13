@@ -18,15 +18,10 @@
             <td>{{$a->type->name ?? 'N/A'}}</td>
         </tr>
         @endforeach
+        <tr>
+            
+        </tr>
     </tbody>
+    
 </table>
 
-@push('widget-js')
-    <script type="text/javascript">
-        $('#daysSelector').on('change',function(){
-            let value = $('#DaysSelector').val();
-
-            
-        });
-    </script>
-@endpush

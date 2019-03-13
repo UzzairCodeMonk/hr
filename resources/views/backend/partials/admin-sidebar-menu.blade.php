@@ -31,6 +31,10 @@ is_active(config('app.administration_prefix')."/employees*")
     </div>
 </div>
 <ul class="nav nav-pills flex-column">
+    <li class="nav-item {{active('leave.dashboard.index')}}">
+        <i class="ti ti-agenda"></i>
+        <a class="nav-link" href="{{route('leave.dashboard.index')}}">Dashboard</a>
+    </li>
     <li class="nav-item {{active('leave.admin.index')}}">
         <i class="ti ti-agenda"></i>
         <a class="nav-link" href="{{route('leave.admin.index',['status'=>'submitted'])}}">Leave Records</a>
