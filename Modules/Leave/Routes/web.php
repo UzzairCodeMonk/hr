@@ -13,7 +13,7 @@ Route::group(['prefix' => 'leaves', 'middleware' => 'auth'], function () {
 
 
 
-    Route::get('withdrawn',                  'LeavesController@withdrawn')->name('leave.withdrawn');
+    Route::get('withdrawn',                  'WithdrawnLeavesController@index')->name('leave.withdrawn');
 
 
 
@@ -30,7 +30,7 @@ Route::group(['prefix' => 'leaves', 'middleware' => 'auth'], function () {
 
 
 
-    Route::get('show/withdrawn/{id}',                  'LeavesController@showWithdrawn')->name('leave.show.withdrawn')->middleware('signed');
+    Route::get('show/withdrawn/{id}',                  'WithdrawnLeavesController@show')->name('leave.show.withdrawn')->middleware('signed');
 
 
 

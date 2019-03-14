@@ -2,16 +2,16 @@
 
 namespace Modules\Leave\Http\Controllers;
 
-use Illuminate\Http\Request;
-use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
 use Modules\Leave\Entities\Leave;
+use Modules\Leave\Entities\LeaveType;
 
 class WithdrawnLeavesController extends Controller
 {
     /**
-     * Display a listing of the resource.
-     * @return Response
+     * List withdrawn leaves
+     * 
+     * @return void
      */
     public function index()
     {
@@ -23,11 +23,17 @@ class WithdrawnLeavesController extends Controller
         ]);
     }
 
+    /**
+     * Show withdrawn leaves
+     * 
+     * @param int $id
+     */
+
     public function show(int $id)
     {
         return view('leave::leave.user.show-trash', [
-            'leave' => $this->leave->onlyTrashed()->where('id', $id)->first(),
-            'types' => $this->type->all(),
+            'leave' => Leave::onlyTrashed()->where('id', $id)->first(),
+            'types' => LeaveType::all(),
             'statuses' => Leave::onlyTrashed()->where('id', $id)->first()->statuses,
         ]);
     }

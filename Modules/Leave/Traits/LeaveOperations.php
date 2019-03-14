@@ -6,13 +6,16 @@ namespace Modules\Leave\Traits;
 trait LeaveOperations
 {
 
+    public $request;
+    public $leave;
 
+    
     public function daySelector($request, $leave)
     {
         if ($request->full_half == 1) {
-            $this->isHalfDay($request, $leave);
+            return $this->isHalfDay($request, $leave);
         } else {
-            $this->saveTotalDaysTaken($leave);
+            return $this->saveTotalDaysTaken($leave);
         }
     }
 
@@ -23,4 +26,5 @@ trait LeaveOperations
         $leave->period = $request->period;
         $leave->save();
     }
+    
 }

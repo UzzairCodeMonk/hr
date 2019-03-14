@@ -1,0 +1,9 @@
+.aside {
+    display: none !important;
+}
+
+.aside~.header,
+.aside~.main-content,
+.aside~.site-footer {
+    margin-left: 0 !important;
+}

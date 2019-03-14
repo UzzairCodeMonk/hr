@@ -158,9 +158,9 @@ class LeavesController extends Controller
         //create leave
         $leave = $this->leave->create($this->data);
         // determine if its half day or full day
-        $this->daySelector($request, $leave);
+        $this->daySelector($request, $leave);            
         // notify HR
-        $this->notifyHR($request->users, $leave, new ApplyLeave($leave, auth()->user()));
+        $this->notifyLeaveApplicationToRecipients($request->users, $leave, new ApplyLeave($leave, auth()->user()));
         // set leave status
         $this->setLeaveStatus($leave);
         // save attachments
@@ -205,7 +205,18 @@ class LeavesController extends Controller
 
     public function saveTotalDaysTaken($leave)
     {
-        $leave->days_taken = $this->getLeaveTotalDays($leave);
+        $start_date = $this->setDateObject('d/m/Y', $leave->start_date);
+        $end_date = $this->setDateObject('d/m/Y', $leave->end_date);
+        $nonWorkingDays = auth()->user()->personalDetail->center->holidays->pluck('name')->toArray();
+        $holidays = Holiday::pluck('date')->toArray();
+
+        $days = $this->getDateRangeExcludingHolidaysOrNonWorkingDays($start_date, $end_date, $holidays, $nonWorkingDays);
+        $d = collect($days)->map(function($item, $key){
+            return $item->format('l, d F Y');
+        });
+        // dd($d->toJson());
+        $leave->days_taken = collect($days)->count();
+        $leave->date_series = $d->toJson();
         $leave->save();
     }
 
@@ -216,7 +227,7 @@ class LeavesController extends Controller
      * @param object $notification
      * 
      */
-    public function notifyLeaveApplicationToRecipients(array $recipients, object $leave, $notification)
+    public function notifyLeaveApplicationToRecipients(array $recipients, $leave, $notification)
     {
 
         // get user objects based on id from request
@@ -337,38 +348,17 @@ class LeavesController extends Controller
     public function testDate()
     {
 
-        $holidays = Holiday::pluck('date');
+        $holidays = Holiday::pluck('date')->toArray();
 
         $start_date = $this->setDateObject('Y/m/d', '2019/02/13');
         $end_date = $this->setDateObject('Y/m/d', '2019/02/20');
-        $days = $this->getDaysDifference($start_date, $end_date, true);
-        $period = $this->getDateInterval($start_date, $end_date, 'P1D', true);
-        $arr = $this->generateDateRange($start_date, $end_date, 'Y-m-d');
-        $holidays = ['2019-02-15'];
-        // dd($this->countDaysInDateRange($arr));
-        $nonWorkingDays = ['Saturday', 'Sunday'];
 
-        $dg = [];
+        $holidays = Holiday::pluck('date')->toArray();
 
-        $f = $this->excludeHolidaysOrNonWorkingDays($start_date, $end_date, $holidays, $nonWorkingDays);
+        $nonWorkingDays = ['Saturday', 'Sunday'];               
 
-        foreach ($period as $dt) {
-
-            // substract if Saturday or Sunday
-            if (in_array($dt->format('l'), $nonWorkingDays)) {
-
-                $days--;
-                unset($dt);
-            } elseif (in_array($dt->format('Y-m-d'), $holidays)) {
-
-                $days--;
-                unset($dt);
-            } else {
-
-                $dg[] = $dt;
-            }
-        }
-
+        $f = $this->getDateRangeExcludingHolidaysOrNonWorkingDays($start_date, $end_date, $holidays, $nonWorkingDays);
+        
         dd($f);
     }
 

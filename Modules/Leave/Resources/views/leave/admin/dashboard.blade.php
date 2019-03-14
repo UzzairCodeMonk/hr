@@ -3,31 +3,7 @@
 Dashboard
 @endsection
 @section('page-css')
-<style>
-    .aside {
-        display: none !important;
-    }
-
-    .aside~.header,
-    .aside~.main-content,
-    .aside~.site-footer {
-        margin-left: 0 !important;
-    }
-
-    .equal {
-        display: -webkit-box;
-        display: -webkit-flex;
-        display: -ms-flexbox;
-        display: flex;
-        flex-wrap: wrap;
-    }
-
-    .equal>[class*='col-'] {
-        display: flex;
-        flex-direction: column;
-    }
-
-</style>
+<link rel="stylesheet" href="{{asset('css/no-admin-sidebar.css')}}">
 {!! Charts::assets() !!}
 @endsection
 @section('content')
