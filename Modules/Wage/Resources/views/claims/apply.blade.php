@@ -105,7 +105,8 @@ Claim Form
                     <div class="card-header">
                         <h3 class="card-title">
                             Claim Records
-                        </h3>
+                        </h3><br>
+                        <p>Click on the columns to edit the values.</p>
                     </div>
                     <div class="card-body">
                         <table class="table table-bordered">
@@ -190,7 +191,7 @@ Claim Form
             dataType: "json",
             success: function (data) {
                 $total = data.total,
-                $('#claim_total').empty().append($total)
+                    $('#claim_total').empty().append($total)
             }
         });
     }
@@ -213,6 +214,11 @@ Claim Form
         validate: function (value) {
             if ($.trim(value) == '') {
                 return 'This field is required';
+            }
+        },
+        success: function (data) {
+            if (data.success == true) {
+                return swalSuccess();
             }
         }
     });
@@ -251,5 +257,20 @@ Claim Form
         }
     });
 
+    function swalSuccess() {
+        const Toast = Swal.mixin({
+            toast: true,
+            position: 'top-end',
+            showConfirmButton: false,
+            timer: 3000
+        });
+
+        Toast.fire({
+            type: 'success',
+            title: 'Updated successfully'
+        })
+    }
+
 </script>
+
 @endsection
