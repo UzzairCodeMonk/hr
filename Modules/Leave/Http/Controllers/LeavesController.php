@@ -22,6 +22,8 @@ use Modules\Leave\Traits\LeaveStatus;
 use Modules\Site\Entities\Center;
 use Carbon\Carbon;
 use Uzzaircode\DateHelper\Traits\DateHelper;
+use Calendar;
+
 
 // use Uzzaircode\DateHelper\Traits\DateHelper;
 
@@ -104,16 +106,32 @@ class LeavesController extends Controller
      */
 
     public function show(int $id)
-    {
+    {   
         
+        $event = [];
+        $data = Leave::find($id);
+        $event[] = Calendar::event(
+            'Absent Dates',
+            false,
+            $this->setDateObject('d/m/Y', $data->start_date),
+            $this->setDateObject('d/m/Y', $data->end_date),
+            null,
+            [
+                'color' => '#ff0000',                
+                'displayEventTime' =>  false,
+                'themeSystem' => 'bootstrap4'
+            ]
+        );
+
+        $calendar = Calendar::addEvents($event);
+
         return view('leave::leave.user.show', [
 
             'leave' => $this->leave->find($id),
             'types' => $this->type->all(),
             'statuses' => $this->leave->find($id)->statuses,
-
+            'calendar' => $calendar
         ]);
-
     }
 
 
@@ -158,7 +176,7 @@ class LeavesController extends Controller
         //create leave
         $leave = $this->leave->create($this->data);
         // determine if its half day or full day
-        $this->daySelector($request, $leave);            
+        $this->daySelector($request, $leave);
         // notify HR
         $this->notifyLeaveApplicationToRecipients($request->users, $leave, new ApplyLeave($leave, auth()->user()));
         // set leave status
@@ -171,7 +189,7 @@ class LeavesController extends Controller
     }
 
 
-    
+
 
 
     /**
@@ -211,12 +229,12 @@ class LeavesController extends Controller
         $holidays = Holiday::pluck('date')->toArray();
 
         $days = $this->getDateRangeExcludingHolidaysOrNonWorkingDays($start_date, $end_date, $holidays, $nonWorkingDays);
-        $d = collect($days)->map(function($item, $key){
-            return $item->format('l, d F Y');
+        $d = collect($days)->map(function ($item, $key) {
+            return $item->format('l d F Y');
         });
         // dd($d->toJson());
         $leave->days_taken = collect($days)->count();
-        $leave->date_series = $d->toJson();
+        $leave->date_series = collect($d)->implode(',');
         $leave->save();
     }
 
@@ -232,7 +250,7 @@ class LeavesController extends Controller
 
         // get user objects based on id from request
         $recipients = User::whereIn('id', $recipients)->get();
-        
+
         // $recipients = $recipients->merge($admins);
 
         $approvers = $recipients->pluck('id');
@@ -355,10 +373,10 @@ class LeavesController extends Controller
 
         $holidays = Holiday::pluck('date')->toArray();
 
-        $nonWorkingDays = ['Saturday', 'Sunday'];               
+        $nonWorkingDays = ['Saturday', 'Sunday'];
 
         $f = $this->getDateRangeExcludingHolidaysOrNonWorkingDays($start_date, $end_date, $holidays, $nonWorkingDays);
-        
+
         dd($f);
     }
 
