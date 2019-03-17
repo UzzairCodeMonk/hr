@@ -5,10 +5,12 @@ namespace Datakraf\Widgets;
 use Arrilot\Widgets\AbstractWidget;
 use Carbon\Carbon;
 use Modules\Leave\Entities\Leave;
+use Uzzaircode\DateHelper\Traits\DateHelper;
 
 
 class AbsenteesWidget extends AbstractWidget
 {    
+    use DateHelper;
     /**
      * The configuration array.
      *

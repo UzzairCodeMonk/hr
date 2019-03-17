@@ -29,7 +29,7 @@ Claim Submission Records
                     <tr>
                         <td>{{++$key}}</td>
                         <td>{{$claim->subject ?? 'N/A'}}</td>
-                        <td>0.00</td>
+                        <td>{{$claim->amount ?? 0.00}}</td>
                         <td class="text-center">{{ $claim->created_at->toDayDateTimeString() ?? 'N/A' }}</td>
                         <td class="text-center">
                             <a href="{{URL::signedRoute('claim.show',['id'=>$claim->id])}}" class="btn btn-sm text-dark btn-link">View</a>

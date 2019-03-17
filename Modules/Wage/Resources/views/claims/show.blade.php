@@ -145,20 +145,4 @@ Claim Form
     });
 
 </script>
-
-<!-- <script type="text/javascript">
-    $(document).ready(function () {
-        let inputs = $('.send-check');
-        $('.submit-btn').append('Create');
-        inputs.attr('checked', false);
-        inputs.on('click', function () {
-    
-            if (checked != elm.checked) {
-                inputs.;
-            }
-        });
-
-    });
-
-</script> -->
 @endsection

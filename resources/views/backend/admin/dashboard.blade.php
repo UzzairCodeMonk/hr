@@ -97,7 +97,7 @@ Dashboard
 
         </div>
     </div>
-    <div class="row">
+    <!-- <div class="row">
         <div class="col">
             <div class="card">
                 <div class="card-header">
@@ -121,7 +121,7 @@ Dashboard
                 </div>
             </div>
         </div>
-    </div>
+    </div> -->
 </div>
 
 @endsection

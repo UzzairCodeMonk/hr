@@ -3,31 +3,7 @@
 Dashboard
 @endsection
 @section('page-css')
-<style>
-    .aside {
-        display: none !important;
-    }
-
-    .aside~.header,
-    .aside~.main-content,
-    .aside~.site-footer {
-        margin-left: 0 !important;
-    }
-
-    .equal {
-        display: -webkit-box;
-        display: -webkit-flex;
-        display: -ms-flexbox;
-        display: flex;
-        flex-wrap: wrap;
-    }
-
-    .equal>[class*='col-'] {
-        display: flex;
-        flex-direction: column;
-    }
-
-</style>
+<link rel="stylesheet" href="{{asset('css/no-admin-sidebar.css')}}">
 {!! Charts::assets() !!}
 @endsection
 @section('content')
@@ -37,7 +13,7 @@ Dashboard
         <div class="col">
             <div class="">
                 <h1 class="display-5">Leave Modules</h1>
-                <!-- <p class="display-6">Here's what's happening in Datakraf Solution Sdn. Bhd.</p> -->
+                <p class="display-6">Here's the summary of employees leaves.</p>
             </div>
         </div>
         <div class="col mx-auto">
@@ -67,8 +43,8 @@ Dashboard
                     <h3 class="card-title">Who's not in the office?</h3>
                     <div class="card-options">
                         <select name="" id="daysSelector" class="form-control">
-                            <option value="7">In 7 Days</option>
-                            <option value="30">In 30 Days</option>
+                            <option value="7">This week</option>
+                            <option value="30">This month</option>
                         </select>
                     </div>
                 </div>

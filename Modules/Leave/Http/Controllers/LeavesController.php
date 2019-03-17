@@ -12,10 +12,7 @@ use Modules\Leave\Entities\LeaveAttachment;
 use Modules\Leave\Entities\LeaveBalance;
 use Datakraf\Traits\AlertMessage;
 use Datakraf\Notifications\ApplyLeave;
-use Auth;
-use Maatwebsite\Excel\Facades\Excel;
-use Modules\Leave\Traits\Date;
-use Modules\Leave\Exports\UserLeavesExport;
+use Modules\Leave\Traits\LeaveOperations;
 use Datakraf\Notifications\ApproveLeave;
 use Datakraf\Notifications\RejectLeave;
 use Modules\Leave\Http\Requests\ApplyLeaveRequest;
@@ -25,6 +22,8 @@ use Modules\Leave\Traits\LeaveStatus;
 use Modules\Site\Entities\Center;
 use Carbon\Carbon;
 use Uzzaircode\DateHelper\Traits\DateHelper;
+use Calendar;
+
 
 // use Uzzaircode\DateHelper\Traits\DateHelper;
 
@@ -57,7 +56,8 @@ use Uzzaircode\DateHelper\Traits\DateHelper;
 
 class LeavesController extends Controller
 {
-    use AlertMessage, LeaveStatus, Date;
+
+    use AlertMessage, LeaveStatus, DateHelper, LeaveOperations;
 
     public $type;
     public $data;
@@ -68,6 +68,7 @@ class LeavesController extends Controller
 
     public function __construct(Leave $leave, LeaveType $type, Request $request, User $user, LeaveAttachment $attachment, LeaveBalance $balance, Holiday $holiday)
     {
+
         $this->type = $type;
         $this->data = [
             'user_id' => $request->user_id,
@@ -86,17 +87,16 @@ class LeavesController extends Controller
 
     /**
      * List all user leave applications
-     *
+     * @param string $status
      * @return void
      */
 
-    public function index($status)
+    public function index(string $status)
     {
-        
+
         return view('leave::leave.user.index', [
             'results' => Leave::leaveStatus($status),
         ]);
-
     }
 
     /**
@@ -106,40 +106,31 @@ class LeavesController extends Controller
      */
 
     public function show(int $id)
-    {
+    {   
+        
+        $event = [];
+        $data = Leave::find($id);
+        $event[] = Calendar::event(
+            'Absent Dates',
+            false,
+            $this->setDateObject('d/m/Y', $data->start_date),
+            $this->setDateObject('d/m/Y', $data->end_date),
+            null,
+            [
+                'color' => '#ff0000',                
+                'displayEventTime' =>  false,
+                'themeSystem' => 'bootstrap4'
+            ]
+        );
+
+        $calendar = Calendar::addEvents($event);
+
         return view('leave::leave.user.show', [
+
             'leave' => $this->leave->find($id),
             'types' => $this->type->all(),
             'statuses' => $this->leave->find($id)->statuses,
-        ]);
-    }
-
-
-
-    /**
-     * List all withdrawn leave applications
-     */
-
-    public function withdrawn()
-    {
-        return view('leave::leave.user.trashed', [
-            'results' => Leave::onlyTrashed()->where('user_id', auth()->id())->orderBy('deleted_at', 'desc')->get(),
-        ]);
-    }
-
-    /**
-     * Show the withdrawn leave application details
-     * 
-     * @param integer $id
-     */
-
-    public function showWithdrawn(int $id)
-    {
-
-        return view('leave::leave.user.show-trash', [
-            'leave' => $this->leave->onlyTrashed()->where('id', $id)->first(),
-            'types' => $this->type->all(),
-            'statuses' => Leave::onlyTrashed()->where('id', $id)->first()->statuses,
+            'calendar' => $calendar
         ]);
     }
 
@@ -184,15 +175,10 @@ class LeavesController extends Controller
 
         //create leave
         $leave = $this->leave->create($this->data);
-
-        if ($request->full_half == 1) {
-            $this->isHalfDay($request, $leave);
-        } else {
-            $this->saveTotalDaysTaken($leave);
-        }
-        $recipients = $request->users;
+        // determine if its half day or full day
+        $this->daySelector($request, $leave);
         // notify HR
-        $this->notifyHR($recipients, $leave, new ApplyLeave($leave, Auth::user()));
+        $this->notifyLeaveApplicationToRecipients($request->users, $leave, new ApplyLeave($leave, auth()->user()));
         // set leave status
         $this->setLeaveStatus($leave);
         // save attachments
@@ -202,24 +188,8 @@ class LeavesController extends Controller
         return redirect()->route('leave.index', ['status' => 'submitted']);
     }
 
-    /**
-     * Check current user cost center
-     * 
-     * 
-     */
 
-    public function getNonWorkingDaysForThisUser()
-    {
 
-        return $holidays = Center::find(auth()->user()->personalDetail->center->id)->holidays->pluck('name');
-    }
-
-    public function getPublicHolidays()
-
-    {
-
-        return Holiday::all();
-    }
 
 
     /**
@@ -235,11 +205,7 @@ class LeavesController extends Controller
 
         $leave->update($this->data);
 
-        if ($request->full_half == 1) {
-            $this->isHalfDay($request, $leave);
-        } else {
-            $this->saveTotalDaysTaken($leave);
-        }        
+        $this->daySelector($request, $leave);
 
         $this->saveAttachments($request, $leave);
 
@@ -257,32 +223,39 @@ class LeavesController extends Controller
 
     public function saveTotalDaysTaken($leave)
     {
-        $leave->days_taken = $this->getLeaveTotalDays($leave);
+        $start_date = $this->setDateObject('d/m/Y', $leave->start_date);
+        $end_date = $this->setDateObject('d/m/Y', $leave->end_date);
+        $nonWorkingDays = auth()->user()->personalDetail->center->holidays->pluck('name')->toArray();
+        $holidays = Holiday::pluck('date')->toArray();
+
+        $days = $this->getDateRangeExcludingHolidaysOrNonWorkingDays($start_date, $end_date, $holidays, $nonWorkingDays);
+        $d = collect($days)->map(function ($item, $key) {
+            return $item->format('l d F Y');
+        });
+        // dd($d->toJson());
+        $leave->days_taken = collect($days)->count();
+        $leave->date_series = collect($d)->implode(',');
         $leave->save();
     }
 
     /**
-     * Notify HR Administrators
+     * Notify leave applciations to Recipients and HR Administrators
      * 
      * @param object $leave 
      * @param object $notification
      * 
      */
-    public function notifyHR(array $recipients, $leave, $notification)
-    {       
+    public function notifyLeaveApplicationToRecipients(array $recipients, $leave, $notification)
+    {
 
-        // get user based on id from request
+        // get user objects based on id from request
         $recipients = User::whereIn('id', $recipients)->get();
 
-        // $admins = User::whereHas('roles', function ($q) {
-        //     $q->where('name', 'Admin');
-        // })->get();
-        // merge recipients
         // $recipients = $recipients->merge($admins);
 
         $approvers = $recipients->pluck('id');
 
-        $leave->approvers()->sync($approvers);       
+        $leave->approvers()->sync($approvers);
 
         foreach ($recipients as $recipient) {
             $recipient->notify($notification);
@@ -340,17 +313,6 @@ class LeavesController extends Controller
         return back();
     }
 
-    /** 
-     * Generate leave application records into excel
-     * 
-     * @param integer $id
-     */
-    // public function exportUserLeaves($id)
-    // {
-    //     $name = $this->user->find($id)->personalDetail->name;
-    //     return (new UserLeavesExport)->forUser($id)->download('hello.xlsx');
-    // }
-
     /**
      * Retrieve current status of leave application
      *
@@ -391,52 +353,31 @@ class LeavesController extends Controller
         $leave->setStatus($this->withdrawnStatus, 'Leave withdrawn by ' . Auth::user()->name);
 
         $leave->delete();
-        
+
         // notify HR/Administrators
-        $this->notifyHR($approvers, $leave, new RetractLeave($leave, $leave->user, Auth::user()));    
-       
+        $this->notifyHR($approvers, $leave, new RetractLeave($leave, $leave->user, Auth::user()));
+
 
         toast('Leave application withdrawn successfully', 'success', 'top-right');
     }
 
 
-    public function isHalfDay($request, $leave)
-    {
-        $leave->days_taken = 0.5;
-        $leave->period = $request->period;
-        $leave->save();
-    }
-
 
     public function testDate()
     {
 
-        $holidays = Holiday::pluck('date');
+        $holidays = Holiday::pluck('date')->toArray();
 
-        //     $start_date = $this->setDateObject('Y/m/d', '2019/02/13');
-        //     $end_date = $this->setDateObject('Y/m/d', '2019/02/20');
-        //     $days = $this->getDaysDifference($start_date, $end_date, true);
-        //     $period = $this->getDateInterval($start_date,$end_date);
-        //     // $arr = $this->generateDateRange($start_date, $end_date,'l');        
-        //     $holidays = ['2019-02-15'];
-        //     // dd($this->countDaysInDateRange($arr));
-        //     $nonWorkingDays = ['Saturday', 'Sunday'];
+        $start_date = $this->setDateObject('Y/m/d', '2019/02/13');
+        $end_date = $this->setDateObject('Y/m/d', '2019/02/20');
 
-        //     foreach($period as $dt) {
-        //         // $curr = $dt->format('l');
+        $holidays = Holiday::pluck('date')->toArray();
 
-        //         // substract if Saturday or Sunday
-        //         if (in_array($dt->format('l'), $nonWorkingDays)) {
-        //             $days--;
-        //         }
+        $nonWorkingDays = ['Saturday', 'Sunday'];
 
-        //         // (optional) for the updated question
-        //         elseif (in_array($dt->format('Y-m-d'), $holidays)) {
-        //             $days--;
-        //         }
-        //     }
+        $f = $this->getDateRangeExcludingHolidaysOrNonWorkingDays($start_date, $end_date, $holidays, $nonWorkingDays);
 
-        //     dd($days);
+        dd($f);
     }
 
     public function json()
@@ -456,4 +397,3 @@ class LeavesController extends Controller
         return response()->json($arr, 200);
     }
 }
-
