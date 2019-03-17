@@ -107,7 +107,7 @@ Claim Form
                             Claim Records
                         </h3>
                         <div class="card-options">
-                            <!-- <button class="btn btn-sm btn-danger delete-claimdetails">Delete Claim Details</button> -->
+                            <button class="btn btn-sm btn-danger delete-claimdetails">Delete Claim Details</button>
                         </div>
                     </div>
                     <div class="card-body">
@@ -119,12 +119,13 @@ Claim Form
                                     <td>Amount (MYR)</td>
                                     <td>Date</td>
                                     <td>Remarks</td>
+                                    <td>Attachments</td>
                                 </tr>
                             </thead>
                             <tbody id="claim_data">
                             </tbody>
                             <tr>
-                                <td colspan="4">Total (MYR):</td>
+                                <td colspan="5">Total (MYR):</td>
                                 <td id="claim_total"></td>
                             </tr>
                         </table>
@@ -176,7 +177,10 @@ Claim Form
                         data[count].id + '">' + data[count].date + '</td>';
                     html_data +=
                         '<td data-name="remarks" class="remarks" data-type="textarea" data-pk="' + data[
-                            count].id + '">' + data[count].remarks + '</td></tr>';
+                            count].id + '">' + data[count].remarks + '</td>';
+                    html_data +=
+                        '<td>' + for(var c =0;c < ) + '</td></tr>'
+                    // console.log(accessArray([2,3,4]));
                     $('#claim_data').append(html_data);
                 }
             }
@@ -201,8 +205,7 @@ Claim Form
     }
 
     fetch_claim_total();
-    setInterval(fetch_claim_total, 5000);
-
+    setInterval(fetch_claim_total, 5000);   
 
     $(".delete-claimdetails").click(function () {
         $("#claim_data").find('input[name="claimdetails-record"]').each(function () {

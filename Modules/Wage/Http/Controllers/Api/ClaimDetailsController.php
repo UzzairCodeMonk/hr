@@ -28,7 +28,8 @@ class ClaimDetailsController extends Controller
     {
 
         $claim = ClaimDetail::where('claim_id', '=', $claimId)->pluck('amount');
-        $claimTotal = collect($claim)->sum();
+        
+        $claimTotal = number_format(collect($claim)->sum(),2);
 
         Claim::find($claimId)->update([
             'amount' => $claimTotal
