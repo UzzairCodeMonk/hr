@@ -19,5 +19,6 @@ Route::group(['prefix' => 'claims'], function () {
     Route::get('details/{claimId}', 'Api\ClaimDetailsController@index')->name('api.claimdetails.index');
     Route::post('details/update', 'Api\ClaimDetailsController@update')->name('api.claimdetails.update');
     Route::post('{claimId}/total', 'Api\ClaimDetailsController@calculateClaimTotal')->name('api.claim.total');
+    Route::delete('details/{id}/delete','Api\ClaimDetailsController@destroy')->name('api.claimdetails.destroy');
 
 });

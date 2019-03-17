@@ -100,21 +100,17 @@ Leave Application Form
                             </ol>
                         </div>
                     </div>
-                </div>
-                <div class="row">
                     <div class="col">
                         <div class="form-group">
                             <label for="">Absent Dates</label>
                             @php $s = explode(',', $leave->date_series) @endphp
-                            <!-- <ul>
-                                        @foreach($s as $a)
-                                        <li>{{$a}}</li>
-                                        @endforeach
-                                    </ul> -->
+                            <!-- <ol>
+                                @foreach($s as $a)
+                                <li>{{$a}}</li>
+                                @endforeach
+                            </ol> -->
 
                             {!! $calendar->calendar() !!}
-
-
                         </div>
                     </div>
                 </div>

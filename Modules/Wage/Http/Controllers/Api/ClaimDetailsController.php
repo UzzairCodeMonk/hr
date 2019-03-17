@@ -36,4 +36,11 @@ class ClaimDetailsController extends Controller
         
         return response()->json(['success' => true,'total' => $claimTotal]);
     }
+
+    public function destroy(int $id){
+
+        ClaimDetail::find($id)->delete();
+
+        return response()->json(['success' => true]);
+    }
 }

@@ -105,14 +105,17 @@ Claim Form
                     <div class="card-header">
                         <h3 class="card-title">
                             Claim Records
-                        </h3><br>
-                        <p>Click on the columns to edit the values.</p>
+                        </h3>
+                        <div class="card-options">
+                            <!-- <button class="btn btn-sm btn-danger delete-claimdetails">Delete Claim Details</button> -->
+                        </div>
                     </div>
                     <div class="card-body">
                         <table class="table table-bordered">
                             <thead>
                                 <tr>
                                     <td>#</td>
+                                    <td>Select</td>
                                     <td>Amount (MYR)</td>
                                     <td>Date</td>
                                     <td>Remarks</td>
@@ -121,7 +124,7 @@ Claim Form
                             <tbody id="claim_data">
                             </tbody>
                             <tr>
-                                <td colspan="3">Total:</td>
+                                <td colspan="4">Total (MYR):</td>
                                 <td id="claim_total"></td>
                             </tr>
                         </table>
@@ -164,15 +167,16 @@ Claim Form
 
                 for (var count = 0; count < data.length; count++) {
 
-                    var html_data = html_data = `<tr><td> ${count+1} </td>`;
+                    var html_data = `<tr><td> ${count+1} </td>`;
+                    html_data +=
+                        `<td><input type="checkbox" name="claimdetails-record" data-pk="${data[count].id}"></td>`;
                     html_data += '<td data-name="amount" class="amount" data-type="text" data-pk="' + data[
                         count].id + '">' + data[count].amount + '</td>';
                     html_data += '<td data-name="date" class="date" data-type="date" data-pk="' +
                         data[count].id + '">' + data[count].date + '</td>';
                     html_data +=
                         '<td data-name="remarks" class="remarks" data-type="textarea" data-pk="' + data[
-                            count].id + '">' + data[count].remarks + '</td>';
-
+                            count].id + '">' + data[count].remarks + '</td></tr>';
                     $('#claim_data').append(html_data);
                 }
             }
@@ -200,6 +204,30 @@ Claim Form
     setInterval(fetch_claim_total, 5000);
 
 
+    $(".delete-claimdetails").click(function () {
+        $("#claim_data").find('input[name="claimdetails-record"]').each(function () {
+
+            if ($(this).is(":checked")) {
+                $(this).parents("tr").remove();
+                id = $(this).data('pk');
+                console.log(id);
+                $.ajax({
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    },
+                    url: "http://datakraf-hr.web/api/claims/details/" + id + "/delete",
+                    method: "DELETE",
+                    dataType: "json",
+                    success: function (data) {
+                        if (data.success == true) {
+                            return swalSuccess('Deleted');
+                        }
+                    }
+                });
+            }
+        });
+    });
+
     $.fn.editable.defaults.mode = 'inline';
     $('#claim_data').editable({
         container: 'body',
@@ -218,7 +246,7 @@ Claim Form
         },
         success: function (data) {
             if (data.success == true) {
-                return swalSuccess();
+                return swalSuccess('Updated');
             }
         }
     });
@@ -257,7 +285,7 @@ Claim Form
         }
     });
 
-    function swalSuccess() {
+    function swalSuccess(message) {
         const Toast = Swal.mixin({
             toast: true,
             position: 'top-end',
@@ -267,7 +295,27 @@ Claim Form
 
         Toast.fire({
             type: 'success',
-            title: 'Updated successfully'
+            title: message + ' successfully'
+        })
+    }
+
+    function swalConfirm() {
+        Swal.fire({
+            title: 'Are you sure?',
+            text: "You won't be able to revert this!",
+            type: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes, delete it!'
+        }).then((result) => {
+            if (result.value) {
+                Swal.fire(
+                    'Deleted!',
+                    'Your file has been deleted.',
+                    'success'
+                )
+            }
         })
     }
 
