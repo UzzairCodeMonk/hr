@@ -61,7 +61,7 @@ class UsersController extends Controller
         return view('backend.users.index', [
             'columnNames' => $this->columnNames,
             'datatable' => true,
-            'results' => User::with("personalDetail")->get()->sortBy('personalDetail.staff_number'),
+            'results' => User::with("personalDetail")->get()->sortBy('personalDetail.staff_number')->values()->all(),
             'actions' => $this->actions,
             'deleteAction' => $this->deleteAction
         ]);
