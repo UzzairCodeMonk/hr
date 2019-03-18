@@ -1,6 +1,6 @@
 @extends('backend.master')
 @section('page-title')
-Dashboard
+Leave Module Dashboard
 @endsection
 @section('page-css')
 <link rel="stylesheet" href="{{asset('css/no-admin-sidebar.css')}}">
@@ -21,6 +21,39 @@ Dashboard
         </div>
     </div>
     <div class="row">
+            @include('components.admin.panel',[
+            'title' => ' Leave Applications ',
+            'img' => asset('images/leave-list.svg'),
+            'link' => route('leave.admin.index',['status' => 'submitted']),
+            'linkText' => 'View',
+            'linkClass' => 'btn-primary'
+            ])
+            @include('components.admin.panel',[
+            'title' =>'Leave Type Management',
+            'img' => asset('images/category.svg'),
+            'link' => route('leave-type.index'),
+            'linkText' => 'View',
+            'linkClass' => 'btn-primary'
+            ])
+            @include('components.admin.panel',[
+            'title' => 'Holidays Management',
+            'img' => asset('images/holidays.svg'),
+            'link' => route('holiday.index'),
+            'linkText' => 'View',
+            'linkClass' => 'btn-primary'
+            ])
+            <div class="col-md-3 col-lg-3 col-sm-6 col-xs-12">
+                <div class="card p-30 pt-50 text-center">
+                    <div>
+                        <img src="{{asset('images/settings.svg')}}" alt="" class="mb-5" height="150px">
+                    </div>
+                    <h5 class="">Leave Configuration</h5>
+                    <p class="text-light fs-12 mb-30"></p>
+                    <a href="{{route('leave.config.index')}}" class="btn btn-round btn-xs btn-primary">Manage</a>
+                </div>
+            </div>
+        </div>
+    <div class="row">
         <div class="col">
             <div class="card">
                 <div class="card-header">
@@ -30,7 +63,6 @@ Dashboard
                     <div id="monthly">
                         {!! $monthly->render() !!}
                     </div>
-
                 </div>
             </div>
 
