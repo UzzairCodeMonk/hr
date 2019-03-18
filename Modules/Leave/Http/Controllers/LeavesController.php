@@ -355,7 +355,7 @@ class LeavesController extends Controller
         $leave->delete();
 
         // notify HR/Administrators
-        $this->notifyHR($approvers, $leave, new RetractLeave($leave, $leave->user, auth()->user()));
+        $this->notifyLeaveApplicationToRecipients($approvers, $leave, new RetractLeave($leave, $leave->user, auth()->user()));
 
 
         toast('Leave application withdrawn successfully', 'success', 'top-right');
