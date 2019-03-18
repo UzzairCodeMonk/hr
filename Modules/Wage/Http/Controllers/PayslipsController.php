@@ -48,7 +48,9 @@ class PayslipsController extends Controller
 
     public function index()
     {
-        return view('wage::payslips.users', ['users' => $this->user->has('personalDetail')->get()]);
+        return view('wage::payslips.users', ['users' => 
+        $this->user->with("personalDetail")->get()->where("personalDetail.status","!=","resigned")->sortBy('personalDetail.staff_number')->values()->all()
+        ]);
     }
 
     public function myPayslips()
