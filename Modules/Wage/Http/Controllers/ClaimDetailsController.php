@@ -64,6 +64,9 @@ class ClaimDetailsController extends Controller
      */
     public function store(Request $request)
     {
+        $request->validate([
+            'attachments' => 'required'
+        ]); 
         $claimdetail = $this->detail->create($this->data);
 
         $this->saveAttachments($request, $claimdetail);
