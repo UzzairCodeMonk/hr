@@ -52,39 +52,45 @@ class UsersController extends Controller
         ];
         $this->position = $position;
         $this->personalDetail = $personalDetail;
+        $this->code = DB::table('siteconfigs')->pluck('company_code')->first();
 
     }
 
     public function index()
     {
+        
 
         return view('backend.users.index', [
             'columnNames' => $this->columnNames,
             'datatable' => true,
             'results' => User::with("personalDetail")->get()->sortBy('personalDetail.staff_number')->values()->all(),
             'actions' => $this->actions,
-            'deleteAction' => $this->deleteAction
+            'deleteAction' => $this->deleteAction,   
+            'code'=> $this->code
         ]);
     }
 
     public function create()
-    {
+    {        
         return view('backend.users.form', [
             'positions' => $this->position->all(),
             'roles' => $this->role->pluck('name', 'id'),
             'banks' => DB::table('banks')->get(),
-            'centers'=>DB::table('centers')->get()
+            'centers'=>DB::table('centers')->get(),
+            'code' => $this->code
         ]);
     }
 
     public function edit($id)
     {
+        
         return view('backend.users.form', [
             'user' => $this->user->find($id),
             'positions' => $this->position->all(),
             'roles' => $this->role->pluck('name', 'id'),
             'banks' => DB::table('banks')->get(),
-            'centers'=>DB::table('centers')->get()
+            'centers'=>DB::table('centers')->get(),
+            'code' => $this->code
         ]);
     }
 
