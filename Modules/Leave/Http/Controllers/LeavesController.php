@@ -350,12 +350,12 @@ class LeavesController extends Controller
 
         $approvers = $leave->approvers->pluck('id')->toArray();
 
-        $leave->setStatus($this->withdrawnStatus, 'Leave withdrawn by ' . Auth::user()->name);
+        $leave->setStatus($this->withdrawnStatus, 'Leave withdrawn by ' . auth()->user()->name);
 
         $leave->delete();
 
         // notify HR/Administrators
-        $this->notifyHR($approvers, $leave, new RetractLeave($leave, $leave->user, Auth::user()));
+        $this->notifyHR($approvers, $leave, new RetractLeave($leave, $leave->user, auth()->user()));
 
 
         toast('Leave application withdrawn successfully', 'success', 'top-right');
