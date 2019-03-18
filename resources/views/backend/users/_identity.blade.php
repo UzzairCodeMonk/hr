@@ -39,7 +39,13 @@
     <div class="col">
         <div class="form-group">
             <label for="">Staff No.</label>
-            <input type="text" name="staff_number" id="" class="form-control" value="{{old('staff_number',isset($user->personalDetail->staff_number)?$user->personalDetail->staff_number:'')}}">
+            <div class="input-group">
+                <div class="input-group-prepend">
+                    <span class="input-group-text" id="basic-addon1">{{$code ?? 'N/A'}}</span>
+                </div>
+                <input type="text" name="staff_number" id="" class="form-control" value="{{old('staff_number',isset($user->personalDetail->staff_number)?$user->personalDetail->staff_number:'')}}">
+            </div>
+
             @include('backend.shared._errors',['entity'=>'staff_number'])
         </div>
     </div>
@@ -80,7 +86,9 @@
             <select name="center_id" id="" class="form-control select">
                 <option value=""></option>
                 @foreach($centers as $center)
-                    <option value="{{$center->id}}" {{old('center_id',isset($user->personalDetail->center_id) && $user->personalDetail->center_id == $center->id ? 'selected':'')}}>{{$center->name ?? 'N/A'}}</option>
+                <option value="{{$center->id}}"
+                    {{old('center_id',isset($user->personalDetail->center_id) && $user->personalDetail->center_id == $center->id ? 'selected':'')}}>{{$center->name
+                    ?? 'N/A'}}</option>
                 @endforeach
             </select>
         </div>
