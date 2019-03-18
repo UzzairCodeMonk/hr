@@ -42,7 +42,7 @@ Claim Form
                         </div>
                         <div class="card-body">
                             <div class="row">
-                                <div class="col">
+                                <div class="col-md-6">
                                     <input type="hidden" name="user_id" value="{{Auth::id()}}">
                                     <input type="hidden" name="claim_id" value="{{$claim->id ?? 0}}">
                                     <div class="form-group">
@@ -82,11 +82,13 @@ Claim Form
                                 </div>
                                 <div class="col">
                                     <div class="form-group">
-                                        <label for="">Attachments</label>
+                                        <label for="" class="require">Attachments</label>
                                         <button type="button" class="btn btn-block btn-md btn-primary" onclick="document.getElementById('fileInput').click();"><i
                                                 class="ti ti-files"></i> Attach your file(s) here</button>
                                         <input id="fileInput" type="file" style="display:none;" name="attachments[]"
                                             multiple />
+                                        <p class="form-text">The attachments must be a file of type: jpeg, bmp, png,
+                                            pdf, doc.</p>
                                         @include('backend.shared._errors',['entity'=>'attachments'])
                                     </div>
                                 </div>
@@ -100,34 +102,37 @@ Claim Form
                     </div>
                 </form>
             </div>
-            <div class="col">
+            <div class="col-md-6">
                 <div class="card">
                     <div class="card-header">
                         <h3 class="card-title">
                             Claim Records
                         </h3>
                         <div class="card-options">
-                            <!-- <button class="btn btn-sm btn-danger delete-claimdetails">Delete Claim Details</button> -->
+                            <button class="btn btn-sm btn-danger delete-claimdetails">Delete Claim Details</button>
                         </div>
                     </div>
                     <div class="card-body">
-                        <table class="table table-bordered">
-                            <thead>
+                        <div class="table-responsive">
+                            <table class="table table-bordered">
+                                <thead>                                    
+                                    <tr>
+                                        <td>#</td>
+                                        <td>Select</td>
+                                        <td>Amount (MYR)</td>
+                                        <td>Date</td>
+                                        <td>Remarks</td>
+                                        <td>Attachments</td>
+                                    </tr>
+                                </thead>
+                                <tbody id="claim_data">
+                                </tbody>
                                 <tr>
-                                    <td>#</td>
-                                    <td>Select</td>
-                                    <td>Amount (MYR)</td>
-                                    <td>Date</td>
-                                    <td>Remarks</td>
+                                    <td colspan="5">Total (MYR):</td>
+                                    <td id="claim_total"></td>
                                 </tr>
-                            </thead>
-                            <tbody id="claim_data">
-                            </tbody>
-                            <tr>
-                                <td colspan="4">Total (MYR):</td>
-                                <td id="claim_total"></td>
-                            </tr>
-                        </table>
+                            </table>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -176,7 +181,10 @@ Claim Form
                         data[count].id + '">' + data[count].date + '</td>';
                     html_data +=
                         '<td data-name="remarks" class="remarks" data-type="textarea" data-pk="' + data[
-                            count].id + '">' + data[count].remarks + '</td></tr>';
+                            count].id + '">' + data[count].remarks + '</td>';
+                    html_data +=
+                        '<td>' + `<a href="${window.location.origin}/${data[count].attachments[0].filepath}" target="_blank">` + data[count].attachments[0].filename + '</a></td>';
+                    html_data += '</tr>';                    
                     $('#claim_data').append(html_data);
                 }
             }
@@ -203,28 +211,41 @@ Claim Form
     fetch_claim_total();
     setInterval(fetch_claim_total, 5000);
 
-
     $(".delete-claimdetails").click(function () {
         $("#claim_data").find('input[name="claimdetails-record"]').each(function () {
-
-            if ($(this).is(":checked")) {
-                $(this).parents("tr").remove();
-                id = $(this).data('pk');
-                console.log(id);
-                $.ajax({
-                    headers: {
-                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                    },
-                    url: "http://datakraf-hr.web/api/claims/details/" + id + "/delete",
-                    method: "DELETE",
-                    dataType: "json",
-                    success: function (data) {
-                        if (data.success == true) {
-                            return swalSuccess('Deleted');
-                        }
+            Swal.fire({
+                title: 'Are you sure?',
+                text: "You won't be able to revert this!",
+                type: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Yes, delete it!'
+            }).then((result) => {
+                if (result.value) {
+                    if ($(this).is(":checked")) {
+                        $(this).parents("tr").remove();
+                        id = $(this).data('pk');
+                        console.log(id);
+                        $.ajax({
+                            headers: {
+                                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr(
+                                    'content')
+                            },
+                            url: "http://datakraf-hr.web/api/claims/details/" + id +
+                                "/delete",
+                            method: "DELETE",
+                            dataType: "json",
+                            success: function (data) {
+                                if (data.success == true) {
+                                    return swalSuccess('Deleted');
+                                }
+                            }
+                        });
                     }
-                });
-            }
+                }
+            })
+
         });
     });
 
@@ -271,19 +292,18 @@ Claim Form
     $('#claim_data').editable({
         container: 'body',
         selector: 'td.date',
+        format: "{{config('app.date_format_js')}}",
+        viewformat: 'dd/mm/yyyy',
+        autoclose: true,
+        todayHighlight: true,
         headers: {
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
         },
         url: "{{route('api.claimdetails.update')}}",
         title: 'Date',
         type: "POST",
-        //dataType: 'json',
-        validate: function (value) {
-            if ($.trim(value) == '') {
-                return 'This field is required';
-            }
-        }
     });
+
 
     function swalSuccess(message) {
         const Toast = Swal.mixin({

@@ -11,6 +11,8 @@ class ClaimDetail extends Model
     protected $table = 'claimdetails';
     protected $guarded = [];
 
+    protected $with = ['attachments'];
+
     public function type()
     {
         return $this->belongsTo(ClaimType::class, 'claimtype_id');
