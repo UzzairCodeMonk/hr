@@ -12,16 +12,26 @@
         @foreach($absentees as $key => $a)
         <tr>
             <td>{{++$key}}</td>
-            <td>{!! $a->user->personalDetail->name ?? 'N/A' !!}</td>
+            <td>
+                <div class="media">
+                    <img class="avatar" src="{{asset($a->user->personalDetail->avatar) ?? '' }}" alt="">
+                    <div class="media-body">
+                        <p class="lh-1">{{$a->user->personalDetail->name ?? 'N/A'}}</p>
+                        <small>
+                            {!! $a->user->personalDetail->position->name ?? 'N/A' !!}
+                            {{$a->user->personalDetail->staff_number ?? 'N/A'}}
+                        </small>
+                    </div>
+                </div>                
+            </td>
             <td>{{$a->start_date ?? 'N/A'}}</td>
             <td>{{$a->end_date ?? 'N/A'}}</td>
             <td>{{$a->type->name ?? 'N/A'}}</td>
         </tr>
         @endforeach
         <tr>
-            
+
         </tr>
     </tbody>
-    
-</table>
 
+</table>
