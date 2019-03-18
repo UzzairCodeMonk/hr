@@ -24,7 +24,7 @@ Employee Records
                     <td>{{++$key}}</td>
                     <td>
                         <div class="media">
-                            <img class="avatar" src="{{asset($user->personalDetail->avatar) ?? '' }}" alt="">
+                            <img class="avatar" src="{{asset($user->personalDetail['avatar']) ?? '' }}" alt="">
                             <div class="media-body">
                                 <p class="lh-1">{{$user->name ?? 'N/A'}}</p>
                                 <small>{{$user->personalDetail->position->name ?? 'N/A'}}</small>
