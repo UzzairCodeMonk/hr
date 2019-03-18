@@ -12,11 +12,11 @@ Site Configurations
         <div class="card-body">
             <div class="row">
                 <div class="col-4">
-                    <h3>Corporate Identity</h3>                    
+                    <h3>Corporate Identity</h3>
                 </div>
-                <div class="col-8">                    
+                <div class="col-8">
                     <div class="row">
-                        <div class="col-4">
+                        <div class="col">
                             <div class="form-group">
                                 <img src="{{asset($site->logo ?? '')}}" alt="" width="300px" class="img-thumbnail">
                                 <br><br>
@@ -40,6 +40,15 @@ Site Configurations
                             </div>
                         </div>
                     </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="">Company Code</label>
+                                <input type="text" name="company_code" id="" class="form-control" value="{{ old('company_code',  isset($site->company_code) ? $site->company_code : null) }}">
+                            </div>
+                        </div>
+                    </div>
+                    <hr>
                     <div class="row">
                         <div class="col">
                             <div class="form-group">

@@ -30,7 +30,7 @@ Employees
                             <td>{{++$key}}</td>
                             <td>
                                 <div class="media">
-                                    <img class="avatar" src="{{asset($result->personalDetail->avatar) ?? '' }}" alt="">
+                                    <img class="avatar" src="{{asset($result->personalDetail['avatar']) ?? '' }}" alt="">
                                     <div class="media-body">
                                         <p class="lh-1">{{$result->name ?? 'N/A'}}</p>
                                         <small>{{$result->personalDetail->position->name ?? 'N/A'}}
