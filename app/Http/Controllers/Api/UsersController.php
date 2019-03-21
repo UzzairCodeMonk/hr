@@ -6,12 +6,14 @@ use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Datakraf\Http\Controllers\Controller;
 use Datakraf\User;
+use Modules\Profile\Entities\PersonalDetail;
 
 
 class UsersController extends Controller
-{ 
-    
-    public function index(Request $request){
+{
+
+    public function index(Request $request)
+    {
 
         $term = trim($request->q);
 
@@ -28,8 +30,16 @@ class UsersController extends Controller
         }
 
         return \Response::json($formatted_users);
+    }
 
-    }   
+    public function fetchGenderStats()
+    {
+        $users = collect(PersonalDetail::all());
 
+        $genders = array_count_values($users->pluck('gender')->toArray());
 
+        $genders = collect($genders)->values()->toArray();
+
+        return \Response::json($genders);
+    }
 }

@@ -7,6 +7,10 @@ is_active(config('app.administration_prefix')."/employees*")
     </div>
 </div>
 <ul class="nav nav-pills flex-column">
+    <li class="nav-item {{active('user.dashboard.index')}}">
+        <i class="ti ti-agenda"></i>
+        <a class="nav-link" href="{{route('user.dashboard.index')}}">Dashboard</a>
+    </li>
     <li class="nav-item {{active('user.index')}}">
         <i class=" ti
         ti-agenda"></i>

@@ -88,19 +88,16 @@
                         },
                         url: "{{ route('personal.notifications') }}",
                         type: "GET",
-                        success: function (results) {
-                            // console.log(results);
+                        success: function (results) {                            
                             vueNotifications.results = results;
                             vueNotifications.arraysize = results.length;
                         },
-                        error: function () {
-                            // alert("Error get notifications");
+                        error: function () {                            
                             console.log('error get notifications');
                         }
                     });
                 },
-                redirect: function (id, url) {
-                    //console.log(id);
+                redirect: function (id, url) {                    
                     data = {
                         id: id,
                     }
@@ -113,7 +110,7 @@
                         data: data,
                         success: function (results) {
                             //console.log("redirect: " + results)
-                            location.href = url
+                            window.location.href = url
                         },
                         error: function () {
                             // alert("Error get notifications");
@@ -125,7 +122,6 @@
                 //end methods
             }
         });
-
     </script>        
 </body>
 
