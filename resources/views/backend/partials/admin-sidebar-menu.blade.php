@@ -51,6 +51,10 @@ is_active(config('app.administration_prefix')."/employees*")
         <i class="ti ti-calendar"></i>
         <a class="nav-link" href="{{route('holiday.index')}} ">Holidays</a>
     </li>
+    <li class="nav-item {{active('leave-approvers.index')}}">
+        <i class="ti ti-layers-alt"></i>
+        <a class="nav-link" href="{{route('leave-approvers.index')}} ">Leave Approvers</a>
+    </li>
     <li class="nav-item {{active('leave.config.index')}}">
         <i class="ti ti-agenda"></i>
         <a class="nav-link" href="{{route('leave.config.index')}}">Leave Configurations</a>

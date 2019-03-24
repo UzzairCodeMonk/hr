@@ -2,6 +2,12 @@
 @section('page-title')
 Leave Application Form
 @endsection
+@section('page-css')
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.10.0/fullcalendar.min.css">
+<style>
+    .fc-time{ display : none; }
+</style>
+@endsection
 @section('content')
 <a href="{{URL::previous()}}" class="btn btn-primary btn-md">Back</a>
 <div class="mb-3"></div>
@@ -100,6 +106,19 @@ Leave Application Form
                                     </ol>
                                 </div>
                             </div>
+                            <div class="col">
+                                <div class="form-group">
+                                    <label for="">Absent Dates</label>
+                                    @php $s = explode(',', $leave->date_series) @endphp
+                                    <!-- <ol>
+                                        @foreach($s as $a)
+                                        <li>{{$a}}</li>
+                                        @endforeach
+                                    </ol> -->
+        
+                                    {!! $calendar->calendar() !!}
+                                </div>
+                            </div>
                         </div>
                         @if($leave->attachments->count() > 0)
                         <div class="row">
@@ -190,4 +209,10 @@ Leave Application Form
         </div>
     </div>
 </div>
+@endsection
+@section('page-js')
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.10.0/fullcalendar.min.js"></script>
+
+{!! $calendar->script() !!}
 @endsection

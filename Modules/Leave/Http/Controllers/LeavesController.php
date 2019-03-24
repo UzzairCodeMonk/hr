@@ -23,6 +23,7 @@ use Modules\Site\Entities\Center;
 use Carbon\Carbon;
 use Uzzaircode\DateHelper\Traits\DateHelper;
 use Calendar;
+use Modules\Leave\Traits\LeavesCalendar;
 
 
 // use Uzzaircode\DateHelper\Traits\DateHelper;
@@ -57,7 +58,7 @@ use Calendar;
 class LeavesController extends Controller
 {
 
-    use AlertMessage, LeaveStatus, DateHelper, LeaveOperations;
+    use AlertMessage, LeaveStatus, DateHelper, LeaveOperations, LeavesCalendar;
 
     public $type;
     public $data;
@@ -107,30 +108,17 @@ class LeavesController extends Controller
 
     public function show(int $id)
     {   
-        
-        $event = [];
+                
         $data = Leave::find($id);
-        $event[] = Calendar::event(
-            'Absent Dates',
-            false,
-            $this->setDateObject('d/m/Y', $data->start_date),
-            $this->setDateObject('d/m/Y', $data->end_date),
-            null,
-            [
-                'color' => '#ff0000',                
-                'displayEventTime' =>  false,
-                'themeSystem' => 'bootstrap4'
-            ]
-        );
-
-        $calendar = Calendar::addEvents($event);
+        $calendar = $this->makeCalendar($data->start_date, $data->end_date);        
 
         return view('leave::leave.user.show', [
 
-            'leave' => $this->leave->find($id),
+            'leave' => $data,
             'types' => $this->type->all(),
-            'statuses' => $this->leave->find($id)->statuses,
+            'statuses' => $data->statuses,
             'calendar' => $calendar
+
         ]);
     }
 

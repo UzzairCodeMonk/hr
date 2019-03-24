@@ -67,6 +67,11 @@ class User extends Authenticatable
         return $this->belongsToMany(Leave::class, 'approver_leave', 'user_id', 'leave_id');
     }
 
+    public function leaveApprovers()
+    {
+        return $this->belongsToMany(User::class, 'leaveapprover_user', 'user_id', 'approver_id');
+
+    }
     public function personalDetail()
     {
         return $this->hasOne(PersonalDetail::class);
