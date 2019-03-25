@@ -21,10 +21,15 @@ use Datakraf\Notifications\RejectLeave;
 use Modules\Leave\Http\Requests\ApplyLeaveRequest;
 use Modules\Leave\Entities\Holiday;
 use Datakraf\Notifications\AdminLeaveRemark;
+use Calendar;
+use Modules\Leave\Traits\LeavesCalendar;
+use Uzzaircode\DateHelper\Traits\DateHelper;
+use Modules\Leave\Traits\LeaveOperations;
 
 class AdminLeavesController extends Controller
 {
-    
+    use LeavesCalendar, DateHelper, LeaveOperations;
+
     public function __construct(Leave $leave, LeaveType $type, Request $request, User $user, LeaveAttachment $attachment, LeaveBalance $balance, Holiday $holiday)
     {
         $this->type = $type;
@@ -55,10 +60,10 @@ class AdminLeavesController extends Controller
      * @return Response
      */
     public function index($status = null)
-    {    
-        return view('leave::leave.admin.index',[
+    {
+        return view('leave::leave.admin.index', [
             'leaves' => Leave::adminLeaveStatus($status)
-        ]);    
+        ]);
     }
 
 
@@ -77,13 +82,16 @@ class AdminLeavesController extends Controller
 
     public function showWithdrawn(int $id)
     {
+        $leave = $this->leave->onlyTrashed()->where('id', $id)->first();
+
+        $calendar = $this->makeCalendar($leave->start_date, $leave->end_date);
 
         return view('leave::leave.admin.show-trash', [
-            'leave' => $this->leave->onlyTrashed()->where('id', $id)->first(),
+            'leave' => $leave,
             'types' => $this->type->all(),
             'statuses' => Leave::onlyTrashed()->where('id', $id)->first()->statuses,
+            'calendar' => $calendar
         ]);
-
     }
 
     /**
@@ -97,7 +105,7 @@ class AdminLeavesController extends Controller
             'holidays' => $this->holiday->all(),
             'users' => $this->user->all()
         ]);
-    }    
+    }
 
     /**
      * Show the specified resource.
@@ -108,11 +116,17 @@ class AdminLeavesController extends Controller
         // determine if action buttons will be displayed or vice versa
         $actionVisibility = !in_array($this->leave->find($id)->status, [$this->approvedStatus, $this->rejectedStatus]);
 
+        $leave = $this->leave->find($id);
+        $calendar = $this->makeCalendar($leave->start_date, $leave->end_date);
+
         return view('leave::leave.admin.show', [
-            'leave' => $this->leave->find($id),
+
+            'leave' => $leave,
             'types' => $this->type->all(),
-            'statuses' => $this->leave->find($id)->statuses,
-            'actionVisibility' => $actionVisibility
+            'statuses' => $leave->statuses,
+            'actionVisibility' => $actionVisibility,
+            'calendar' => $calendar
+
         ]);
     }
 
@@ -131,9 +145,7 @@ class AdminLeavesController extends Controller
      * @return Response
      */
     public function update(Request $request)
-    {
-        
-    }
+    { }
 
 
     public function approveRejectLeave(Request $request, $id)
@@ -147,7 +159,7 @@ class AdminLeavesController extends Controller
         // find the balance after approval
         $balance = $totalAllowedDaysOfLeave - $totalDaysTaken;
 
-        if ($request->has('approve')) {            
+        if ($request->has('approve')) {
             // update or create leave balance record in leavebalances table
             $this->balance->updateOrCreate(['user_id' => $leave->user_id, 'leavetype_id' => $leave->leavetype_id], ['balance' => $balance]);
             // set the status of the leave
@@ -171,29 +183,26 @@ class AdminLeavesController extends Controller
         }
 
         return redirect()->back();
-
     }
     /**
      * Remove the specified resource from storage.
      * @return Response
      */
     public function destroy()
-    {
-    }
+    { }
 
     public function retract(int $id){
 
-        $leave = $this->leave->find($id);        
+        $leave = $this->leave->find($id);
         //check if the leave has been approved
-        $that_leave = $this->balance->where('leavetype_id',$leave->leavetype_id)->where('user_id',$leave->user_id)->first();
+        $that_leave = $this->balance->where('lea vetype_id',$leave->leavetype_id)->where ('user_id',$leave->user_id)->first();
         $that_leave_balance = $that_leave->balance;
-        $that_leave_balance += $leave->days_taken;        
+        $that_leave_balance += $leave->days_taken;
         $that_leave->update([
             'balance' => $that_leave_balance
         ]);
         $leave->setStatus($this->retractedStatus, 'Leave withdrawn by ' . Auth::user()->name);
-            $this->notifyHR($leave,new RetractLeave($leave, $leave->user, Auth::user()));
-            toast('Leave application withdrawn successfully', 'success', 'top-right');
+        $this->notifyHR($leave,new RetractLeave($leave, $leave->user, Auth::user()));
+        toast('Leave application withdrawn successfully', 'success', 'top-right');
     }
-
 }

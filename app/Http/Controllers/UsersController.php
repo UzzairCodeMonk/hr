@@ -53,69 +53,78 @@ class UsersController extends Controller
         $this->position = $position;
         $this->personalDetail = $personalDetail;
         $this->code = DB::table('siteconfigs')->pluck('company_code')->first();
-
     }
 
     public function index()
     {
-        
+
 
         return view('backend.users.index', [
             'columnNames' => $this->columnNames,
             'datatable' => true,
-            'results' => User::with("personalDetail")->get()->where("personalDetail.status","!=","resigned")->sortBy('personalDetail.staff_number')->values()->all(),
+            'results' => User::with("personalDetail")->get()->where("personalDetail.status", "!=", "resigned")->sortBy('personalDetail.staff_number')->values()->all(),
             'actions' => $this->actions,
-            'deleteAction' => $this->deleteAction,   
-            'code'=> $this->code
+            'deleteAction' => $this->deleteAction,
+            'code' => $this->code
         ]);
     }
 
+
+    public function dashboard()
+    {
+               
+
+        return view('backend.users.dashboard');
+    }
+
+
     public function create()
-    {        
+    {
         return view('backend.users.form', [
             'positions' => $this->position->all(),
             'roles' => $this->role->pluck('name', 'id'),
             'banks' => DB::table('banks')->get(),
-            'centers'=>DB::table('centers')->get(),
+            'centers' => DB::table('centers')->get(),
             'code' => $this->code
         ]);
     }
 
     public function edit($id)
     {
-        
+
         return view('backend.users.form', [
             'user' => $this->user->find($id),
             'positions' => $this->position->all(),
             'roles' => $this->role->pluck('name', 'id'),
             'banks' => DB::table('banks')->get(),
-            'centers'=>DB::table('centers')->get(),
+            'centers' => DB::table('centers')->get(),
             'code' => $this->code
         ]);
     }
 
     public function store(CreateEmployeeRequest $request)
-    {        
+    {
         $user = User::create([
             'name' => $request->name,
             'email' => $request->email,
             'password' => Hash::make($request->password),
         ]);
-
+        $user->claimApprovers()->sync($request->claims);
+        $user->leaveApprovers()->sync($request->leaves);
         $this->syncPermissions($request, $user);
         toast('Employee created successfully', 'success', 'top-right');
         return back();
     }
 
     public function update(Request $request, $id)
-    {        
+    {
         // Get the user
-        $user = User::find($id);                     
+        $user = User::find($id);
         $user->update([
             'name' => $request->name,
             'email' => $request->email
         ]);
-        
+
         // check for password change
         if ($request->get('password')) {
             $user->password = Hash::make($request->get('password'));
@@ -133,15 +142,17 @@ class UsersController extends Controller
         $p->status = $request->status;
         $p->gender = $request->gender;
         $p->join_date = $request->join_date;
-        $p->resignation_date = $request->resignation_date;        
+        $p->resignation_date = $request->resignation_date;
         $p->bank_id = $request->bank_id;
         $p->bank_account_number = $request->bank_account_number;
         $p->center_id = $request->center_id;
         $p->save();
 
         // update basic salary
-        Wage::updateOrCreate(['user_id'=>$id],['wage'=>$request->basic_salary]);
-                
+        Wage::updateOrCreate(['user_id' => $id], ['wage' => $request->basic_salary]);
+        $p->user->claimApprovers()->sync($request->claims);
+        $p->user->leaveApprovers()->sync($request->leaves);
+
         // Handle the user roles
         $this->syncPermissions($request, $user);
 
@@ -161,7 +172,6 @@ class UsersController extends Controller
 
         $json = File::get(database_path('primary-school.json'));
         return $primarySchoolData = json_decode($json);
-
     }
 
     public function sendEmail()
@@ -171,7 +181,6 @@ class UsersController extends Controller
             $message->from('me@gmail.com', 'Christian Nwamba');
 
             $message->to('chrisn@scotch.io');
-
         });
     }
 
@@ -182,5 +191,4 @@ class UsersController extends Controller
 
         return $banks;
     }
-
 }

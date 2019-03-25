@@ -30,7 +30,7 @@ class LoginController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = 'in-profile-modules/in-personal-details/viewing-personal-details';
+    protected $redirectTo = 'profiles/personal-details';
 
 
     public function showLoginForm()

@@ -10,7 +10,6 @@ Leave Application Form
 </style>
 <link rel="stylesheet" href="{{asset('css/select2-bootstrap.min.css')}}">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.5/css/select2.min.css" />
-
 @endsection
 @section('content')
 <a href="{{URL::previous()}}" class="btn btn-primary btn-md">Back</a>

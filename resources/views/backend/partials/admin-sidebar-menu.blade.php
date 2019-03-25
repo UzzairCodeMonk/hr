@@ -7,6 +7,10 @@ is_active(config('app.administration_prefix')."/employees*")
     </div>
 </div>
 <ul class="nav nav-pills flex-column">
+    <li class="nav-item {{active('user.dashboard.index')}}">
+        <i class="ti ti-agenda"></i>
+        <a class="nav-link" href="{{route('user.dashboard.index')}}">Dashboard</a>
+    </li>
     <li class="nav-item {{active('user.index')}}">
         <i class=" ti
         ti-agenda"></i>
@@ -46,6 +50,10 @@ is_active(config('app.administration_prefix')."/employees*")
     <li class="nav-item {{active('holiday.index')}}">
         <i class="ti ti-calendar"></i>
         <a class="nav-link" href="{{route('holiday.index')}} ">Holidays</a>
+    </li>
+    <li class="nav-item {{active('leave-approvers.index')}}">
+        <i class="ti ti-layers-alt"></i>
+        <a class="nav-link" href="{{route('leave-approvers.index')}} ">Leave Approvers</a>
     </li>
     <li class="nav-item {{active('leave.config.index')}}">
         <i class="ti ti-agenda"></i>

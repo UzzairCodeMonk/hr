@@ -11,14 +11,13 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('notifications',['uses' => 'NotificationsController@index', 'as' => 'notifications']);
 
 });
-// prefix
-// middleware
-// name
+
 
 Route::group(['prefix' => config('app.administration_prefix') . '/employees', 'middleware' => ['auth', 'role:Admin']], function () {
 
     Route::group(['prefix' => 'employees'], function () {
-        Route::get('/', 'UsersController@index')->name('user.index');
+        Route::get('/', 'UsersController@dashboard')->name('user.dashboard.index');
+        Route::get('all', 'UsersController@index')->name('user.index');
         Route::get('create', 'UsersController@create')->name('user.create');
         Route::get('{id}/edit', 'UsersController@edit')->name('user.edit')->middleware('signed');
         Route::post('store', 'UsersController@store')->name('user.store');
