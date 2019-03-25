@@ -109,7 +109,8 @@ class UsersController extends Controller
             'email' => $request->email,
             'password' => Hash::make($request->password),
         ]);
-
+        $user->claimApprovers()->sync($request->claims);
+        $user->leaveApprovers()->sync($request->leaves);
         $this->syncPermissions($request, $user);
         toast('Employee created successfully', 'success', 'top-right');
         return back();
@@ -149,6 +150,8 @@ class UsersController extends Controller
 
         // update basic salary
         Wage::updateOrCreate(['user_id' => $id], ['wage' => $request->basic_salary]);
+        $p->user->claimApprovers()->sync($request->claims);
+        $p->user->leaveApprovers()->sync($request->leaves);
 
         // Handle the user roles
         $this->syncPermissions($request, $user);

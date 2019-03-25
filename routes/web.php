@@ -11,9 +11,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('notifications',['uses' => 'NotificationsController@index', 'as' => 'notifications']);
 
 });
-// prefix
-// middleware
-// name
+
 
 Route::group(['prefix' => config('app.administration_prefix') . '/employees', 'middleware' => ['auth', 'role:Admin']], function () {
 

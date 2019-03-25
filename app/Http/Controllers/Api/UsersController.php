@@ -7,7 +7,7 @@ use Illuminate\Http\Response;
 use Datakraf\Http\Controllers\Controller;
 use Datakraf\User;
 use Modules\Profile\Entities\PersonalDetail;
-
+use Auth;
 
 class UsersController extends Controller
 {
@@ -21,7 +21,9 @@ class UsersController extends Controller
             return \Response::json([]);
         }
 
-        $users = User::search($term)->limit(5)->get();
+        $users = User::search($term)->whereHas('personalDetail', function ($q) {
+            $q->where('status', '!=', 'resigned');
+        })->limit(5)->get();
 
         $formatted_users = [];
 
@@ -41,5 +43,19 @@ class UsersController extends Controller
         $genders = collect($genders)->values()->toArray();
 
         return \Response::json($genders);
+    }
+
+    public function fetchLeaveApprovers($id){
+
+        $users = User::find($id)->leaveApprovers()->get();
+
+        return \Response::json($users);
+    }
+
+    public function fetchClaimApprovers($id){
+
+        $users = User::find($id)->claimApprovers()->get();
+
+        return \Response::json($users);
     }
 }
