@@ -101,7 +101,9 @@
 
 </script>
 <script type="text/javascript">
-    $('.select').select2();
+    $('.select').select2({
+        theme:'classic'
+    });
 </script>
 <script type="text/javascript">
     $(document).ready(function () {
