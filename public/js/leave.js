@@ -15,16 +15,14 @@ hoursBoxSelector.hide();
 // get the non working days
 
 $('.start-date').datepicker({
-    format: dateFormat,
-    startDate: date,
+    format: dateFormat,    
     daysOfWeekDisabled: [0, 6]
 }).on('changeDate', function () {
     showDays();
 });
 
 $('.end-date').datepicker({
-    format: dateFormat,
-    startDate: date,
+    format: dateFormat,    
     daysOfWeekDisabled: [0, 6]
 
 }).on('changeDate', function () {
