@@ -208,7 +208,6 @@ Leave Application Form
     });
 
 </script>
-
 <script>
     $('#users').select2({
         placeholder: 'Please type the approver\'s name. You may tag multiple approvers',        
