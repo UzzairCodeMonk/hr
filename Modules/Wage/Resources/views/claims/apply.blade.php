@@ -81,7 +81,7 @@ Claim Form
                                     </div>
                                 </div>
                                 <div class="col">
-                                    <div class="form-group control-group increment">
+                                    <div class="form-group">
                                         <label for="" class="require">Attachments</label>
                                         <button type="button" class="btn btn-block btn-md btn-primary" onclick="document.getElementById('fileInput').click();"><i
                                                 class="ti ti-files"></i> Attach your file(s) here</button>
@@ -120,7 +120,7 @@ Claim Form
                                         <td>#</td>
                                         <td>Select</td>
                                         <td>Amount (MYR)</td>
-                                        <td>Dateu</td>
+                                        <td>Date</td>
                                         <td>Remarks</td>
                                         <td>Attachments</td>
                                     </tr>
@@ -190,7 +190,6 @@ Claim Form
             }
         })
     }
-
     fetch_claim_data();
 
 
@@ -339,21 +338,6 @@ Claim Form
             }
         })
     }
-
-   $(".hide").hide();
-    $(document).ready(function() {
-      $(".btn-add").click(function(){
-        //   $(".clone").show();
-          var html = $(".clone").html();
-          $(".increment").after(html);
-      });
-    
-      $("body").on("click",".btn2",function(){
-          $(this).parents(".control2").remove();
-      });
-    });
-    
-
 </script>
 
 @endsection
