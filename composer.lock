@@ -6123,16 +6123,16 @@
         },
         {
             "name": "watson/active",
-            "version": "3.1.0",
+            "version": "3.0.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/dwightwatson/active.git",
-                "reference": "4faa30a31d2bb870c852ea38330f3fa1c1350f34"
+                "reference": "576e4072c666bda22182a7266475065f2e7001b3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/dwightwatson/active/zipball/4faa30a31d2bb870c852ea38330f3fa1c1350f34",
-                "reference": "4faa30a31d2bb870c852ea38330f3fa1c1350f34",
+                "url": "https://api.github.com/repos/dwightwatson/active/zipball/576e4072c666bda22182a7266475065f2e7001b3",
+                "reference": "576e4072c666bda22182a7266475065f2e7001b3",
                 "shasum": ""
             },
             "require": {
@@ -6140,11 +6140,11 @@
                 "illuminate/http": "~5.5",
                 "illuminate/routing": "~5.5",
                 "illuminate/support": "~5.5",
-                "php": ">=7.2"
+                "php": ">=7.0"
             },
             "require-dev": {
                 "mockery/mockery": "~1.0",
-                "phpunit/phpunit": "~8.0"
+                "phpunit/phpunit": "~6.0"
             },
             "type": "library",
             "extra": {
@@ -6181,7 +6181,7 @@
                 "laravel",
                 "routing"
             ],
-            "time": "2019-03-25T04:56:13+00:00"
+            "time": "2018-09-07T02:53:52+00:00"
         },
         {
             "name": "zendframework/zend-diactoros",

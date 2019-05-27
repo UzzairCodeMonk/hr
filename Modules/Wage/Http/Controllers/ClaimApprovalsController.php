@@ -20,33 +20,36 @@ class ClaimApprovalsController extends Controller
     public function store(Request $request)
     {
         $this->approval($request);
+        return redirect()->route('claim.records');
     }
 
 
     public function approval($request)
     {
-
         $claim = Claim::find($request->claim_id);
 
         switch ($request) {
 
             case $request->has('approve'):
-                $this->setClaimStatus($claim, $this->submittedStatus, 'Claim application approved by ' . auth()->user()->personalDetail->name . '<br>' . $this->remarksExist($request));
+                $this->setClaimStatus($claim, $this->approvedStatus, 'Claim application approved by ' . auth()->user()->personalDetail->name . '<br>' . $this->remarksExist($request));
+                toast('Claim application approved successfully', 'success', 'top-right');
                 break;
-
+        
             case $request->has('reject'):
                 $this->setClaimStatus($claim, $this->rejectedStatus, 'Claim application rejected by' . auth()->user()->personalDetail->name . '<br>' . $this->remarksExist($request));
+                toast('Claim application rejected', 'success', 'top-right');
                 break;
-
+        
             case $request->has('remarks'):
                 $this->setClaimStatus($claim, $this->submittedStatus, auth()->user()->personalDetail->name . '<br>' . $this->remarksExist($request));
+                toast('Remarks added to this claim application', 'success', 'top-right');
                 break;
-
+        
             default:
                 break;
         }
 
-        return redirect()->back();
+        // return redirect()->back();
     }
 
 

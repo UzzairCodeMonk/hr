@@ -81,7 +81,7 @@ Claim Form
                                     </div>
                                 </div>
                                 <div class="col">
-                                    <div class="form-group">
+                                    <div class="form-group control-group increment">
                                         <label for="" class="require">Attachments</label>
                                         <button type="button" class="btn btn-block btn-md btn-primary" onclick="document.getElementById('fileInput').click();"><i
                                                 class="ti ti-files"></i> Attach your file(s) here</button>
@@ -120,7 +120,7 @@ Claim Form
                                         <td>#</td>
                                         <td>Select</td>
                                         <td>Amount (MYR)</td>
-                                        <td>Date</td>
+                                        <td>Dateu</td>
                                         <td>Remarks</td>
                                         <td>Attachments</td>
                                     </tr>
@@ -190,6 +190,7 @@ Claim Form
             }
         })
     }
+
     fetch_claim_data();
 
 
@@ -202,8 +203,9 @@ Claim Form
             method: "POST",
             dataType: "json",
             success: function (data) {
-                $total = data.total,
-                    $('#claim_total').empty().append($total)
+                // $total = data.total,
+                // $('#claim_total').empty().append($total)
+                $("#claim_total").empty().append(data.total);
             }
         });
     }
@@ -232,8 +234,7 @@ Claim Form
                                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr(
                                     'content')
                             },
-                            url: "http://datakraf-hr.web/api/claims/details/" + id +
-                                "/delete",
+                            url: '/api/claims/details/' + id + '/delete',
                             method: "DELETE",
                             dataType: "json",
                             success: function (data) {
@@ -338,6 +339,20 @@ Claim Form
             }
         })
     }
+
+   $(".hide").hide();
+    $(document).ready(function() {
+      $(".btn-add").click(function(){
+        //   $(".clone").show();
+          var html = $(".clone").html();
+          $(".increment").after(html);
+      });
+    
+      $("body").on("click",".btn2",function(){
+          $(this).parents(".control2").remove();
+      });
+    });
+    
 
 </script>
 
