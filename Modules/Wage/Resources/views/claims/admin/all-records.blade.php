@@ -32,7 +32,7 @@ Claim Submission Records
                         <td>{{$claim->amount ?? 0.00}}</td>
                         <td class="text-center">{{ $claim->created_at->toDayDateTimeString() ?? 'N/A' }}</td>
                         <td class="text-center">
-                            <a href="{{URL::signedRoute('claim.show',['id'=>$claim->id])}}" class="btn btn-sm text-dark btn-link">View</a>
+                            <a href="{{URL::signedRoute('claimdetail.show',['id'=>$claim->id])}}" class="btn btn-sm text-dark btn-link">View</a>
                             <form action="{{route('claim.destroy',['id'=>$claim->id])}}" method="POST" class="claim-record d-inline">
                                 @csrf
                                 @method('DELETE')
