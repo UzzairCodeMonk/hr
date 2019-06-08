@@ -13,6 +13,7 @@ use Datakraf\Traits\AlertMessage;
 use DB;
 use Modules\Profile\Entities\Family;
 use Modules\Profile\Entities\Experience;
+use Modules\Leave\Entities\LeaveType;
 
 class PersonalDetailsController extends Controller
 {
@@ -75,6 +76,7 @@ class PersonalDetailsController extends Controller
         $experience = DB::table('experiences')->where('user_id',$id)->orderBy('start_date','desc')->get();
         $awards = DB::table('awards')->where('user_id', $id)->get();
         $skills = DB::table('skills')->where('user_id', $id)->get();
+        $types = LeaveType::get();
 
         return view('profile::show.master', [
             'personalDetail' => $personalDetail,
@@ -82,7 +84,8 @@ class PersonalDetailsController extends Controller
             'academics' => $academics,
             'experience' => $experience,
             'awards' => $awards,
-            'skills' => $skills
+            'skills' => $skills,
+            'types' => $types
         ]);
     }
 
