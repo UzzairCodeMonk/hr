@@ -45,6 +45,8 @@ Route::group(['prefix' => 'leaves', 'middleware' => 'auth'], function () {
     Route::delete('{id}/retract',             'LeavesController@retract')->name('leave.user.retract');
 
     Route::get('test-date', 'LeavesController@testDate');
+
+    Route::get('balance','LeaveBalanceCalculatorController@index')->name('leave.user.balance-reset');
 });
 
 // Administration routes
