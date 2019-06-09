@@ -77,7 +77,34 @@ class ConfigsController extends Controller
      * Remove the specified resource from storage.
      * @return Response
      */
-    public function destroy()
+    public function destroy($id)
     {
+        $center= Center::find($id);
+        $center->holidays()->wherePivot('center_id',$id)->detach();
+        $center->delete();
+        toast('Center deleted successfully', 'success', 'top-right');
+        return redirect()->back();
+    }
+    //add center
+    public function addCenter(Request $request){
+        $center = Center::create(
+            [
+                'name' => $request->name,
+                'address_one' => $request->address_one,
+                'address_two' => $request->address_two,
+                'postcode' => $request->postcode,
+                'city' => $request->city,
+                'state' => $request->state,
+                'country' => $request->country,
+                'mobile_number' => $request->mobile_number,
+                'phone_number' =>$request->phone_number,
+                'fax_number' => $request->fax_number,
+                'email' =>$request->email,
+                'status' =>1
+            ]
+        );
+        toast('Center added successfully', 'success', 'top-right');
+        return redirect()->back();
+
     }
 }

@@ -44,6 +44,8 @@ Route::group(['prefix' => config('app.administration_prefix').'/wages', 'middlew
         Route::post('payslip-summary','PayslipsController@generatePayslipSummary')->name('generate.payslip.summary');
         Route::get('show/payslip-summary/{month}/{year}','PayslipsController@showPayslipSummary')->name('show.payslip.summary');
         Route::get('print-payslip-summary/{month}/{year}','PayslipsController@printPayslipSummary')->name('print.payslip.summary');
+        Route::get('pdf/{month}/{year}','PayslipsController@exportPDF')->name('pdf'); //convert pdf
+        Route::delete('{id}/payslip-summary/delete',['uses' => 'PayslipsController@destroySummary','as'=>'payslip-summary.delete']);//delete summary
     });
 
     Route::group(['prefix' => 'claim'],function(){

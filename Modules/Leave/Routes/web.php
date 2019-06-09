@@ -133,6 +133,8 @@ Route::group(['prefix' => config('app.administration_prefix'), 'middleware' => [
 
 
             Route::post('store',                         ['uses' => 'ConfigsController@store', 'as' => 'leave.config.store']);
+            Route::post('add',['uses' => 'ConfigsController@addCenter', 'as' => 'leave.config.add']);//add center
+            Route::delete('{id}/delete',['uses' => 'ConfigsController@destroy', 'as' => 'leave.config.destroy']); //delete center
         });
     });
 });
