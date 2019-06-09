@@ -13,21 +13,72 @@ periodBoxSelector.hide();
 hoursBoxSelector.hide();
 
 // get the non working days
+var center=$(".center_id").val();
+console.log(center);
+if(center==3){
+    $('.start-date').datepicker({
+    
+        format: dateFormat,    
+        daysOfWeekDisabled: [5, 6],
+            
+    }).on('changeDate', function () {
+        showDays();
+    });
+    $('.end-date').datepicker({
+        format: dateFormat,    
+        daysOfWeekDisabled: [5, 6]
+    
+    }).on('changeDate', function () {
+        showDays();
+    })
 
-$('.start-date').datepicker({
-    format: dateFormat,    
-    daysOfWeekDisabled: [0, 6]
-}).on('changeDate', function () {
-    showDays();
-});
+}else{
+    $('.start-date').datepicker({
+    
+        format: dateFormat,    
+        daysOfWeekDisabled: [0, 6],
+    }).on('changeDate', function () {
+        showDays();
+    });
+    $('.end-date').datepicker({
+        format: dateFormat,    
+        daysOfWeekDisabled: [0, 6]
+    
+    }).on('changeDate', function () {
+        showDays();
+    })
+}
+// get the non working days
+// $('.start-date').datepicker({
+    
+//     format: dateFormat,    
+//     daysOfWeekDisabled: [0, 6],
+//     beforeShowDay: function(currentDate){
+//         var day=currentDate.getDay();
+//         var center=$(".center_id").val();
+//         console.log(center);
+//         // var days=$(".days").val();
+//         // console.log(days);
+//         // var day_id=$(".day_id").val();
+//         // console.log(day_id);
+//         if(center == 3 ){
+//             return [daysOfWeekDisabled: [5, 6]];
+//         }else {
+//             return true;
+//         }
+        
+//     }
+// }).on('changeDate', function () {
+//     showDays();
+// });
 
-$('.end-date').datepicker({
-    format: dateFormat,    
-    daysOfWeekDisabled: [0, 6]
+// $('.end-date').datepicker({
+//     format: dateFormat,    
+//     daysOfWeekDisabled: [0, 6]
 
-}).on('changeDate', function () {
-    showDays();
-})
+// }).on('changeDate', function () {
+//     showDays();
+// })
 
 // $('#hourStart').timepicker();
 // $('#hourEnd').bootstrapMaterialDatePicker({ date: false });
