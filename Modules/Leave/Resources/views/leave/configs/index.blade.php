@@ -50,10 +50,10 @@ Leave Config
                             <button type="submit" class="btn btn-primary btn-sm">Update</button>
                         
                     </form>
-                    <form action="{{route('leave.config.destroy',['id'=>$center->id])}}" method="POST" class="d-inline">
+                    <form action="{{route('leave.config.destroy',['id'=>$center->id])}}" method="POST" class="deleteconfirm{{$center->id}} d-inline">
                         @csrf
                         @method('DELETE')
-                        <button type="submit" class="btn btn-sm btn-danger">Delete</button>
+                        <button type="submit" class="btn btn-sm btn-danger" onclick="deletecenter({{$center->id}})" >Delete</button>
                         </div>
                     </form>  
                     @endforeach
@@ -172,4 +172,30 @@ Leave Config
 </div>
 <!-- end add center -->
 
+@endsection
+
+@section('page-js')
+<script type="text/javascript">
+   function deletecenter(id){
+         event.preventDefault();
+        return swal({
+            title: "Are you sure?",
+            text: "You won't be able to revert this!",
+            type: 'warning',
+            showCancelButton: true,
+            confirmButtonClass: 'btn btn-primary',
+            cancelButtonClass: 'btn btn-danger',
+            buttonsStyling: false,
+            confirmButtonText: '<i class="ti ti-check"></i> Yes, I\'m sure',
+            confirmButtonAriaLabel: 'Thumbs up, great!',
+            cancelButtonText: '<i class="ti ti-close"></i> Nope, abort mission',
+            cancelButtonAriaLabel: 'Thumbs down',
+            reverseButtons:true
+        }).then((result) => {
+            if (result.value) {
+                $(".deleteconfirm"+id).trigger('submit');
+            }
+        });
+    }
+</script>
 @endsection
