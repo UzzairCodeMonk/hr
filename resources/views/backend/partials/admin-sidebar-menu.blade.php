@@ -59,6 +59,9 @@ is_active(config('app.administration_prefix')."/employees*")
         <i class="ti ti-agenda"></i>
         <a class="nav-link" href="{{route('leave.config.index')}}">Leave Configurations</a>
     </li>
+    <li class="nav-item">        
+        <a class="btn btn-sm btn-danger reset-leave-balance" href="{{route('leave.user.balance-reset')}}"><i class="ti ti-reload"></i> Reset Users Leave Balance</a>
+    </li>
 </ul>
 <hr>
 @endif

@@ -17,7 +17,7 @@ Payslip Summary
         </div>
     </div>
     <div class="card-body">
-        <table class="table table-bordered table-condensed">
+        <table class="table table-bordered table-condensed table-responsive">
             <thead>
                 <tr>
                     <th>#</th>

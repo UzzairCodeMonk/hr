@@ -34,6 +34,9 @@
                 <li class="nav-item">
                     <a class="nav-link" data-toggle="tab" href="#award-records">Award Records</a>
                 </li>
+                <li class="nav-item">
+                    <a class="nav-link" data-toggle="tab" href="#leave-balance">Leave Balance</a>
+                </li>
             </ul>
 
             <!-- Tab panes -->
@@ -55,6 +58,9 @@
                 </div>
                 <div class="tab-pane fade" id="award-records">
                     @include('profile::show.partials.award')
+                </div>
+                <div class="tab-pane fade" id="leave-balance">
+                    @include('profile::show.partials.leave-balance')
                 </div>
             </div>
 

@@ -5,7 +5,9 @@ namespace Modules\Wage\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Modules\Wage\Entities\Claim;
-
+use Modules\Wage\Notifications\RemarkOnlyClaim;
+use Modules\Wage\Notifications\ApproveClaim;
+use Modules\Wage\Notifications\RejectClaim;
 
 class ClaimApprovalsController extends Controller
 {
@@ -32,16 +34,19 @@ class ClaimApprovalsController extends Controller
 
             case $request->has('approve'):
                 $this->setClaimStatus($claim, $this->approvedStatus, 'Claim application approved by ' . auth()->user()->personalDetail->name . '<br>' . $this->remarksExist($request));
+                $claim->user->notify(new ApproveClaim($claim, $claim->user, auth()->user()));
                 toast('Claim application approved successfully', 'success', 'top-right');
                 break;
         
             case $request->has('reject'):
                 $this->setClaimStatus($claim, $this->rejectedStatus, 'Claim application rejected by' . auth()->user()->personalDetail->name . '<br>' . $this->remarksExist($request));
+                $claim->user->notify(new RejectClaim($claim, $claim->user, auth()->user()));
                 toast('Claim application rejected', 'success', 'top-right');
                 break;
         
             case $request->has('remarks'):
                 $this->setClaimStatus($claim, $this->submittedStatus, auth()->user()->personalDetail->name . '<br>' . $this->remarksExist($request));
+                $claim->user->notify(new RemarkOnlyClaim($claim, $claim->user, auth()->user()));
                 toast('Remarks added to this claim application', 'success', 'top-right');
                 break;
         

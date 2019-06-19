@@ -10,6 +10,7 @@ Claim Form
 </style>
 @endsection
 @section('content')
+<a href="{{URL::previous()}}" class="btn btn-primary">Back</a>
 <div class="card">
     <div class="card-header">
         <h3>Claim Subject: {!! $claim->subject ?? 'N/A' !!}</h3>

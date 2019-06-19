@@ -126,7 +126,7 @@
 
 </script>
 <script>
-    $('#leaves, #claims').select2({
+    $('.leaves, .claims').select2({
         placeholder: 'Please type the approver\'s name. You may tag multiple approvers',
         multiple: true,
         ajax: {
@@ -146,8 +146,8 @@
         }
     });
 
-    var leaveApproversSelect = $('#leaves');
-    var claimApproversSelect = $('#claims');
+    var leaveApproversSelect = $('.leaves');
+    var claimApproversSelect = $('.claims');
     @isset($user)
     $.ajax({
         type: 'GET',
@@ -189,6 +189,35 @@
         });
     });
     @endisset
+
+    //leave approver
+    $(document).ready(function(){
+        var i= 1;
+        $('#add').click(function(){
+            i++;
+            $('#dynamic_field').append('<div id="row'+i+'" class="dynamic-added"><label for="">Group'+' '+i+'</label><select id="leaves" multiple class="form-control leaves" name="leaves[]"></select><div class="input-group-btn form-group"><button class="btn btn-sm btn-danger btn2" id="'+i+'" type="button">Delete</button></div></div>');
+        });
+    
+        $(document).on('click', '.btn2', function(){
+            var button_id = $(this).attr("id");
+            $('#row'+button_id+'').remove();
+        });
+    });
+
+    //claim approver
+    $(document).ready(function(){
+        var i= 1;
+    
+        $('#addclaim').click(function(){
+            i++;
+            $('#dynamic_field1').append('<div id="rowc'+i+'" class="dynamic-added1"><label for="">Group'+' '+i+'</label><select id="claims" multiple class="form-control claims" name="claims[]"></select><div class="input-group-btn form-group"><button class="btn btn-sm btn-danger btn3" id="'+i+'" type="button">Delete</button></div></div>');
+        });
+    
+        $(document).on('click', '.btn3', function(){
+            var button_id = $(this).attr("id");
+            $('#rowc'+button_id+'').remove();
+        });
+    });
 
 </script>
 @endsection
