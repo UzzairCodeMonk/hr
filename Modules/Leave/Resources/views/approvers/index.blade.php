@@ -2,6 +2,16 @@
 @section('page-title')
 Set Employees Leave Approvals
 @endsection
+@section('page-css')
+<style>
+    .preloader {
+        display: none !important;
+    }
+
+</style>
+<link rel="stylesheet" href="{{asset('css/select2-bootstrap.min.css')}}">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.5/css/select2.min.css" />
+@endsection
 @section('content')
 <div class="card">
     <div class="card-header">
@@ -41,8 +51,10 @@ Set Employees Leave Approvals
                                 {{$result->email ?? 'N/A'}}
                             </td>
                             <td class="text-center">
+                                <!-- <button type="button" class="btn btn-primary" data-toggle="modal"
+                                    data-target="#approver_modal" data-id="{{$result->id}}">Set Approver</button> -->
                                 <button type="button" class="btn btn-primary" data-toggle="modal"
-                                    data-target="#approver_modal" data-id="{{$result->id}}">Set Approver</button>
+                                    data-target="#approvers" data-id="{{$result->id}}">Set Approver</button>  
                             </td>
                         </tr>
                         @endforeach
@@ -57,6 +69,38 @@ Set Employees Leave Approvals
             </div>
         </div>
 
+    </div>
+</div>
+
+<div class="modal fade" id="approvers" role="dialog" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Leave Approvers</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+              <!-- <form> -->
+                <button class="btn btn-primary btn-sm pull-right" id="add" type="button">Add Group</button>
+                <div id="dynamic_field">
+                    <div id="row1" class="dynamic-added">
+                        <label class="col-form-label">Group 1</label><br>
+                        <select id="leaves" multiple class="form-control leaves" name="leaves[]" style="width:400px;"></select>
+                        <div class="input-group-btn form-group">
+                            <button class="btn btn-sm btn-danger btn2" id="1" type="button">Delete</button>
+                        </div>
+                    </div>
+                </div>
+               <!-- </form> -->
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary">Submit</button>
+            </div>
+        </div>
     </div>
 </div>
 
@@ -98,11 +142,18 @@ Set Employees Leave Approvals
 
 @section('page-js')
 @include('asset-partials.datatable')
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pluralize/7.0.0/pluralize.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/js/select2.min.js"></script>
 <script type="text/javascript">
     $(document).ready(function () {
         $('.datatable').DataTable();
     });
 
+</script>
+<script type="text/javascript">
+    $('.select').select2({
+        theme:'classic'
+    });
 </script>
 
 <script type="text/javascript">
@@ -143,6 +194,89 @@ Set Employees Leave Approvals
                 }
             });
     })
+    // $(document).ready(function(){
+    $('.leaves').select2({
+        dropdownParent: $('#approvers'),
+        placeholder: 'Please type the approver\'s name. You may tag multiple approvers',
+        multiple: true,
+        ajax: {
+            url: "{{route('api.users.index')}}",
+            dataType: 'json',
+            data: function (params) {
+                return {
+                    q: $.trim(params.term)
+                };
+            },
+            processResults: function (data) {
+                return {
+                    results: data
+                };
+            },
+            cache: true
+        }
+    });
+    // });
+
+    var leaveApproversSelect = $('.leaves');
+    @isset($user)
+    $.ajax({
+        type: 'GET',
+        url: "{{route('user.leave-approvers',['id'=>$user->id])}}",
+    }).then(function (data) {
+        console.log(data);
+        // create the option and append to Select2
+        data.map(function (approver) {
+            var option = new Option(approver.name, approver.id, true, true);
+
+            leaveApproversSelect.append(option).trigger('change');
+
+            leaveApproversSelect.trigger({
+                type: 'select2:select',
+                params: {
+                    data: approver
+                }
+            });
+        });
+    });
+    @endisset
+
+    //leave approver
+    $(document).ready(function(){
+        var i= 1;
+        $('#add').click(function(){
+            // for(i;i<=6;i++){
+                i++;
+                if(i<=6){
+            $('#dynamic_field').append('<div id="row'+i+'" class="dynamic-added"><label for="">Group'+' '+i+'</label><br><select id="leaves" multiple class="form-control leaves" name="leaves[]" style="width:400px;"></select><div class="input-group-btn form-group"><button class="btn btn-sm btn-danger btn2" id="'+i+'" type="button">Delete</button></div></div>');
+            }
+            $('.leaves').select2({
+                dropdownParent: $('#approvers'),
+                placeholder: 'Please type the approver\'s name. You may tag multiple approvers',
+                multiple: true,
+                ajax: {
+                    url: "{{route('api.users.index')}}",
+                    dataType: 'json',
+                    data: function (params) {
+                        return {
+                            q: $.trim(params.term)
+                        };
+                    },
+                    processResults: function (data) {
+                        return {
+                            results: data
+                        };
+                    },
+                    cache: true
+                }
+            });
+            
+        });
+    
+        $(document).on('click', '.btn2', function(){
+            var button_id = $(this).attr("id");
+            $('#row'+button_id+'').remove();
+        });
+    });
 
 </script>
 @include('components.form.confirmDeleteOnSubmission',['entity'=>'employee','action'=>'delete'])

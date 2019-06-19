@@ -44,9 +44,13 @@ Leave Application Form
                             <div class="form-group">
                                 <label for="" class="require">{{ucwords(__('leave::leave.leave-type'))}}</label>
                                 <select name="leavetype_id" id="leave-type" class="form-control">
-                                    @foreach($types as $type)
-                                    <option value="{{$type->id}}">{{$type->name}}</option>
-                                    @endforeach
+                                    @if(Auth::user()->personalDetail->status=="probation")
+                                        <option value="6">Unpaid Leave</option>
+                                    @else
+                                        @foreach($types as $type)
+                                            <option value="{{$type->id}}">{{$type->name}}</option>
+                                        @endforeach
+                                    @endif
                                 </select>
                                 @include('backend.shared._errors',['entity'=>'leavetype_id'])
                             </div>
@@ -172,6 +176,20 @@ Leave Application Form
 
     <div class="quickview-body">
         <div class="quickview-block">
+        @if(Auth::user()->personalDetail->status!="probation")
+            <table class="table table-bordered" style="width:50%">
+                <thead>
+                    <tr>
+                        <th>Leave Entitlement</th>
+                        <th>{{DB::table('leave_entitlements')->where('user_id',auth()->id())->first()->days}} days</th>
+                    </tr>
+                    <tr>
+                        <th>Available Annual Leave</th>
+                        <th>{{DB::table('leave_entitlements')->where('user_id',auth()->id())->first()->available_annualleave}} days</th>
+                    </tr>
+                </thead>
+            </table>
+            @endif
             <table class="table table-bordered datatable">
                 <thead>
                     <tr>
@@ -181,6 +199,16 @@ Leave Application Form
                     </tr>
                 </thead>
                 <tbody>
+                @if(Auth::user()->personalDetail->status=="probation")
+                <tr>
+                        <td>1</td>
+                        <td>Unpaid Leave</td>
+                        <td>
+                        @if(DB::table('leavebalances')->where('user_id',auth()->id())->where('leavetype_id',6)->exists())
+                            {{DB::table('leavebalances')->where('user_id',auth()->id())->where('leavetype_id',6)->first()->balance}}/@endif{{30}}
+                            {{str_plural('day',30)}}</td>
+                    </tr>
+                @else
                     @foreach($types as $key=>$type)
                     <tr>
                         <td>{{++$key}}</td>
@@ -190,6 +218,8 @@ Leave Application Form
                             {{str_plural('day',$type->days)}}</td>
                     </tr>
                     @endforeach
+                @endif
+               
                 </tbody>
             </table>
         </div>
