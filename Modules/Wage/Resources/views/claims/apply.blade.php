@@ -202,8 +202,9 @@ Claim Form
             method: "POST",
             dataType: "json",
             success: function (data) {
-                $total = data.total,
-                    $('#claim_total').empty().append($total)
+                // $total = data.total,
+                // $('#claim_total').empty().append($total)
+                $("#claim_total").empty().append(data.total);
             }
         });
     }
@@ -232,8 +233,7 @@ Claim Form
                                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr(
                                     'content')
                             },
-                            url: "http://datakraf-hr.web/api/claims/details/" + id +
-                                "/delete",
+                            url: '/api/claims/details/' + id + '/delete',
                             method: "DELETE",
                             dataType: "json",
                             success: function (data) {
@@ -338,7 +338,6 @@ Claim Form
             }
         })
     }
-
 </script>
 
 @endsection

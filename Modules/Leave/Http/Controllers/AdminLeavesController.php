@@ -160,8 +160,19 @@ class AdminLeavesController extends Controller
         $balance = $totalAllowedDaysOfLeave - $totalDaysTaken;
 
         if ($request->has('approve')) {
-            // update or create leave balance record in leavebalances table
-            $this->balance->updateOrCreate(['user_id' => $leave->user_id, 'leavetype_id' => $leave->leavetype_id], ['balance' => $balance]);
+
+            // check the user's leave type available balance
+            $balanceexist = $this->balance->where('leavetype_id', $leave->leavetype_id)->where('user_id', $leave->user_id)->exists();
+            if($balanceexist == true){
+                $that_leave = $this->balance->where('leavetype_id', $leave->leavetype_id)->where('user_id', $leave->user_id)->first();
+                $balance1 = $that_leave->balance - $totalDaysTaken;
+                $this->balance->updateOrCreate(['user_id' => $leave->user_id, 'leavetype_id' => $leave->leavetype_id], ['balance' => $balance1]);
+            }
+            else{
+                // update or create leave balance record in leavebalances table
+                $this->balance->updateOrCreate(['user_id' => $leave->user_id, 'leavetype_id' => $leave->leavetype_id], ['balance' => $balance]);
+            }
+            
             // set the status of the leave
             $leave->setStatus($this->approvedStatus, 'Leave approved by ' . Auth::user()->name . '<br>Remarks:<br> ' . $request->admin_remarks);
             $leave->user->notify(new ApproveLeave($leave, $leave->user, Auth::user()));
@@ -195,7 +206,7 @@ class AdminLeavesController extends Controller
 
         $leave = $this->leave->find($id);
         //check if the leave has been approved
-        $that_leave = $this->balance->where('lea vetype_id',$leave->leavetype_id)->where ('user_id',$leave->user_id)->first();
+        $that_leave = $this->balance->where('leavetype_id',$leave->leavetype_id)->where ('user_id',$leave->user_id)->first();
         $that_leave_balance = $that_leave->balance;
         $that_leave_balance += $leave->days_taken;
         $that_leave->update([
