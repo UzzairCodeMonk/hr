@@ -16,6 +16,7 @@ use Illuminate\Support\Facades\Mail;
 use Datakraf\Traits\ApiRequestable;
 use Datakraf\Http\Requests\CreateEmployeeRequest;
 use Modules\Wage\Entities\Wage;
+use Illuminate\Support\Facades\Validator;
 
 class UsersController extends Controller
 {
@@ -125,6 +126,16 @@ class UsersController extends Controller
             'email' => $request->email
         ]);
 
+        $validator = Validator::make($request->all(), [
+            'email' => 'email|required',
+        ], [
+            'email.email' => 'It should be in email format',
+        ]);
+        if ($validator->fails()) {
+            return redirect()->back()
+                ->withErrors($validator)
+                ->withInput();
+        }
         // check for password change
         if ($request->get('password')) {
             $user->password = Hash::make($request->get('password'));

@@ -12,7 +12,7 @@ Generate Payslip Summary
     </div>
     <div class="card-body">
 
-        <form action="{{route('generate.payslip.summary')}}" class="" method="POST">
+        <!-- <form action="{{route('generate.payslip.summary')}}" class="" method="POST">
             @csrf
             <div class="form-row">
                 <div class="col">
@@ -39,7 +39,7 @@ Generate Payslip Summary
                     <button type="submit" class="btn btn-primary btn-sm pull-right mt-2">Generate payslip summary</button>
                 </div>
             </div>
-        </form>
+        </form> -->
 
         <div class="mt-5"></div>
         <table class="table table-bordered">
@@ -53,17 +53,27 @@ Generate Payslip Summary
             </thead>
             <tbody>
                 @if(isset($summaries) && count($summaries) > 0)
-                @foreach($summaries as $summary)
+                @foreach($summaries as $key=>$summary)
                 <tr>
-                    <td>#</td>
+                    <!-- <td>#</td> -->
+                    <td>{{++$key}}</td>
                     <td>{{getMonthNameBasedOnInt($summary->month)}}</td>
                     <td>{{$summary->year}}</td>
                     <td class="text-center">
                         <a target="_blank" href="{{URL::signedRoute('show.payslip.summary',['month'=>$summary->month,'year'=>$summary->year])}}" class="btn btn-primary btn-sm">View</a>
-                                                
+                        <form action="{{route('payslip-summary.delete',['id'=>$summary->id])}}" method="POST" class="d-inline">
+                            @csrf
+                            @method('DELETE')
+                            <button type="submit" class="btn btn-sm btn-danger">Delete</button>
+                        </form>                  
                     </td>
                 </tr>
                 @endforeach
+                @else
+                    <tr>
+                        <td colspan="4" class="text-center">No payslip record found</td>
+                    </tr>
+                        
                 @endif
             </tbody>
         </table>

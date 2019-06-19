@@ -40,6 +40,7 @@ Leave Application Form
                     <div class="row">
                         <div class="col">
                             <input type="hidden" name="user_id" value="{{Auth::id()}}">
+                            <input type="hidden" class="center_id" name="center_id" value="{{Auth::user()->personalDetail->center_id}}">
                             <div class="form-group">
                                 <label for="" class="require">{{ucwords(__('leave::leave.leave-type'))}}</label>
                                 <select name="leavetype_id" id="leave-type" class="form-control">

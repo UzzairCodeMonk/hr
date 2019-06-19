@@ -4,6 +4,9 @@ namespace Datakraf\Console;
 
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
+use Modules\Wage\Jobs\PayslipSummaryJob;
+use Modules\Wage\Entities\Payslip;
+use Modules\Wage\Entities\PayslipSummary;
 
 class Kernel extends ConsoleKernel
 {
@@ -14,6 +17,7 @@ class Kernel extends ConsoleKernel
      */
     protected $commands = [
         //
+
     ];
 
     /**
@@ -26,6 +30,9 @@ class Kernel extends ConsoleKernel
     {
         // $schedule->command('inspire')
         //          ->hourly();
+        $payslip=Payslip::all();
+        $payslipsummary=PayslipSummary::all(); 
+        $schedule->job(new PayslipSummaryJob($payslip,$payslipsummary))->monthlyOn(3,'17:00')->yearly();
     }
 
     /**
