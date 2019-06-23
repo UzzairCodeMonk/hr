@@ -173,7 +173,7 @@ class LeavesController extends Controller
     public function store(ApplyLeaveRequest $request)
     {
         //check leave lebih dari prorated
-        if($request->leavetype_id==7 && !$request->user_id){
+        if($request->leavetype_id==7 && $request->user_id == auth()->user()->id){
             $start_date = $this->setDateObject('d/m/Y', $request->start_date);
             $end_date = $this->setDateObject('d/m/Y', $request->end_date);
             $nonWorkingDays = auth()->user()->personalDetail->center->holidays->pluck('name')->toArray();
@@ -241,7 +241,7 @@ class LeavesController extends Controller
             $this->saveAttachments($request, $leave);
 
             toast('Leave record submitted', 'success', 'top-right');
-            if($request->user_id){
+            if($request->user_id != auth()->user()->id){
                 return redirect()->route('leave.admin.index', ['status' => 'submitted']);
             }
             else{

@@ -125,7 +125,15 @@ class ConfigsController extends Controller
         $codecenter = Center::orderBy('id', 'desc')->first();
         $sub = substr($codecenter->code,1,6);
         $codecenter = 'C' . sprintf("%06d", $sub + 1);
-
-        return response()->json($codecenter, 200);
+        //check exists ka dak
+        $code=Center::where('code',$codecenter)->exists();
+        if($code==true){
+            $codecenter = 'C' . sprintf("%06d", $sub + 1);
+            return response()->json($codecenter, 200);
+        }
+        else{
+            return response()->json($codecenter, 200);
+        }
+        
     }
 }
