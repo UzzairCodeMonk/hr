@@ -184,6 +184,80 @@ Leave Config
 
 @section('page-js')
 <script type="text/javascript">
+    $.ajaxSetup({
+        headers: {
+        'X-CSRF-Token': $('meta[name="csrf-token"]').attr('content'),
+        'Authorization': 'Bearer ' + $('meta[name="api-token"]').attr('content'),
+        'Accept': 'application/json'
+    }
+    });
+    $(document).ready(function(){
+        $("#centeradd").on("click", function(){
+        var emailReg = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
+        var email = $("#email").val();
+        console.log(emailReg);
+        if(!emailReg.test(email)){
+            $("#alert-message-email").html("<span style='color: red'>It should be in email format</span>");
+            $("#alertemail").show();
+        }
+        else if(emailReg.test(email)){
+            var formData = new FormData();
+            formData.append('name', $(".name").val());
+            formData.append('code', $("#code").val());
+            formData.append('address_one', $("#address_one").val());
+            formData.append('address_two', $("#address_two").val());
+            formData.append('postcode', $("#postcode").val());
+            formData.append('city', $("#city").val());
+            formData.append('state', $("#state").val());
+            formData.append('country', $("#country").val());
+            formData.append('mobile_number', $("#mobile_number").val());
+            formData.append('phone_number', $("#phone_number").val());
+            formData.append('fax_number', $("#fax_number").val());
+            formData.append('email', $("#email").val());
+            console.log(formData);
+        
+        
+            $.ajax({
+            url: '{{route('leave.config.add')}}',
+            type: "POST",
+            data: formData,
+            processData: false,
+            contentType: false,
+            success: function(response){
+                const toast = swal.mixin({
+                    toast: true,
+                    position: 'top-right',
+                    showConfirmButton: false,
+                    timer: 6000
+                });
+                toast({
+                    type: 'success',
+                    title: 'Center added successfully'
+                })
+                window.location.href = '{{route('leave.config.index')}}';
+            },
+            error: function(){
+                }
+
+            });
+            }
+            
+        });
+        $.ajax({
+                url: '{{route('leave.config.getcode')}}',
+                type: "GET",
+                dataType: 'text json',
+                success: function(result){
+                    console.log(result);
+                    $('#code').val(result);
+                },
+                error: function(result){
+                }
+            });
+    
+
+    });
+
    function deletecenter(id){
          event.preventDefault();
         return swal({

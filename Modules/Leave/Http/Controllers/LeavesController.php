@@ -178,8 +178,12 @@ class LeavesController extends Controller
             $end_date = $this->setDateObject('d/m/Y', $request->end_date);
             $nonWorkingDays = auth()->user()->personalDetail->center->holidays->pluck('name')->toArray();
             $holidays = Holiday::pluck('date')->toArray();
-    
-            $days = $this->getDateRangeExcludingHolidaysOrNonWorkingDays($start_date, $end_date, $holidays, $nonWorkingDays);
+            
+            $h = collect($holidays)->map(function ($item, $key) {
+                return Carbon::createFromFormat(config('app.date_format'), $item)->format('Y-m-d');
+            });
+            $holidays1 = $h->toArray();
+            $days = $this->getDateRangeExcludingHolidaysOrNonWorkingDays($start_date, $end_date, $holidays1, $nonWorkingDays);
             $d = collect($days)->map(function ($item, $key) {
                 return $item->format('l d F Y');
             });
@@ -289,8 +293,11 @@ class LeavesController extends Controller
         $end_date = $this->setDateObject('d/m/Y', $leave->end_date);
         $nonWorkingDays = auth()->user()->personalDetail->center->holidays->pluck('name')->toArray();
         $holidays = Holiday::pluck('date')->toArray();
-
-        $days = $this->getDateRangeExcludingHolidaysOrNonWorkingDays($start_date, $end_date, $holidays, $nonWorkingDays);
+        $h = collect($holidays)->map(function ($item, $key) {
+            return Carbon::createFromFormat(config('app.date_format'), $item)->format('Y-m-d');
+        });
+        $holidays1 = $h->toArray();
+        $days = $this->getDateRangeExcludingHolidaysOrNonWorkingDays($start_date, $end_date, $holidays1, $nonWorkingDays);
         $d = collect($days)->map(function ($item, $key) {
             return $item->format('l d F Y');
         });
