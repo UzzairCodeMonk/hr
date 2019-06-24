@@ -61,10 +61,10 @@ Generate Payslip Summary
                     <td>{{$summary->year}}</td>
                     <td class="text-center">
                         <a target="_blank" href="{{URL::signedRoute('show.payslip.summary',['month'=>$summary->month,'year'=>$summary->year])}}" class="btn btn-primary btn-sm">View</a>
-                        <form action="{{route('payslip-summary.delete',['id'=>$summary->id])}}" method="POST" class="d-inline">
+                        <form action="{{route('payslip-summary.delete',['id'=>$summary->id])}}" method="POST" class="deleteconfirm{{$summary->id}} d-inline">
                             @csrf
                             @method('DELETE')
-                            <button type="submit" class="btn btn-sm btn-danger">Delete</button>
+                            <button type="submit" class="btn btn-sm btn-danger" onclick="deletesummary({{$summary->id}})" >Delete</button>
                         </form>                  
                     </td>
                 </tr>
@@ -87,6 +87,28 @@ Generate Payslip Summary
     $(document).ready(function () {
         $('.table').DataTable();
     });
+
+    function deletesummary(id){
+         event.preventDefault();
+        return swal({
+            title: "Are you sure?",
+            text: "You won't be able to revert this!",
+            type: 'warning',
+            showCancelButton: true,
+            confirmButtonClass: 'btn btn-primary',
+            cancelButtonClass: 'btn btn-danger',
+            buttonsStyling: false,
+            confirmButtonText: '<i class="ti ti-check"></i> Yes, I\'m sure',
+            confirmButtonAriaLabel: 'Thumbs up, great!',
+            cancelButtonText: '<i class="ti ti-close"></i> Nope, abort mission',
+            cancelButtonAriaLabel: 'Thumbs down',
+            reverseButtons:true
+        }).then((result) => {
+            if (result.value) {
+                $(".deleteconfirm"+id).trigger('submit');
+            }
+        });
+    }
 
 </script>
 @endsection

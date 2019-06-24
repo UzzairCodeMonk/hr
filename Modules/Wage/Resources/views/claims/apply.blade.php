@@ -234,7 +234,8 @@ Claim Form
                                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr(
                                     'content')
                             },
-                            url: '/api/claims/details/' + id + '/delete',
+                            // url: '/api/claims/details/' + id + '/delete',
+                            url: '{{url('/api/claims/details/')}}' + '/' + id +'/delete',
                             method: "DELETE",
                             dataType: "json",
                             success: function (data) {
