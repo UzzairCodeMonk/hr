@@ -142,8 +142,20 @@ function showDays() {
     if (start.isValid() && end.isValid()) {
         var duration = moment.duration(end.diff(start));
     }
-    let total = duration.days() + 1;
-
+    let total1 = duration.days() + 1;
+     // Subtract two weekend days for every week in between
+     var weeks = Math.floor(total1 / 7);
+     let total = total1 - (weeks * 2);
+ 
+     // Handle special cases
+     var startDay = start.days();
+     var endDay = end.days();
+          
+     // Remove weekend not previously removed.   
+     if (startDay - endDay > 1){     
+         total  = total - 2;   
+     }   
+    
     let normalMessage = `You're taking ${total} ${pluralize('day',total)} leave`;
     let moreThan10DaysMessage = `Holy smoke! You're taking ${total} ${pluralize('day',total)} leave`;
 

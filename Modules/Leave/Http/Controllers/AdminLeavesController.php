@@ -25,6 +25,8 @@ use Calendar;
 use Modules\Leave\Traits\LeavesCalendar;
 use Uzzaircode\DateHelper\Traits\DateHelper;
 use Modules\Leave\Traits\LeaveOperations;
+use Carbon\Carbon;
+use Modules\Leave\Entities\LeaveEntitlement;
 
 class AdminLeavesController extends Controller
 {
@@ -117,8 +119,28 @@ class AdminLeavesController extends Controller
         $actionVisibility = !in_array($this->leave->find($id)->status, [$this->approvedStatus, $this->rejectedStatus]);
 
         $leave = $this->leave->find($id);
-        $calendar = $this->makeCalendar($leave->start_date, $leave->end_date);
-
+        //check kalau ad yg sama leave apply oleh user masukkan kt kalendar lama dan baru
+        $leavecheck = $this->leave->where('user_id',$leave->user_id)->where('leavetype_id',$leave->leavetype_id)->exists();
+        if($leavecheck == true){
+            $l = $this->leave->where('user_id',$leave->user_id)->where('leavetype_id',$leave->leavetype_id)->get();
+           
+            foreach($l as $le){
+                $calendar = $this->makeCalendar($le->start_date,$le->end_date);
+            }
+        }
+        else{
+            $calendar = $this->makeCalendar($leave->start_date, $leave->end_date);
+        }
+         //calculate prorated leave yg layak ambil ikut bulan
+         $today = Carbon::now();
+         $month = $today->month;
+         $leaveentitle=LeaveEntitlement::where('user_id',$leave->user_id)->first();
+         $day=$leave->user->leaveEntitlement->days;
+        
+         $prorated_leave=$day / 12 * $month;
+         $available = number_format($prorated_leave);
+         $leaveentitle->available_annualleave = $available;
+         $leaveentitle->save();
         return view('leave::leave.admin.show', [
 
             'leave' => $leave,

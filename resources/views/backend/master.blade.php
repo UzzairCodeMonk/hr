@@ -20,7 +20,10 @@
     <div class="preloader">
         <div class="spinner-circle-shadow spinner-primary"></div>
     </div>
+    @if(Request::is('admin*'))
+    @else
     @include('backend.partials.sidebar')
+    @endif
     @include('backend.partials.top-bar')
     <main class="main-container">
 
