@@ -1,8 +1,28 @@
-<div class="form-group">
-    <label for="">Leave</label>
-    <select id="leaves" multiple class="form-control" name="leaves[]"></select>
+<div class="form-group" >
+<label for="">Leave</label>
+<button class="btn btn-primary btn-sm pull-right" id="add" type="button">Add Group</button>
+<div id="dynamic_field">
+    <div id="row1" class="dynamic-added">
+        <label for="">Group 1</label>
+        <select id="leaves" multiple class="form-control leaves" name="leaves[]"></select>
+        <div class="input-group-btn form-group">
+            <button class="btn btn-sm btn-danger btn2" id="1" type="button">Delete</button>
+        </div>
+    </div>
 </div>
-<div class="form-group">
+</div>
+
+<div class="form-group" >
     <label for="">Claims</label>
-    <select id="claims" multiple class="form-control" name="claims[]"></select>
+    <button class="btn btn-primary btn-sm pull-right" id="addclaim" type="button">Add Group</button>
+    <div id="dynamic_field1">
+        <div id="rowc1" class="dynamic-added1">
+            <label for="">Group 1</label>
+            <select id="claims" multiple class="form-control claims" name="claims[]"></select>
+            <div class="input-group-btn form-group">
+                <button class="btn btn-sm btn-danger btn3" id="1" type="button">Delete</button>
+            </div>
+        </div>
+    </div>
 </div>
+

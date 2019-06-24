@@ -28,7 +28,8 @@ Claim Submission Records
                     @foreach($claims as $key=>$claim)
                     <tr>
                         <td>{{++$key}}</td>
-                        <td>{{$claim->subject ?? 'N/A'}}</td>
+                        <!-- <td>{{$claim->subject ?? 'N/A'}}</td> -->
+                        <td>{{$claim->user->name ?? 'N/A'}}</td>
                         <td>{{$claim->amount ?? 0.00}}</td>
                         <td class="text-center">{{ $claim->created_at->toDayDateTimeString() ?? 'N/A' }}</td>
                         <td class="text-center">

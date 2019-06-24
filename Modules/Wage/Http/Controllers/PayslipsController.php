@@ -122,7 +122,7 @@ class PayslipsController extends Controller
         //auto generate payslip summary
         $summaries2=PayslipSummaryJob::dispatch($payslip,$summaries1)->onConnection('database');;
         if($summaries2){
-            $summaries = PayslipSummary::all();
+            $summaries = PayslipSummary::orderBy('month','desc')->get();
         }
         return view('wage::payslips.summary-form',compact('summaries'));
     }
