@@ -197,7 +197,7 @@ class AdminLeavesController extends Controller
             
             // set the status of the leave
             $leave->setStatus($this->approvedStatus, 'Leave approved by ' . Auth::user()->name . '<br>Remarks:<br> ' . $request->admin_remarks);
-            $leave->user->notify(new ApproveLeave($leave, $leave->user, Auth::user()));
+            // $leave->user->notify(new ApproveLeave($leave, $leave->user, Auth::user()));
             toast('Leave application approved successfully', 'success', 'top-right');
         }
 
@@ -215,7 +215,8 @@ class AdminLeavesController extends Controller
             toast('Remarks added to this leave application', 'success', 'top-right');
         }
 
-        return redirect()->back();
+        // return redirect()->back();
+        return redirect()->route('leave.admin.index', ['status' => 'submitted']);
     }
     /**
      * Remove the specified resource from storage.
