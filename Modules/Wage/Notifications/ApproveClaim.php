@@ -10,7 +10,7 @@ use Modules\Wage\Entities\Claim;
 use Datakraf\User;
 use Illuminate\Support\Facades\URL;
 
-class ApproveClaim extends Notification
+class ApproveClaim extends Notification implements ShouldQueue
 {
     use Queueable;
     public $claim;
@@ -80,7 +80,9 @@ class ApproveClaim extends Notification
             'user_id' => $this->user->id,
             'message' => $this->approver->name . ' has approved your claim application',
             'claim_id' => $this->claim->id,
-            'type' => 'claim'
+            'type' => 'claim',
+            'url' => URL::signedRoute('claimdetail.show', ['id' => $this->claim->id]),
+            'icon' => 'ti-file'
         ];
     }
 
