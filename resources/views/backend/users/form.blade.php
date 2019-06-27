@@ -67,6 +67,8 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/js/select2.min.js"></script>
 <script type="text/javascript">
     $(document).ready(function () {
+        initializeApprover();
+        
         $('.join-date, .datepicker').datepicker({
             format: "{{config('app.date_format_js')}}",
         });
@@ -126,7 +128,8 @@
 
 </script>
 <script>
-    $('.leaves, .claims').select2({
+    function initializeApprover(){
+        $('.leaves, .claims').select2({
         placeholder: 'Please type the approver\'s name. You may tag multiple approvers',
         multiple: true,
         ajax: {
@@ -145,6 +148,8 @@
             cache: true
         }
     });
+    }
+    
 
     var leaveApproversSelect = $('.leaves');
     var claimApproversSelect = $('.claims');
@@ -196,6 +201,7 @@
         $('#add').click(function(){
             i++;
             $('#dynamic_field').append('<div id="row'+i+'" class="dynamic-added"><label for="">Group'+' '+i+'</label><select id="leaves" multiple class="form-control leaves" name="leaves[]"></select><div class="input-group-btn form-group"><button class="btn btn-sm btn-danger btn2" id="'+i+'" type="button">Delete</button></div></div>');
+            initializeApprover();
         });
     
         $(document).on('click', '.btn2', function(){
