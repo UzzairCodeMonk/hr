@@ -17,6 +17,7 @@ use Modules\Wage\Traits\HrdfRates;
 use Carbon\Carbon;
 use Modules\Leave\Entities\Leave;
 use Modules\Wage\Entities\PayslipSummary;
+use Modules\Wage\Jobs\PayslipSummaryJob;
 
 class PayslipsController extends Controller
 {
@@ -113,8 +114,16 @@ class PayslipsController extends Controller
         return view('wage::payslips.pdf', ['payslip' => $payslip]);        
     }
 
-    public function showPayslipSummaryForm(){
-        $summaries = PayslipSummary::all();
+    public function showPayslipSummaryForm(Request $request){
+       
+        $today=Carbon::now();
+        $summaries1 = PayslipSummary::all();
+        $payslip=Payslip::all();
+        //auto generate payslip summary
+        $summaries2=PayslipSummaryJob::dispatch($payslip,$summaries1)->onConnection('database');;
+        if($summaries2){
+            $summaries = PayslipSummary::orderBy('month','desc')->get();
+        }
         return view('wage::payslips.summary-form',compact('summaries'));
     }
     public function destroy($id)
@@ -188,6 +197,33 @@ class PayslipsController extends Controller
         $summary = PayslipSummary::where('month',$month)->where('year',$year)->first();
         $payslips = Payslip::where('month',$month)->where('year',$year)->get();
         return view('wage::payslips.summary-pdf',compact('summary','payslips'));
+    }
+
+    public function exportPDF(int $month, int $year)
+    {
+        $summary = PayslipSummary::where('month',$month)->where('year',$year)->first();
+        $payslips = Payslip::where('month',$month)->where('year',$year)->get();
+        // Fetch all customers from database
+        $data = PayslipSummary::get();
+        // Send data to the view using loadView function of PDF facade
+        $pdf = PDF::loadView('wage::payslips.summary-payslip', compact('payslips','summary'));
+        // If you want to store the generated pdf to the server then you can use the store function
+        $pdf->save(storage_path('app\public\form'.'summary-payslip.pdf'));
+        // Finally, you can download the file using download function
+        return $pdf->download('summary-payslip.pdf');
+    }
+    //delete summary payslip
+    public function destroySummary($id)
+    {
+        $payslipsummary=PayslipSummary::find($id);
+        $payslip=Payslip::where('month',$payslipsummary->month)->get();
+        foreach($payslip as $p){
+            $p->delete();
+        }
+        $payslipsummary->delete();
+
+        toast('Payslip Summary deleted successfully', 'success', 'top-right');
+        return back();
     }
 
 }

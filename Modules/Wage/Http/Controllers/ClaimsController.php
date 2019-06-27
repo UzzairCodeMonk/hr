@@ -11,6 +11,8 @@ use Auth;
 use Datakraf\User;
 use URL;
 use Modules\Wage\Entities\ClaimType;
+use Modules\Wage\Entities\ClaimAttachment;
+use Modules\Wage\Entities\ClaimDetail;
 
 class ClaimsController extends Controller
 {
@@ -155,8 +157,9 @@ class ClaimsController extends Controller
      */
     public function destroy($id)
     {
+        ClaimAttachment::where('claim_id',$id)->delete();
+        ClaimDetail::where('claim_id',$id)->delete();
         $this->claim->find($id)->delete();
-
         toast('Claim deleted successfully', 'success', 'top-right');
         return redirect()->back();
     }

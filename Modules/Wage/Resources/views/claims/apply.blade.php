@@ -15,11 +15,12 @@ Claim Form
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 @endsection
 @section('content')
+<a href="{{URL::previous()}}" class="btn btn-primary">Back</a>
 <div class="card">
     <div class="card-header">
         <h3>Claim Subject: {!! $claim->subject ?? 'N/A' !!}</h3>
         <div class="card-options">
-            <form action="{{route('claim.submit')}}" method="POST" class="submit-claim">
+            <form action="{{route('claim.submit')}}" method="POST" class="">
                 @csrf
                 <input type="hidden" name="claim_id" value="{{$claim->id}}">
                 <button type="submit" class="btn btn-primary btn-sm">Submit This Claim</button>
@@ -202,8 +203,9 @@ Claim Form
             method: "POST",
             dataType: "json",
             success: function (data) {
-                $total = data.total,
-                    $('#claim_total').empty().append($total)
+                // $total = data.total,
+                // $('#claim_total').empty().append($total)
+                $("#claim_total").empty().append(data.total);
             }
         });
     }
@@ -232,8 +234,8 @@ Claim Form
                                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr(
                                     'content')
                             },
-                            url: "http://datakraf-hr.web/api/claims/details/" + id +
-                                "/delete",
+                            // url: '/api/claims/details/' + id + '/delete',
+                            url: '{{url('/api/claims/details/')}}' + '/' + id +'/delete',
                             method: "DELETE",
                             dataType: "json",
                             success: function (data) {
@@ -338,7 +340,6 @@ Claim Form
             }
         })
     }
-
 </script>
 
 @endsection

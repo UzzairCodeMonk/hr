@@ -45,6 +45,8 @@ Route::group(['prefix' => 'leaves', 'middleware' => 'auth'], function () {
     Route::delete('{id}/retract',             'LeavesController@retract')->name('leave.user.retract');
 
     Route::get('test-date', 'LeavesController@testDate');
+
+    Route::get('balance','LeaveBalanceCalculatorController@index')->name('leave.user.balance-reset');
 });
 
 // Administration routes
@@ -131,6 +133,9 @@ Route::group(['prefix' => config('app.administration_prefix'), 'middleware' => [
 
 
             Route::post('store',                         ['uses' => 'ConfigsController@store', 'as' => 'leave.config.store']);
+            Route::post('add',['uses' => 'ConfigsController@addCenter', 'as' => 'leave.config.add']);//add center
+            Route::delete('{id}/delete',['uses' => 'ConfigsController@destroy', 'as' => 'leave.config.destroy']); //delete center
+            Route::get('/get-code',['uses' => 'ConfigsController@getcode', 'as' => 'leave.config.getcode']); //code running number
         });
     });
 });

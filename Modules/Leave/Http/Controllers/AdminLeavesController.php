@@ -25,6 +25,8 @@ use Calendar;
 use Modules\Leave\Traits\LeavesCalendar;
 use Uzzaircode\DateHelper\Traits\DateHelper;
 use Modules\Leave\Traits\LeaveOperations;
+use Carbon\Carbon;
+use Modules\Leave\Entities\LeaveEntitlement;
 
 class AdminLeavesController extends Controller
 {
@@ -117,8 +119,28 @@ class AdminLeavesController extends Controller
         $actionVisibility = !in_array($this->leave->find($id)->status, [$this->approvedStatus, $this->rejectedStatus]);
 
         $leave = $this->leave->find($id);
-        $calendar = $this->makeCalendar($leave->start_date, $leave->end_date);
-
+        //check kalau ad yg sama leave apply oleh user masukkan kt kalendar lama dan baru
+        $leavecheck = $this->leave->where('user_id',$leave->user_id)->where('leavetype_id',$leave->leavetype_id)->exists();
+        if($leavecheck == true){
+            $l = $this->leave->where('user_id',$leave->user_id)->where('leavetype_id',$leave->leavetype_id)->get();
+           
+            foreach($l as $le){
+                $calendar = $this->makeCalendar($le->start_date,$le->end_date);
+            }
+        }
+        else{
+            $calendar = $this->makeCalendar($leave->start_date, $leave->end_date);
+        }
+         //calculate prorated leave yg layak ambil ikut bulan
+         $today = Carbon::now();
+         $month = $today->month;
+         $leaveentitle=LeaveEntitlement::where('user_id',$leave->user_id)->first();
+         $day=$leave->user->leaveEntitlement->days;
+        
+         $prorated_leave=$day / 12 * $month;
+         $available = number_format($prorated_leave);
+         $leaveentitle->available_annualleave = $available;
+         $leaveentitle->save();
         return view('leave::leave.admin.show', [
 
             'leave' => $leave,
@@ -160,8 +182,19 @@ class AdminLeavesController extends Controller
         $balance = $totalAllowedDaysOfLeave - $totalDaysTaken;
 
         if ($request->has('approve')) {
-            // update or create leave balance record in leavebalances table
-            $this->balance->updateOrCreate(['user_id' => $leave->user_id, 'leavetype_id' => $leave->leavetype_id], ['balance' => $balance]);
+
+            // check the user's leave type available balance
+            $balanceexist = $this->balance->where('leavetype_id', $leave->leavetype_id)->where('user_id', $leave->user_id)->exists();
+            if($balanceexist == true){
+                $that_leave = $this->balance->where('leavetype_id', $leave->leavetype_id)->where('user_id', $leave->user_id)->first();
+                $balance1 = $that_leave->balance - $totalDaysTaken;
+                $this->balance->updateOrCreate(['user_id' => $leave->user_id, 'leavetype_id' => $leave->leavetype_id], ['balance' => $balance1]);
+            }
+            else{
+                // update or create leave balance record in leavebalances table
+                $this->balance->updateOrCreate(['user_id' => $leave->user_id, 'leavetype_id' => $leave->leavetype_id], ['balance' => $balance]);
+            }
+            
             // set the status of the leave
             $leave->setStatus($this->approvedStatus, 'Leave approved by ' . Auth::user()->name . '<br>Remarks:<br> ' . $request->admin_remarks);
             $leave->user->notify(new ApproveLeave($leave, $leave->user, Auth::user()));
@@ -182,7 +215,8 @@ class AdminLeavesController extends Controller
             toast('Remarks added to this leave application', 'success', 'top-right');
         }
 
-        return redirect()->back();
+        // return redirect()->back();
+        return redirect()->route('leave.admin.index', ['status' => 'submitted']);
     }
     /**
      * Remove the specified resource from storage.
@@ -195,7 +229,7 @@ class AdminLeavesController extends Controller
 
         $leave = $this->leave->find($id);
         //check if the leave has been approved
-        $that_leave = $this->balance->where('lea vetype_id',$leave->leavetype_id)->where ('user_id',$leave->user_id)->first();
+        $that_leave = $this->balance->where('leavetype_id',$leave->leavetype_id)->where ('user_id',$leave->user_id)->first();
         $that_leave_balance = $that_leave->balance;
         $that_leave_balance += $leave->days_taken;
         $that_leave->update([

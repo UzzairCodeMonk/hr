@@ -10,6 +10,7 @@ Claim Form
 </style>
 @endsection
 @section('content')
+<a href="{{URL::previous()}}" class="btn btn-primary">Back</a>
 <div class="card">
     <div class="card-header">
         <h3>Claim Subject: {!! $claim->subject ?? 'N/A' !!}</h3>
@@ -96,7 +97,8 @@ Claim Form
         <div class="row">
             <div class="col"></div>
             <div class="col">
-                <form action="{{route('claim.approval.store',['id'=>$claim->id])}}" method="POST" class="approve-reject">
+            @if(Auth::user()->hasRole('Admin'))
+                <form action="{{route('claim.approval.store')}}" method="POST" class="approve-reject">
                     <input type="hidden" name="claim_id" value="{{$claim->id}}">
                     @csrf
                     <div class="row">
@@ -122,6 +124,7 @@ Claim Form
                         </div>
                     </div>
                 </form>
+                @endif
             </div>
 
         </div>

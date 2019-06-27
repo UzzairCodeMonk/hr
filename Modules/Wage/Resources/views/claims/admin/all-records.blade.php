@@ -28,15 +28,16 @@ Claim Submission Records
                     @foreach($claims as $key=>$claim)
                     <tr>
                         <td>{{++$key}}</td>
-                        <td>{{$claim->subject ?? 'N/A'}}</td>
+                        <!-- <td>{{$claim->subject ?? 'N/A'}}</td> -->
+                        <td>{{$claim->user->name ?? 'N/A'}}</td>
                         <td>{{$claim->amount ?? 0.00}}</td>
                         <td class="text-center">{{ $claim->created_at->toDayDateTimeString() ?? 'N/A' }}</td>
                         <td class="text-center">
-                            <a href="{{URL::signedRoute('claim.show',['id'=>$claim->id])}}" class="btn btn-sm text-dark btn-link">View</a>
-                            <form action="{{route('claim.destroy',['id'=>$claim->id])}}" method="POST" class="claim-record d-inline">
+                            <a href="{{URL::signedRoute('claimdetail.show',['id'=>$claim->id])}}" class="btn btn-sm text-dark btn-link">View</a>
+                            <form action="{{route('claim.destroy',['id'=>$claim->id])}}" method="POST" class="deleteconfirm{{$claim->id}} d-inline">
                                 @csrf
                                 @method('DELETE')
-                                <button type="submit" class="btn btn-sm text-danger btn-link">Delete</button>
+                                <button type="submit" class="btn btn-sm text-danger btn-link" onclick="deleteclaim({{$claim->id}})">Delete</button>
                             </form>
                         </td>
                     </tr>
@@ -147,6 +148,28 @@ Claim Submission Records
         table.buttons().container().appendTo('.dataTables_wrapper .col-md-6:eq(0)');
 
     });
+
+    function deleteclaim(id){
+         event.preventDefault();
+        return swal({
+            title: "Are you sure?",
+            text: "You won't be able to revert this!",
+            type: 'warning',
+            showCancelButton: true,
+            confirmButtonClass: 'btn btn-primary',
+            cancelButtonClass: 'btn btn-danger',
+            buttonsStyling: false,
+            confirmButtonText: '<i class="ti ti-check"></i> Yes, I\'m sure',
+            confirmButtonAriaLabel: 'Thumbs up, great!',
+            cancelButtonText: '<i class="ti ti-close"></i> Nope, abort mission',
+            cancelButtonAriaLabel: 'Thumbs down',
+            reverseButtons:true
+        }).then((result) => {
+            if (result.value) {
+                $(".deleteconfirm"+id).trigger('submit');
+            }
+        });
+    }
 
 </script>
 @include('components.form.confirmDeleteOnSubmission',['entity'=>'claim-record','action'=>'delete'])

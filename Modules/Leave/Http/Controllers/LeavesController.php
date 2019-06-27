@@ -24,6 +24,7 @@ use Carbon\Carbon;
 use Uzzaircode\DateHelper\Traits\DateHelper;
 use Calendar;
 use Modules\Leave\Traits\LeavesCalendar;
+use Modules\Leave\Entities\LeaveEntitlement;
 
 
 // use Uzzaircode\DateHelper\Traits\DateHelper;
@@ -131,6 +132,17 @@ class LeavesController extends Controller
 
     public function create()
     {
+        //calculate prorated leave yg layak ambil ikut bulan
+        $today = Carbon::now();
+        $month = $today->month;
+        $leaveentitle=LeaveEntitlement::where('user_id',auth()->user()->id)->first();
+        $day=auth()->user()->leaveEntitlement->days;
+       
+        $prorated_leave=$day / 12 * $month;
+        $available = number_format($prorated_leave);
+        $leaveentitle->available_annualleave = $available;
+        $leaveentitle->save();
+        
         return view('leave::leave.user.apply', [
             'types' => $this->type->all(),
             'holidays' => $this->holiday->all()
@@ -160,20 +172,86 @@ class LeavesController extends Controller
 
     public function store(ApplyLeaveRequest $request)
     {
+        //check leave lebih dari prorated
+        if($request->leavetype_id==7 && $request->user_id == auth()->user()->id){
+            $start_date = $this->setDateObject('d/m/Y', $request->start_date);
+            $end_date = $this->setDateObject('d/m/Y', $request->end_date);
+            $nonWorkingDays = auth()->user()->personalDetail->center->holidays->pluck('name')->toArray();
+            $holidays = Holiday::pluck('date')->toArray();
+            
+            $h = collect($holidays)->map(function ($item, $key) {
+                return Carbon::createFromFormat(config('app.date_format'), $item)->format('Y-m-d');
+            });
+            $holidays1 = $h->toArray();
+            $days = $this->getDateRangeExcludingHolidaysOrNonWorkingDays($start_date, $end_date, $holidays1, $nonWorkingDays);
+            $d = collect($days)->map(function ($item, $key) {
+                return $item->format('l d F Y');
+            });
+            // dd($d->toJson());
+            $days_taken = collect($days)->count();
+            $entitle = auth()->user()->leaveEntitlement->days;
+            $balanceexist = LeaveBalance::where('user_id',auth()->user()->id)->exists();
+            if($balanceexist == true){
+                $balance = LeaveBalance::where('user_id',auth()->user()->id)->first()->balance;
+                $leave_apply = $days_taken + ($entitle - $balance);
+                if($leave_apply >  auth()->user()->leaveEntitlement->available_annualleave){
+                    toast('You are not allowed to apply annual leave because your leave applied 
+                    more than prorated or available annual leave for this month', 'error', 'top-right');
+                    return redirect()->back();
+                }else{
+                    $leave = $this->leave->create($this->data);
+                    // determine if its half day or full day
+                    $this->daySelector($request, $leave);
+                    // notify HR
+                    $this->notifyLeaveApplicationToRecipients($request->users, $leave, new ApplyLeave($leave, auth()->user()));
+                    // set leave status
+                    $this->setLeaveStatus($leave);
+                    // save attachments
+                    $this->saveAttachments($request, $leave);
+            
+                    toast('Leave record submitted', 'success', 'top-right');
+                    return redirect()->route('leave.index', ['status' => 'submitted']);
+                }
+            }else{
+                if($days_taken >  auth()->user()->leaveEntitlement->available_annualleave){
+                    toast('You are not allowed to apply annual leave because your leave applied 
+                    more than prorated or available annual leave for this month', 'error', 'top-right');
+                    return redirect()->back();
+                }else{
+                    $leave = $this->leave->create($this->data);
+                    // determine if its half day or full day
+                    $this->daySelector($request, $leave);
+                    // notify HR
+                    $this->notifyLeaveApplicationToRecipients($request->users, $leave, new ApplyLeave($leave, auth()->user()));
+                    // set leave status
+                    $this->setLeaveStatus($leave);
+                    // save attachments
+                    $this->saveAttachments($request, $leave);
+            
+                    toast('Leave record submitted', 'success', 'top-right');
+                    return redirect()->route('leave.index', ['status' => 'submitted']);
+                }
+            }
+        }else{
+            //create leave
+            $leave = $this->leave->create($this->data);
+            // determine if its half day or full day
+            $this->daySelector($request, $leave);
+            // notify HR
+            $this->notifyLeaveApplicationToRecipients($request->users, $leave, new ApplyLeave($leave, auth()->user()));
+            // set leave status
+            $this->setLeaveStatus($leave);
+            // save attachments
+            $this->saveAttachments($request, $leave);
 
-        //create leave
-        $leave = $this->leave->create($this->data);
-        // determine if its half day or full day
-        $this->daySelector($request, $leave);
-        // notify HR
-        $this->notifyLeaveApplicationToRecipients($request->users, $leave, new ApplyLeave($leave, auth()->user()));
-        // set leave status
-        $this->setLeaveStatus($leave);
-        // save attachments
-        $this->saveAttachments($request, $leave);
-
-        toast('Leave record submitted', 'success', 'top-right');
-        return redirect()->route('leave.index', ['status' => 'submitted']);
+            toast('Leave record submitted', 'success', 'top-right');
+            if($request->user_id != auth()->user()->id){
+                return redirect()->route('leave.admin.index', ['status' => 'submitted']);
+            }
+            else{
+                return redirect()->route('leave.index', ['status' => 'submitted']);
+            }
+        }
     }
 
 
@@ -215,8 +293,11 @@ class LeavesController extends Controller
         $end_date = $this->setDateObject('d/m/Y', $leave->end_date);
         $nonWorkingDays = auth()->user()->personalDetail->center->holidays->pluck('name')->toArray();
         $holidays = Holiday::pluck('date')->toArray();
-
-        $days = $this->getDateRangeExcludingHolidaysOrNonWorkingDays($start_date, $end_date, $holidays, $nonWorkingDays);
+        $h = collect($holidays)->map(function ($item, $key) {
+            return Carbon::createFromFormat(config('app.date_format'), $item)->format('Y-m-d');
+        });
+        $holidays1 = $h->toArray();
+        $days = $this->getDateRangeExcludingHolidaysOrNonWorkingDays($start_date, $end_date, $holidays1, $nonWorkingDays);
         $d = collect($days)->map(function ($item, $key) {
             return $item->format('l d F Y');
         });

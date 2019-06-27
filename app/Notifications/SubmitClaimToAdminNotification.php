@@ -15,7 +15,7 @@ class SubmitClaimToAdminNotification extends Notification implements ShouldQueue
 {
     use Queueable;
 
-    public $claim;        
+    public $claim;    
     /**
      * Create a new notification instance.
      *
@@ -23,7 +23,7 @@ class SubmitClaimToAdminNotification extends Notification implements ShouldQueue
      */
     public function __construct(Claim $claim)
     {
-        $this->claim = $claim;        
+        $this->claim = $claim;   
     }
 
     /**
@@ -48,7 +48,9 @@ class SubmitClaimToAdminNotification extends Notification implements ShouldQueue
         $link = URL::signedRoute('claimdetail.show', ['id' => $this->claim->id]);
         return (new MailMessage)
             ->subject($this->claim->user->personalDetail->name. ' submitted a claim')
-            ->greeting($this->claim->user->personalDetail->name. ' submitted a claim')                        
+            ->greeting($this->claim->user->personalDetail->name. ' submitted a claim')
+            ->line('Claim Subject: '. $this->claim->subject)     
+            ->line('Date Apply: '. $this->claim->created_at->format('d/m/Y')) 
             ->line('Amount: ' . $this->claim->amount)                      
             ->action('View Claim', $link);
     }
