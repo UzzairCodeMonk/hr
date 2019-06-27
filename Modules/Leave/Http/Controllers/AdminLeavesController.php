@@ -215,7 +215,8 @@ class AdminLeavesController extends Controller
             toast('Remarks added to this leave application', 'success', 'top-right');
         }
 
-        return redirect()->back();
+        // return redirect()->back();
+        return redirect()->route('leave.admin.index', ['status' => 'submitted']);
     }
     /**
      * Remove the specified resource from storage.

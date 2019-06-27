@@ -10,7 +10,7 @@ use Modules\Wage\Entities\Claim;
 use Datakraf\User;
 use Illuminate\Support\Facades\URL;
 
-class RemarkOnlyClaim extends Notification
+class RemarkOnlyClaim extends Notification implements ShouldQueue
 {
     use Queueable;
     public $claim;
@@ -80,7 +80,9 @@ class RemarkOnlyClaim extends Notification
             'user_id' => $this->user->id,
             'message' => $this->remarker->name . ' has remarked your claim application',
             'claim_id' => $this->claim->id,
-            'type' => 'claim'
+            'type' => 'claim',
+            'url' => URL::signedRoute('claimdetail.show', ['id' => $this->claim->id]),
+            'icon' => 'ti-file'
         ];
     }
 

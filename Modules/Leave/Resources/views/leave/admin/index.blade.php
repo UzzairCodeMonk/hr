@@ -40,10 +40,10 @@ Employees Leave Records
                     <td class="text-center"><span class="badge badge-md {{statusColor($leave->status) ?? ''}}">{{ ucwords($leave->status) ?? 'N/A' }}</span></td>
                     <td class="text-center">
                         <a href="{{URL::signedRoute('leave.admin.show',['id'=>$leave->id])}}" class="btn btn-sm text-dark btn-link">View</a>
-                        <form action="{{route('leave.user.destroy',['id'=>$leave->id])}}" method="POST" class="leave-record d-inline">
+                        <form action="{{route('leave.user.destroy',['id'=>$leave->id])}}" method="POST" class="deleteconfirm{{$leave->id}} d-inline">
                             @csrf
                             @method('DELETE')
-                            <button type="submit" class="btn btn-sm text-danger btn-link">Delete</button>
+                            <button type="submit" class="btn btn-sm text-danger btn-link" onclick="deleteleaves({{$leave->id}})">Delete</button>
                         </form>
                     </td>
                 </tr>
@@ -118,6 +118,28 @@ Employees Leave Records
         table.buttons().container().appendTo('.dataTables_wrapper .col-md-6:eq(0)');
 
     });    
+
+    function deleteleaves(id){
+         event.preventDefault();
+        return swal({
+            title: "Are you sure?",
+            text: "You won't be able to revert this!",
+            type: 'warning',
+            showCancelButton: true,
+            confirmButtonClass: 'btn btn-primary',
+            cancelButtonClass: 'btn btn-danger',
+            buttonsStyling: false,
+            confirmButtonText: '<i class="ti ti-check"></i> Yes, I\'m sure',
+            confirmButtonAriaLabel: 'Thumbs up, great!',
+            cancelButtonText: '<i class="ti ti-close"></i> Nope, abort mission',
+            cancelButtonAriaLabel: 'Thumbs down',
+            reverseButtons:true
+        }).then((result) => {
+            if (result.value) {
+                $(".deleteconfirm"+id).trigger('submit');
+            }
+        });
+    }
 
 </script>
 @include('components.form.confirmDeleteOnSubmission',['entity'=>'leave-record','action'=>'delete'])

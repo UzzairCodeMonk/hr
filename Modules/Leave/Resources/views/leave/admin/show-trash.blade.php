@@ -15,7 +15,8 @@ Leave Application Form
     <div class="card-header">
         <h3>Leave Application Form</h3>
         <div class="card-options">
-            <button type="button" class="btn btn-sm btn-info">{!! $leave->type->name ?? 'N/A' !!}</button>
+            <!-- <button type="button" class="btn btn-sm btn-info">{!! $leave->type->name ?? 'N/A' !!}</button> -->
+            <label>{!! $leave->type->name ?? 'N/A' !!}</label>
             <button type="button" class="btn btn-sm btn-secondary" data-toggle="modal" data-target="#leave-balance">View
                 leave balance</button>
         </div>
