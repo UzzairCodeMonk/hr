@@ -13,9 +13,11 @@ class AddSoftdeleteAttributesToLeaves extends Migration
      */
     public function up()
     {
+        if(!Schema::hasColumn('leaves','deleted_at')){
         Schema::table('leaves', function (Blueprint $table) {
             $table->softDeletes();
         });
+    }
     }
 
     /**

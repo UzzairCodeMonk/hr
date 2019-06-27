@@ -13,13 +13,16 @@ class AddCostcenterColumn extends Migration
      */
     public function up()
     {
+        if(!Schema::hasColumn('personaldetails','center_id')){
         Schema::table('personaldetails', function (Blueprint $table) {
             $table->unsignedInteger('center_id');
         });
+    
 
         Schema::table('personaldetails', function (Blueprint $table) {
             $table->foreign('center_id')->references('id')->on('centers');
         });
+    }
 
 
     }

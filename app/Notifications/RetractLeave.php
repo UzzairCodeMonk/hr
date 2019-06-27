@@ -51,7 +51,8 @@ class RetractLeave extends Notification implements ShouldQueue
      */
     public function toMail($notifiable)
     {
-        $link = URL::signedRoute('leave.admin.show.withdrawn', ['id' => $this->leave->id]);
+        // $link = URL::signedRoute('leave.admin.show.withdrawn', ['id' => $this->leave->id]);
+        $link = route('leave.admin.show.withdrawn', ['id' => $this->leave->id]);
         return (new MailMessage)
             ->subject('The leave application has been withdrawn')
             ->greeting('The leave application has been withdrawn')
@@ -82,7 +83,8 @@ class RetractLeave extends Notification implements ShouldQueue
             'message' => $this->retractor->name . ' has withdrawn this leave application',
             'leave_id' => $this->leave->id,
             'type' => 'leave',
-            'url' => URL::signedRoute('leave.admin.show.withdrawn', ['id' => $this->leave->id]),
+            // 'url' => URL::signedRoute('leave.admin.show.withdrawn', ['id' => $this->leave->id]),
+            'url' => route('leave.admin.show.withdrawn', ['id' => $this->leave->id]),
             'icon' => 'ti-files'
         ];
     }

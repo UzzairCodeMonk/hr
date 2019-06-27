@@ -49,7 +49,8 @@ class ApproveLeave extends Notification implements ShouldQueue
      */
     public function toMail($notifiable)
     {
-    $link = URL::signedRoute('leave.show', ['id' => $this->leave->id]);
+    // $link = URL::signedRoute('leave.show', ['id' => $this->leave->id]);
+    $link = route('leave.show', ['id' => $this->leave->id]);
         return (new MailMessage)
             ->subject('Your Application Leave Has Been Approved')
             ->greeting('Your Application Leave Has Been Approved')
@@ -81,7 +82,8 @@ class ApproveLeave extends Notification implements ShouldQueue
             'message' => $this->approver->name . ' has approved your leave application',
             'leave_id' => $this->leave->id,
             'type' => 'leave',
-            'url' => URL::signedRoute('leave.show', ['id' => $this->leave->id]),
+            // 'url' => URL::signedRoute('leave.show', ['id' => $this->leave->id]),
+            'url' => route('leave.show', ['id' => $this->leave->id]),
             'icon' => 'ti-files'
         ];
     }

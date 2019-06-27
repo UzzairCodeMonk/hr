@@ -120,7 +120,8 @@ class ClaimDetailsController extends Controller
                         'claim_id' => $claimdetail->claim_id,
                         'claim_detail_id' => $claimdetail->id,
                         'filename' => $filename,
-                        'filepath' => 'uploads/claimattachments/' . $filename
+                        'filepath' => 'uploads/claimattachments/' . $filename,
+                        'claimdetail_id' => 0,
                     ]);
                 }
             }

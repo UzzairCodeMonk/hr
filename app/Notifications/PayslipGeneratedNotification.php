@@ -45,7 +45,8 @@ class PayslipGeneratedNotification extends Notification implements ShouldQueue
      */
     public function toMail($notifiable)
     {
-        $link = URL::signedRoute('payslip.my.record', [
+        // $link = URL::signedRoute('payslip.my.record', [
+            $link = route('payslip.my.record', [
             'id' => $this->payslip->user_id,
             'month' => $this->payslip->month,
             'year' => $this->payslip->year,
@@ -77,7 +78,8 @@ class PayslipGeneratedNotification extends Notification implements ShouldQueue
             'year' => $this->payslip->year,
             'message' => 'Your ' . \getMonthNameBasedOnInt($this->payslip->month) . ' ' . $this->payslip->year . ' payslip is here! Click to view.',
             'type' => 'payslip',
-            'url' => URL::signedRoute('payslip.my.record', [
+            // 'url' => URL::signedRoute('payslip.my.record', [
+            'url' => route('payslip.my.record', [
                 'id' => $this->payslip->user_id,
                 'month' => $this->payslip->month,
                 'year' => $this->payslip->year,
