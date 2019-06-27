@@ -13,6 +13,7 @@ class CreateCentersTable extends Migration
      */
     public function up()
     {
+        if(!Schema::hasTable('centers')){
         Schema::create('centers', function (Blueprint $table) {
             $table->increments('id');
             $table->string('name')->nullable();
@@ -29,6 +30,7 @@ class CreateCentersTable extends Migration
             $table->integer('status')->default(0)->unsigned();
             $table->timestamps();
         });
+    }
     }
 
     /**

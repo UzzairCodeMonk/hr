@@ -13,11 +13,13 @@ class CreateDaysTable extends Migration
      */
     public function up()
     {
+        if(!Schema::hasTable('days')){
         Schema::create('days', function (Blueprint $table) {
             $table->increments('id');
             $table->string('name')->nullable();
             $table->timestamps();
         });
+    }
     }
 
     /**

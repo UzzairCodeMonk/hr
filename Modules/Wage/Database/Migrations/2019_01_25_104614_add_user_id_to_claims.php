@@ -13,10 +13,12 @@ class AddUserIdToClaims extends Migration
      */
     public function up()
     {
+        if(!Schema::hasColumn('claims','user_id')){
         Schema::table('claims', function (Blueprint $table) {
             $table->unsignedInteger('user_id')->after('id');
             $table->foreign('user_id')->references('id')->on('users');            
         });
+    }
     }
 
     /**

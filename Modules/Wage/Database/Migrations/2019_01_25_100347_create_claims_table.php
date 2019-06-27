@@ -13,12 +13,15 @@ class CreateClaimsTable extends Migration
      */
     public function up()
     {
+        if(!Schema::hasTable('claimtypes')){
         Schema::create('claimtypes', function (Blueprint $table) {
             $table->increments('id');
             $table->string('name')->nullable(); 
             $table->timestamps();
         });
+        }
         
+        if(!Schema::hasTable('claims')){
         Schema::create('claims', function (Blueprint $table) {
             $table->increments('id');
             $table->unsignedInteger('claimtype_id');
@@ -27,6 +30,7 @@ class CreateClaimsTable extends Migration
             $table->text('remarks')->nullable();            
             $table->timestamps();
         });
+    }
     }
 
     /**

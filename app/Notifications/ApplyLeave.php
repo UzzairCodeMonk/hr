@@ -47,7 +47,8 @@ class ApplyLeave extends Notification implements ShouldQueue
      */
     public function toMail($notifiable)
     {
-        $link = URL::signedRoute('leave.show', ['id' => $this->leave->id]);
+        // $link = URL::signedRoute('leave.show', ['id' => $this->leave->id]);
+        $link = route('leave.show', ['id' => $this->leave->id]);
 
         return (new MailMessage)
             ->subject('Leave Application: ' . $this->leave->user->name)
@@ -77,7 +78,8 @@ class ApplyLeave extends Notification implements ShouldQueue
             'message' => $this->leave->user->name . ' has submitted application leave',
             'leave_id' => $this->leave->id,
             'type' => 'leave',
-            'url' => URL::signedRoute('leave.show', ['id' => $this->leave->id]),
+            // 'url' => URL::signedRoute('leave.show', ['id' => $this->leave->id]),
+            'url' => route('leave.show', ['id' => $this->leave->id]),
             'icon' => 'ti-files'
         ];
     }
