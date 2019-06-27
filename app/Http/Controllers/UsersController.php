@@ -164,6 +164,9 @@ class UsersController extends Controller
         $p->user->claimApprovers()->sync($request->claims);
         $p->user->leaveApprovers()->sync($request->leaves);
 
+        // update approvers 
+
+        dd($request->leaves);
         // Handle the user roles
         $this->syncPermissions($request, $user);
 
