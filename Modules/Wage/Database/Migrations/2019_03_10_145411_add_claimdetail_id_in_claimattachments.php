@@ -13,10 +13,12 @@ class AddClaimdetailIdInClaimattachments extends Migration
      */
     public function up()
     {
+        if(!Schema::hasColumn('claimattachments','claimdetail_id')){
         Schema::table('claimattachments', function (Blueprint $table) {
             $table->unsignedInteger('claimdetail_id');
             $table->foreign('claimdetail_id')->references('id')->on('claimdetails');
         });
+    }
     }
 
     /**

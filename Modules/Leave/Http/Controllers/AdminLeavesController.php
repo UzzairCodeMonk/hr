@@ -86,7 +86,30 @@ class AdminLeavesController extends Controller
     {
         $leave = $this->leave->onlyTrashed()->where('id', $id)->first();
 
-        $calendar = $this->makeCalendar($leave->start_date, $leave->end_date);
+        // $calendar = $this->makeCalendar($leave->start_date, $leave->end_date);
+        //check kalau ad yg sama leave apply oleh user masukkan kt kalendar lama dan baru
+        $leavecheck = $this->leave->where('user_id',$leave->user_id)->where('leavetype_id',$leave->leavetype_id)->exists();
+        if($leavecheck == true){
+            $l = $this->leave->where('user_id',$leave->user_id)->where('leavetype_id',$leave->leavetype_id)->get();
+            
+            foreach($l as $le){
+                $calendar = $this->makeCalendar($le->start_date,$le->end_date);
+            }
+        }
+        else{
+            $calendar = $this->makeCalendar($leave->start_date, $leave->end_date);
+        }
+        //calculate prorated leave yg layak ambil ikut bulan
+        $today = Carbon::now();
+        $month = $today->month;
+        $leaveentitle=LeaveEntitlement::where('user_id',$leave->user_id)->first();
+        $day=$leave->user->leaveEntitlement->days;
+       
+        $prorated_leave=$day / 12 * $month;
+        $available = number_format($prorated_leave);
+        $leaveentitle->available_annualleave = $available;
+        $leaveentitle->save();
+
 
         return view('leave::leave.admin.show-trash', [
             'leave' => $leave,

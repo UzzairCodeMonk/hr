@@ -13,6 +13,7 @@ class CreateCenterHolidayTable extends Migration
      */
     public function up()
     {
+        if(!Schema::hasTable('center_holiday')){
         Schema::create('center_holiday', function (Blueprint $table) {
             $table->increments('id');
             $table->unsignedInteger('center_id');
@@ -21,6 +22,7 @@ class CreateCenterHolidayTable extends Migration
             $table->foreign('day_id')->references('id')->on('days');
             $table->timestamps();
         });
+    }
     }
 
     /**

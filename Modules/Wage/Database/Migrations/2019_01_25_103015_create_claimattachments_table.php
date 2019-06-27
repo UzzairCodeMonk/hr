@@ -13,6 +13,7 @@ class CreateClaimattachmentsTable extends Migration
      */
     public function up()
     {
+        if(!Schema::hasTable('claimattachments')){
         Schema::create('claimattachments', function (Blueprint $table) {
             $table->increments('id');
             $table->unsignedInteger('claim_id');
@@ -21,6 +22,7 @@ class CreateClaimattachmentsTable extends Migration
             $table->text('filepath')->nullable();            
             $table->timestamps();
         });
+    }
     }
 
     /**

@@ -13,9 +13,11 @@ class AddNetTotalToPayslipsummaries extends Migration
      */
     public function up()
     {
+        if(!Schema::hasColumn('payslipsummaries','net_wage')){
         Schema::table('payslipsummaries', function (Blueprint $table) {
             $table->decimal('net_wage',13,2)->nullable()->after('eis_employer');
         });
+    }
     }
 
     /**

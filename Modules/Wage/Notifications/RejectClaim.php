@@ -49,7 +49,8 @@ class RejectClaim extends Notification implements ShouldQueue
      */
     public function toMail($notifiable)
     {
-        $link = URL::signedRoute('claimdetail.show', ['id' => $this->claim->id]);
+        // $link = URL::signedRoute('claimdetail.show', ['id' => $this->claim->id]);
+        $link = route('claimdetail.show', ['id' => $this->claim->id]);
         return (new MailMessage)
             ->subject('Your Application Claim Has Been Rejected')
             ->greeting('Your Application Claim Has Been Rejected')
@@ -81,7 +82,8 @@ class RejectClaim extends Notification implements ShouldQueue
             'message' => $this->rejecter->name . ' has rejected your claim application',
             'claim_id' => $this->claim->id,
             'type' => 'claim',
-            'url' => URL::signedRoute('claimdetail.show', ['id' => $this->claim->id]),
+            // 'url' => URL::signedRoute('claimdetail.show', ['id' => $this->claim->id]),
+            'url' => route('claimdetail.show', ['id' => $this->claim->id]),
             'icon' => 'ti-file'
         ];
     }

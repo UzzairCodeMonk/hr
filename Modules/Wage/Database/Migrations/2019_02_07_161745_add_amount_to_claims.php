@@ -13,9 +13,11 @@ class AddAmountToClaims extends Migration
      */
     public function up()
     {
+        if(!Schema::hasColumn('claims','amount')){
         Schema::table('claims', function (Blueprint $table) {
             $table->decimal('amount',13,2)->nullable()->after('claimtype_id');
         });
+    }
     }
 
     /**

@@ -39,7 +39,7 @@ class ClaimApprovalsController extends Controller
                 break;
         
             case $request->has('reject'):
-                $this->setClaimStatus($claim, $this->rejectedStatus, 'Claim application rejected by' . auth()->user()->personalDetail->name . '<br>' . $this->remarksExist($request));
+                $this->setClaimStatus($claim, $this->rejectedStatus, 'Claim application rejected by ' . auth()->user()->personalDetail->name . '<br>' . $this->remarksExist($request));
                 $claim->user->notify(new RejectClaim($claim, $claim->user, auth()->user()));
                 toast('Claim application rejected', 'success', 'top-right');
                 break;

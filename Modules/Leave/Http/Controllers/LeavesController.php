@@ -111,7 +111,29 @@ class LeavesController extends Controller
     {   
                 
         $data = Leave::find($id);
-        $calendar = $this->makeCalendar($data->start_date, $data->end_date);        
+        // $calendar = $this->makeCalendar($data->start_date, $data->end_date);    
+         //check kalau ad yg sama leave apply oleh user masukkan kt kalendar lama dan baru
+         $leavecheck = Leave::where('user_id',$data->user_id)->where('leavetype_id',$data->leavetype_id)->exists();
+         if($leavecheck == true){
+             $l = Leave::where('user_id',$data->user_id)->where('leavetype_id',$data->leavetype_id)->get();
+            
+             foreach($l as $le){
+                 $calendar = $this->makeCalendar($le->start_date,$le->end_date);
+             }
+         }
+         else{
+             $calendar = $this->makeCalendar($data->start_date, $data->end_date);
+         }    
+            //calculate prorated leave yg layak ambil ikut bulan
+            $today = Carbon::now();
+            $month = $today->month;
+            $leaveentitle=LeaveEntitlement::where('user_id',auth()->user()->id)->first();
+            $day=auth()->user()->leaveEntitlement->days;
+
+            $prorated_leave=$day / 12 * $month;
+            $available = number_format($prorated_leave);
+            $leaveentitle->available_annualleave = $available;
+            $leaveentitle->save();
 
         return view('leave::leave.user.show', [
 

@@ -13,6 +13,7 @@ class ClaimapproverUser extends Migration
      */
     public function up()
     {
+        if(!Schema::hasTable('claimapprover_user')){
         Schema::create('claimapprover_user', function (Blueprint $table) {
             $table->increments('id');
             $table->unsignedInteger('user_id');
@@ -21,6 +22,7 @@ class ClaimapproverUser extends Migration
             $table->foreign('approver_id')->references('id')->on('users');
             $table->timestamps();
         });
+    }
     }
 
     /**

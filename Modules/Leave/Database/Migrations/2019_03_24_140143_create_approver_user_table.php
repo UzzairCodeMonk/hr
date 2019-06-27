@@ -13,6 +13,7 @@ class CreateApproverUserTable extends Migration
      */
     public function up()
     {
+        if(!Schema::hasTable('leaveapprover_user')){
         Schema::create('leaveapprover_user', function (Blueprint $table) {
             $table->increments('id');
             $table->unsignedInteger('user_id');
@@ -21,6 +22,7 @@ class CreateApproverUserTable extends Migration
             $table->foreign('approver_id')->references('id')->on('users');
             $table->timestamps();
         });
+    }
     }
 
     /**

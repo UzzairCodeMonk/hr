@@ -13,6 +13,7 @@ class CreatePayslipsummariesTable extends Migration
      */
     public function up()
     {
+        if(!Schema::hasTable('payslipsummaries')){
         Schema::create('payslipsummaries', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('month')->nullable;
@@ -28,6 +29,7 @@ class CreatePayslipsummariesTable extends Migration
             $table->decimal('employer_expenses',13,2)->nullable();
             $table->timestamps();
         });
+    }
     }
 
     /**
