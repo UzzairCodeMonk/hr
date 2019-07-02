@@ -298,7 +298,8 @@ class LeavesController extends Controller
         $this->saveAttachments($request, $leave);
 
         toast('Leave record submitted', 'success', 'top-right');
-        return redirect()->back();
+        // return redirect()->back();
+        return redirect()->route('leave.index', ['status' => 'submitted']);
     }
 
 
@@ -428,15 +429,18 @@ class LeavesController extends Controller
         $leave = $this->leave->find($id);
 
         // check the user's leave type available balance
-        $that_leave = $this->balance->where('leavetype_id', $leave->leavetype_id)->where('user_id', $leave->user_id)->first();
+        $leavebalance = $this->balance->where('leavetype_id',$leave->leavetype_id)->where('user_id',$leave->user_id)->exists();
+        if($leavebalance == true){
+            $that_leave = $this->balance->where('leavetype_id', $leave->leavetype_id)->where('user_id', $leave->user_id)->first();
 
-        //check if the leave has been approved
-        if ($leave->status == $this->approvedStatus) {
-            $that_leave_balance = $that_leave->balance;
-            $that_leave_balance += $leave->days_taken;
-            $that_leave->update([
-                'balance' => $that_leave_balance
-            ]);
+            //check if the leave has been approved
+            if ($leave->status == $this->approvedStatus) {
+                $that_leave_balance = $that_leave->balance;
+                $that_leave_balance += $leave->days_taken;
+                $that_leave->update([
+                    'balance' => $that_leave_balance
+                ]);
+            }
         }
 
         $approvers = $leave->approvers->pluck('id')->toArray();
