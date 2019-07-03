@@ -170,12 +170,12 @@ Claim Form
             method: "GET",
             dataType: "json",
             success: function (data) {
-
+                console.log(data);
                 for (var count = 0; count < data.length; count++) {
 
                     var html_data = `<tr><td> ${count+1} </td>`;
                     html_data +=
-                        `<td><input type="checkbox" name="claimdetails-record" data-pk="${data[count].id}"></td>`;
+                        `<td><input type="checkbox" name="claimdetails-record[]" data-pk="${data[count].id}"></td>`;
                     html_data += '<td data-name="amount" class="amount" data-type="text" data-pk="' + data[
                         count].id + '">' + data[count].amount + '</td>';
                     html_data += '<td data-name="date" class="date" data-type="date" data-pk="' +
@@ -214,7 +214,11 @@ Claim Form
     setInterval(fetch_claim_total, 5000);
 
     $(".delete-claimdetails").click(function () {
-        $("#claim_data").find('input[name="claimdetails-record"]').each(function () {
+        var val=[];
+        $("#claim_data").find('input[name="claimdetails-record[]"]:checked').each(function () {
+            $(this).parents("tr").remove();
+            val.push($(this).data('pk'));
+            console.log(val);
             Swal.fire({
                 title: 'Are you sure?',
                 text: "You won't be able to revert this!",
@@ -225,17 +229,17 @@ Claim Form
                 confirmButtonText: 'Yes, delete it!'
             }).then((result) => {
                 if (result.value) {
-                    if ($(this).is(":checked")) {
-                        $(this).parents("tr").remove();
-                        id = $(this).data('pk');
-                        console.log(id);
+                    // if ($(this).is(":checked")) {
+                    //     $(this).parents("tr").remove();
+                    //     id = $(this).data('pk');
+                    //     console.log(id);
                         $.ajax({
                             headers: {
                                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr(
                                     'content')
                             },
                             // url: '/api/claims/details/' + id + '/delete',
-                            url: '{{url('/api/claims/details/')}}' + '/' + id +'/delete',
+                            url: '{{url('/api/claims/details/')}}' + '/' + val +'/delete',
                             method: "DELETE",
                             dataType: "json",
                             success: function (data) {
@@ -244,7 +248,7 @@ Claim Form
                                 }
                             }
                         });
-                    }
+                    // }
                 }
             })
 
