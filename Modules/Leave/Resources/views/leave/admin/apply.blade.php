@@ -17,7 +17,8 @@ Leave Application Form
             <button type="button" class="btn btn-sm btn-secondary" data-toggle="quickview" data-target="#public-holidays">View
                 Public
                 Holidays</button>
-            <button type="button" class="btn btn-sm btn-primary">Admin View</button>            
+            <!-- <button type="button" class="btn btn-sm btn-primary">Admin View</button>             -->
+            <label>Admin View</label>
         </div>
     </div>
     <div class="card-body">

@@ -4,7 +4,7 @@
 <div id="dynamic_field">
     <div id="row1" class="dynamic-added">
         <label for="">Group 1</label>
-        <select id="leaves" multiple class="form-control leaves" name="leaves[]"></select>
+        <select id="leaves" multiple class="form-control leaves ll1" name="leaves[]"></select>
         <div class="input-group-btn form-group">
             <button class="btn btn-sm btn-danger btn2" id="1" type="button">Delete</button>
         </div>
@@ -18,7 +18,7 @@
     <div id="dynamic_field1">
         <div id="rowc1" class="dynamic-added1">
             <label for="">Group 1</label>
-            <select id="claims" multiple class="form-control claims" name="claims[]"></select>
+            <select id="claims" multiple class="form-control claims lc1" name="claims[]"></select>
             <div class="input-group-btn form-group">
                 <button class="btn btn-sm btn-danger btn3" id="1" type="button">Delete</button>
             </div>
