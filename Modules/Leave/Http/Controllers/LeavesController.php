@@ -260,7 +260,9 @@ class LeavesController extends Controller
             // determine if its half day or full day
             $this->daySelector($request, $leave);
             // notify HR
-            $this->notifyLeaveApplicationToRecipients($request->users, $leave, new ApplyLeave($leave, auth()->user()));
+            if($request->users){
+                $this->notifyLeaveApplicationToRecipients($request->users, $leave, new ApplyLeave($leave, auth()->user()));
+            }
             // set leave status
             $this->setLeaveStatus($leave);
             // save attachments

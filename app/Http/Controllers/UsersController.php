@@ -166,7 +166,7 @@ class UsersController extends Controller
 
         // update approvers 
 
-        dd($request->leaves);
+        // dd($request->leaves);
         // Handle the user roles
         $this->syncPermissions($request, $user);
 
