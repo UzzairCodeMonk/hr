@@ -71,5 +71,5 @@ Cost Centers
     });
 
 </script>
-@include('components.form.confirmDeleteOnSubmission',['entity'=>'company-bulk-delete'])
+<!-- @include('components.form.confirmDeleteOnSubmission',['entity'=>'company-bulk-delete']) -->
 @endsection
