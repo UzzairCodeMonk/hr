@@ -7,6 +7,7 @@ use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
 use Modules\Site\Entities\Center;
 use Datakraf\Traits\AlertMessage;
+use Illuminate\Support\Facades\Validator;
 
 class CentersController extends Controller
 {
@@ -44,7 +45,18 @@ class CentersController extends Controller
 
 
     public function update(int $id, Request $request ){
-
+        if($request->email){
+            $validator = Validator::make($request->all(), [
+                'email' => 'email',
+            ], [
+                'email.email' => 'It should be in email format',
+            ]);
+            if ($validator->fails()) {
+                return redirect()->back()
+                    ->withErrors($validator)
+                    ->withInput();
+            }
+        }
         Center::find($id)->update($request->all());
         toast($this->message('update', 'Cost Center'), 'success', 'top-right');
         return redirect()->route('company.index');

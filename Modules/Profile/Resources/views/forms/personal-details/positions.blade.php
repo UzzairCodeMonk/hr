@@ -12,7 +12,8 @@ Position Categories
         <div class="row">
             <div class="col-lg-7 col-md-12 col-sm-12 order-lg-0 order-sm-1 order-md-1 order-xl-0 order-xs-1">                
                 @isset($results)
-                @include('components.table.table',['entity'=>'position','deleteAction'=>$deleteAction,'datatable'=>true])
+                <!-- @include('components.table.table',['entity'=>'position','deleteAction'=>$deleteAction,'datatable'=>true]) -->
+                @include('components.table.table',['deleteAction'=>$deleteAction,'datatable'=>true])
                 @endisset
             </div>
             <hr class="d-lg-none d-xl-none d-md-block d-sm-block d-xs-block">
@@ -27,12 +28,34 @@ Position Categories
 @endsection
 @section('page-js')
 @include('asset-partials.datatable')
-@include('components.form.confirmDeleteOnSubmission',['entity'=>'position','action'=>'delete'])
+<!-- @include('components.form.confirmDeleteOnSubmission',['entity'=>'position','action'=>'delete']) -->
 <script type="text/javascript">
 $(document).ready(function(){
     $('.datatable').DataTable({
         pageLength:7
     });
 });
+
+function deletetype(id){
+    event.preventDefault();
+    return swal({
+        title: "Are you sure?",
+        text: "You won't be able to revert this!",
+        type: 'warning',
+        showCancelButton: true,
+        confirmButtonClass: 'btn btn-primary',
+        cancelButtonClass: 'btn btn-danger',
+        buttonsStyling: false,
+        confirmButtonText: '<i class="ti ti-check"></i> Yes, I\'m sure',
+        confirmButtonAriaLabel: 'Thumbs up, great!',
+        cancelButtonText: '<i class="ti ti-close"></i> Nope, abort mission',
+        cancelButtonAriaLabel: 'Thumbs down',
+        reverseButtons:true
+    }).then((result) => {
+        if (result.value) {
+            $(".deleteconfirm"+id).trigger('submit');
+        }
+    });
+    }
 </script>
 @endsection

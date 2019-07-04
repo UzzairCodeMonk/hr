@@ -27,13 +27,15 @@
                     {{$action['text']}}
                 </a>
                 @isset($deleteAction)
-                <form class="{{$entity}} d-inline" action="{{route($deleteAction['delete']['url'],['id'=>$result->id])}}"
+                <form class="deleteconfirm{{$result->id}} d-inline" action="{{route($deleteAction['delete']['url'],['id'=>$result->id])}}"
                     method="POST">
                     @csrf
                     {{method_field('DELETE')}}
-                    <button type="submit" class="{{$deleteAction['delete']['class']}} btn btn-sm text-danger "> Delete</button>
-                </form>
+                  
+                    <button type="submit" class="{{$deleteAction['delete']['class']}} btn btn-sm text-danger " onclick="deletetype({{$result->id}})"> Delete</button>
                 @endisset
+                </form>
+              
                 @endforeach
                 @endif
             </td>

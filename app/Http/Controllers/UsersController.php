@@ -110,11 +110,13 @@ class UsersController extends Controller
             'email' => $request->email,
             'password' => Hash::make($request->password),
         ]);
+        
         $user->claimApprovers()->sync($request->claims);
         $user->leaveApprovers()->sync($request->leaves);
         $this->syncPermissions($request, $user);
         toast('Employee created successfully', 'success', 'top-right');
-        return back();
+        // return back();
+        return redirect()->route('user.index'); 
     }
 
     public function update(Request $request, $id)
@@ -171,13 +173,19 @@ class UsersController extends Controller
         $this->syncPermissions($request, $user);
 
         toast('Employee information updated successfully', 'success', 'top-right');
-        return back();
+        // return back();
+        return redirect()->route('user.index'); 
     }
 
     public function destroy($id)
     {
-        $this->user->find($id)->delete();
+        $user= $this->user->find($id);
+      
+        $user->claimApprovers()->wherePivot('user_id',$id)->detach();
+        $user->leaveApprovers()->wherePivot('user_id',$id)->detach();
+        $user->delete();
         toast('Employee deleted successfully', 'success', 'top');
+     
         return back();
     }
 
