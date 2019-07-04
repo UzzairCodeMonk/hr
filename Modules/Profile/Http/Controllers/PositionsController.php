@@ -8,6 +8,7 @@ use Illuminate\Routing\Controller;
 use Modules\Profile\Entities\Position;
 use Datakraf\Traits\AlertMessage;
 use Modules\Profile\Http\Requests\CreatePositionRequest;
+use Modules\Profile\Entities\PersonalDetail;
 
 class PositionsController extends Controller
 {
@@ -77,8 +78,19 @@ class PositionsController extends Controller
 
     public function destroy($id)
     {
-        $this->position->find($id)->delete();
-        toast($this->message('delete', 'Position #' . $id), 'success', 'top-right');
+        $position = $this->position->find($id);
+        //check position kt personal yg assign in position yg nak delete
+        $positionexists = PersonalDetail::where('position_id',$id)->exists();
+
+        if($positionexists == true){
+            toast('Position deleted unsuccessfully. Please remove this following employee from this position before deleting', 'error', 'top-right');
+        }
+        else{
+            $position->delete();
+            toast($this->message('delete', 'Position #' . $id), 'success', 'top-right');
+        }
+        // $this->position->find($id)->delete();
+        // toast($this->message('delete', 'Position #' . $id), 'success', 'top-right');
         return redirect()->route('position.index');
     }
 }

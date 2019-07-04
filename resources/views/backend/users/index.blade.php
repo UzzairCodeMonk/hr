@@ -53,11 +53,11 @@ Employees
                                 @if(!$result->hasRole('Admin'))
                                 @if(Auth::id() != $result->id)
                                 @can('delete_users')
-                                <form class="employee" action="{{route('user.destroy',['id'=>$result->id])}}" method="POST"
+                                <form class="deleteconfirm{{$result->id}}" action="{{route('user.destroy',['id'=>$result->id])}}" method="POST"
                                     style="display:inline !important;">
                                     @csrf
                                     {{method_field('DELETE')}}
-                                    <button type="submit" class="btn btn-sm btn-link text-danger">Delete</button>
+                                    <button type="submit" class="btn btn-sm btn-link text-danger" onclick="deleteemployee({{$result->id}})">Delete</button>
                                 </form>
                                 @endcan
                                 @endif
@@ -88,6 +88,29 @@ Employees
         $('.datatable').DataTable();
     });
 
+    function deleteemployee(id){
+         event.preventDefault();
+        return swal({
+            title: "Are you sure?",
+            text: "You won't be able to revert this!",
+            type: 'warning',
+            showCancelButton: true,
+            confirmButtonClass: 'btn btn-primary',
+            cancelButtonClass: 'btn btn-danger',
+            buttonsStyling: false,
+            confirmButtonText: '<i class="ti ti-check"></i> Yes, I\'m sure',
+            confirmButtonAriaLabel: 'Thumbs up, great!',
+            cancelButtonText: '<i class="ti ti-close"></i> Nope, abort mission',
+            cancelButtonAriaLabel: 'Thumbs down',
+            reverseButtons:true
+        }).then((result) => {
+            if (result.value) {
+                $(".deleteconfirm"+id).trigger('submit');
+            }
+        });
+    }
+
+
 </script>
-@include('components.form.confirmDeleteOnSubmission',['entity'=>'employee','action'=>'delete'])
+<!-- @include('components.form.confirmDeleteOnSubmission',['entity'=>'employee','action'=>'delete']) -->
 @endsection

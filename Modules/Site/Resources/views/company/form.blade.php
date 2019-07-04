@@ -98,6 +98,7 @@
                             <div class="form-group">
                                 <label for="">Email</label>
                                 <input type="text" name="email" id="" class="form-control" value="{{old('email',isset($center->email)? $center->email:null)}}">
+                                @include('backend.shared._errors',['entity'=>'email'])
                             </div>
                         </div>
                     </div>
