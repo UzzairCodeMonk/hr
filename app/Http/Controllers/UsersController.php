@@ -213,4 +213,16 @@ class UsersController extends Controller
 
         return $banks;
     }
+    //list of employee resigned
+    public function resigned()
+    {
+        return view('backend.users.resigned', [
+            'columnNames' => $this->columnNames,
+            'datatable' => true,
+            'results' => User::with("personalDetail")->get()->where("personalDetail.status", "==", "resigned")->sortBy('personalDetail.staff_number')->values()->all(),
+            'actions' => $this->actions,
+            'deleteAction' => $this->deleteAction,
+            'code' => $this->code
+        ]);
+    }
 }

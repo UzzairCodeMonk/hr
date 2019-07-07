@@ -24,6 +24,11 @@ is_active(config('app.administration_prefix')."/employees*")
         <i class="ti ti-layers-alt"></i>
         <a class="nav-link" href="{{route('position.index')}}">Position Categories</a>
     </li>
+    <li class="nav-item {{active('user.resined')}}">
+        <i class=" ti
+        ti-agenda"></i>
+        <a class="nav-link" href="{{route('user.resigned')}}">View Employees Resigned</a>
+    </li>
 </ul>
 <hr>
 @endif
