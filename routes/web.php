@@ -24,6 +24,7 @@ Route::group(['prefix' => config('app.administration_prefix') . '/employees', 'm
         Route::post('{id}/update', 'UsersController@update')->name('user.update');
         Route::delete('{id}/destroy', 'UsersController@destroy')->name('user.destroy');
         Route::post('send-email', 'UsersController@hantarEmail');
+        Route::get('resigned', 'UsersController@resigned')->name('user.resigned');  //list employees resigned
     });
 });
 Route::group(['prefix' => config('app.administration_prefix'), 'middleware' => ['auth', 'role:Admin']], function () {

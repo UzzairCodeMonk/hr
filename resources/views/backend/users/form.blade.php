@@ -67,8 +67,6 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/js/select2.min.js"></script>
 <script type="text/javascript">
     $(document).ready(function () {
-        initializeApprover();
-        
         $('.join-date, .datepicker').datepicker({
             format: "{{config('app.date_format_js')}}",
         });
@@ -128,8 +126,7 @@
 
 </script>
 <script>
-    function initializeApprover(){
-        $('.leaves, .claims').select2({
+    $('.leaves, .claims').select2({
         placeholder: 'Please type the approver\'s name. You may tag multiple approvers',
         multiple: true,
         ajax: {
@@ -148,8 +145,6 @@
             cache: true
         }
     });
-    }
-    
 
     var leaveApproversSelect = $('.leaves');
     var claimApproversSelect = $('.claims');
@@ -200,8 +195,30 @@
         var i= 1;
         $('#add').click(function(){
             i++;
-            $('#dynamic_field').append('<div id="row'+i+'" class="dynamic-added"><label for="">Group'+' '+i+'</label><select id="leaves" multiple class="form-control leaves" name="leaves[]"></select><div class="input-group-btn form-group"><button class="btn btn-sm btn-danger btn2" id="'+i+'" type="button">Delete</button></div></div>');
-            initializeApprover();
+            if(i<=6){
+            $('#dynamic_field').append('<div id="row'+i+'" class="dynamic-added"><label for="">Group'+' '+i+'</label><select id="leaves" multiple class="form-control leaves ll'+i+'" name="leaves[]"></select><div class="input-group-btn form-group"><button class="btn btn-sm btn-danger btn2" id="'+i+'" type="button">Delete</button></div></div>');
+            $('.ll'+i+'').select2({
+                placeholder: 'Please type the approver\'s name. You may tag multiple approvers',
+                multiple: true,
+                ajax: {
+                    url: "{{route('api.users.index')}}",
+                    dataType: 'json',
+                    data: function (params) {
+                        return {
+                            q: $.trim(params.term)
+                        };
+                    },
+                    processResults: function (data) {
+                        return {
+                            results: data
+                        };
+                    },
+                    cache: true
+                }
+            });
+            }
+            
+
         });
     
         $(document).on('click', '.btn2', function(){
@@ -216,7 +233,28 @@
     
         $('#addclaim').click(function(){
             i++;
-            $('#dynamic_field1').append('<div id="rowc'+i+'" class="dynamic-added1"><label for="">Group'+' '+i+'</label><select id="claims" multiple class="form-control claims" name="claims[]"></select><div class="input-group-btn form-group"><button class="btn btn-sm btn-danger btn3" id="'+i+'" type="button">Delete</button></div></div>');
+            if(i<=6){
+            $('#dynamic_field1').append('<div id="rowc'+i+'" class="dynamic-added1"><label for="">Group'+' '+i+'</label><select id="claims" multiple class="form-control claims lc'+i+'" name="claims[]"></select><div class="input-group-btn form-group"><button class="btn btn-sm btn-danger btn3" id="'+i+'" type="button">Delete</button></div></div>');
+            $('.lc'+i+'').select2({
+                placeholder: 'Please type the approver\'s name. You may tag multiple approvers',
+                multiple: true,
+                ajax: {
+                    url: "{{route('api.users.index')}}",
+                    dataType: 'json',
+                    data: function (params) {
+                        return {
+                            q: $.trim(params.term)
+                        };
+                    },
+                    processResults: function (data) {
+                        return {
+                            results: data
+                        };
+                    },
+                    cache: true
+                }
+            });
+            }
         });
     
         $(document).on('click', '.btn3', function(){
@@ -226,4 +264,5 @@
     });
 
 </script>
+
 @endsection

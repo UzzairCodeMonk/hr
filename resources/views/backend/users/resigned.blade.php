@@ -1,14 +1,11 @@
 @extends('backend.master')
 @section('page-title')
-Employees
+Employees Resigned
 @endsection
 @section('content')
 <div class="card">
     <div class="card-header">
         <h3>@yield('page-title')</h3>
-        <div class="card-options">
-            <a href="{{route('user.create')}}" class="btn btn-sm btn-primary">Create New Employee</a>
-        </div>
     </div>
     <div class="card-body">
         <div class="row">

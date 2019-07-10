@@ -8,6 +8,8 @@ use Illuminate\Routing\Controller;
 use Modules\Leave\Entities\LeaveType;
 use Datakraf\Traits\AlertMessage;
 use Modules\Leave\Http\Requests\CreateLeaveCategoryRequest;
+use Modules\Leave\Entities\LeaveBalance;
+use Modules\Leave\Entities\Leave;
 
 class LeaveTypesController extends Controller
 {
@@ -74,8 +76,20 @@ class LeaveTypesController extends Controller
 
     public function destroy($id)
     {
-        $this->type->find($id)->delete();
-        toast($this->message('delete', 'Leave type #' . $id), 'success', 'top-right');
+        $type= $this->type->find($id);
+        //check leave type kt leave yg assign in typeleave yg nak delete
+        $leaveexists = Leave::where('leavetype_id',$id)->exists();
+        $balanceexists = LeaveBalance::where('leavetype_id',$id)->exists();
+
+        if($leaveexists == true || $balanceexists == true){
+            toast('Leave type deleted unsuccessfully. Please remove this following leaves from this leave type before deleting', 'error', 'top-right');
+        }
+        else{
+            $type->delete();
+            toast($this->message('delete', 'Leave type #' . $id), 'success', 'top-right');
+        }
+        // $this->type->find($id)->delete();
+        // toast($this->message('delete', 'Leave type #' . $id), 'success', 'top-right');
         return redirect()->route('leave-type.index');
     }
 
