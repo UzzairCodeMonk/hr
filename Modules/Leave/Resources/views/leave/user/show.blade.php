@@ -5,7 +5,9 @@ Leave Application Form
 @section('page-css')
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.10.0/fullcalendar.min.css">
 <style>
-    .fc-time{ display : none; }
+    .fc-time {
+        display: none;
+    }
 </style>
 @endsection
 @section('content')
@@ -15,7 +17,7 @@ Leave Application Form
     <div class="card-header">
         <h3>Leave Application Form</h3>
         <div class="card-options">
-            <label >{!! $leave->type->name ?? 'N/A' !!}</label>
+            <label>{!! $leave->type->name ?? 'N/A' !!}</label>
             <button type="button" class="btn btn-sm btn-secondary" data-toggle="modal" data-target="#leave-balance">View
                 leave balance</button>
         </div>
@@ -150,10 +152,13 @@ Leave Application Form
                                 <button type="submit" name="remarks" class="btn btn-md btn-primary remarks-btn">
                                     Submit
                                     Remarks Only</button>
-                                <button type="submit" name="approve" class="btn btn-md btn-success approve-btn"><i
-                                        class="ti ti-check"></i> Approve</button>
+                                @can('approve_leave')
+                                <button type="submit" name="approve" class="btn btn-md btn-success approve-btn"><i class="ti ti-check"></i> Approve</button>
+                                @endcan
+                                @can('reject_leave')
                                 <button type="submit" name="reject" class="btn btn-md btn-danger reject-btn"><i class="ti ti-close"></i>
                                     Reject</button>
+                                @endcan
                             </div>
                         </div>
                     </div>
@@ -174,20 +179,20 @@ Leave Application Form
                 </button>
             </div>
             <div class="modal-body">
-            @if($leave->user->personalDetail->status!="probation")
-            <table class="table table-bordered" style="width:50%">
-                <thead>
-                    <tr>
-                        <th>Leave Entitlement</th>
-                        <th>{{DB::table('leave_entitlements')->where('user_id',$leave->user_id)->first()->days}} days</th>
-                    </tr>
-                    <tr>
-                        <th>Available Annual Leave</th>
-                        <th>{{DB::table('leave_entitlements')->where('user_id',$leave->user_id)->first()->available_annualleave}} days</th>
-                    </tr>
-                </thead>
-            </table>
-            @endif
+                @if($leave->user->personalDetail->status!="probation")
+                <table class="table table-bordered" style="width:50%">
+                    <thead>
+                        <tr>
+                            <th>Leave Entitlement</th>
+                            <th>{{DB::table('leave_entitlements')->where('user_id',$leave->user_id)->first()->days}} days</th>
+                        </tr>
+                        <tr>
+                            <th>Available Annual Leave</th>
+                            <th>{{DB::table('leave_entitlements')->where('user_id',$leave->user_id)->first()->available_annualleave}} days</th>
+                        </tr>
+                    </thead>
+                </table>
+                @endif
                 <table class="table table-striped table-bordered">
                     <thead>
                         <tr>
@@ -197,12 +202,12 @@ Leave Application Form
                         </tr>
                     </thead>
                     <tbody>
-                    @if($leave->user->personalDetail->status=="probation")
+                        @if($leave->user->personalDetail->status=="probation")
                         <tr>
                             <td>1</td>
                             <td>Unpaid Leave</td>
                             <td>
-                            @if(DB::table('leavebalances')->where('user_id',$leave->user_id)->where('leavetype_id',6)->exists())
+                                @if(DB::table('leavebalances')->where('user_id',$leave->user_id)->where('leavetype_id',6)->exists())
                                 {{DB::table('leavebalances')->where('user_id',$leave->user_id)->where('leavetype_id',6)->first()->balance}}/@endif{{30}}
                                 {{str_plural('day',30)}}</td>
                         </tr>
