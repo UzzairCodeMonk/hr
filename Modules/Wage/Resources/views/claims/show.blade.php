@@ -97,7 +97,7 @@ Claim Form
         <div class="row">
             <div class="col"></div>
             <div class="col">
-                @if(Auth::user()->hasRole('Admin'))
+                @if(Auth::user()->hasRole('Admin') || Auth::user()->hasRole('Approver'))
                 <form action="{{route('claim.approval.store')}}" method="POST" class="approve-reject">
                     <input type="hidden" name="claim_id" value="{{$claim->id}}">
                     @csrf

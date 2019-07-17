@@ -140,7 +140,8 @@ Leave Application Form
                             </div>
                         </div>
                         @endif
-                        @role('Admin')
+                        <!-- @role('Admin') -->
+                        @if(Auth::user()->hasRole('Admin') || Auth::user()->hasRole('Approver'))
                         @if($actionVisibility)
                         <div class="row">
                             <div class="col">
@@ -172,7 +173,8 @@ Leave Application Form
                             </div>
                         </div>
                         @endif
-                        @endrole
+                        @endif
+                        <!-- @endrole -->
                     </div>
                 </div>
             </form>
