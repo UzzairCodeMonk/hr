@@ -30,7 +30,7 @@
         table {
             border-collapse: collapse;
             font-size: 12px;
-            border:1px solid #000;
+            /* border:1px solid #000; */
         }
 
         table tr,
@@ -44,14 +44,13 @@
         @page {
             size: landscape;
         }
-
     </style>
 </head>
 
 <body>
 
     <div id="page-wrap" class="container">
-    <table class="table table-bordered table-condensed">
+        <table class="" style="border:1px solid black">
             <thead>
                 <tr>
                     <th>#</th>
@@ -113,13 +112,11 @@
         </table>
 
     </div>
-    <script src="https://code.jquery.com/jquery-2.2.4.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44="
-        crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-2.2.4.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script>
     <script type="text/javascript">
-        $(document).ready(function () {
+        $(document).ready(function() {
             window.print();
         });
-
     </script>
 </body>
 
