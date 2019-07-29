@@ -171,4 +171,21 @@ class ClaimsController extends Controller
             'claims' => $this->claim->where('user_id', auth()->id())->orderBy('created_at', 'desc')->get(),
         ]);
     }
+
+     //claim ikut status
+     public function myclaims($status = null)
+     {
+         return view('wage::claims.statususer', [
+             'claims' => Claim::claimStatus($status)
+         ]);
+     }
+ 
+     //claim ikut status
+     public function claimstatus($status = null)
+     {
+         return view('wage::claims.admin.status', [
+             'claims' => Claim::adminClaimStatus($status)
+         ]);
+     }
+
 }

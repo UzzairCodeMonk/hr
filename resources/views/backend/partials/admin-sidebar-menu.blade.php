@@ -92,9 +92,9 @@ is_active(config('app.administration_prefix')."/employees*")
         <i class="ti ti-agenda"></i>
         <a class="nav-link" href="{{route('claim.records')}}">Claim Categories</a>
     </li>
-    <li class="nav-item {{active('claim.records')}}">
+    <li class="nav-item {{active('claim.statusrecord')}}">
         <i class="ti ti-agenda"></i>
-        <a class="nav-link" href="{{route('claim.records')}}">Claim Submission Records</a>
+        <a class="nav-link" href="{{route('claim.statusrecord',['status'=>'submitted'])}}">Claim Submission Records</a>
     </li>
 </ul>
 <hr>

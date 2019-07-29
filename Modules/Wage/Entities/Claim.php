@@ -22,4 +22,23 @@ class Claim extends Model
     public function details(){
         return $this->hasMany(ClaimDetail::class);
     }
+    //asing ikut status
+    public function scopeAdminClaimStatus($query, $status = null)
+    {
+
+        if ($status != null) {
+            return $query->currentStatus($status)->orderBy('created_at', 'desc')->get();
+        }
+        return $query->orderBy('created_at', 'desc')->get();
+    }
+
+    public function scopeClaimStatus($query, $status = null)
+    {
+
+        if ($status != null) {
+            return $query->where('user_id', auth()->id())->currentStatus($status)->orderBy('created_at', 'desc')->get();
+        }
+
+        return $query->where('user_id', auth()->id())->orderBy('created_at', 'desc')->get();
+    }
 }

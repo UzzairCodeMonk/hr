@@ -12,9 +12,16 @@ use Modules\Wage\Entities\ClaimDetail;
 use Modules\Wage\Entities\Claim;
 use Auth;
 use Datakraf\User;
+use DB;
+use URL;
 
 class ClaimDetailsController extends Controller
 {
+    protected $approvedStatus = 'approved';
+    protected $rejectedStatus = 'rejected';
+    protected $submittedStatus = 'submitted';
+    protected $retractedStatus = 'withdrawn';
+    protected $remarkStatus = 'remarks';
 
     public function __construct(Request $request, Claim $claim, ClaimType $type, ClaimAttachment $attachment, ClaimDetail $detail)
     {
@@ -134,10 +141,21 @@ class ClaimDetailsController extends Controller
 
     public function show($id)
     {
+        $cs=$this->claim->find($id);
+        $ss = false;
+        foreach($cs->statuses as $status){
+            if($status->name=='remarks'){
+                $ss = true;
+            }
+        }
+        // determine if action buttons will be displayed or vice versa
+        // dd($actionVisibility = !in_array($this->claim->find($id)->status, [$this->approvedStatus, $this->rejectedStatus]));
         return view('wage::claims.show', [
 
             'claim' => $this->claim->find($id),
-            'detail' => $this->claim->details
+            'detail' => $this->claim->details,
+            'actionVisibility' => !in_array($this->claim->find($id)->status, [$this->approvedStatus, $this->rejectedStatus, $this->remarkStatus]),
+            'ss' => $ss,
 
         ]);
     }
@@ -146,9 +164,42 @@ class ClaimDetailsController extends Controller
      * Show the form for editing the specified resource.
      * @return Response
      */
-    public function edit()
+    public function edit($id)
     {
-        return view('wage::edit');
+         // dd($this->claim->details);
+         $claim_id = $this->detail->where('id',$id)->first()->claim_id;
+         // dd($claim_id);
+         $claim_subject= $this->claim->find($claim_id)->subject;
+         return view('wage::claims.editclaim', [
+            'detail' => $this->detail->find($id),
+            'types' => $this->type->all(),
+            'statuses' => $this->claim->find($claim_id)->statuses,
+            'claim_id' => $claim_id,
+            'claim_subject' => $claim_subject,
+        ]);
+    }
+
+    //updatedetail masa edit balik
+    public function updateclaim(Request $request, $id){
+        $claim = ClaimDetail::where('id',$id)->first();
+        $claim_id = ClaimDetail::where('id', $id)->first()->claim_id;
+
+        $claim->update($this->data);
+
+        $this->saveAttachments($request, $claim);
+
+        toast('Claim detail updated successfully', 'success', 'top-right');
+        // return redirect()->back();
+        return redirect(URL::signedRoute('claimdetail.show', ['id' => $claim_id]));
+
+    }
+    //deletedetail masa edit balik
+    public function deletedetail($id)
+    {
+        $this->detail->find($id)->delete();
+
+        toast('Claim detail deleted successfully', 'success', 'top-right');
+        return redirect()->back();
     }
 
     /**
