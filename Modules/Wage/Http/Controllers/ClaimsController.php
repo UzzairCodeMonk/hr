@@ -188,4 +188,16 @@ class ClaimsController extends Controller
          ]);
      }
 
+     public function editClaim($id)
+    {
+       
+        // determine if action buttons will be displayed or vice versa
+        return view('wage::claims.edit', [
+
+            'claim' => $this->claim->find($id),
+            'detail' => $this->claim->details,
+
+        ]);
+    }
+
 }

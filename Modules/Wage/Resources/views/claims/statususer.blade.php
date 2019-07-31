@@ -42,6 +42,9 @@ Claim Submission Records
                                 @method('DELETE')
                                 <button type="submit" class="btn btn-sm text-danger btn-link" onclick="deleteclaim({{$claim->id}})">Delete</button>
                             </form>
+                            @if($claim->status == 'remarks')
+                            <a href="{{URL::signedRoute('claim.editClaim',['id'=>$claim->id])}}" class="btn btn-sm text-dark btn-link">Edit</a>
+                            @endif
                         </td>
                     </tr>
                     @endforeach
