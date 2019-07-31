@@ -116,16 +116,16 @@ Claim Form
                                 <tr>
                                     <td colspan="5" class="text-right">Total</td>
                                     @if(Auth::user()->hasRole('User') && !Auth::user()->hasRole('Admin'))
-                                    @foreach($claim->statuses as $status)
-                                    @if($status->name == 'remarks')
-                                    <td>MYR &nbsp;<a class="updatetotal"></a></td>
-                                    <td></td>
-                                    @endif
-                                    @endforeach
+                                        <td>MYR &nbsp;<a class="updatetotal"></a></td>
+                                        @foreach($claim->statuses as $status)
+                                        @if($status->name == 'remarks')
+                                        <td></td>
+                                        @endif
+                                        @endforeach
                                     @elseif(Auth::user()->hasRole('User') && Auth::user()->hasRole('Admin'))
-                                    <td>MYR {{$claim->amount ?? 0.00}}</td>
+                                        <td>MYR {{$claim->amount ?? 0.00}}</td>
                                     @else
-                                    <td>MYR {{$claim->amount ?? 0.00}}</td>
+                                        <td>MYR {{$claim->amount ?? 0.00}}</td>
                                     @endif
                                 </tr>
                             </tbody>
