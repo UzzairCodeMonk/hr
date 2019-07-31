@@ -15,6 +15,11 @@ Claim Form
     <div class="card-header">
         <h3>Claim Subject: {!! $claim->subject ?? 'N/A' !!}</h3>
         <div class="card-options">
+            <form action="{{route('claim.submit')}}" method="POST" class="">
+                @csrf
+                <input type="hidden" name="claim_id" value="{{$claim->id}}">
+                <button type="submit" class="btn btn-primary btn-sm">Submit This Claim</button>
+            </form>
         </div>
     </div>
     <div class="card-body">
@@ -54,6 +59,7 @@ Claim Form
                                     <td>Amount</td>
                                     <td>Remarks</td>
                                     <td>Attachments</td>
+                                    <td>Action</td>
                                 </tr>
                             </thead>
                             <tbody>
@@ -79,11 +85,20 @@ Claim Form
                                             @endif
                                         </ul>
                                     </td>
+                                    <td class="text-center">
+                                        <a href="{{route('claimdetail.edit',['id'=>$detail->id])}}" class="btn btn-sm text-dark btn-link">Edit</a>
+                                        <form action="{{route('claimdetail.deletedetail',['id'=>$detail->id])}}" method="POST" class="deleteconfirm{{$detail->id}} d-inline">
+                                                @csrf
+                                                @method('DELETE')
+                                                <button type="submit" class="btn btn-sm text-danger btn-link" onclick="deletedetail({{$detail->id}})">Delete</button>
+                                        </form>
+                                    </td>
                                 </tr>
                                 @endforeach
                                 <tr>
                                     <td colspan="5" class="text-right">Total</td>
-                                    <td>MYR {{$claim->amount ?? 0.00}}</td>
+                                    <td>MYR &nbsp;<a class="updatetotal"></a></td>
+                                    <td></td>
                                 </tr>
                             </tbody>
                         </table>
@@ -91,47 +106,7 @@ Claim Form
                 </div>
             </div>
         </div>
-        <div class="row">
-            <div class="col"></div>
-            <div class="col">
-                @if(Auth::user()->hasRole('Admin') || Auth::user()->hasRole('Approver'))
-                @if($actionVisibility)
-                <form action="{{route('claim.approval.store')}}" method="POST" class="approve-reject">
-                    <input type="hidden" name="claim_id" value="{{$claim->id}}">
-                    @csrf
-                    <div class="row">
-                        <div class="col">
-                            <div class="form-group">
-                                <label for="">Admin Remarks</label>
-                                <textarea name="admin_remarks" id="" cols="30" rows="6" class="form-control"></textarea>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col">
-                            <div class="form-group pull-right">
-                                @if($ss == false)
-                                <button type="submit" name="remarks" class="btn btn-md btn-primary remarks-btn">
-                                    Submit
-                                    Remarks Only</button>
-                                @endif
-                                @can('approve_claim')
-                                <button type="submit" name="approve" class="btn btn-md btn-success approve-btn"><i class="ti ti-check"></i>
-                                    Approve</button>
-                                @endcan
-                                @can('reject_claim')
-                                <button type="submit" name="reject" class="btn btn-md btn-danger reject-btn"><i class="ti ti-close"></i>
-                                    Reject</button>
-                                @endcan
-                            </div>
-                        </div>
-                    </div>
-                </form>
-                @endif
-                @endif
-            </div>
-
-        </div>
+        
     </div>
 </div>
 
@@ -149,5 +124,42 @@ Claim Form
     $(document).ready(function() {
         $('.datatable').DataTable();
     });
+</script>
+<script type="text/javascript">
+
+    // $('#totalupdate').on("click", function () {
+        $.ajax({
+            url: '{{route('api.claimdetail.updateclaimtotal',['id'=>$claim->id])}}',
+            type: "POST",
+            // data: id,
+            dataType: "json",
+            success: function(response){
+                console.log(response);
+                $(".updatetotal").empty().append(response.total);
+            },
+          
+        });
+
+        function deletedetail(id) {
+        event.preventDefault();
+        return swal({
+            title: "Are you sure?",
+            text: "You won't be able to revert this!",
+            type: 'warning',
+            showCancelButton: true,
+            confirmButtonClass: 'btn btn-primary',
+            cancelButtonClass: 'btn btn-danger',
+            buttonsStyling: false,
+            confirmButtonText: '<i class="ti ti-check"></i> Yes, I\'m sure',
+            confirmButtonAriaLabel: 'Thumbs up, great!',
+            cancelButtonText: '<i class="ti ti-close"></i> Nope, abort mission',
+            cancelButtonAriaLabel: 'Thumbs down',
+            reverseButtons: true
+        }).then((result) => {
+            if (result.value) {
+                $(".deleteconfirm" + id).trigger('submit');
+            }
+        });
+    }
 </script>
 @endsection

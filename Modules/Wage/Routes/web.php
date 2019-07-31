@@ -21,6 +21,7 @@ Route::group(['prefix' => 'claim', 'middleware' => ['auth']], function () {
     Route::post('approval', 'ClaimApprovalsController@store')->name('claim.approval.store');
      //claim status user
      Route::get('my-claims/status/{status}', 'ClaimsController@myclaims')->name('claim.myclaims'); 
+     Route::get('editClaim/{id}','ClaimsController@editClaim')->name('claim.editClaim')->middleware('signed');  
 
 });
 
