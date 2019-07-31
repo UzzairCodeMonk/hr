@@ -115,12 +115,27 @@ class AdminLeavesController extends Controller
         $leaveentitle->available_annualleave = $available;
         $leaveentitle->save();
 
+        $balance =LeaveBalance::where('user_id',$leave->user_id)->where('leavetype_id',7)->exists();
+            if($balance == true){
+                $b = LeaveBalance::where('user_id',$leave->user_id)->where('leavetype_id',7)->first();
+                $thismonth = $leaveentitle->available_annualleave - ($day - $b->balance);
+
+                if($thismonth <= 0){
+                    $thismonth = 0 ;
+                }
+
+            }else{
+                $thismonth = $leaveentitle->available_annualleave;
+            }
+
+
 
         return view('leave::leave.admin.show-trash', [
             'leave' => $leave,
             'types' => $this->type->all(),
             'statuses' => Leave::onlyTrashed()->where('id', $id)->first()->statuses,
-            'calendar' => $calendar
+            'calendar' => $calendar,
+            'thismonth' => $thismonth
         ]);
     }
 
@@ -169,13 +184,27 @@ class AdminLeavesController extends Controller
          $available = number_format($prorated_leave);
          $leaveentitle->available_annualleave = $available;
          $leaveentitle->save();
+
+        $balance =LeaveBalance::where('user_id',$leave->user_id)->where('leavetype_id',7)->exists();
+        if($balance == true){
+            $b = LeaveBalance::where('user_id',$leave->user_id)->where('leavetype_id',7)->first();
+            $thismonth = $leaveentitle->available_annualleave - ($day - $b->balance);
+
+            if($thismonth <= 0){
+                $thismonth = 0 ;
+            }
+
+        }else{
+            $thismonth = $leaveentitle->available_annualleave;
+        }
         return view('leave::leave.admin.show', [
 
             'leave' => $leave,
             'types' => $this->type->all(),
             'statuses' => $leave->statuses,
             'actionVisibility' => $actionVisibility,
-            'calendar' => $calendar
+            'calendar' => $calendar,
+            'thismonth' => $thismonth
 
         ]);
     }

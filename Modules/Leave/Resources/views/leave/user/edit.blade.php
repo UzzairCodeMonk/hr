@@ -25,7 +25,7 @@ Leave Application Form
         </div>
     </div>
     <div class="card-body">
-        <form action="{{route('my-leave.update',['id' => $leave->id])}}" method="POST">
+        <form action="{{route('my-leave.update',['id' => $leave->id])}}" method="POST" enctype="multipart/form-data">
             @csrf
             <!-- identity -->
             <div class="row">

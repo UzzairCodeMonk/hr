@@ -190,7 +190,7 @@ class ClaimDetailsController extends Controller
 
         toast('Claim detail updated successfully', 'success', 'top-right');
         // return redirect()->back();
-        return redirect(URL::signedRoute('claimdetail.show', ['id' => $claim_id]));
+        return redirect(URL::signedRoute('claim.editClaim', ['id' => $claim_id]));
 
     }
     //deletedetail masa edit balik
