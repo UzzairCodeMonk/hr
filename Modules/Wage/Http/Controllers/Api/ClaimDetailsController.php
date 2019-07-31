@@ -50,4 +50,18 @@ class ClaimDetailsController extends Controller
 
         return response()->json(['success' => true]);
     }
+
+    //calculatetotal after update
+    public function updateclaimtotal($id)
+    {
+
+        $claim = ClaimDetail::where('claim_id', '=', $id)->pluck('amount');
+        $claimTotal = collect($claim)->sum();
+
+        Claim::find($id)->update([
+            'amount' => number_format($claimTotal,2)
+        ]);
+        return response()->json(['success' => true,'total' => number_format($claimTotal,2)]);
+    }
+    
 }

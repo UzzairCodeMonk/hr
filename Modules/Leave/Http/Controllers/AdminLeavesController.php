@@ -27,6 +27,7 @@ use Uzzaircode\DateHelper\Traits\DateHelper;
 use Modules\Leave\Traits\LeaveOperations;
 use Carbon\Carbon;
 use Modules\Leave\Entities\LeaveEntitlement;
+use Modules\Leave\Jobs\ApproveLeaveJob;
 
 class AdminLeavesController extends Controller
 {
@@ -63,6 +64,10 @@ class AdminLeavesController extends Controller
      */
     public function index($status = null)
     {
+        $leave = $this->leave->all();
+        $stats = Leave::adminLeaveStatus($status);
+        $approveleave = ApproveLeaveJob::dispatch($leave,$status)->onConnection('database')->onQueue('processing');
+        // dd($approveleave);
         return view('leave::leave.admin.index', [
             'leaves' => Leave::adminLeaveStatus($status)
         ]);

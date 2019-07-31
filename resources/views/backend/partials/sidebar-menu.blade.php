@@ -46,7 +46,7 @@
     
         <ul class="menu-submenu">            
             <li class="menu-item">
-                <a class="menu-link" href="{{route('claim.my-claims')}}">
+                <a class="menu-link" href="{{route('claim.myclaims',['status'=>'submitted'])}}">
                     <span class="dot"></span>
                     <span class="title">My Claims Record</span>
                 </a>
