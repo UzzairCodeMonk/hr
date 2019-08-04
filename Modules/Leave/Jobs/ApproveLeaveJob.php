@@ -12,6 +12,7 @@ use Carbon\Carbon;
 use DateTime;
 use Auth;
 use Modules\Leave\Entities\LeaveBalance;
+use Datakraf\Notifications\ApproveLeave;
 
 class ApproveLeaveJob implements ShouldQueue
 {
