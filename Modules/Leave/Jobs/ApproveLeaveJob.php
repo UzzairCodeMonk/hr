@@ -41,7 +41,6 @@ class ApproveLeaveJob implements ShouldQueue
             $days = $today_date->diff($created_at);
           
             if($days->days > 3){
-               
                 if($status == 'submitted'){
                     // find the total days allowed for that particular leave type
                     $totalAllowedDaysOfLeave = $l->type->days;
@@ -61,7 +60,7 @@ class ApproveLeaveJob implements ShouldQueue
                         LeaveBalance::updateOrCreate(['user_id' => $l->user_id, 'leavetype_id' => $l->leavetype_id], ['balance' => $balance]);
                     }
                   
-                    $l->setStatus($this->approvedStatus, 'Leave approved by ' . 'system');
+                    $l->setStatus($this->approvedStatus, 'Leave approved by ' . 'System');
                     $l->user->notify(new ApproveLeaveAuto($l, $l->user));
                 }
             }
