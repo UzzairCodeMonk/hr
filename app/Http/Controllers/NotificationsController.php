@@ -16,8 +16,10 @@ class NotificationsController extends Controller
 
     public function getMyNotifications()
     {
-
-        return response()->json(auth()->user()->unreadNotifications, 200);
+        $unread = auth()->user()->unreadNotifications;
+        $limit = auth()->user()->unreadNotifications()->limit(5)->get(); //limit kat view
+    
+        return response()->json(['unread'=>$unread,'limit'=>$limit], 200);
     }
 
     public function markAsRead(Request $request)
