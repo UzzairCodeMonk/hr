@@ -4,11 +4,12 @@ Claim Form
 @endsection
 @section('page-css')
 <style>
-    .preloader{
+    .preloader {
         display: none !important;
     }
-    form.editableform > .form-group{
-        margin:10px !important;
+
+    form.editableform>.form-group {
+        margin: 10px !important;
     }
 </style>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/x-editable/1.5.1/bootstrap-editable/css/bootstrap-editable.css">
@@ -18,19 +19,15 @@ Claim Form
 <a href="{{URL::previous()}}" class="btn btn-primary">Back</a>
 <div class="card">
     <div class="card-header">
-        <h3>Claim Subject: {!! $claim->subject ?? 'N/A' !!}</h3>
+        <h3>Claim Subject: {!! $claim_subject ?? 'N/A' !!}</h3>
         <div class="card-options">
-            <form action="{{route('claim.submit')}}" method="POST" class="">
-                @csrf
-                <input type="hidden" name="claim_id" value="{{$claim->id}}">
-                <button type="submit" class="btn btn-primary btn-sm">Submit This Claim</button>
-            </form>
+          
         </div>
     </div>
     <div class="card-body">
         <div class="row">
             <div class="col">
-                <form action="{{route('claimdetail.store')}}" method="POST" enctype="multipart/form-data" class="">
+                <form action="{{route('claimdetail.updateclaim',['id'=>$detail->id])}}" method="POST" enctype="multipart/form-data" class="">
                     @csrf
                     <!-- identity -->
                     <div class="card">
@@ -42,15 +39,16 @@ Claim Form
                             </div>
                         </div>
                         <div class="card-body">
+                         
                             <div class="row">
                                 <div class="col-md-6">
                                     <input type="hidden" name="user_id" value="{{Auth::id()}}">
-                                    <input type="hidden" name="claim_id" value="{{$claim->id ?? 0}}">
+                                    <input type="hidden" name="claim_id" value="{{$claim_id ?? 0}}">
                                     <div class="form-group">
                                         <label for="" class="require">Claim Type</label>
                                         <select name="claimtype_id" id="" class="form-control">
                                             @foreach($types as $type)
-                                            <option value="{{$type->id}}">{{$type->name}}</option>
+                                            <option value="{{$type->id}}" {{isset($type) && $type->id == $detail->type->id ? 'selected':''}}>{{$type->name}}</option>
                                             @endforeach
                                         </select>
                                         @include('backend.shared._errors',['entity'=>'claimtype_id'])
@@ -61,33 +59,42 @@ Claim Form
                                 <div class="col">
                                     <div class="form-group">
                                         <label for="" class="require">Date</label>
-                                        <input type="text" name="date" id="" class="form-control date" data-provide="datepicker">
+                                        <input type="text" name="date" id="" class="form-control date" data-provide="datepicker" value="{{$detail->date ?? ''}}">
                                         @include('backend.shared._errors',['entity'=>'date'])
                                     </div>
                                 </div>
                                 <div class="col">
                                     <div class="form-group">
                                         <label for="" class="require">Amount (MYR)</label>
-                                        <input type="text" name="amount" id="" class="form-control">
+                                        <input type="text" name="amount" id="" class="form-control" value="{{$detail->amount ?? ''}}">
                                         @include('backend.shared._errors',['entity'=>'amount'])
                                     </div>
                                 </div>
                             </div>
-                            <div class="row">
+                            <div class=" row">
                                 <div class="col">
                                     <div class="form-group">
                                         <label for="">Remarks</label>
-                                        <textarea name="remarks" id="" cols="30" rows="6" class="form-control"></textarea>
+                                        <textarea name="remarks" id="" cols="30" rows="6" class="form-control" value="{{$detail->remarks ?? ''}}">{{$detail->remarks ?? ''}}</textarea>
                                         @include('backend.shared._errors',['entity'=>'remarks'])
                                     </div>
                                 </div>
-                                <div class="col">
+                                <div class=" col">
                                     <div class="form-group">
                                         <label for="" class="require">Attachments</label>
-                                        <button type="button" class="btn btn-block btn-md btn-primary" onclick="document.getElementById('fileInput').click();"><i
-                                                class="ti ti-files"></i> Attach your file(s) here</button>
-                                        <input id="fileInput" type="file" style="display:none;" name="attachments[]"
-                                            multiple />
+                                        @if($detail->attachments->count() > 0)
+                                        <ul>
+                                            @foreach($detail->attachments as $attachment)
+                                            <li>
+                                                <a href="{{asset($attachment->filepath)}}" target="_blank" download="{{$attachment->filename}}">
+                                                    {{$attachment->filename}}
+                                                </a>
+                                            </li>
+                                            @endforeach
+                                            @endif
+                                        </ul>
+                                        <button type="button" class="btn btn-block btn-md btn-primary" onclick="document.getElementById('fileInput').click();"><i class="ti ti-files"></i> Attach your file(s) here</button>
+                                        <input id="fileInput" type="file" style="display:none;" name="attachments[]" multiple />
                                         <p class="form-text">The attachments must be a file of type: jpeg, bmp, png,
                                             pdf, doc.</p>
                                         @include('backend.shared._errors',['entity'=>'attachments'])
@@ -96,46 +103,18 @@ Claim Form
                             </div>
                             <div class="form-group">
                                 <button class="btn btn-primary pull-right submit-btn" type="submit">
-                                    Create
+                                    Update
                                 </button>
                             </div>
                         </div>
+                        
                     </div>
                 </form>
             </div>
             <div class="col-md-6">
-                <div class="card">
-                    <div class="card-header">
-                        <h3 class="card-title">
-                            Claim Records
-                        </h3>
-                        <div class="card-options">
-                            <button class="btn btn-sm btn-danger delete-claimdetails">Delete Claim Details</button>
-                        </div>
-                    </div>
-                    <div class="card-body">
-                        <div class="table-responsive">
-                            <table class="table table-bordered">
-                                <thead>                                    
-                                    <tr>
-                                        <td>#</td>
-                                        <td>Select</td>
-                                        <td>Amount (MYR)</td>
-                                        <td>Date</td>
-                                        <td>Remarks</td>
-                                        <td>Attachments</td>
-                                    </tr>
-                                </thead>
-                                <tbody id="claim_data">
-                                </tbody>
-                                <tr>
-                                    <td colspan="5">Total (MYR):</td>
-                                    <td id="claim_total"></td>
-                                </tr>
-                            </table>
-                        </div>
-                    </div>
-                </div>
+
+
+
             </div>
         </div>
     </div>
@@ -152,13 +131,11 @@ Claim Form
     $('.date').datepicker({
         format: "{{config('app.date_format_js')}}",
     });
-
 </script>
 <script type="text/javascript">
-    $(document).ready(function () {
+    $(document).ready(function() {
         $('.datatable').DataTable();
     });
-
 </script>
 <script type="text/javascript">
     function fetch_claim_data() {
@@ -166,10 +143,10 @@ Claim Form
             headers: {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
             },
-            url: "{{route('api.claimdetails.index',['claimId' => $claim->id])}}",
+            url: "{{route('api.claimdetails.index',['claimId' => $claim_id])}}",
             method: "GET",
             dataType: "json",
-            success: function (data) {
+            success: function(data) {
                 console.log(data);
                 for (var count = 0; count < data.length; count++) {
 
@@ -185,7 +162,7 @@ Claim Form
                             count].id + '">' + data[count].remarks + '</td>';
                     html_data +=
                         '<td>' + `<a href="${window.location.origin}/${data[count].attachments[0].filepath}" target="_blank">` + data[count].attachments[0].filename + '</a></td>';
-                    html_data += '</tr>';                    
+                    html_data += '</tr>';
                     $('#claim_data').append(html_data);
                 }
             }
@@ -199,10 +176,10 @@ Claim Form
             headers: {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
             },
-            url: "{{route('api.claim.total',['claimId' => $claim->id])}}",
+            url: "{{route('api.claim.total',['claimId' => $claim_id])}}",
             method: "POST",
             dataType: "json",
-            success: function (data) {
+            success: function(data) {
                 // $total = data.total,
                 // $('#claim_total').empty().append($total)
                 $("#claim_total").empty().append(data.total);
@@ -213,9 +190,9 @@ Claim Form
     fetch_claim_total();
     setInterval(fetch_claim_total, 5000);
 
-    $(".delete-claimdetails").click(function () {
-        var val=[];
-        $("#claim_data").find('input[name="claimdetails-record[]"]:checked').each(function () {
+    $(".delete-claimdetails").click(function() {
+        var val = [];
+        $("#claim_data").find('input[name="claimdetails-record[]"]:checked').each(function() {
             $(this).parents("tr").remove();
             val.push($(this).data('pk'));
             console.log(val);
@@ -233,21 +210,21 @@ Claim Form
                     //     $(this).parents("tr").remove();
                     //     id = $(this).data('pk');
                     //     console.log(id);
-                        $.ajax({
-                            headers: {
-                                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr(
-                                    'content')
-                            },
-                            // url: '/api/claims/details/' + id + '/delete',
-                            url: '{{url('/api/claims/details/')}}' + '/' + val +'/delete',
-                            method: "DELETE",
-                            dataType: "json",
-                            success: function (data) {
-                                if (data.success == true) {
-                                    return swalSuccess('Deleted');
-                                }
+                    $.ajax({
+                        headers: {
+                            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr(
+                                'content')
+                        },
+                        // url: '/api/claims/details/' + id + '/delete',
+                        url: '{{url(' / api / claims / details / ')}}' + '/' + val + '/delete',
+                        method: "DELETE",
+                        dataType: "json",
+                        success: function(data) {
+                            if (data.success == true) {
+                                return swalSuccess('Deleted');
                             }
-                        });
+                        }
+                    });
                     // }
                 }
             })
@@ -266,12 +243,12 @@ Claim Form
         title: 'Amount',
         type: "POST",
         //dataType: 'json',
-        validate: function (value) {
+        validate: function(value) {
             if ($.trim(value) == '') {
                 return 'This field is required';
             }
         },
-        success: function (data) {
+        success: function(data) {
             if (data.success == true) {
                 return swalSuccess('Updated');
             }
@@ -288,7 +265,7 @@ Claim Form
         title: 'Remarks',
         type: "POST",
         //dataType: 'json',
-        validate: function (value) {
+        validate: function(value) {
             if ($.trim(value) == '') {
                 return 'This field is required';
             }

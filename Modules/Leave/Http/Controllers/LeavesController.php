@@ -127,7 +127,7 @@ class LeavesController extends Controller
             //calculate prorated leave yg layak ambil ikut bulan
             $today = Carbon::now();
             $month = $today->month;
-            $leaveentitle=LeaveEntitlement::where('user_id',auth()->user()->id)->first();
+            $leaveentitle=LeaveEntitlement::where('user_id',$data->user_id)->first();
             $day=auth()->user()->leaveEntitlement->days;
 
             $prorated_leave=$day / 12 * $month;
@@ -135,12 +135,26 @@ class LeavesController extends Controller
             $leaveentitle->available_annualleave = $available;
             $leaveentitle->save();
 
+            $balance =LeaveBalance::where('user_id',$data->user_id)->where('leavetype_id',7)->exists();
+            if($balance == true){
+                $b = LeaveBalance::where('user_id',$data->user_id)->where('leavetype_id',7)->first();
+                $thismonth = $leaveentitle->available_annualleave - ($day - $b->balance);
+
+                if($thismonth <= 0){
+                    $thismonth = 0 ;
+                }
+
+            }else{
+                $thismonth = $leaveentitle->available_annualleave;
+            }
+
         return view('leave::leave.user.show', [
 
             'leave' => $data,
             'types' => $this->type->all(),
             'statuses' => $data->statuses,
-            'calendar' => $calendar
+            'calendar' => $calendar,
+            'thismonth' => $thismonth
 
         ]);
     }
@@ -164,10 +178,24 @@ class LeavesController extends Controller
         $available = number_format($prorated_leave);
         $leaveentitle->available_annualleave = $available;
         $leaveentitle->save();
+
+        $balance =LeaveBalance::where('user_id',auth()->user()->id)->where('leavetype_id',7)->exists();
+        if($balance == true){
+            $b = LeaveBalance::where('user_id',auth()->user()->id)->where('leavetype_id',7)->first();
+            $thismonth = $leaveentitle->available_annualleave - ($day - $b->balance);
+
+            if($thismonth <= 0){
+                $thismonth = 0 ;
+            }
+
+        }else{
+            $thismonth = $leaveentitle->available_annualleave;
+        }
         
         return view('leave::leave.user.apply', [
             'types' => $this->type->all(),
-            'holidays' => $this->holiday->all()
+            'holidays' => $this->holiday->all(),
+            'thismonth' => $thismonth
         ]);
     }
 
@@ -260,7 +288,9 @@ class LeavesController extends Controller
             // determine if its half day or full day
             $this->daySelector($request, $leave);
             // notify HR
-            $this->notifyLeaveApplicationToRecipients($request->users, $leave, new ApplyLeave($leave, auth()->user()));
+            if($request->users){
+                $this->notifyLeaveApplicationToRecipients($request->users, $leave, new ApplyLeave($leave, auth()->user()));
+            }
             // set leave status
             $this->setLeaveStatus($leave);
             // save attachments
@@ -294,11 +324,12 @@ class LeavesController extends Controller
         $leave->update($this->data);
 
         $this->daySelector($request, $leave);
-
+     
         $this->saveAttachments($request, $leave);
-
+      
         toast('Leave record submitted', 'success', 'top-right');
-        return redirect()->back();
+        // return redirect()->back();
+        return redirect()->route('leave.index', ['status' => 'submitted']);
     }
 
 
@@ -428,15 +459,18 @@ class LeavesController extends Controller
         $leave = $this->leave->find($id);
 
         // check the user's leave type available balance
-        $that_leave = $this->balance->where('leavetype_id', $leave->leavetype_id)->where('user_id', $leave->user_id)->first();
+        $leavebalance = $this->balance->where('leavetype_id',$leave->leavetype_id)->where('user_id',$leave->user_id)->exists();
+        if($leavebalance == true){
+            $that_leave = $this->balance->where('leavetype_id', $leave->leavetype_id)->where('user_id', $leave->user_id)->first();
 
-        //check if the leave has been approved
-        if ($leave->status == $this->approvedStatus) {
-            $that_leave_balance = $that_leave->balance;
-            $that_leave_balance += $leave->days_taken;
-            $that_leave->update([
-                'balance' => $that_leave_balance
-            ]);
+            //check if the leave has been approved
+            if ($leave->status == $this->approvedStatus) {
+                $that_leave_balance = $that_leave->balance;
+                $that_leave_balance += $leave->days_taken;
+                $that_leave->update([
+                    'balance' => $that_leave_balance
+                ]);
+            }
         }
 
         $approvers = $leave->approvers->pluck('id')->toArray();

@@ -22,7 +22,7 @@ class ClaimApprovalsController extends Controller
     public function store(Request $request)
     {
         $this->approval($request);
-        return redirect()->route('claim.records');
+        return redirect()->route('claim.statusrecord',['status'=>'submitted']);
     }
 
 
@@ -45,7 +45,7 @@ class ClaimApprovalsController extends Controller
                 break;
         
             case $request->has('remarks'):
-                $this->setClaimStatus($claim, $this->submittedStatus, auth()->user()->personalDetail->name . '<br>' . $this->remarksExist($request));
+                $this->setClaimStatus($claim, $this->remarkStatus, auth()->user()->personalDetail->name . '<br>' . $this->remarksExist($request));
                 $claim->user->notify(new RemarkOnlyClaim($claim, $claim->user, auth()->user()));
                 toast('Remarks added to this claim application', 'success', 'top-right');
                 break;

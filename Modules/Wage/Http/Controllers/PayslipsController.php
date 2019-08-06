@@ -120,7 +120,7 @@ class PayslipsController extends Controller
         $summaries1 = PayslipSummary::all();
         $payslip=Payslip::all();
         //auto generate payslip summary
-        $summaries2=PayslipSummaryJob::dispatch($payslip,$summaries1)->onConnection('database');;
+        $summaries2=PayslipSummaryJob::dispatch($payslip,$summaries1)->onConnection('database');
         if($summaries2){
             $summaries = PayslipSummary::orderBy('month','desc')->get();
         }
@@ -206,7 +206,7 @@ class PayslipsController extends Controller
         // Fetch all customers from database
         $data = PayslipSummary::get();
         // Send data to the view using loadView function of PDF facade
-        $pdf = PDF::loadView('wage::payslips.summary-payslip', compact('payslips','summary'));
+        $pdf = PDF::loadView('wage::payslips.summary-payslip', compact('payslips','summary'))->setPaper('a4','landscape');
         // If you want to store the generated pdf to the server then you can use the store function
         $pdf->save(storage_path('app\public\form'.'summary-payslip.pdf'));
         // Finally, you can download the file using download function

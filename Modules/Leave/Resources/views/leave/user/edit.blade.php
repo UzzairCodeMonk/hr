@@ -18,13 +18,14 @@ Leave Application Form
     <div class="card-header">
         <h3>Leave Application Update Form</h3>
         <div class="card-options">
-            <button type="button" class="btn btn-sm btn-info">{!! $leave->type->name ?? 'N/A' !!}</button>
+            <!-- <button type="button" class="btn btn-sm btn-info">{!! $leave->type->name ?? 'N/A' !!}</button> -->
+            <label >{!! $leave->type->name ?? 'N/A' !!}</label>
             <button type="button" class="btn btn-sm btn-secondary" data-toggle="quickview" data-target="#leave-balance">View
                 leave balance</button>
         </div>
     </div>
     <div class="card-body">
-        <form action="{{route('my-leave.update',['id' => $leave->id])}}" method="POST">
+        <form action="{{route('my-leave.update',['id' => $leave->id])}}" method="POST" enctype="multipart/form-data">
             @csrf
             <!-- identity -->
             <div class="row">
@@ -193,6 +194,20 @@ Leave Application Form
 
     <div class="quickview-body">
         <div class="quickview-block">
+        @if($leave->user->personalDetail->status!="probation")
+            <table class="table table-bordered" style="width:50%">
+                <thead>
+                    <tr>
+                        <th>Leave Entitlement</th>
+                        <th>{{DB::table('leave_entitlements')->where('user_id',$leave->user->id)->first()->days}} days</th>
+                    </tr>
+                    <tr>
+                        <th>Available Annual Leave</th>
+                        <th>{{DB::table('leave_entitlements')->where('user_id',$leave->user->id)->first()->available_annualleave}} days</th>
+                    </tr>
+                </thead>
+            </table>
+            @endif
             <table class="table table-striped table-bordered">
                 <thead>
                     <tr>
@@ -202,6 +217,16 @@ Leave Application Form
                     </tr>
                 </thead>
                 <tbody>
+                @if($leave->user->personalDetail->status=="probation")
+                <tr>
+                        <td>1</td>
+                        <td>Unpaid Leave</td>
+                        <td>
+                        @if(DB::table('leavebalances')->where('user_id',$leave->user->id)->where('leavetype_id',6)->exists())
+                            {{DB::table('leavebalances')->where('user_id',$leave->user->id)->where('leavetype_id',6)->first()->balance}}/@endif{{30}}
+                            {{str_plural('day',30)}}</td>
+                    </tr>
+                @else
                     @foreach($types as $key => $type)
                     <tr>
                         <td>{{++$key}}</td>
@@ -211,6 +236,7 @@ Leave Application Form
                             {{str_plural('day',$type->days)}}</td>
                     </tr>
                     @endforeach
+                    @endif
                 </tbody>
             </table>
         </div>

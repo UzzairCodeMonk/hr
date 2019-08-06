@@ -29,7 +29,7 @@ class ClaimSubmissionsController extends Controller
 
         toast('Claim submitted', 'success', 'top-right');
 
-        return redirect()->route('claim.my-claims');
+        return redirect()->route('claim.myclaims', ['status' => 'submitted']);
         
     }
 

@@ -127,6 +127,10 @@ Leave Application Form
                         <th>Available Annual Leave</th>
                         <th>{{DB::table('leave_entitlements')->where('user_id',$leave->user_id)->first()->available_annualleave}} days</th>
                     </tr>
+                    <tr>
+                        <th>Available Balance Annual Leave for this month</th>
+                        <th>{{$thismonth}} days</th>
+                    </tr>
                 </thead>
             </table>
             @endif

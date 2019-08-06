@@ -110,11 +110,13 @@ class UsersController extends Controller
             'email' => $request->email,
             'password' => Hash::make($request->password),
         ]);
+        
         $user->claimApprovers()->sync($request->claims);
         $user->leaveApprovers()->sync($request->leaves);
         $this->syncPermissions($request, $user);
         toast('Employee created successfully', 'success', 'top-right');
-        return back();
+        // return back();
+        return redirect()->route('user.index'); 
     }
 
     public function update(Request $request, $id)
@@ -166,18 +168,24 @@ class UsersController extends Controller
 
         // update approvers 
 
-        dd($request->leaves);
+        // dd($request->leaves);
         // Handle the user roles
         $this->syncPermissions($request, $user);
 
         toast('Employee information updated successfully', 'success', 'top-right');
-        return back();
+        // return back();
+        return redirect()->route('user.index'); 
     }
 
     public function destroy($id)
     {
-        $this->user->find($id)->delete();
+        $user= $this->user->find($id);
+      
+        $user->claimApprovers()->wherePivot('user_id',$id)->detach();
+        $user->leaveApprovers()->wherePivot('user_id',$id)->detach();
+        $user->delete();
         toast('Employee deleted successfully', 'success', 'top');
+     
         return back();
     }
 
@@ -204,5 +212,17 @@ class UsersController extends Controller
         $banks = $this->makeRequest('GET', 'banks');
 
         return $banks;
+    }
+    //list of employee resigned
+    public function resigned()
+    {
+        return view('backend.users.resigned', [
+            'columnNames' => $this->columnNames,
+            'datatable' => true,
+            'results' => User::with("personalDetail")->get()->where("personalDetail.status", "==", "resigned")->sortBy('personalDetail.staff_number')->values()->all(),
+            'actions' => $this->actions,
+            'deleteAction' => $this->deleteAction,
+            'code' => $this->code
+        ]);
     }
 }

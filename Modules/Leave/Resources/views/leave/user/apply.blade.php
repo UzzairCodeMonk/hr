@@ -177,7 +177,7 @@ Leave Application Form
     <div class="quickview-body">
         <div class="quickview-block">
         @if(Auth::user()->personalDetail->status!="probation")
-            <table class="table table-bordered" style="width:50%">
+            <table class="table table-bordered" style="width:70%">
                 <thead>
                     <tr>
                         <th>Leave Entitlement</th>
@@ -186,6 +186,10 @@ Leave Application Form
                     <tr>
                         <th>Available Annual Leave</th>
                         <th>{{DB::table('leave_entitlements')->where('user_id',auth()->id())->first()->available_annualleave}} days</th>
+                    </tr>
+                    <tr>
+                        <th>Available Balance Annual Leave for this month</th>
+                        <th>{{$thismonth}} days</th>
                     </tr>
                 </thead>
             </table>
