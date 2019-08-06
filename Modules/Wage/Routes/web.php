@@ -35,6 +35,7 @@ Route::group(['prefix' => 'claimdetails', 'middleware' => ['auth']],function(){
     Route::get('edit/{id}', 'ClaimDetailsController@edit')->name('claimdetail.edit');
     Route::post('update/{id}', 'ClaimDetailsController@updateclaim')->name('claimdetail.updateclaim');
     Route::delete('deletedetail/{id}', 'ClaimDetailsController@deletedetail')->name('claimdetail.deletedetail');
+    Route::get('showAuth/{id}', 'ClaimDetailsController@showAuth')->name('claimdetail.showAuth'); 
 });
 
 

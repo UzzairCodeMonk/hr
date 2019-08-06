@@ -91,47 +91,6 @@ Claim Form
                 </div>
             </div>
         </div>
-        <div class="row">
-            <div class="col"></div>
-            <div class="col">
-                @if(Auth::user()->hasRole('Admin') || Auth::user()->hasRole('Approver') || $ap == true)
-                @if($actionVisibility)
-                <form action="{{route('claim.approval.store')}}" method="POST" class="approve-reject">
-                    <input type="hidden" name="claim_id" value="{{$claim->id}}">
-                    @csrf
-                    <div class="row">
-                        <div class="col">
-                            <div class="form-group">
-                                <label for="">Admin Remarks</label>
-                                <textarea name="admin_remarks" id="" cols="30" rows="6" class="form-control"></textarea>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col">
-                            <div class="form-group pull-right">
-                                @if($ss == false)
-                                <button type="submit" name="remarks" class="btn btn-md btn-primary remarks-btn">
-                                    Submit
-                                    Remarks Only</button>
-                                @endif
-                                @can('approve_claim')
-                                <button type="submit" name="approve" class="btn btn-md btn-success approve-btn"><i class="ti ti-check"></i>
-                                    Approve</button>
-                                @endcan
-                                @can('reject_claim')
-                                <button type="submit" name="reject" class="btn btn-md btn-danger reject-btn"><i class="ti ti-close"></i>
-                                    Reject</button>
-                                @endcan
-                            </div>
-                        </div>
-                    </div>
-                </form>
-                @endif
-                @endif
-            </div>
-
-        </div>
     </div>
 </div>
 

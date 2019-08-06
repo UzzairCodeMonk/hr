@@ -148,6 +148,16 @@ class ClaimDetailsController extends Controller
                 $ss = true;
             }
         }
+        $approver = DB::table('claimapprover_user')->where('approver_id',Auth::user()->id)->exists();
+        $ap = false;
+        if($approver == true){
+            $appro = DB::table('claimapprover_user')->where('approver_id',Auth::user()->id)->get();
+          
+            foreach($appro as $app){
+                $appr = $app->approver_id;
+                $ap = true;
+            }
+        }
         // determine if action buttons will be displayed or vice versa
         // dd($actionVisibility = !in_array($this->claim->find($id)->status, [$this->approvedStatus, $this->rejectedStatus]));
         return view('wage::claims.show', [
@@ -156,6 +166,7 @@ class ClaimDetailsController extends Controller
             'detail' => $this->claim->details,
             'actionVisibility' => !in_array($this->claim->find($id)->status, [$this->approvedStatus, $this->rejectedStatus, $this->remarkStatus]),
             'ss' => $ss,
+            'ap' =>$ap,
 
         ]);
     }
@@ -246,6 +257,15 @@ class ClaimDetailsController extends Controller
 
         Claim::find($claimdetail->claim_id)->update([
             'amount' => $claimTotal
+        ]);
+    }
+    //show user auth
+    public function showAuth($id)
+    {
+        return view('wage::claims.showAuth', [
+
+            'claim' => $this->claim->find($id),
+            'detail' => $this->claim->details,
         ]);
     }
 }

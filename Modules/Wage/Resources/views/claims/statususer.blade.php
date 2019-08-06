@@ -36,7 +36,7 @@ Claim Submission Records
                         <td class="text-center">{{ $claim->created_at->toDayDateTimeString() ?? 'N/A' }}</td>
                         <td class="text-center"><span class="badge badge-md {{statusColor($claim->status) ?? ''}}">{{ ucwords($claim->status) ?? 'N/A' }}</span></td>
                         <td class="text-center">
-                            <a href="{{URL::signedRoute('claimdetail.show',['id'=>$claim->id])}}" class="btn btn-sm text-dark btn-link">View</a>
+                            <a href="{{URL::signedRoute('claimdetail.showAuth',['id'=>$claim->id])}}" class="btn btn-sm text-dark btn-link">View</a>
                             <form action="{{route('claim.destroy',['id'=>$claim->id])}}" method="POST" class="deleteconfirm{{$claim->id}} d-inline">
                                 @csrf
                                 @method('DELETE')
