@@ -15,6 +15,7 @@ Claim Form
     <div class="card-header">
         <h3>Claim Subject: {!! $claim->subject ?? 'N/A' !!}</h3>
         <div class="card-options">
+            <a href="{{route('pdf-claim',['id'=> $claim->id])}}" class="btn btn-primary btn-sm" id="exportpdf">Export To PDF</a>
         </div>
     </div>
     <div class="card-body">
@@ -49,7 +50,7 @@ Claim Form
                             <thead>
                                 <tr>
                                     <td>#</td>
-                                    <td>Type</td>
+                                    <td>Category</td>
                                     <td>Date</td>
                                     <td>Amount</td>
                                     <td>Remarks</td>

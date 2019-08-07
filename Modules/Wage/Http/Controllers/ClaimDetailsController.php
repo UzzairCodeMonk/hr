@@ -14,6 +14,7 @@ use Auth;
 use Datakraf\User;
 use DB;
 use URL;
+use PDF;
 
 class ClaimDetailsController extends Controller
 {
@@ -267,5 +268,18 @@ class ClaimDetailsController extends Controller
             'claim' => $this->claim->find($id),
             'detail' => $this->claim->details,
         ]);
+    }
+    //export pdf individu
+    public function exportPDFclaim($id)
+    {
+        $claim = Claim::find($id);
+        // Fetch all customers from database
+        // $data = PayslipSummary::get();
+        // Send data to the view using loadView function of PDF facade
+        $pdf = PDF::loadView('wage::claims.claim-pdf', compact('claim'))->setPaper('a4','potrait');
+        // If you want to store the generated pdf to the server then you can use the store function
+        $pdf->save(storage_path('app\public\form'.'claim-detail.pdf'));
+        // Finally, you can download the file using download function
+        return $pdf->download('claim-detail.pdf');
     }
 }
