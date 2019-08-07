@@ -81,7 +81,7 @@
             created: function () {
                 this.fetchNotifications();
                 this.timer = setInterval(this.fetchNotifications, 15000);
-                this.redirect();
+                // this.redirect();
             },
             methods: {
                 fetchNotifications: function () {
@@ -92,8 +92,8 @@
                         url: "{{ route('personal.notifications') }}",
                         type: "GET",
                         success: function (results) {                            
-                            vueNotifications.results = results;
-                            vueNotifications.arraysize = results.length;
+                            vueNotifications.results = results.limit;
+                            vueNotifications.arraysize = results.unread.length;
                         },
                         error: function () {                            
                             console.log('error get notifications');

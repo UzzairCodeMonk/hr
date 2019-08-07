@@ -14,6 +14,7 @@ use Auth;
 use Datakraf\User;
 use DB;
 use URL;
+use PDF;
 
 class ClaimDetailsController extends Controller
 {
@@ -141,13 +142,19 @@ class ClaimDetailsController extends Controller
 
     public function show($id)
     {
+        if($this->claim->where('id',$id)->exists()==true){
         $cs=$this->claim->find($id);
         $ss = false;
-        foreach($cs->statuses as $status){
-            if($status->name=='remarks'){
-                $ss = true;
+        $statusexist = DB::table('statuses')->where('model_id',$id)->where('model_type','=','Modules\Wage\Entities\Claim')->exists();
+      
+        if($statusexist == true){
+            foreach($cs->statuses as $status){
+                if($status->name=='remarks'){
+                    $ss = true;
+                }
             }
         }
+       
         $approver = DB::table('claimapprover_user')->where('approver_id',Auth::user()->id)->exists();
         $ap = false;
         if($approver == true){
@@ -159,16 +166,20 @@ class ClaimDetailsController extends Controller
             }
         }
         // determine if action buttons will be displayed or vice versa
-        // dd($actionVisibility = !in_array($this->claim->find($id)->status, [$this->approvedStatus, $this->rejectedStatus]));
+        $actionVisibility = !in_array($this->claim->find($id)->status, [$this->approvedStatus, $this->rejectedStatus, $this->remarkStatus]);
         return view('wage::claims.show', [
 
             'claim' => $this->claim->find($id),
             'detail' => $this->claim->details,
-            'actionVisibility' => !in_array($this->claim->find($id)->status, [$this->approvedStatus, $this->rejectedStatus, $this->remarkStatus]),
+            'actionVisibility' => $actionVisibility,
             'ss' => $ss,
             'ap' =>$ap,
 
         ]);
+        }else{
+            toast('Claim has been deleted by user','top-right');
+            return redirect()->back();
+        }
     }
 
     /**
@@ -267,5 +278,18 @@ class ClaimDetailsController extends Controller
             'claim' => $this->claim->find($id),
             'detail' => $this->claim->details,
         ]);
+    }
+    //export pdf individu
+    public function exportPDFclaim($id)
+    {
+        $claim = Claim::find($id);
+        // Fetch all customers from database
+        // $data = PayslipSummary::get();
+        // Send data to the view using loadView function of PDF facade
+        $pdf = PDF::loadView('wage::claims.claim-pdf', compact('claim'))->setPaper('a4','potrait');
+        // If you want to store the generated pdf to the server then you can use the store function
+        $pdf->save(storage_path('app\public\form'.'claim-detail.pdf'));
+        // Finally, you can download the file using download function
+        return $pdf->download('claim-detail.pdf');
     }
 }

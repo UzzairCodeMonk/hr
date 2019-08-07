@@ -36,6 +36,7 @@ Route::group(['prefix' => 'claimdetails', 'middleware' => ['auth']],function(){
     Route::post('update/{id}', 'ClaimDetailsController@updateclaim')->name('claimdetail.updateclaim');
     Route::delete('deletedetail/{id}', 'ClaimDetailsController@deletedetail')->name('claimdetail.deletedetail');
     Route::get('showAuth/{id}', 'ClaimDetailsController@showAuth')->name('claimdetail.showAuth'); 
+    Route::get('pdf-claimdetail/{id}','ClaimDetailsController@exportPDFclaim')->name('pdf-claim'); //convert pdf
 });
 
 

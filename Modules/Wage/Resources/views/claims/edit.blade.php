@@ -54,7 +54,7 @@ Claim Form
                             <thead>
                                 <tr>
                                     <td>#</td>
-                                    <td>Type</td>
+                                    <td>Category</td>
                                     <td>Date</td>
                                     <td>Amount</td>
                                     <td>Remarks</td>

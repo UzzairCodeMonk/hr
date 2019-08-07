@@ -45,7 +45,7 @@ Claim Form
                                     <input type="hidden" name="user_id" value="{{Auth::id()}}">
                                     <input type="hidden" name="claim_id" value="{{$claim_id ?? 0}}">
                                     <div class="form-group">
-                                        <label for="" class="require">Claim Type</label>
+                                        <label for="" class="require">Claim Category</label>
                                         <select name="claimtype_id" id="" class="form-control">
                                             @foreach($types as $type)
                                             <option value="{{$type->id}}" {{isset($type) && $type->id == $detail->type->id ? 'selected':''}}>{{$type->name}}</option>
