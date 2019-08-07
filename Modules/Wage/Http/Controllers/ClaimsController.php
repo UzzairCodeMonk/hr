@@ -13,6 +13,7 @@ use URL;
 use Modules\Wage\Entities\ClaimType;
 use Modules\Wage\Entities\ClaimAttachment;
 use Modules\Wage\Entities\ClaimDetail;
+use DB;
 
 class ClaimsController extends Controller
 {
@@ -159,6 +160,10 @@ class ClaimsController extends Controller
     {
         ClaimAttachment::where('claim_id',$id)->delete();
         ClaimDetail::where('claim_id',$id)->delete();
+        $statusexist = DB::table('statuses')->where('model_id',$id)->where('model_type','=','Modules\Wage\Entities\Claim')->exists();
+        if($statusexist == true){
+            DB::table('statuses')->where('model_id',$id)->where('model_type','=','Modules\Wage\Entities\Claim')->delete();
+        }
         $this->claim->find($id)->delete();
         toast('Claim deleted successfully', 'success', 'top-right');
         return redirect()->back();

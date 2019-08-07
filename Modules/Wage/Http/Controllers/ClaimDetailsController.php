@@ -142,13 +142,19 @@ class ClaimDetailsController extends Controller
 
     public function show($id)
     {
+        if($this->claim->where('id',$id)->exists()==true){
         $cs=$this->claim->find($id);
         $ss = false;
-        foreach($cs->statuses as $status){
-            if($status->name=='remarks'){
-                $ss = true;
+        $statusexist = DB::table('statuses')->where('model_id',$id)->where('model_type','=','Modules\Wage\Entities\Claim')->exists();
+      
+        if($statusexist == true){
+            foreach($cs->statuses as $status){
+                if($status->name=='remarks'){
+                    $ss = true;
+                }
             }
         }
+       
         $approver = DB::table('claimapprover_user')->where('approver_id',Auth::user()->id)->exists();
         $ap = false;
         if($approver == true){
@@ -160,16 +166,20 @@ class ClaimDetailsController extends Controller
             }
         }
         // determine if action buttons will be displayed or vice versa
-        // dd($actionVisibility = !in_array($this->claim->find($id)->status, [$this->approvedStatus, $this->rejectedStatus]));
+        $actionVisibility = !in_array($this->claim->find($id)->status, [$this->approvedStatus, $this->rejectedStatus, $this->remarkStatus]);
         return view('wage::claims.show', [
 
             'claim' => $this->claim->find($id),
             'detail' => $this->claim->details,
-            'actionVisibility' => !in_array($this->claim->find($id)->status, [$this->approvedStatus, $this->rejectedStatus, $this->remarkStatus]),
+            'actionVisibility' => $actionVisibility,
             'ss' => $ss,
             'ap' =>$ap,
 
         ]);
+        }else{
+            toast('Claim has been deleted by user','top-right');
+            return redirect()->back();
+        }
     }
 
     /**
