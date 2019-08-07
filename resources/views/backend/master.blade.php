@@ -81,7 +81,7 @@
             created: function () {
                 this.fetchNotifications();
                 this.timer = setInterval(this.fetchNotifications, 15000);
-                this.redirect();
+                // this.redirect();
             },
             methods: {
                 fetchNotifications: function () {
