@@ -88,9 +88,9 @@ is_active(config('app.administration_prefix')."/employees*")
 </ul>
 
 <ul class="nav nav-pills flex-column">
-    <li class="nav-item {{active('claim.statusrecord')}}">
-        <i class="ti ti-agenda"></i>
-        <a class="nav-link" href="{{route('claim.statusrecord',['status'=>'submitted'])}}">Claim Categories</a>
+    <li class="nav-item {{active('claim-type.index')}}">
+        <i class="ti ti-layers-alt"></i>
+        <a class="nav-link" href="{{route('claim-type.index')}}">Claim Categories</a>
     </li>
     <li class="nav-item {{active('claim.statusrecord')}}">
         <i class="ti ti-agenda"></i>

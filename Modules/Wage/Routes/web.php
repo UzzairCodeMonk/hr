@@ -62,4 +62,15 @@ Route::group(['prefix' => config('app.administration_prefix').'/wages', 'middlew
          Route::get('status/{status}','ClaimsController@claimstatus')->name('claim.statusrecord');
     });
 
+     // claim types
+     Route::group(['prefix' => 'claim-category'], function () {
+
+        Route::get('/',['uses' => 'ClaimTypeController@index', 'as' => 'claim-type.index']);
+        Route::post('store',['uses' => 'ClaimTypeController@store', 'as' => 'claim-type.store']);
+        Route::post('{id}/update',['uses' => 'ClaimTypeController@update', 'as' => 'claim-type.update']);
+        Route::get('{id}/edit',['uses' => 'ClaimTypeController@edit', 'as' => 'claim-type.edit']);
+        Route::delete('{id}/delete',['uses' => 'ClaimTypeController@destroy', 'as' => 'claim-type.destroy']);
+    });
+
+
 });
