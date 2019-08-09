@@ -134,7 +134,11 @@ Leave Application Form
                     </div>
                 </div>
                 @endif
+                @if(!Auth::user()->hasRole('Admin'))
+                <form action="{{route('leave.approve.rejectApr',['id'=>$leave->id])}}" method="POST" class="approve-reject">
+                @elseif(Auth::user()->hasRole('Admin'))
                 <form action="{{route('leave.approve.reject',['id'=>$leave->id])}}" method="POST" class="approve-reject">
+                @endif
                     @if($leave->approvers->contains(auth()->id()))
 
                     @csrf
