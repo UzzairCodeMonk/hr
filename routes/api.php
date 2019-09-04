@@ -34,9 +34,18 @@ Route::group(['middleware'=>['auth:api']],function (){
     Route::get('leave/rejected','Api\Mobile\AppController@leaveRejected');
     Route::get('leave/withdrawn','Api\Mobile\AppController@leaveWithdrawn');
     Route::get('authUser','Api\Mobile\AppController@authUser');
-    // Route::get('allUser','Api\Mobile\AppController@allUser');
+    Route::get('allUser','Api\Mobile\AppController@allUser');
+    Route::get('searchUser','Api\Mobile\AppController@searchUser');
+    Route::delete('user/destroy/{id}','Api\Mobile\AppController@destroy');
+    Route::post('user/store','Api\Mobile\AppController@store');
     Route::get('auth/leave/submitted','Api\Mobile\AppController@leaveSubmittedByAuth');
     Route::get('auth/leave/approved','Api\Mobile\AppController@leaveApprovedByAuth');
     Route::get('auth/leave/rejected','Api\Mobile\AppController@leaveRejectedByAuth');
     Route::get('auth/leave/withdrawn','Api\Mobile\AppController@leaveWithdrawnByAuth');
+    Route::post('leave/apply','Api\Mobile\AppController@applyLeave');
+    Route::get('leave/show/{id}','Api\Mobile\AppController@showLeave');
+    Route::post('leave/approval/{id}','Api\Mobile\AppController@approvalLeave');
+    Route::delete('leave/retract/{id}','Api\Mobile\AppController@retractLeave'); //delete
+  
+
 });
