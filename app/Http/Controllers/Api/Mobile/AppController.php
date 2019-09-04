@@ -29,6 +29,12 @@ use Calendar;
 use Modules\Leave\Traits\LeavesCalendar;
 use Modules\Leave\Entities\LeaveEntitlement;
 use Datakraf\Notifications\AdminLeaveRemark;
+use Modules\Profile\Entities\Family;
+use Modules\Profile\Entities\FamilyType;
+use Modules\Profile\Entities\Academic;
+use Modules\Profile\Entities\Experience;
+use Modules\Profile\Entities\Skill;
+use Modules\Profile\Entities\Award;
 
 class AppController extends Controller
 {
@@ -40,7 +46,7 @@ class AppController extends Controller
     public $user;
     public $attachment;
     public $balance;
-    public function __construct(Leave $leave, LeaveType $type, Request $request, User $user, LeaveAttachment $attachment, LeaveBalance $balance, Holiday $holiday)
+    public function __construct(Leave $leave, LeaveType $type, Request $request, User $user, LeaveAttachment $attachment, LeaveBalance $balance, Holiday $holiday,Family $familyRecord, FamilyType $familyType)
     {
         $this->type = $type;
         
@@ -49,6 +55,8 @@ class AppController extends Controller
         $this->attachment = $attachment;
         $this->balance = $balance;
         $this->holiday = $holiday;
+        $this->familyRecord = $familyRecord;
+        $this->familyType = $familyType;
     }
     //
     protected $approvedStatus = 'approved';
@@ -413,12 +421,170 @@ class AppController extends Controller
         return 'uploads/avatars/' . $filename;
     }
 
+    public function editLeave(int $id){
+        $leave = $this->leave->find($id);
+        $type = $this->type->all();
+        $status = $this->leave->find($id)->statuses;
+        return \Response::json(['leave'=>$leave,'type'=>$type,'status'=>$status]);
+    }
+    public function updateLeave(Request $request,$id){
+        $leave = Leave::find($id);
+        $leave->update([
+            'user_id' => $request->user_id,
+            'leavetype_id' => $request->leavetype_id,
+            'start_date' => $request->start_date,
+            'end_date' => $request->end_date,
+            'notes' => $request->notes
+        ]);
+        $this->daySelector($request, $leave);
+        $this->saveAttachments($request, $leave);
+        return \Response::json($leave);
+    }
 
+    //family info
+    public function storeFamily(Request $request){
+        $family = Family::create([
+            'user_id' => auth()->id(),
+            'name' => $request->name,
+            'relationship_id' => $request->relationship_id,
+            'ic_number' => $request->ic_number,
+            'mobile_number' => $request->mobile_number,
+            'occupation' => $request->occupation,
+            'income_tax_number' => $request->income_tax_number
+        ]);
+        return \Response::json($family);
+    }
 
+    public function showFamily(){
+        $familyRecord = $this->familyRecord->with('type','user')->where('user_id', auth()->id())->get();
+        return \Response::json($familyRecord);
+    }
+    public function editFamily(int $id){
+        $family = Family::find($id);
+        $types = $this->familyType->all();
+        return \Response::json(['family'=>$family,'types'=>$types]);
+    }
+    public function updateFamily(Request $request, $id)
+    {
+        $family = Family::find($id)->update($request->all());
+        return \Response::json($family);
+    }
+    public function deleteFamily(int $id){
+        $family = Family::find($id);
+        $family->delete();
+        return \Response::json($family);
+    }
 
+    //academic info
+    public function storeAcademic(Request $request){
+        $academic = Academic::create([
+            'user_id' => auth()->id(),
+            'institution' => $request->institution,
+            'study_level' => $request->study_level,
+            'start_date' => $request->start_date,
+            'end_date' => $request->end_date,
+            'course' => $request->course,
+            'result' => $request->result,
+        ]);
+        return \Response::json($academic);
+    }
+    public function showAcademic(){
+        $academics = Academic::with('user')->where('user_id', auth()->id())->get();
+        return \Response::json($academics);
+    }
+    public function editAcademic(int $id){
+        $academy = Academic::find($id);
+        return \Response::json($academy);
+    }
+    public function updateAcademic(Request $request,$id){
+        $academic = Academic::find($id)->update($request->all());
+        return \Response::json($academic);
+    }
+    public function deleteAcademic(int $id){
+        $academic = Academic::find($id)->delete();
+        return \Response::json($academic);
+    }
 
+    //employment info
+    public function storeEmployment(Request $request){
+        $employment = Experience::create([
+            'user_id' => auth()->id(),
+            'company' => $request->company,
+            'position' => $request->position,
+            'start_date' => $request->start_date,
+            'end_date' => $request->end_date,    
+            'description' => $request->description
+        ]);
+        return \Response::json($employment);
+    }
+    public function showEmployment(){
+        $employment = Experience::with('user')->where('user_id', auth()->id())->get();
+        return \Response::json($employment);
+    }
+    public function editEmployment(int $id){
+        $employment = Experience::find($id);
+        return \Response::json($employment);
+    }
+    public function updateEmployment(Request $request,$id){
+        $employment = Experience::find($id)->update($request->all());
+        return \Response::json($employment);
+    }
+    public function deleteEmployment(int $id){
+        $employment = Experience::find($id)->delete();
+        return \Response::json($employment);
+    }
     
+    //skill info
+    public function storeSkill(Request $request){
+        $skill = Skill::create([
+            'user_id' => auth()->id(),
+            'skill' => $request->skill,
+            'period' => $request->period
+        ]);
+        return \Response::json($skill);
+    }
+    public function showSkill(){
+        $skill = Skill::with('user')->where('user_id', auth()->id())->get();
+        return \Response::json($skill);
+    }
+    public function editSkill(int $id){
+        $skill = Skill::find($id);
+        return \Response::json($skill);
+    }
+    public function updateSkill(Request $request,$id){
+        $skill = Skill::find($id)->update($request->all());
+        return \Response::json($skill);
+    }
+    public function deleteSkill(int $id){
+        $skill = Skill::find($id)->delete();
+        return \Response::json($skill);
+    }
 
-   
-   
+    //award info
+    public function storeAward(Request $request){
+        $awards = Award::create([
+            'user_id' => auth()->id(),
+            'name' => $request->name,
+            'received_date' => $request->received_date,
+            'notes' => $request->notes,
+        ]);
+        return \Response::json($awards);
+    }
+    public function showAward(){
+        $awards = Award::with('user')->where('user_id', auth()->id())->get();
+        return \Response::json($awards);
+    }
+    public function editAward(int $id){
+        $awards = Award::find($id);
+        return \Response::json($awards);
+    }
+    public function updateAward(Request $request, $id){
+        $awards = Award::find($id)->update($request->all());
+        return \Response::json($awards);
+    }
+    public function deleteAward(int $id){
+        $awards = Award::find($id)->delete();
+        return \Response::json($awards);
+    }
+
 }
