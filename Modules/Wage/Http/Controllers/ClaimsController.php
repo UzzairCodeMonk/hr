@@ -13,6 +13,7 @@ use URL;
 use Modules\Wage\Entities\ClaimType;
 use Modules\Wage\Entities\ClaimAttachment;
 use Modules\Wage\Entities\ClaimDetail;
+use DB;
 
 class ClaimsController extends Controller
 {
@@ -159,6 +160,10 @@ class ClaimsController extends Controller
     {
         ClaimAttachment::where('claim_id',$id)->delete();
         ClaimDetail::where('claim_id',$id)->delete();
+        $statusexist = DB::table('statuses')->where('model_id',$id)->where('model_type','=','Modules\Wage\Entities\Claim')->exists();
+        if($statusexist == true){
+            DB::table('statuses')->where('model_id',$id)->where('model_type','=','Modules\Wage\Entities\Claim')->delete();
+        }
         $this->claim->find($id)->delete();
         toast('Claim deleted successfully', 'success', 'top-right');
         return redirect()->back();
@@ -171,4 +176,33 @@ class ClaimsController extends Controller
             'claims' => $this->claim->where('user_id', auth()->id())->orderBy('created_at', 'desc')->get(),
         ]);
     }
+
+     //claim ikut status
+     public function myclaims($status = null)
+     {
+         return view('wage::claims.statususer', [
+             'claims' => Claim::claimStatus($status)
+         ]);
+     }
+ 
+     //claim ikut status
+     public function claimstatus($status = null)
+     {
+         return view('wage::claims.admin.status', [
+             'claims' => Claim::adminClaimStatus($status)
+         ]);
+     }
+
+     public function editClaim($id)
+    {
+       
+        // determine if action buttons will be displayed or vice versa
+        return view('wage::claims.edit', [
+
+            'claim' => $this->claim->find($id),
+            'detail' => $this->claim->details,
+
+        ]);
+    }
+
 }

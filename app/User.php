@@ -9,6 +9,7 @@ use Spatie\Permission\Traits\HasRoles;
 use Modules\Profile\Entities\Family;
 use Datakraf\Events\UserCreated;
 use Datakraf\Events\UserUpdated;
+use Laravel\Passport\HasApiTokens;
 use Modules\Leave\Entities\LeaveEntitlement;
 use Modules\Leave\Entities\Leave;
 use Modules\Profile\Entities\PersonalDetail;
@@ -20,7 +21,7 @@ use Sofa\Eloquence\Eloquence;
 
 class User extends Authenticatable
 {
-    use Notifiable, HasRoles, Eloquence;
+    use Notifiable, HasRoles, Eloquence,HasApiTokens;
 
     protected $searchableColumns = ['name'];
     

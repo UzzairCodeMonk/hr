@@ -4,7 +4,7 @@ Claim Form
 @endsection
 @section('page-css')
 <style>
-    .preloader{
+    .preloader {
         display: none !important;
     }
 </style>
@@ -15,9 +15,7 @@ Claim Form
     <div class="card-header">
         <h3>Claim Subject: {!! $claim->subject ?? 'N/A' !!}</h3>
         <div class="card-options">
-            <form action="">
-
-            </form>
+                <a href="{{route('pdf-claim',['id'=> $claim->id])}}" class="btn btn-primary btn-sm" id="exportpdf">Export To PDF</a>  
         </div>
     </div>
     <div class="card-body">
@@ -52,7 +50,7 @@ Claim Form
                             <thead>
                                 <tr>
                                     <td>#</td>
-                                    <td>Type</td>
+                                    <td>Category</td>
                                     <td>Date</td>
                                     <td>Amount</td>
                                     <td>Remarks</td>
@@ -97,7 +95,8 @@ Claim Form
         <div class="row">
             <div class="col"></div>
             <div class="col">
-            @if(Auth::user()->hasRole('Admin'))
+                @if(Auth::user()->hasRole('Admin') || Auth::user()->hasRole('Approver') || $ap == true)
+                @if($actionVisibility)
                 <form action="{{route('claim.approval.store')}}" method="POST" class="approve-reject">
                     <input type="hidden" name="claim_id" value="{{$claim->id}}">
                     @csrf
@@ -112,18 +111,24 @@ Claim Form
                     <div class="row">
                         <div class="col">
                             <div class="form-group pull-right">
+                                @if($ss == false)
                                 <button type="submit" name="remarks" class="btn btn-md btn-primary remarks-btn">
                                     Submit
                                     Remarks Only</button>
-                                <button type="submit" name="approve" class="btn btn-md btn-success approve-btn"><i
-                                        class="ti ti-check"></i>
+                                @endif
+                                @can('approve_claim')
+                                <button type="submit" name="approve" class="btn btn-md btn-success approve-btn"><i class="ti ti-check"></i>
                                     Approve</button>
+                                @endcan
+                                @can('reject_claim')
                                 <button type="submit" name="reject" class="btn btn-md btn-danger reject-btn"><i class="ti ti-close"></i>
                                     Reject</button>
+                                @endcan
                             </div>
                         </div>
                     </div>
                 </form>
+                @endif
                 @endif
             </div>
 
@@ -140,12 +145,10 @@ Claim Form
     $('.date').datepicker({
         format: "{{config('app.date_format_js')}}",
     });
-
 </script>
 <script type="text/javascript">
-    $(document).ready(function () {
+    $(document).ready(function() {
         $('.datatable').DataTable();
     });
-
 </script>
 @endsection

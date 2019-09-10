@@ -25,6 +25,8 @@ use Uzzaircode\DateHelper\Traits\DateHelper;
 use Calendar;
 use Modules\Leave\Traits\LeavesCalendar;
 use Modules\Leave\Entities\LeaveEntitlement;
+use Auth;
+use Datakraf\Notifications\AdminLeaveRemark;
 
 
 // use Uzzaircode\DateHelper\Traits\DateHelper;
@@ -127,7 +129,7 @@ class LeavesController extends Controller
             //calculate prorated leave yg layak ambil ikut bulan
             $today = Carbon::now();
             $month = $today->month;
-            $leaveentitle=LeaveEntitlement::where('user_id',auth()->user()->id)->first();
+            $leaveentitle=LeaveEntitlement::where('user_id',$data->user_id)->first();
             $day=auth()->user()->leaveEntitlement->days;
 
             $prorated_leave=$day / 12 * $month;
@@ -135,12 +137,26 @@ class LeavesController extends Controller
             $leaveentitle->available_annualleave = $available;
             $leaveentitle->save();
 
+            $balance =LeaveBalance::where('user_id',$data->user_id)->where('leavetype_id',7)->exists();
+            if($balance == true){
+                $b = LeaveBalance::where('user_id',$data->user_id)->where('leavetype_id',7)->first();
+                $thismonth = $leaveentitle->available_annualleave - ($day - $b->balance);
+
+                if($thismonth <= 0){
+                    $thismonth = 0 ;
+                }
+
+            }else{
+                $thismonth = $leaveentitle->available_annualleave;
+            }
+
         return view('leave::leave.user.show', [
 
             'leave' => $data,
             'types' => $this->type->all(),
             'statuses' => $data->statuses,
-            'calendar' => $calendar
+            'calendar' => $calendar,
+            'thismonth' => $thismonth
 
         ]);
     }
@@ -164,10 +180,24 @@ class LeavesController extends Controller
         $available = number_format($prorated_leave);
         $leaveentitle->available_annualleave = $available;
         $leaveentitle->save();
+
+        $balance =LeaveBalance::where('user_id',auth()->user()->id)->where('leavetype_id',7)->exists();
+        if($balance == true){
+            $b = LeaveBalance::where('user_id',auth()->user()->id)->where('leavetype_id',7)->first();
+            $thismonth = $leaveentitle->available_annualleave - ($day - $b->balance);
+
+            if($thismonth <= 0){
+                $thismonth = 0 ;
+            }
+
+        }else{
+            $thismonth = $leaveentitle->available_annualleave;
+        }
         
         return view('leave::leave.user.apply', [
             'types' => $this->type->all(),
-            'holidays' => $this->holiday->all()
+            'holidays' => $this->holiday->all(),
+            'thismonth' => $thismonth
         ]);
     }
 
@@ -296,9 +326,9 @@ class LeavesController extends Controller
         $leave->update($this->data);
 
         $this->daySelector($request, $leave);
-
+     
         $this->saveAttachments($request, $leave);
-
+      
         toast('Leave record submitted', 'success', 'top-right');
         // return redirect()->back();
         return redirect()->route('leave.index', ['status' => 'submitted']);
@@ -492,5 +522,55 @@ class LeavesController extends Controller
         ];
 
         return response()->json($arr, 200);
+    }
+
+    //untuk bukan admin
+    public function approveRejectLeaveApr(Request $request, $id)
+    {
+        // find this leave model
+        $leave = $this->leave->find($id);
+        // find the total days allowed for that particular leave type
+        $totalAllowedDaysOfLeave = $this->leave->find($id)->type->days;
+        // find total days taken for this leave
+        $totalDaysTaken = $this->leave->find($id)->days_taken;
+        // find the balance after approval
+        $balance = $totalAllowedDaysOfLeave - $totalDaysTaken;
+
+        if ($request->has('approve')) {
+
+            // check the user's leave type available balance
+            $balanceexist = $this->balance->where('leavetype_id', $leave->leavetype_id)->where('user_id', $leave->user_id)->exists();
+            if($balanceexist == true){
+                $that_leave = $this->balance->where('leavetype_id', $leave->leavetype_id)->where('user_id', $leave->user_id)->first();
+                $balance1 = $that_leave->balance - $totalDaysTaken;
+                $this->balance->updateOrCreate(['user_id' => $leave->user_id, 'leavetype_id' => $leave->leavetype_id], ['balance' => $balance1]);
+            }
+            else{
+                // update or create leave balance record in leavebalances table
+                $this->balance->updateOrCreate(['user_id' => $leave->user_id, 'leavetype_id' => $leave->leavetype_id], ['balance' => $balance]);
+            }
+            
+            // set the status of the leave
+            $leave->setStatus($this->approvedStatus, 'Leave approved by ' . Auth::user()->name . '<br>Remarks:<br> ' . $request->admin_remarks);
+            $leave->user->notify(new ApproveLeave($leave, $leave->user, Auth::user()));
+            toast('Leave application approved successfully', 'success', 'top-right');
+        }
+
+        if ($request->has('reject')) {
+            // set the status of the leave
+            $leave->setStatus($this->rejectedStatus, 'Leave rejected by ' . Auth::user()->name . '<br>Remarks:<br> ' . $request->admin_remarks);
+            $leave->user->notify(new RejectLeave($leave, $leave->user, Auth::user()));
+            toast('Leave application rejected', 'success', 'top-right');
+        }
+
+        if ($request->has('remarks')) {
+            // set the status of the leave
+            $leave->setStatus($this->submittedStatus, '<b>Remarks by ' . Auth::user()->name . '</b><br>Remarks:<br> ' . $request->admin_remarks);
+            $leave->user->notify(new AdminLeaveRemark($leave, $leave->user, Auth::user()));
+            toast('Remarks added to this leave application', 'success', 'top-right');
+        }
+
+        return redirect()->back();
+       
     }
 }

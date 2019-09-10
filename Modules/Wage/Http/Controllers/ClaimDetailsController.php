@@ -12,9 +12,17 @@ use Modules\Wage\Entities\ClaimDetail;
 use Modules\Wage\Entities\Claim;
 use Auth;
 use Datakraf\User;
+use DB;
+use URL;
+use PDF;
 
 class ClaimDetailsController extends Controller
 {
+    protected $approvedStatus = 'approved';
+    protected $rejectedStatus = 'rejected';
+    protected $submittedStatus = 'submitted';
+    protected $retractedStatus = 'withdrawn';
+    protected $remarkStatus = 'remarks';
 
     public function __construct(Request $request, Claim $claim, ClaimType $type, ClaimAttachment $attachment, ClaimDetail $detail)
     {
@@ -134,21 +142,86 @@ class ClaimDetailsController extends Controller
 
     public function show($id)
     {
+        if($this->claim->where('id',$id)->exists()==true){
+        $cs=$this->claim->find($id);
+        $ss = false;
+        $statusexist = DB::table('statuses')->where('model_id',$id)->where('model_type','=','Modules\Wage\Entities\Claim')->exists();
+      
+        if($statusexist == true){
+            foreach($cs->statuses as $status){
+                if($status->name=='remarks'){
+                    $ss = true;
+                }
+            }
+        }
+       
+        $approver = DB::table('claimapprover_user')->where('approver_id',Auth::user()->id)->exists();
+        $ap = false;
+        if($approver == true){
+            $appro = DB::table('claimapprover_user')->where('approver_id',Auth::user()->id)->get();
+          
+            foreach($appro as $app){
+                $appr = $app->approver_id;
+                $ap = true;
+            }
+        }
+        // determine if action buttons will be displayed or vice versa
+        $actionVisibility = !in_array($this->claim->find($id)->status, [$this->approvedStatus, $this->rejectedStatus, $this->remarkStatus]);
         return view('wage::claims.show', [
 
             'claim' => $this->claim->find($id),
-            'detail' => $this->claim->details
+            'detail' => $this->claim->details,
+            'actionVisibility' => $actionVisibility,
+            'ss' => $ss,
+            'ap' =>$ap,
 
         ]);
+        }else{
+            toast('Claim has been deleted by user','top-right');
+            return redirect()->back();
+        }
     }
 
     /**
      * Show the form for editing the specified resource.
      * @return Response
      */
-    public function edit()
+    public function edit($id)
     {
-        return view('wage::edit');
+         // dd($this->claim->details);
+         $claim_id = $this->detail->where('id',$id)->first()->claim_id;
+         // dd($claim_id);
+         $claim_subject= $this->claim->find($claim_id)->subject;
+         return view('wage::claims.editclaim', [
+            'detail' => $this->detail->find($id),
+            'types' => $this->type->all(),
+            'statuses' => $this->claim->find($claim_id)->statuses,
+            'claim_id' => $claim_id,
+            'claim_subject' => $claim_subject,
+        ]);
+    }
+
+    //updatedetail masa edit balik
+    public function updateclaim(Request $request, $id){
+        $claim = ClaimDetail::where('id',$id)->first();
+        $claim_id = ClaimDetail::where('id', $id)->first()->claim_id;
+
+        $claim->update($this->data);
+
+        $this->saveAttachments($request, $claim);
+
+        toast('Claim detail updated successfully', 'success', 'top-right');
+        // return redirect()->back();
+        return redirect(URL::signedRoute('claim.editClaim', ['id' => $claim_id]));
+
+    }
+    //deletedetail masa edit balik
+    public function deletedetail($id)
+    {
+        $this->detail->find($id)->delete();
+
+        toast('Claim detail deleted successfully', 'success', 'top-right');
+        return redirect()->back();
     }
 
     /**
@@ -196,5 +269,27 @@ class ClaimDetailsController extends Controller
         Claim::find($claimdetail->claim_id)->update([
             'amount' => $claimTotal
         ]);
+    }
+    //show user auth
+    public function showAuth($id)
+    {
+        return view('wage::claims.showAuth', [
+
+            'claim' => $this->claim->find($id),
+            'detail' => $this->claim->details,
+        ]);
+    }
+    //export pdf individu
+    public function exportPDFclaim($id)
+    {
+        $claim = Claim::find($id);
+        // Fetch all customers from database
+        // $data = PayslipSummary::get();
+        // Send data to the view using loadView function of PDF facade
+        $pdf = PDF::loadView('wage::claims.claim-pdf', compact('claim'))->setPaper('a4','potrait');
+        // If you want to store the generated pdf to the server then you can use the store function
+        $pdf->save(storage_path('app\public\form'.'claim-detail.pdf'));
+        // Finally, you can download the file using download function
+        return $pdf->download('claim-detail.pdf');
     }
 }

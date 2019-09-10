@@ -20,5 +20,7 @@ Route::group(['prefix' => 'claims'], function () {
     Route::post('details/update', 'Api\ClaimDetailsController@update')->name('api.claimdetails.update');
     Route::post('{claimId}/total', 'Api\ClaimDetailsController@calculateClaimTotal')->name('api.claim.total');
     Route::delete('details/{id}/delete','Api\ClaimDetailsController@destroy')->name('api.claimdetails.destroy');
+    //update total bila update lepas remark
+    Route::post('updateclaimtotal/{id}', 'Api\ClaimDetailsController@updateclaimtotal')->name('api.claimdetail.updateclaimtotal');
 
 });

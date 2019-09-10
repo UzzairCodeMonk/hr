@@ -47,6 +47,7 @@ Route::group(['prefix' => 'leaves', 'middleware' => 'auth'], function () {
     Route::get('test-date', 'LeavesController@testDate');
 
     Route::get('balance','LeaveBalanceCalculatorController@index')->name('leave.user.balance-reset');
+    Route::post('{id}/approve-reject',            'LeavesController@approveRejectLeaveApr')->name('leave.approve.rejectApr'); //untuk bukan admin
 });
 
 // Administration routes
