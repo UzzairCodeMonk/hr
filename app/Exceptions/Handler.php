@@ -12,6 +12,7 @@ use Spatie\Permission\Models\Role;
 use Alert;
 use Illuminate\Database\QueryException;
 use Illuminate\Auth\AuthenticationException;
+use Illuminate\Validation\ValidationException;
 
 class Handler extends ExceptionHandler
 {
@@ -71,6 +72,15 @@ class Handler extends ExceptionHandler
             return $this->pageExpired($request, $exception);
         }
 
+         //mobile
+         if($request->expectsJson()){
+            if($exception instanceof ValidationException){
+                return response()->json([
+                    'message'=>$exception->getMessage(),
+                    'errors'=> $exception->validator->errors()
+                ],422);
+            }
+        }
         return parent::render($request, $exception);
     }
 
