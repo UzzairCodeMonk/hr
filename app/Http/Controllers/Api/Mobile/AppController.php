@@ -35,6 +35,7 @@ use Modules\Profile\Entities\Academic;
 use Modules\Profile\Entities\Experience;
 use Modules\Profile\Entities\Skill;
 use Modules\Profile\Entities\Award;
+use DB;
 
 class AppController extends Controller
 {
@@ -587,4 +588,42 @@ class AppController extends Controller
         return \Response::json($awards);
     }
 
+    public function leavetypebalance(){
+
+        $types = $this->type->get();
+        // dd($types);
+        $user = DB::table('leavebalances')->where('user_id',auth()->id())->exists();
+        if($user == true){
+            $balance = DB::table('leavebalances')->where('user_id',auth()->id())->get();
+        
+        }
+
+        return \Response::json($balance);
+                           
+    }
+    public function leaveprorated(){
+        $today = Carbon::now();
+        $month = $today->month;
+        $leaveentitle=LeaveEntitlement::where('user_id',auth()->user()->id)->first();
+        $day=auth()->user()->leaveEntitlement->days;
+       
+        $prorated_leave=$day / 12 * $month;
+        $available = number_format($prorated_leave);
+        $leaveentitle->available_annualleave = $available;
+        $leaveentitle->save();
+
+        $balance =LeaveBalance::where('user_id',auth()->user()->id)->where('leavetype_id',7)->exists();
+        if($balance == true){
+            $b = LeaveBalance::where('user_id',auth()->user()->id)->where('leavetype_id',7)->first();
+            $thismonth = $leaveentitle->available_annualleave - ($day - $b->balance);
+
+            if($thismonth <= 0){
+                $thismonth = 0 ;
+            }
+
+        }else{
+            $thismonth = $leaveentitle->available_annualleave;
+        }
+        return \Response::json($thismonth);
+    }
 }

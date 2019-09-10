@@ -79,6 +79,6 @@ Route::group(['middleware'=>['auth:api']],function (){
     Route::post('award/update/{id}','Api\Mobile\AppController@updateAward');
     Route::delete('award/delete/{id}','Api\Mobile\AppController@deleteAward');
 
-
-
+    Route::get('leave/balance','Api\Mobile\AppController@leavetypebalance');
+    Route::get('leave/prorated','Api\Mobile\AppController@leaveprorated');
 });
