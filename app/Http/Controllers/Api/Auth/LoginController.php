@@ -56,7 +56,9 @@ class LoginController extends Controller
             'token_type' => 'Bearer',
             'expires_at' => Carbon::parse(
                 $tokenResult->token->expires_at
-            )->toDateTimeString()
+            )->toDateTimeString(),
+            'email'=>request('email'),
+            'password'=>request('password'),
         ]);
 
     }
