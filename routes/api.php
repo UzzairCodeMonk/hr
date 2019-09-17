@@ -48,6 +48,8 @@ Route::group(['middleware'=>['auth:api']],function (){
     Route::delete('leave/retract/{id}','Api\Mobile\AppController@retractLeave'); //delete
     Route::get('leave/edit/{id}','Api\Mobile\AppController@editLeave');
     Route::post('leave/update/{id}','Api\Mobile\AppController@updateLeave');
+    Route::get('leave/showWithdrawn/{id}','Api\Mobile\AppController@showWithdrawn');
+    Route::get('auth/leave/showWithdrawn/{id}','Api\Mobile\AppController@showWithdrawnAuth');
     
     Route::post('family/store','Api\Mobile\AppController@storeFamily');
     Route::get('family/show','Api\Mobile\AppController@showFamily');

@@ -288,7 +288,7 @@ class ClaimDetailsController extends Controller
         // Send data to the view using loadView function of PDF facade
         $pdf = PDF::loadView('wage::claims.claim-pdf', compact('claim'))->setPaper('a4','potrait');
         // If you want to store the generated pdf to the server then you can use the store function
-        $pdf->save(storage_path('app\public\form'.'claim-detail.pdf'));
+        // $pdf->save(storage_path('app\public\form'.'claim-detail.pdf'));
         // Finally, you can download the file using download function
         return $pdf->download('claim-detail.pdf');
     }
