@@ -82,7 +82,7 @@ class AppController extends Controller
     }
 
     public function leaveWithdrawn(){
-        $data = Leave::with('user','type')->adminLeaveStatus($this->retractedStatus);
+        $data = Leave::with('user','type')->onlyTrashed()->orderBy('deleted_at', 'desc')->get();
         return \Response::json($data);
     }
 
@@ -108,7 +108,9 @@ class AppController extends Controller
     }
 
     public function leaveWithdrawnByAuth(){
-        $data = Leave::with('user','type')->leaveStatus($this->retractedStatus);
+        $data = Leave::with('user','type')->onlyTrashed()->where('user_id', auth()->id())
+        ->orderBy('deleted_at', 'desc')
+        ->get();
         return \Response::json($data);
     }
     //search approver
@@ -165,6 +167,70 @@ class AppController extends Controller
         }
         return \Response::json($data);
     }
+
+    //show leave withdrawn
+    public function showWithdrawn(int $id)
+    {
+        $leave = Leave::with('user','type','approvers','attachments')->onlyTrashed()->where('id', $id)->first();
+        $status = Leave::onlyTrashed()->where('id', $id)->first()->statuses;
+        //calculate prorated leave yg layak ambil ikut bulan
+        $today = Carbon::now();
+        $month = $today->month;
+        $leaveentitle=LeaveEntitlement::where('user_id',$leave->user_id)->first();
+        $day=$leave->user->leaveEntitlement->days;
+       
+        $prorated_leave=$day / 12 * $month;
+        $available = number_format($prorated_leave);
+        $leaveentitle->available_annualleave = $available;
+        $leaveentitle->save();
+
+        $balance =LeaveBalance::where('user_id',$leave->user_id)->where('leavetype_id',7)->exists();
+            if($balance == true){
+                $b = LeaveBalance::where('user_id',$leave->user_id)->where('leavetype_id',7)->first();
+                $thismonth = $leaveentitle->available_annualleave - ($day - $b->balance);
+
+                if($thismonth <= 0){
+                    $thismonth = 0 ;
+                }
+
+            }else{
+                $thismonth = $leaveentitle->available_annualleave;
+            }
+
+        return \Response::json(['leave'=>$leave,'status'=>$status]);
+    }
+
+    //show withdrawn by auth
+    public function showWithdrawnAuth(int $id)
+    {
+        $leave = Leave::onlyTrashed()->where('id', $id)->first();
+        $status = Leave::onlyTrashed()->where('id', $id)->first()->statuses;
+         //calculate prorated leave yg layak ambil ikut bulan
+         $today = Carbon::now();
+         $month = $today->month;
+         $leaveentitle=LeaveEntitlement::where('user_id',$leave->user_id)->first();
+         $day=$leave->user->leaveEntitlement->days;
+        
+         $prorated_leave=$day / 12 * $month;
+         $available = number_format($prorated_leave);
+         $leaveentitle->available_annualleave = $available;
+         $leaveentitle->save();
+
+        $balance =LeaveBalance::where('user_id',$leave->user_id)->where('leavetype_id',7)->exists();
+        if($balance == true){
+            $b = LeaveBalance::where('user_id',$leave->user_id)->where('leavetype_id',7)->first();
+            $thismonth = $leaveentitle->available_annualleave - ($day - $b->balance);
+
+            if($thismonth <= 0){
+                $thismonth = 0 ;
+            }
+
+        }else{
+            $thismonth = $leaveentitle->available_annualleave;
+        }
+        return \Response::json(['leave'=>$leave,'status'=>$status]);
+    }
+
     public function applyLeave(Request $request){
        
         //check leave lebih dari prorated
