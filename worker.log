@@ -1381,3 +1381,1381 @@ In PDOConnection.php line 27:
   SQLSTATE[HY000] [2002] Connection refused  
                                              
 
+
+In Connection.php line 664:
+                                                                               
+  SQLSTATE[HY000] [1049] Unknown database 'db_hr' (SQL: select * from `paysli  
+  ps`)                                                                         
+                                                                               
+
+
+In PDOConnection.php line 31:
+                                                   
+  SQLSTATE[HY000] [1049] Unknown database 'db_hr'  
+                                                   
+
+In Connection.php line 664:
+                                                                               
+  SQLSTATE[HY000] [1049] Unknown database 'db_hr' (SQL: select * from `paysli  
+  ps`)                                                                         
+                                                                               
+
+In PDOConnection.php line 27:
+                                                   
+  SQLSTATE[HY000] [1049] Unknown database 'db_hr'  
+                                                   
+
+In PDOConnection.php line 31:
+                                                   
+  SQLSTATE[HY000] [1049] Unknown database 'db_hr'  
+                                                   
+
+In PDOConnection.php line 27:
+                                                   
+  SQLSTATE[HY000] [1049] Unknown database 'db_hr'  
+                                                   
+
+
+In Connection.php line 664:
+                                                                               
+  SQLSTATE[HY000] [1049] Unknown database 'db_hr' (SQL: select * from `paysli  
+  ps`)                                                                         
+                                                                               
+
+In PDOConnection.php line 31:
+                                                   
+  SQLSTATE[HY000] [1049] Unknown database 'db_hr'  
+                                                   
+
+In PDOConnection.php line 27:
+                                                   
+  SQLSTATE[HY000] [1049] Unknown database 'db_hr'  
+                                                   
+
+
+In Connection.php line 664:
+                                                                               
+  SQLSTATE[HY000] [1049] Unknown database 'db_hr' (SQL: select * from `paysli  
+  ps`)                                                                         
+                                                                               
+
+
+In PDOConnection.php line 31:
+                                                   
+  SQLSTATE[HY000] [1049] Unknown database 'db_hr'  
+                                                   
+
+In Connection.php line 664:
+                                                                               
+  SQLSTATE[HY000] [1049] Unknown database 'db_hr' (SQL: select * from `paysli  
+  ps`)                                                                         
+                                                                               
+
+In PDOConnection.php line 27:
+                                                   
+  SQLSTATE[HY000] [1049] Unknown database 'db_hr'  
+                                                   
+
+In PDOConnection.php line 31:
+                                                   
+  SQLSTATE[HY000] [1049] Unknown database 'db_hr'  
+                                                   
+
+In PDOConnection.php line 27:
+                                                   
+  SQLSTATE[HY000] [1049] Unknown database 'db_hr'  
+                                                   
+
+
+In Connection.php line 664:
+                                                                               
+  SQLSTATE[HY000] [1049] Unknown database 'db_hr' (SQL: select * from `paysli  
+  ps`)                                                                         
+                                                                               
+
+In PDOConnection.php line 31:
+                                                   
+  SQLSTATE[HY000] [1049] Unknown database 'db_hr'  
+                                                   
+
+In PDOConnection.php line 27:
+                                                   
+  SQLSTATE[HY000] [1049] Unknown database 'db_hr'  
+                                                   
+
+
+In Connection.php line 664:
+                                                                               
+  SQLSTATE[HY000] [1049] Unknown database 'db_hr' (SQL: select * from `paysli  
+  ps`)                                                                         
+                                                                               
+
+In PDOConnection.php line 31:
+                                                   
+  SQLSTATE[HY000] [1049] Unknown database 'db_hr'  
+                                                   
+
+In PDOConnection.php line 27:
+                                                   
+  SQLSTATE[HY000] [1049] Unknown database 'db_hr'  
+                                                   
+
+
+In Connection.php line 664:
+                                                                               
+  SQLSTATE[HY000] [1049] Unknown database 'db_hr' (SQL: select * from `paysli  
+  ps`)                                                                         
+                                                                               
+
+In PDOConnection.php line 31:
+                                                   
+  SQLSTATE[HY000] [1049] Unknown database 'db_hr'  
+                                                   
+
+In PDOConnection.php line 27:
+                                                   
+  SQLSTATE[HY000] [1049] Unknown database 'db_hr'  
+                                                   
+
+
+In Connection.php line 664:
+                                                                               
+  SQLSTATE[42S02]: Base table or view not found: 1146 Table 'db_hr.payslips'   
+  doesn't exist (SQL: select * from `payslips`)                                
+                                                                               
+
+In PDOConnection.php line 63:
+                                                                               
+  SQLSTATE[42S02]: Base table or view not found: 1146 Table 'db_hr.payslips'   
+  doesn't exist                                                                
+                                                                               
+
+In PDOConnection.php line 61:
+                                                                               
+  SQLSTATE[42S02]: Base table or view not found: 1146 Table 'db_hr.payslips'   
+  doesn't exist                                                                
+                                                                               
+
+
+In Connection.php line 664:
+                                                                               
+  SQLSTATE[42S02]: Base table or view not found: 1146 Table 'db_hr.payslips'   
+  doesn't exist (SQL: select * from `payslips`)                                
+                                                                               
+
+In PDOConnection.php line 63:
+                                                                               
+  SQLSTATE[42S02]: Base table or view not found: 1146 Table 'db_hr.payslips'   
+  doesn't exist                                                                
+                                                                               
+
+In PDOConnection.php line 61:
+                                                                               
+  SQLSTATE[42S02]: Base table or view not found: 1146 Table 'db_hr.payslips'   
+  doesn't exist                                                                
+                                                                               
+
+
+In Connection.php line 664:
+                                                                               
+  SQLSTATE[42S02]: Base table or view not found: 1146 Table 'db_hr.payslips'   
+  doesn't exist (SQL: select * from `payslips`)                                
+                                                                               
+
+In PDOConnection.php line 63:
+                                                                               
+  SQLSTATE[42S02]: Base table or view not found: 1146 Table 'db_hr.payslips'   
+  doesn't exist                                                                
+                                                                               
+
+In PDOConnection.php line 61:
+                                                                               
+  SQLSTATE[42S02]: Base table or view not found: 1146 Table 'db_hr.payslips'   
+  doesn't exist                                                                
+                                                                               
+
+
+In Connection.php line 664:
+                                                                               
+  SQLSTATE[42S02]: Base table or view not found: 1146 Table 'db_hr.payslips'   
+  doesn't exist (SQL: select * from `payslips`)                                
+                                                                               
+
+In PDOConnection.php line 63:
+                                                                               
+  SQLSTATE[42S02]: Base table or view not found: 1146 Table 'db_hr.payslips'   
+  doesn't exist                                                                
+                                                                               
+
+In PDOConnection.php line 61:
+                                                                               
+  SQLSTATE[42S02]: Base table or view not found: 1146 Table 'db_hr.payslips'   
+  doesn't exist                                                                
+                                                                               
+
+
+In Connection.php line 664:
+                                                                               
+  SQLSTATE[42S02]: Base table or view not found: 1146 Table 'db_hr.payslips'   
+  doesn't exist (SQL: select * from `payslips`)                                
+                                                                               
+
+In PDOConnection.php line 63:
+                                                                               
+  SQLSTATE[42S02]: Base table or view not found: 1146 Table 'db_hr.payslips'   
+  doesn't exist                                                                
+                                                                               
+
+In PDOConnection.php line 61:
+                                                                               
+  SQLSTATE[42S02]: Base table or view not found: 1146 Table 'db_hr.payslips'   
+  doesn't exist                                                                
+                                                                               
+
+
+In Connection.php line 664:
+                                                                               
+  SQLSTATE[42S02]: Base table or view not found: 1146 Table 'db_hr.payslips'   
+  doesn't exist (SQL: select * from `payslips`)                                
+                                                                               
+
+In PDOConnection.php line 63:
+                                                                               
+  SQLSTATE[42S02]: Base table or view not found: 1146 Table 'db_hr.payslips'   
+  doesn't exist                                                                
+                                                                               
+
+In PDOConnection.php line 61:
+                                                                               
+  SQLSTATE[42S02]: Base table or view not found: 1146 Table 'db_hr.payslips'   
+  doesn't exist                                                                
+                                                                               
+
+[2019-09-10 12:44:45][1] Processing: Datakraf\Notifications\ApproveLeaveAuto
+[2019-09-10 12:44:45][2] Processing: Datakraf\Notifications\ApproveLeaveAuto
+[2019-09-10 12:44:45][3] Processing: Datakraf\Notifications\ApproveLeaveAuto
+[2019-09-10 12:44:45][4] Processing: Datakraf\Notifications\ApproveLeaveAuto
+[2019-09-10 12:44:45][5] Processing: Datakraf\Notifications\ApproveLeaveAuto
+[2019-09-10 12:44:46][6] Processing: Datakraf\Notifications\ApproveLeaveAuto
+[2019-09-10 12:44:46][7] Processing: Datakraf\Notifications\ApproveLeaveAuto
+[2019-09-10 12:44:46][8] Processing: Datakraf\Notifications\ApproveLeaveAuto
+
+mmap() failed: [12] Cannot allocate memory
+
+mmap() failed: [12] Cannot allocate memory
+PHP Fatal error:  Out of memory (allocated 222298112) (tried to allocate 53248 bytes) in /var/www/html/hr/vendor/sentry/sentry-laravel/src/Sentry/Laravel/EventHandler.php on line 102
+
+mmap() failed: [12] Cannot allocate memory
+
+mmap() failed: [12] Cannot allocate memory
+PHP Fatal error:  Out of memory (allocated 197132288) (tried to allocate 49152 bytes) in /var/www/html/hr/vendor/sentry/sentry-laravel/src/Sentry/Laravel/EventHandler.php on line 102
+
+   Symfony\Component\Debug\Exception\FatalErrorException  : Out of memory (allocated 197132288) (tried to allocate 49152 bytes)
+
+  at /var/www/html/hr/vendor/sentry/sentry-laravel/src/Sentry/Laravel/EventHandler.php:102
+
+   Symfony\Component\Debug\Exception\FatalErrorException  : Out of memory (allocated 222298112) (tried to allocate 53248 bytes)
+
+  at /var/www/html/hr/vendor/sentry/sentry-laravel/src/Sentry/Laravel/EventHandler.php:102
+     98|      */
+     99|     public function __call($method, $arguments)
+    100|     {
+    101|         try {
+  > 102|             call_user_func_array(array($this, $method . 'handler'), $arguments);
+    103|         } catch (Exception $exception) {
+    104|             // Ignore
+    105|         }
+    106|     }
+
+     98|      */
+     99|     public function __call($method, $arguments)
+    100|     {
+    101|         try {
+  > 102|             call_user_func_array(array($this, $method . 'handler'), $arguments);
+    103|         } catch (Exception $exception) {
+    104|             // Ignore
+    105|         }
+    106|     }
+
+
+   ErrorException  : Error: Out of memory (allocated 197132288) (tried to allocate 49152 bytes)
+
+  at /var/www/html/hr/vendor/sentry/sentry-laravel/src/Sentry/Laravel/EventHandler.php:102
+
+   ErrorException  : Error: Out of memory (allocated 222298112) (tried to allocate 53248 bytes)
+     98|      */
+     99|     public function __call($method, $arguments)
+    100|     {
+    101|         try {
+  > 102|             call_user_func_array(array($this, $method . 'handler'), $arguments);
+    103|         } catch (Exception $exception) {
+    104|             // Ignore
+    105|         }
+    106|     }
+
+  at /var/www/html/hr/vendor/sentry/sentry-laravel/src/Sentry/Laravel/EventHandler.php:102
+
+  Exception trace:
+
+  1   Sentry\ErrorHandler::handleFatalError()
+      [internal]:0
+
+   Whoops\Exception\ErrorException  : Out of memory (allocated 197132288) (tried to allocate 49152 bytes)
+
+  at /var/www/html/hr/vendor/sentry/sentry-laravel/src/Sentry/Laravel/EventHandler.php:102
+     98|      */
+     99|     public function __call($method, $arguments)
+    100|     {
+    101|         try {
+  > 102|             call_user_func_array(array($this, $method . 'handler'), $arguments);
+    103|         } catch (Exception $exception) {
+    104|             // Ignore
+    105|         }
+    106|     }
+
+  Exception trace:
+
+  1   Whoops\Run::handleError("Out of memory (allocated 197132288) (tried to allocate 49152 bytes)", "/var/www/html/hr/vendor/sentry/sentry-laravel/src/Sentry/Laravel/EventHandler.php")
+      /var/www/html/hr/vendor/filp/whoops/src/Whoops/Run.php:433
+
+  2   Whoops\Run::handleShutdown()
+      [internal]:0
+     98|      */
+     99|     public function __call($method, $arguments)
+    100|     {
+    101|         try {
+  > 102|             call_user_func_array(array($this, $method . 'handler'), $arguments);
+    103|         } catch (Exception $exception) {
+    104|             // Ignore
+    105|         }
+    106|     }
+
+  Exception trace:
+
+  1   Sentry\ErrorHandler::handleFatalError()
+      [internal]:0
+
+   Whoops\Exception\ErrorException  : Out of memory (allocated 222298112) (tried to allocate 53248 bytes)
+
+  at /var/www/html/hr/vendor/sentry/sentry-laravel/src/Sentry/Laravel/EventHandler.php:102
+     98|      */
+     99|     public function __call($method, $arguments)
+    100|     {
+    101|         try {
+  > 102|             call_user_func_array(array($this, $method . 'handler'), $arguments);
+    103|         } catch (Exception $exception) {
+    104|             // Ignore
+    105|         }
+    106|     }
+
+  Exception trace:
+
+  1   Whoops\Run::handleError("Out of memory (allocated 222298112) (tried to allocate 53248 bytes)", "/var/www/html/hr/vendor/sentry/sentry-laravel/src/Sentry/Laravel/EventHandler.php")
+      /var/www/html/hr/vendor/filp/whoops/src/Whoops/Run.php:433
+
+  2   Whoops\Run::handleShutdown()
+      [internal]:0
+
+   Whoops\Exception\ErrorException  : Out of memory (allocated 197132288) (tried to allocate 49152 bytes)
+
+  at /var/www/html/hr/vendor/sentry/sentry-laravel/src/Sentry/Laravel/EventHandler.php:102
+     98|      */
+     99|     public function __call($method, $arguments)
+    100|     {
+    101|         try {
+  > 102|             call_user_func_array(array($this, $method . 'handler'), $arguments);
+    103|         } catch (Exception $exception) {
+    104|             // Ignore
+    105|         }
+    106|     }
+
+  Exception trace:
+
+  1   Whoops\Run::handleError("Out of memory (allocated 197132288) (tried to allocate 49152 bytes)", "/var/www/html/hr/vendor/sentry/sentry-laravel/src/Sentry/Laravel/EventHandler.php")
+      /var/www/html/hr/vendor/filp/whoops/src/Whoops/Run.php:433
+
+  2   Whoops\Run::handleShutdown()
+      [internal]:0
+
+   Whoops\Exception\ErrorException  : Out of memory (allocated 222298112) (tried to allocate 53248 bytes)
+
+  at /var/www/html/hr/vendor/sentry/sentry-laravel/src/Sentry/Laravel/EventHandler.php:102
+     98|      */
+     99|     public function __call($method, $arguments)
+    100|     {
+    101|         try {
+  > 102|             call_user_func_array(array($this, $method . 'handler'), $arguments);
+    103|         } catch (Exception $exception) {
+    104|             // Ignore
+    105|         }
+    106|     }
+
+  Exception trace:
+
+  1   Whoops\Run::handleError("Out of memory (allocated 222298112) (tried to allocate 53248 bytes)", "/var/www/html/hr/vendor/sentry/sentry-laravel/src/Sentry/Laravel/EventHandler.php")
+      /var/www/html/hr/vendor/filp/whoops/src/Whoops/Run.php:433
+
+  2   Whoops\Run::handleShutdown()
+      [internal]:0
+
+mmap() failed: [12] Cannot allocate memory
+
+mmap() failed: [12] Cannot allocate memory
+PHP Fatal error:  Out of memory (allocated 438304768) (tried to allocate 73728 bytes) in /var/www/html/hr/vendor/sentry/sentry-laravel/src/Sentry/Laravel/EventHandler.php on line 102
+
+   Symfony\Component\Debug\Exception\FatalErrorException  : Out of memory (allocated 438304768) (tried to allocate 73728 bytes)
+
+  at /var/www/html/hr/vendor/sentry/sentry-laravel/src/Sentry/Laravel/EventHandler.php:102
+     98|      */
+     99|     public function __call($method, $arguments)
+    100|     {
+    101|         try {
+  > 102|             call_user_func_array(array($this, $method . 'handler'), $arguments);
+    103|         } catch (Exception $exception) {
+    104|             // Ignore
+    105|         }
+    106|     }
+
+
+   ErrorException  : Error: Out of memory (allocated 438304768) (tried to allocate 73728 bytes)
+
+  at /var/www/html/hr/vendor/sentry/sentry-laravel/src/Sentry/Laravel/EventHandler.php:102
+     98|      */
+     99|     public function __call($method, $arguments)
+    100|     {
+    101|         try {
+  > 102|             call_user_func_array(array($this, $method . 'handler'), $arguments);
+    103|         } catch (Exception $exception) {
+    104|             // Ignore
+    105|         }
+    106|     }
+
+  Exception trace:
+
+  1   Sentry\ErrorHandler::handleFatalError()
+      [internal]:0
+
+   Whoops\Exception\ErrorException  : Out of memory (allocated 438304768) (tried to allocate 73728 bytes)
+
+  at /var/www/html/hr/vendor/sentry/sentry-laravel/src/Sentry/Laravel/EventHandler.php:102
+     98|      */
+     99|     public function __call($method, $arguments)
+    100|     {
+    101|         try {
+  > 102|             call_user_func_array(array($this, $method . 'handler'), $arguments);
+    103|         } catch (Exception $exception) {
+    104|             // Ignore
+    105|         }
+    106|     }
+
+  Exception trace:
+
+  1   Whoops\Run::handleError("Out of memory (allocated 438304768) (tried to allocate 73728 bytes)", "/var/www/html/hr/vendor/sentry/sentry-laravel/src/Sentry/Laravel/EventHandler.php")
+      /var/www/html/hr/vendor/filp/whoops/src/Whoops/Run.php:433
+
+  2   Whoops\Run::handleShutdown()
+      [internal]:0
+[2019-09-10 12:45:05][9] Processing: Datakraf\Notifications\ApproveLeaveAuto
+[2019-09-10 12:45:05][10] Processing: Datakraf\Notifications\ApproveLeaveAuto
+
+   Whoops\Exception\ErrorException  : Out of memory (allocated 438304768) (tried to allocate 73728 bytes)
+
+  at /var/www/html/hr/vendor/sentry/sentry-laravel/src/Sentry/Laravel/EventHandler.php:102
+     98|      */
+     99|     public function __call($method, $arguments)
+    100|     {
+    101|         try {
+  > 102|             call_user_func_array(array($this, $method . 'handler'), $arguments);
+    103|         } catch (Exception $exception) {
+    104|             // Ignore
+    105|         }
+    106|     }
+
+  Exception trace:
+
+  1   Whoops\Run::handleError("Out of memory (allocated 438304768) (tried to allocate 73728 bytes)", "/var/www/html/hr/vendor/sentry/sentry-laravel/src/Sentry/Laravel/EventHandler.php")
+      /var/www/html/hr/vendor/filp/whoops/src/Whoops/Run.php:433
+
+  2   Whoops\Run::handleShutdown()
+      [internal]:0
+[2019-09-10 12:45:07][11] Processing: Datakraf\Notifications\ApproveLeaveAuto
+[2019-09-10 12:45:07][12] Processing: Datakraf\Notifications\ApproveLeaveAuto
+[2019-09-10 12:45:13][13] Processing: Datakraf\Notifications\ApproveLeaveAuto
+[2019-09-10 12:45:16][14] Processing: Datakraf\Notifications\ApproveLeaveAuto
+
+mmap() failed: [12] Cannot allocate memory
+
+mmap() failed: [12] Cannot allocate memory
+PHP Fatal error:  Out of memory (allocated 60817408) (tried to allocate 24576 bytes) in /var/www/html/hr/vendor/sentry/sentry-laravel/src/Sentry/Laravel/EventHandler.php on line 102
+
+mmap() failed: [12] Cannot allocate memory
+
+mmap() failed: [12] Cannot allocate memory
+PHP Fatal error:  Out of memory (allocated 73400320) (tried to allocate 24576 bytes) in /var/www/html/hr/vendor/sentry/sentry-laravel/src/Sentry/Laravel/EventHandler.php on line 102
+
+mmap() failed: [12] Cannot allocate memory
+
+mmap() failed: [12] Cannot allocate memory
+PHP Fatal error:  Out of memory (allocated 260046848) (tried to allocate 57344 bytes) in /var/www/html/hr/vendor/sentry/sentry-laravel/src/Sentry/Laravel/EventHandler.php on line 102
+
+
+
+   Symfony\Component\Debug\Exception\FatalErrorException  : Out of memory (allocated 60817408) (tried to allocate 24576 bytes)
+   Symfony\Component\Debug\Exception\FatalErrorException  : Out of memory (allocated 73400320) (tried to allocate 24576 bytes)
+   Symfony\Component\Debug\Exception\FatalErrorException  : Out of memory (allocated 260046848) (tried to allocate 57344 bytes)
+
+  at /var/www/html/hr/vendor/sentry/sentry-laravel/src/Sentry/Laravel/EventHandler.php:102
+
+
+  at /var/www/html/hr/vendor/sentry/sentry-laravel/src/Sentry/Laravel/EventHandler.php:102
+     98|      */
+     99|     public function __call($method, $arguments)
+    100|     {
+    101|         try {
+  > 102|             call_user_func_array(array($this, $method . 'handler'), $arguments);
+    103|         } catch (Exception $exception) {
+    104|             // Ignore
+    105|         }
+    106|     }
+  at /var/www/html/hr/vendor/sentry/sentry-laravel/src/Sentry/Laravel/EventHandler.php:102
+     98|      */
+     99|     public function __call($method, $arguments)
+    100|     {
+    101|         try {
+  > 102|             call_user_func_array(array($this, $method . 'handler'), $arguments);
+    103|         } catch (Exception $exception) {
+    104|             // Ignore
+    105|         }
+    106|     }
+     98|      */
+     99|     public function __call($method, $arguments)
+    100|     {
+    101|         try {
+  > 102|             call_user_func_array(array($this, $method . 'handler'), $arguments);
+    103|         } catch (Exception $exception) {
+    104|             // Ignore
+    105|         }
+    106|     }
+
+
+
+
+
+
+   ErrorException  : Error: Out of memory (allocated 60817408) (tried to allocate 24576 bytes)
+
+  at /var/www/html/hr/vendor/sentry/sentry-laravel/src/Sentry/Laravel/EventHandler.php:102
+   ErrorException  : Error: Out of memory (allocated 260046848) (tried to allocate 57344 bytes)
+   ErrorException  : Error: Out of memory (allocated 73400320) (tried to allocate 24576 bytes)
+
+
+  at /var/www/html/hr/vendor/sentry/sentry-laravel/src/Sentry/Laravel/EventHandler.php:102
+  at /var/www/html/hr/vendor/sentry/sentry-laravel/src/Sentry/Laravel/EventHandler.php:102
+     98|      */
+     99|     public function __call($method, $arguments)
+    100|     {
+    101|         try {
+  > 102|             call_user_func_array(array($this, $method . 'handler'), $arguments);
+    103|         } catch (Exception $exception) {
+    104|             // Ignore
+    105|         }
+    106|     }
+     98|      */
+     99|     public function __call($method, $arguments)
+    100|     {
+    101|         try {
+  > 102|             call_user_func_array(array($this, $method . 'handler'), $arguments);
+    103|         } catch (Exception $exception) {
+    104|             // Ignore
+    105|         }
+    106|     }
+     98|      */
+     99|     public function __call($method, $arguments)
+    100|     {
+    101|         try {
+  > 102|             call_user_func_array(array($this, $method . 'handler'), $arguments);
+    103|         } catch (Exception $exception) {
+    104|             // Ignore
+    105|         }
+    106|     }
+
+
+  Exception trace:
+
+  1   Sentry\ErrorHandler::handleFatalError()
+  Exception trace:
+
+  1   Sentry\ErrorHandler::handleFatalError()
+      [internal]:0
+      [internal]:0
+
+   Whoops\Exception\ErrorException  : Out of memory (allocated 260046848) (tried to allocate 57344 bytes)
+
+  at /var/www/html/hr/vendor/sentry/sentry-laravel/src/Sentry/Laravel/EventHandler.php:102
+
+  Exception trace:
+
+  1   Sentry\ErrorHandler::handleFatalError()
+      [internal]:0
+
+   Whoops\Exception\ErrorException  : Out of memory (allocated 73400320) (tried to allocate 24576 bytes)
+
+  at /var/www/html/hr/vendor/sentry/sentry-laravel/src/Sentry/Laravel/EventHandler.php:102
+     98|      */
+     99|     public function __call($method, $arguments)
+    100|     {
+    101|         try {
+  > 102|             call_user_func_array(array($this, $method . 'handler'), $arguments);
+    103|         } catch (Exception $exception) {
+    104|             // Ignore
+    105|         }
+    106|     }
+
+  Exception trace:
+
+  1   Whoops\Run::handleError("Out of memory (allocated 73400320) (tried to allocate 24576 bytes)", "/var/www/html/hr/vendor/sentry/sentry-laravel/src/Sentry/Laravel/EventHandler.php")
+      /var/www/html/hr/vendor/filp/whoops/src/Whoops/Run.php:433
+
+  2   Whoops\Run::handleShutdown()
+      [internal]:0
+
+   Whoops\Exception\ErrorException  : Out of memory (allocated 60817408) (tried to allocate 24576 bytes)
+
+  at /var/www/html/hr/vendor/sentry/sentry-laravel/src/Sentry/Laravel/EventHandler.php:102
+     98|      */
+     99|     public function __call($method, $arguments)
+    100|     {
+    101|         try {
+  > 102|             call_user_func_array(array($this, $method . 'handler'), $arguments);
+    103|         } catch (Exception $exception) {
+    104|             // Ignore
+    105|         }
+    106|     }
+
+  Exception trace:
+
+  1   Whoops\Run::handleError("Out of memory (allocated 60817408) (tried to allocate 24576 bytes)", "/var/www/html/hr/vendor/sentry/sentry-laravel/src/Sentry/Laravel/EventHandler.php")
+      /var/www/html/hr/vendor/filp/whoops/src/Whoops/Run.php:433
+
+  2   Whoops\Run::handleShutdown()
+      [internal]:0
+     98|      */
+     99|     public function __call($method, $arguments)
+    100|     {
+    101|         try {
+  > 102|             call_user_func_array(array($this, $method . 'handler'), $arguments);
+    103|         } catch (Exception $exception) {
+    104|             // Ignore
+    105|         }
+    106|     }
+
+  Exception trace:
+
+  1   Whoops\Run::handleError("Out of memory (allocated 260046848) (tried to allocate 57344 bytes)", "/var/www/html/hr/vendor/sentry/sentry-laravel/src/Sentry/Laravel/EventHandler.php")
+      /var/www/html/hr/vendor/filp/whoops/src/Whoops/Run.php:433
+
+  2   Whoops\Run::handleShutdown()
+      [internal]:0
+
+   Whoops\Exception\ErrorException  : Out of memory (allocated 60817408) (tried to allocate 24576 bytes)
+
+  at /var/www/html/hr/vendor/sentry/sentry-laravel/src/Sentry/Laravel/EventHandler.php:102
+     98|      */
+     99|     public function __call($method, $arguments)
+    100|     {
+    101|         try {
+  > 102|             call_user_func_array(array($this, $method . 'handler'), $arguments);
+    103|         } catch (Exception $exception) {
+    104|             // Ignore
+    105|         }
+    106|     }
+
+  Exception trace:
+
+  1   Whoops\Run::handleError("Out of memory (allocated 60817408) (tried to allocate 24576 bytes)", "/var/www/html/hr/vendor/sentry/sentry-laravel/src/Sentry/Laravel/EventHandler.php")
+      /var/www/html/hr/vendor/filp/whoops/src/Whoops/Run.php:433
+
+  2   Whoops\Run::handleShutdown()
+      [internal]:0
+
+   Whoops\Exception\ErrorException  : Out of memory (allocated 73400320) (tried to allocate 24576 bytes)
+
+  at /var/www/html/hr/vendor/sentry/sentry-laravel/src/Sentry/Laravel/EventHandler.php:102
+     98|      */
+     99|     public function __call($method, $arguments)
+    100|     {
+    101|         try {
+  > 102|             call_user_func_array(array($this, $method . 'handler'), $arguments);
+    103|         } catch (Exception $exception) {
+    104|             // Ignore
+    105|         }
+    106|     }
+
+  Exception trace:
+
+  1   Whoops\Run::handleError("Out of memory (allocated 73400320) (tried to allocate 24576 bytes)", "/var/www/html/hr/vendor/sentry/sentry-laravel/src/Sentry/Laravel/EventHandler.php")
+      /var/www/html/hr/vendor/filp/whoops/src/Whoops/Run.php:433
+
+  2   Whoops\Run::handleShutdown()
+      [internal]:0
+
+   Whoops\Exception\ErrorException  : Out of memory (allocated 260046848) (tried to allocate 57344 bytes)
+
+  at /var/www/html/hr/vendor/sentry/sentry-laravel/src/Sentry/Laravel/EventHandler.php:102
+     98|      */
+     99|     public function __call($method, $arguments)
+    100|     {
+    101|         try {
+  > 102|             call_user_func_array(array($this, $method . 'handler'), $arguments);
+    103|         } catch (Exception $exception) {
+    104|             // Ignore
+    105|         }
+    106|     }
+
+  Exception trace:
+
+  1   Whoops\Run::handleError("Out of memory (allocated 260046848) (tried to allocate 57344 bytes)", "/var/www/html/hr/vendor/sentry/sentry-laravel/src/Sentry/Laravel/EventHandler.php")
+      /var/www/html/hr/vendor/filp/whoops/src/Whoops/Run.php:433
+
+  2   Whoops\Run::handleShutdown()
+      [internal]:0
+[2019-09-11 11:14:35][1] Processing: Datakraf\Notifications\ApplyLeave
+[2019-09-11 11:14:35][2] Processing: Datakraf\Notifications\ApplyLeave
+[2019-09-11 11:15:16][3] Processing: Datakraf\Notifications\ApproveLeaveAuto
+[2019-09-11 11:15:17][4] Processing: Datakraf\Notifications\ApproveLeaveAuto
+[2019-09-11 11:15:17][6] Processing: Datakraf\Notifications\ApproveLeaveAuto
+[2019-09-11 11:15:17][9] Processing: Datakraf\Notifications\ApproveLeaveAuto
+[2019-09-11 11:15:17][5] Processing: Datakraf\Notifications\ApproveLeaveAuto
+[2019-09-11 11:15:17][8] Processing: Datakraf\Notifications\ApproveLeaveAuto
+[2019-09-11 11:15:17][7] Processing: Datakraf\Notifications\ApproveLeaveAuto
+[2019-09-11 11:15:17][10] Processing: Datakraf\Notifications\ApproveLeaveAuto
+
+mmap() failed: [12] Cannot allocate memory
+
+mmap() failed: [12] Cannot allocate memory
+PHP Fatal error:  Out of memory (allocated 176160768) (tried to allocate 45056 bytes) in /var/www/html/hr/vendor/sentry/sentry-laravel/src/Sentry/Laravel/EventHandler.php on line 102
+
+mmap() failed: [12] Cannot allocate memory
+
+mmap() failed: [12] Cannot allocate memory
+
+mmap() failed: [12] Cannot allocate memory
+PHP Fatal error:  Out of memory (allocated 216006656) (tried to allocate 49152 bytes) in /var/www/html/hr/vendor/sentry/sentry-laravel/src/Sentry/Laravel/EventHandler.php on line 102
+
+mmap() failed: [12] Cannot allocate memory
+
+mmap() failed: [12] Cannot allocate memory
+PHP Fatal error:  Out of memory (allocated 213909504) (tried to allocate 49152 bytes) in /var/www/html/hr/vendor/sentry/sentry-laravel/src/Sentry/Laravel/EventHandler.php on line 102
+
+   Symfony\Component\Debug\Exception\FatalErrorException  : Out of memory (allocated 176160768) (tried to allocate 45056 bytes)
+
+  at /var/www/html/hr/vendor/sentry/sentry-laravel/src/Sentry/Laravel/EventHandler.php:102
+     98|      */
+     99|     public function __call($method, $arguments)
+    100|     {
+    101|         try {
+  > 102|             call_user_func_array(array($this, $method . 'handler'), $arguments);
+    103|         } catch (Exception $exception) {
+    104|             // Ignore
+    105|         }
+    106|     }
+
+
+   ErrorException  : Error: Out of memory (allocated 176160768) (tried to allocate 45056 bytes)
+
+  at /var/www/html/hr/vendor/sentry/sentry-laravel/src/Sentry/Laravel/EventHandler.php:102
+     98|      */
+     99|     public function __call($method, $arguments)
+    100|     {
+    101|         try {
+  > 102|             call_user_func_array(array($this, $method . 'handler'), $arguments);
+    103|         } catch (Exception $exception) {
+    104|             // Ignore
+    105|         }
+    106|     }
+
+  Exception trace:
+
+  1   Sentry\ErrorHandler::handleFatalError()
+      [internal]:0
+
+   Whoops\Exception\ErrorException  : Out of memory (allocated 176160768) (tried to allocate 45056 bytes)
+
+  at /var/www/html/hr/vendor/sentry/sentry-laravel/src/Sentry/Laravel/EventHandler.php:102
+     98|      */
+     99|     public function __call($method, $arguments)
+    100|     {
+    101|         try {
+  > 102|             call_user_func_array(array($this, $method . 'handler'), $arguments);
+    103|         } catch (Exception $exception) {
+    104|             // Ignore
+    105|         }
+    106|     }
+
+  Exception trace:
+
+  1   Whoops\Run::handleError("Out of memory (allocated 176160768) (tried to allocate 45056 bytes)", "/var/www/html/hr/vendor/sentry/sentry-laravel/src/Sentry/Laravel/EventHandler.php")
+      /var/www/html/hr/vendor/filp/whoops/src/Whoops/Run.php:433
+
+  2   Whoops\Run::handleShutdown()
+      [internal]:0
+
+mmap() failed: [12] Cannot allocate memory
+
+mmap() failed: [12] Cannot allocate memory
+PHP Fatal error:  Out of memory (allocated 180355072) (tried to allocate 45056 bytes) in /var/www/html/hr/vendor/sentry/sentry-laravel/src/Sentry/Laravel/EventHandler.php on line 102
+
+   Symfony\Component\Debug\Exception\FatalErrorException  : Out of memory (allocated 213909504) (tried to allocate 49152 bytes)
+
+  at /var/www/html/hr/vendor/sentry/sentry-laravel/src/Sentry/Laravel/EventHandler.php:102
+     98|      */
+     99|     public function __call($method, $arguments)
+    100|     {
+    101|         try {
+  > 102|             call_user_func_array(array($this, $method . 'handler'), $arguments);
+    103|         } catch (Exception $exception) {
+    104|             // Ignore
+    105|         }
+    106|     }
+
+
+   ErrorException  : Error: Out of memory (allocated 213909504) (tried to allocate 49152 bytes)
+
+  at /var/www/html/hr/vendor/sentry/sentry-laravel/src/Sentry/Laravel/EventHandler.php:102
+     98|      */
+     99|     public function __call($method, $arguments)
+    100|     {
+    101|         try {
+  > 102|             call_user_func_array(array($this, $method . 'handler'), $arguments);
+    103|         } catch (Exception $exception) {
+    104|             // Ignore
+    105|         }
+    106|     }
+
+  Exception trace:
+
+  1   Sentry\ErrorHandler::handleFatalError()
+      [internal]:0
+
+   Whoops\Exception\ErrorException  : Out of memory (allocated 213909504) (tried to allocate 49152 bytes)
+
+  at /var/www/html/hr/vendor/sentry/sentry-laravel/src/Sentry/Laravel/EventHandler.php:102
+     98|      */
+     99|     public function __call($method, $arguments)
+    100|     {
+    101|         try {
+  > 102|             call_user_func_array(array($this, $method . 'handler'), $arguments);
+    103|         } catch (Exception $exception) {
+    104|             // Ignore
+    105|         }
+    106|     }
+
+  Exception trace:
+
+  1   Whoops\Run::handleError("Out of memory (allocated 213909504) (tried to allocate 49152 bytes)", "/var/www/html/hr/vendor/sentry/sentry-laravel/src/Sentry/Laravel/EventHandler.php")
+      /var/www/html/hr/vendor/filp/whoops/src/Whoops/Run.php:433
+
+  2   Whoops\Run::handleShutdown()
+      [internal]:0
+
+   Symfony\Component\Debug\Exception\FatalErrorException  : Out of memory (allocated 180355072) (tried to allocate 45056 bytes)
+
+  at /var/www/html/hr/vendor/sentry/sentry-laravel/src/Sentry/Laravel/EventHandler.php:102
+     98|      */
+     99|     public function __call($method, $arguments)
+    100|     {
+    101|         try {
+  > 102|             call_user_func_array(array($this, $method . 'handler'), $arguments);
+    103|         } catch (Exception $exception) {
+    104|             // Ignore
+    105|         }
+    106|     }
+
+
+   ErrorException  : Error: Out of memory (allocated 180355072) (tried to allocate 45056 bytes)
+
+  at /var/www/html/hr/vendor/sentry/sentry-laravel/src/Sentry/Laravel/EventHandler.php:102
+     98|      */
+     99|     public function __call($method, $arguments)
+    100|     {
+    101|         try {
+  > 102|             call_user_func_array(array($this, $method . 'handler'), $arguments);
+    103|         } catch (Exception $exception) {
+    104|             // Ignore
+    105|         }
+    106|     }
+
+  Exception trace:
+
+  1   Sentry\ErrorHandler::handleFatalError()
+      [internal]:0
+
+   Whoops\Exception\ErrorException  : Out of memory (allocated 180355072) (tried to allocate 45056 bytes)
+
+  at /var/www/html/hr/vendor/sentry/sentry-laravel/src/Sentry/Laravel/EventHandler.php:102
+     98|      */
+     99|     public function __call($method, $arguments)
+    100|     {
+    101|         try {
+  > 102|             call_user_func_array(array($this, $method . 'handler'), $arguments);
+    103|         } catch (Exception $exception) {
+    104|             // Ignore
+    105|         }
+    106|     }
+
+  Exception trace:
+
+  1   Whoops\Run::handleError("Out of memory (allocated 180355072) (tried to allocate 45056 bytes)", "/var/www/html/hr/vendor/sentry/sentry-laravel/src/Sentry/Laravel/EventHandler.php")
+      /var/www/html/hr/vendor/filp/whoops/src/Whoops/Run.php:433
+
+  2   Whoops\Run::handleShutdown()
+      [internal]:0
+
+   Whoops\Exception\ErrorException  : Out of memory (allocated 176160768) (tried to allocate 45056 bytes)
+
+  at /var/www/html/hr/vendor/sentry/sentry-laravel/src/Sentry/Laravel/EventHandler.php:102
+     98|      */
+     99|     public function __call($method, $arguments)
+    100|     {
+    101|         try {
+  > 102|             call_user_func_array(array($this, $method . 'handler'), $arguments);
+    103|         } catch (Exception $exception) {
+    104|             // Ignore
+    105|         }
+    106|     }
+
+  Exception trace:
+
+  1   Whoops\Run::handleError("Out of memory (allocated 176160768) (tried to allocate 45056 bytes)", "/var/www/html/hr/vendor/sentry/sentry-laravel/src/Sentry/Laravel/EventHandler.php")
+      /var/www/html/hr/vendor/filp/whoops/src/Whoops/Run.php:433
+
+  2   Whoops\Run::handleShutdown()
+      [internal]:0
+
+   Whoops\Exception\ErrorException  : Out of memory (allocated 180355072) (tried to allocate 45056 bytes)
+
+  at /var/www/html/hr/vendor/sentry/sentry-laravel/src/Sentry/Laravel/EventHandler.php:102
+     98|      */
+     99|     public function __call($method, $arguments)
+    100|     {
+    101|         try {
+  > 102|             call_user_func_array(array($this, $method . 'handler'), $arguments);
+    103|         } catch (Exception $exception) {
+    104|             // Ignore
+    105|         }
+    106|     }
+
+  Exception trace:
+
+  1   Whoops\Run::handleError("Out of memory (allocated 180355072) (tried to allocate 45056 bytes)", "/var/www/html/hr/vendor/sentry/sentry-laravel/src/Sentry/Laravel/EventHandler.php")
+      /var/www/html/hr/vendor/filp/whoops/src/Whoops/Run.php:433
+
+  2   Whoops\Run::handleShutdown()
+      [internal]:0
+[2019-09-11 11:15:33][12] Processing: Datakraf\Notifications\ApproveLeaveAuto
+[2019-09-11 11:15:33][11] Processing: Datakraf\Notifications\ApproveLeaveAuto
+[2019-09-11 11:15:34][13] Processing: Datakraf\Notifications\ApproveLeaveAuto
+
+mmap() failed: [12] Cannot allocate memory
+
+mmap() failed: [12] Cannot allocate memory
+PHP Fatal error:  Out of memory (allocated 31457280) (tried to allocate 12288 bytes) in /var/www/html/hr/vendor/sentry/sentry-laravel/src/Sentry/Laravel/EventHandler.php on line 102
+
+   Symfony\Component\Debug\Exception\FatalErrorException  : Out of memory (allocated 31457280) (tried to allocate 12288 bytes)
+
+  at /var/www/html/hr/vendor/sentry/sentry-laravel/src/Sentry/Laravel/EventHandler.php:102
+     98|      */
+     99|     public function __call($method, $arguments)
+    100|     {
+    101|         try {
+  > 102|             call_user_func_array(array($this, $method . 'handler'), $arguments);
+    103|         } catch (Exception $exception) {
+    104|             // Ignore
+    105|         }
+    106|     }
+
+
+   ErrorException  : Error: Out of memory (allocated 31457280) (tried to allocate 12288 bytes)
+
+  at /var/www/html/hr/vendor/sentry/sentry-laravel/src/Sentry/Laravel/EventHandler.php:102
+     98|      */
+     99|     public function __call($method, $arguments)
+    100|     {
+    101|         try {
+  > 102|             call_user_func_array(array($this, $method . 'handler'), $arguments);
+    103|         } catch (Exception $exception) {
+    104|             // Ignore
+    105|         }
+    106|     }
+
+  Exception trace:
+
+  1   Sentry\ErrorHandler::handleFatalError()
+      [internal]:0
+
+   Whoops\Exception\ErrorException  : Out of memory (allocated 31457280) (tried to allocate 12288 bytes)
+
+  at /var/www/html/hr/vendor/sentry/sentry-laravel/src/Sentry/Laravel/EventHandler.php:102
+     98|      */
+     99|     public function __call($method, $arguments)
+    100|     {
+    101|         try {
+  > 102|             call_user_func_array(array($this, $method . 'handler'), $arguments);
+    103|         } catch (Exception $exception) {
+    104|             // Ignore
+    105|         }
+    106|     }
+
+  Exception trace:
+
+  1   Whoops\Run::handleError("Out of memory (allocated 31457280) (tried to allocate 12288 bytes)", "/var/www/html/hr/vendor/sentry/sentry-laravel/src/Sentry/Laravel/EventHandler.php")
+      /var/www/html/hr/vendor/filp/whoops/src/Whoops/Run.php:433
+
+  2   Whoops\Run::handleShutdown()
+      [internal]:0
+[2019-09-11 11:15:37][14] Processing: Datakraf\Notifications\ApproveLeaveAuto
+
+mmap() failed: [12] Cannot allocate memory
+
+mmap() failed: [12] Cannot allocate memory
+
+mmap() failed: [12] Cannot allocate memory
+PHP Fatal error:  Out of memory (allocated 90177536) (tried to allocate 28672 bytes) in /var/www/html/hr/vendor/sentry/sentry-laravel/src/Sentry/Laravel/EventHandler.php on line 102
+
+mmap() failed: [12] Cannot allocate memory
+
+mmap() failed: [12] Cannot allocate memory
+PHP Fatal error:  Out of memory (allocated 452984832) (tried to allocate 77824 bytes) in /var/www/html/hr/vendor/sentry/sentry-laravel/src/Sentry/Laravel/EventHandler.php on line 102
+
+   Symfony\Component\Debug\Exception\FatalErrorException  : Out of memory (allocated 452984832) (tried to allocate 77824 bytes)
+
+  at /var/www/html/hr/vendor/sentry/sentry-laravel/src/Sentry/Laravel/EventHandler.php:102
+     98|      */
+     99|     public function __call($method, $arguments)
+    100|     {
+    101|         try {
+  > 102|             call_user_func_array(array($this, $method . 'handler'), $arguments);
+    103|         } catch (Exception $exception) {
+    104|             // Ignore
+    105|         }
+    106|     }
+
+
+   ErrorException  : Error: Out of memory (allocated 452984832) (tried to allocate 77824 bytes)
+
+  at /var/www/html/hr/vendor/sentry/sentry-laravel/src/Sentry/Laravel/EventHandler.php:102
+     98|      */
+     99|     public function __call($method, $arguments)
+    100|     {
+    101|         try {
+  > 102|             call_user_func_array(array($this, $method . 'handler'), $arguments);
+    103|         } catch (Exception $exception) {
+    104|             // Ignore
+    105|         }
+    106|     }
+
+  Exception trace:
+
+  1   Sentry\ErrorHandler::handleFatalError()
+      [internal]:0
+
+   Whoops\Exception\ErrorException  : Out of memory (allocated 452984832) (tried to allocate 77824 bytes)
+
+  at /var/www/html/hr/vendor/sentry/sentry-laravel/src/Sentry/Laravel/EventHandler.php:102
+     98|      */
+     99|     public function __call($method, $arguments)
+    100|     {
+    101|         try {
+  > 102|             call_user_func_array(array($this, $method . 'handler'), $arguments);
+    103|         } catch (Exception $exception) {
+    104|             // Ignore
+    105|         }
+    106|     }
+
+  Exception trace:
+
+  1   Whoops\Run::handleError("Out of memory (allocated 452984832) (tried to allocate 77824 bytes)", "/var/www/html/hr/vendor/sentry/sentry-laravel/src/Sentry/Laravel/EventHandler.php")
+      /var/www/html/hr/vendor/filp/whoops/src/Whoops/Run.php:433
+
+  2   Whoops\Run::handleShutdown()
+      [internal]:0
+
+   Symfony\Component\Debug\Exception\FatalErrorException  : Out of memory (allocated 90177536) (tried to allocate 28672 bytes)
+
+  at /var/www/html/hr/vendor/sentry/sentry-laravel/src/Sentry/Laravel/EventHandler.php:102
+     98|      */
+     99|     public function __call($method, $arguments)
+    100|     {
+    101|         try {
+  > 102|             call_user_func_array(array($this, $method . 'handler'), $arguments);
+    103|         } catch (Exception $exception) {
+    104|             // Ignore
+    105|         }
+    106|     }
+
+
+   ErrorException  : Error: Out of memory (allocated 90177536) (tried to allocate 28672 bytes)
+
+  at /var/www/html/hr/vendor/sentry/sentry-laravel/src/Sentry/Laravel/EventHandler.php:102
+     98|      */
+     99|     public function __call($method, $arguments)
+    100|     {
+    101|         try {
+  > 102|             call_user_func_array(array($this, $method . 'handler'), $arguments);
+    103|         } catch (Exception $exception) {
+    104|             // Ignore
+    105|         }
+    106|     }
+
+  Exception trace:
+
+  1   Sentry\ErrorHandler::handleFatalError()
+      [internal]:0
+
+   Whoops\Exception\ErrorException  : Out of memory (allocated 90177536) (tried to allocate 28672 bytes)
+
+  at /var/www/html/hr/vendor/sentry/sentry-laravel/src/Sentry/Laravel/EventHandler.php:102
+     98|      */
+     99|     public function __call($method, $arguments)
+    100|     {
+    101|         try {
+  > 102|             call_user_func_array(array($this, $method . 'handler'), $arguments);
+    103|         } catch (Exception $exception) {
+    104|             // Ignore
+    105|         }
+    106|     }
+
+  Exception trace:
+
+  1   Whoops\Run::handleError("Out of memory (allocated 90177536) (tried to allocate 28672 bytes)", "/var/www/html/hr/vendor/sentry/sentry-laravel/src/Sentry/Laravel/EventHandler.php")
+      /var/www/html/hr/vendor/filp/whoops/src/Whoops/Run.php:433
+
+  2   Whoops\Run::handleShutdown()
+      [internal]:0
+[2019-09-11 11:15:45][15] Processing: Datakraf\Notifications\ApproveLeaveAuto
+[2019-09-11 11:15:46][16] Processing: Datakraf\Notifications\ApproveLeaveAuto
+
+mmap() failed: [12] Cannot allocate memory
+
+mmap() failed: [12] Cannot allocate memory
+PHP Fatal error:  Out of memory (allocated 255852544) (tried to allocate 57344 bytes) in /var/www/html/hr/vendor/sentry/sentry-laravel/src/Sentry/Laravel/EventHandler.php on line 102
+
+mmap() failed: [12] Cannot allocate memory
+
+mmap() failed: [12] Cannot allocate memory
+PHP Fatal error:  Out of memory (allocated 329252864) (tried to allocate 65536 bytes) in /var/www/html/hr/vendor/sentry/sentry-laravel/src/Sentry/Laravel/EventHandler.php on line 102
+
+
+   Symfony\Component\Debug\Exception\FatalErrorException  : Out of memory (allocated 329252864) (tried to allocate 65536 bytes)
+   Symfony\Component\Debug\Exception\FatalErrorException  : Out of memory (allocated 255852544) (tried to allocate 57344 bytes)
+
+
+  at /var/www/html/hr/vendor/sentry/sentry-laravel/src/Sentry/Laravel/EventHandler.php:102
+  at /var/www/html/hr/vendor/sentry/sentry-laravel/src/Sentry/Laravel/EventHandler.php:102
+     98|      */
+     99|     public function __call($method, $arguments)
+    100|     {
+    101|         try {
+  > 102|             call_user_func_array(array($this, $method . 'handler'), $arguments);
+    103|         } catch (Exception $exception) {
+    104|             // Ignore
+    105|         }
+    106|     }
+     98|      */
+     99|     public function __call($method, $arguments)
+    100|     {
+    101|         try {
+  > 102|             call_user_func_array(array($this, $method . 'handler'), $arguments);
+    103|         } catch (Exception $exception) {
+    104|             // Ignore
+    105|         }
+    106|     }
+
+
+
+
+   ErrorException  : Error: Out of memory (allocated 255852544) (tried to allocate 57344 bytes)
+
+  at /var/www/html/hr/vendor/sentry/sentry-laravel/src/Sentry/Laravel/EventHandler.php:102
+     98|      */
+     99|     public function __call($method, $arguments)
+    100|     {
+    101|         try {
+  > 102|             call_user_func_array(array($this, $method . 'handler'), $arguments);
+    103|         } catch (Exception $exception) {
+    104|             // Ignore
+    105|         }
+    106|     }
+   ErrorException  : Error: Out of memory (allocated 329252864) (tried to allocate 65536 bytes)
+
+  at /var/www/html/hr/vendor/sentry/sentry-laravel/src/Sentry/Laravel/EventHandler.php:102
+     98|      */
+     99|     public function __call($method, $arguments)
+    100|     {
+    101|         try {
+  > 102|             call_user_func_array(array($this, $method . 'handler'), $arguments);
+    103|         } catch (Exception $exception) {
+    104|             // Ignore
+    105|         }
+    106|     }
+
+  Exception trace:
+
+  1   Sentry\ErrorHandler::handleFatalError()
+      [internal]:0
+
+
+  Exception trace:
+
+  1   Sentry\ErrorHandler::handleFatalError()
+      [internal]:0
+   Whoops\Exception\ErrorException  : Out of memory (allocated 255852544) (tried to allocate 57344 bytes)
+
+
+  at /var/www/html/hr/vendor/sentry/sentry-laravel/src/Sentry/Laravel/EventHandler.php:102
+   Whoops\Exception\ErrorException  : Out of memory (allocated 329252864) (tried to allocate 65536 bytes)
+
+  at /var/www/html/hr/vendor/sentry/sentry-laravel/src/Sentry/Laravel/EventHandler.php:102
+     98|      */
+     99|     public function __call($method, $arguments)
+    100|     {
+    101|         try {
+  > 102|             call_user_func_array(array($this, $method . 'handler'), $arguments);
+    103|         } catch (Exception $exception) {
+    104|             // Ignore
+    105|         }
+    106|     }
+     98|      */
+     99|     public function __call($method, $arguments)
+    100|     {
+    101|         try {
+  > 102|             call_user_func_array(array($this, $method . 'handler'), $arguments);
+    103|         } catch (Exception $exception) {
+    104|             // Ignore
+    105|         }
+    106|     }
+
+  Exception trace:
+
+  1   Whoops\Run::handleError("Out of memory (allocated 329252864) (tried to allocate 65536 bytes)", "/var/www/html/hr/vendor/sentry/sentry-laravel/src/Sentry/Laravel/EventHandler.php")
+
+      /var/www/html/hr/vendor/filp/whoops/src/Whoops/Run.php:433
+
+  Exception trace:
+  2   Whoops\Run::handleShutdown()
+
+      [internal]:0
+  1   Whoops\Run::handleError("Out of memory (allocated 255852544) (tried to allocate 57344 bytes)", "/var/www/html/hr/vendor/sentry/sentry-laravel/src/Sentry/Laravel/EventHandler.php")
+      /var/www/html/hr/vendor/filp/whoops/src/Whoops/Run.php:433
+
+  2   Whoops\Run::handleShutdown()
+      [internal]:0
+
+   Whoops\Exception\ErrorException  : Out of memory (allocated 90177536) (tried to allocate 28672 bytes)
+
+  at /var/www/html/hr/vendor/sentry/sentry-laravel/src/Sentry/Laravel/EventHandler.php:102
+     98|      */
+     99|     public function __call($method, $arguments)
+    100|     {
+    101|         try {
+  > 102|             call_user_func_array(array($this, $method . 'handler'), $arguments);
+    103|         } catch (Exception $exception) {
+    104|             // Ignore
+    105|         }
+    106|     }
+
+  Exception trace:
+
+  1   Whoops\Run::handleError("Out of memory (allocated 90177536) (tried to allocate 28672 bytes)", "/var/www/html/hr/vendor/sentry/sentry-laravel/src/Sentry/Laravel/EventHandler.php")
+      /var/www/html/hr/vendor/filp/whoops/src/Whoops/Run.php:433
+
+  2   Whoops\Run::handleShutdown()
+      [internal]:0
+
+   Whoops\Exception\ErrorException  : Out of memory (allocated 329252864) (tried to allocate 65536 bytes)
+
+  at /var/www/html/hr/vendor/sentry/sentry-laravel/src/Sentry/Laravel/EventHandler.php:102
+     98|      */
+     99|     public function __call($method, $arguments)
+    100|     {
+    101|         try {
+  > 102|             call_user_func_array(array($this, $method . 'handler'), $arguments);
+    103|         } catch (Exception $exception) {
+    104|             // Ignore
+    105|         }
+    106|     }
+
+  Exception trace:
+
+  1   Whoops\Run::handleError("Out of memory (allocated 329252864) (tried to allocate 65536 bytes)", "/var/www/html/hr/vendor/sentry/sentry-laravel/src/Sentry/Laravel/EventHandler.php")
+      /var/www/html/hr/vendor/filp/whoops/src/Whoops/Run.php:433
+
+  2   Whoops\Run::handleShutdown()
+      [internal]:0
+
+   Whoops\Exception\ErrorException  : Out of memory (allocated 255852544) (tried to allocate 57344 bytes)
+
+  at /var/www/html/hr/vendor/sentry/sentry-laravel/src/Sentry/Laravel/EventHandler.php:102
+     98|      */
+     99|     public function __call($method, $arguments)
+    100|     {
+    101|         try {
+  > 102|             call_user_func_array(array($this, $method . 'handler'), $arguments);
+    103|         } catch (Exception $exception) {
+    104|             // Ignore
+    105|         }
+    106|     }
+
+  Exception trace:
+
+  1   Whoops\Run::handleError("Out of memory (allocated 255852544) (tried to allocate 57344 bytes)", "/var/www/html/hr/vendor/sentry/sentry-laravel/src/Sentry/Laravel/EventHandler.php")
+      /var/www/html/hr/vendor/filp/whoops/src/Whoops/Run.php:433
+
+  2   Whoops\Run::handleShutdown()
+      [internal]:0
+
+   Whoops\Exception\ErrorException  : Out of memory (allocated 31457280) (tried to allocate 12288 bytes)
+
+  at /var/www/html/hr/vendor/sentry/sentry-laravel/src/Sentry/Laravel/EventHandler.php:102
+     98|      */
+     99|     public function __call($method, $arguments)
+    100|     {
+    101|         try {
+  > 102|             call_user_func_array(array($this, $method . 'handler'), $arguments);
+    103|         } catch (Exception $exception) {
+    104|             // Ignore
+    105|         }
+    106|     }
+
+  Exception trace:
+
+  1   Whoops\Run::handleError("Out of memory (allocated 31457280) (tried to allocate 12288 bytes)", "/var/www/html/hr/vendor/sentry/sentry-laravel/src/Sentry/Laravel/EventHandler.php")
+      /var/www/html/hr/vendor/filp/whoops/src/Whoops/Run.php:433
+
+  2   Whoops\Run::handleShutdown()
+      [internal]:0
+
+   Whoops\Exception\ErrorException  : Out of memory (allocated 213909504) (tried to allocate 49152 bytes)
+
+  at /var/www/html/hr/vendor/sentry/sentry-laravel/src/Sentry/Laravel/EventHandler.php:102
+     98|      */
+     99|     public function __call($method, $arguments)
+    100|     {
+    101|         try {
+  > 102|             call_user_func_array(array($this, $method . 'handler'), $arguments);
+    103|         } catch (Exception $exception) {
+    104|             // Ignore
+    105|         }
+    106|     }
+
+  Exception trace:
+
+  1   Whoops\Run::handleError("Out of memory (allocated 213909504) (tried to allocate 49152 bytes)", "/var/www/html/hr/vendor/sentry/sentry-laravel/src/Sentry/Laravel/EventHandler.php")
+      /var/www/html/hr/vendor/filp/whoops/src/Whoops/Run.php:433
+
+  2   Whoops\Run::handleShutdown()
+      [internal]:0
+[2019-09-11 13:52:50][20] Processing: Datakraf\Notifications\ApproveLeave
+[2019-09-11 13:52:50][19] Processing: Datakraf\Notifications\ApproveLeave
+[2019-09-15 16:57:07][27] Processing: Datakraf\Notifications\ApplyLeave
+[2019-09-15 16:57:07][26] Processing: Datakraf\Notifications\ApplyLeave
